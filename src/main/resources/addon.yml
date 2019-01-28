@@ -1,0 +1,136 @@
+name: CaveBlock
+main: world.bentobox.caveblock.CaveBlock
+version: ${version}
+
+authors: BONNe
+
+permissions:    
+  caveblock.island:
+   description: Allow island command usage
+   default: true
+  caveblock.island.create:
+    description: Allow island creation
+    default: true
+  caveblock.island.home:
+    description: Allow teleporting to player island
+    default: true
+  caveblock.island.sethome:
+    description: Let the player use the sethome command
+    default: true
+  caveblock.island.info:
+    description: Let the player check their island level
+    default: true
+  caveblock.island.sethome:
+    description: Let the player set their island teleport point
+    default: true
+  caveblock.island.lock:
+    description: Allows island locking
+    default: false
+  caveblock.island.expel:
+    description: Allows expelling of visitors
+    default: true
+  caveblock.island.ban:
+    description: Allows banning of visitors
+    default: true
+  caveblock.island.settings:
+    description: Player can see server settings
+    default: true
+  caveblock.island.language:
+    description: Player can select a language
+    default: true
+  caveblock.island.name:
+    description: Player can set the name of their island
+    default: true
+  caveblock.island.spawn:
+    description: Player can use the island spawn command if spawn exists
+    default: true
+  caveblock.island.reset:
+    description: Player can use the island reset or restart command
+    default: true  
+  caveblock.island.team:
+    description: Let a player use team commands
+    default: true
+  caveblock.island.team.trust:
+    description: Let a player use team trust commands
+    default: true
+  caveblock.island.team.coop:
+    description: Let a player use team coop commands
+    default: true
+  caveblock.settings.*:
+    description: Allow use of settings on island
+    default: true
+  caveblock.mod.info:
+    description: Let a moderator see info on a player
+    default: op
+  caveblock.mod.resethome:
+    description: Allows setting or reseting of a player's home position
+    default: op
+  caveblock.mod.clearreset:
+    description: Allow clearing of island reset limit
+    default: false
+  caveblock.mod.tp:
+    description: Allows teleport to an island
+    default: op
+  caveblock.mod.bypasscooldowns:
+    description: Allow moderator to bypass cooldowns
+    default: op
+  caveblock.mod.bypassprotect:
+    description: Allow moderator to bypass island protection
+    default: op
+  caveblock.mod.bypassexpel:
+    description: Allow moderator to bypass island expulsion
+    default: op
+  caveblock.mod.lock:
+    description: Locks or unlocks an island
+    default: op
+  caveblock.mod.bypasslock:
+    description: Bypasses an island lock
+    default: op
+  caveblock.mod.team:
+    description: Enables modification of teams via kick and add commands
+    default: false
+  caveblock.mod.name:
+    description: Enables naming of player's islands
+    default: false
+  caveblock.mod.resetname:
+    description: Enables reset of player's island names
+    default: false
+  caveblock.admin.clearresetall:
+    description: Allow clearing of island reset limit of all players
+    default: op
+  caveblock.admin.reload:
+    description: Reload the config.yml
+    default: op
+  caveblock.admin.delete:
+    description: Let a player completely remove a player (including island)
+    default: op
+  caveblock.admin.deleteisland:
+    description: Let a player completely remove the island the player is on
+    default: op
+  caveblock.admin.register:
+    description: Let a player register the nearest island to another player.
+    default: op
+  caveblock.admin.unregister:
+    description: Removes a player from an island without deleting the island blocks.
+    default: op
+  caveblock.admin.purge:
+    description: Let a player purge old islands.
+    default: op
+  caveblock.admin.setspawn:
+    description: Allows use of spawn tools
+    default: op
+  caveblock.admin.setrange:
+    description: Allows setting of island protection range
+    default: op
+  caveblock.admin.reserve:
+    description: Reserves an empty spot for a player's next island
+    default: op
+  caveblock.admin.settingsreset:
+    description: Resets all the islands to default protection settings
+    default: op
+  caveblock.admin.noban:
+    description: Player cannot be banned from an island
+    default: op
+  caveblock.admin.setlanguage:
+    description: Resets all player languages and sets the default language
+    default: op
