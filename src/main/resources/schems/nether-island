@@ -804,6 +804,34 @@ blocks:
   9,15,-2: {}
   9,15,0:
     bd: minecraft:fire[age=11,east=false,north=false,south=false,up=false,west=false]
+  3,-14,-2:
+    bd: minecraft:air
+  3,-13,-2:
+    bd: minecraft:air
+  3,-10,-3:
+    bd: minecraft:air
+  0,1,0:
+    bd: minecraft:air
+  0,2,0:
+    bd: minecraft:air
+  1,0,0:
+    bd: minecraft:air
+  1,1,0:
+    bd: minecraft:air
+  1,2,0:
+    bd: minecraft:air
+  0,0,1:
+    bd: minecraft:air
+  0,1,1:
+    bd: minecraft:air
+  0,2,1:
+    bd: minecraft:air
+  1,0,1:
+    bd: minecraft:air
+  1,1,1:
+    bd: minecraft:air
+  1,2,1:
+    bd: minecraft:air
 entities:
   -2,-13,-5:
     93d845b0-e5b6-4159-9902-7c1feb904fdd:
@@ -852,34 +880,6 @@ entities:
   9,15,-2:
     b823930c-2168-4a70-b6f8-e2bd577d7936:
       type: PIG_ZOMBIE
-  3,-14,-2:
-    bd: minecraft:air
-  3,-13,-2:
-    bd: minecraft:air
-  3,-10,-3:
-    bd: minecraft:air
-  0,1,0:
-    bd: minecraft:air
-  0,2,0:
-    bd: minecraft:air
-  1,0,0:
-    bd: minecraft:air
-  1,1,0:
-    bd: minecraft:air
-  1,2,0:
-    bd: minecraft:air
-  0,0,1:
-    bd: minecraft:air
-  0,1,1:
-    bd: minecraft:air
-  0,2,1:
-    bd: minecraft:air
-  1,0,1:
-    bd: minecraft:air
-  1,1,1:
-    bd: minecraft:air
-  1,2,1:
-    bd: minecraft:air
 attached:
   -2,1,-5:
     bd: minecraft:torch
