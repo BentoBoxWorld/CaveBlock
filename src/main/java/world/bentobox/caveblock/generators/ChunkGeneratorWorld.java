@@ -3,13 +3,14 @@ package world.bentobox.caveblock.generators;
 
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.EntityType;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.util.noise.PerlinOctaveGenerator;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
 
@@ -34,6 +35,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	{
 		super();
 		this.addon = addon;
+		this.settings = addon.getSettings();
 	}
 
 
@@ -75,15 +77,15 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 		// Populate chunk with necessary information
 		if (world.getEnvironment().equals(World.Environment.NETHER))
 		{
-			this.populateNetherChunk(result, random, biomeGrid);
+			this.populateNetherChunk(world, result, random, biomeGrid);
 		}
 		else if (world.getEnvironment().equals(World.Environment.THE_END))
 		{
-			this.populateTheEndChunk(result, random, biomeGrid);
+			this.populateTheEndChunk(world, result, random, biomeGrid);
 		}
 		else
 		{
-			this.populateOverWorldChunk(result, random, biomeGrid);
+			this.populateOverWorldChunk(world, result, random, biomeGrid);
 		}
 
 		return result;
@@ -96,15 +98,13 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	 * @param random Randomness in given world.
 	 * @param biomeGrid BiomeGrid for this chunk.
 	 */
-	private void populateTheEndChunk(ChunkData chunkData, Random random, BiomeGrid biomeGrid)
+	private void populateTheEndChunk(World world, ChunkData chunkData, Random random, BiomeGrid biomeGrid)
 	{
-		Settings addonSettings = this.addon.getSettings();
+		final int worldHeight = this.settings.getWorldDepth();
+		final boolean generateFloor = this.settings.isEndFloor();
+		final boolean generateCeiling = this.settings.isEndRoof();
 
-		final int worldHeight = addonSettings.getMountineHeight();
-		final boolean generateFloor = addonSettings.isBedRockFloor();
-		final boolean generateCeiling = addonSettings.isBedRockRoof();
-
-		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, Material.END_STONE);
+		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, this.settings.getEndMainBlock());
 
 		for (int x = 0; x < 16; x++)
 		{
@@ -123,13 +123,13 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	 * @param random Randomness in given world.
 	 * @param biomeGrid BiomeGrid for this chunk.
 	 */
-	private void populateNetherChunk(ChunkData chunkData, Random random, BiomeGrid biomeGrid)
+	private void populateNetherChunk(World world, ChunkData chunkData, Random random, BiomeGrid biomeGrid)
 	{
-		final int worldHeight = this.addon.getSettings().getMountineHeight();
-		final boolean generateFloor = this.addon.getSettings().isBedRockFloor();
-		final boolean generateCeiling = this.addon.getSettings().isBedRockRoof();
+		final int worldHeight = this.settings.getWorldDepth();
+		final boolean generateFloor = this.settings.isNetherFloor();
+		final boolean generateCeiling = this.settings.isNetherRoof();
 
-		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, Material.NETHERRACK);
+		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, this.settings.getNetherMainBlock());
 
 		for (int x = 0; x < 16; x++)
 		{
@@ -232,15 +232,13 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	 * @param random Randomness in given world.
 	 * @param biomeGrid BiomeGrid for this chunk.
 	 */
-	private void populateOverWorldChunk(ChunkData chunkData, Random random, BiomeGrid biomeGrid)
+	private void populateOverWorldChunk(World world, ChunkData chunkData, Random random, BiomeGrid biomeGrid)
 	{
-		Settings addonSettings = this.addon.getSettings();
+		final int worldHeight = this.settings.getWorldDepth();
+		final boolean generateFloor = this.settings.isNormalFloor();
+		final boolean generateCeiling = this.settings.isNormalRoof();
 
-		final int worldHeight = addonSettings.getMountineHeight();
-		final boolean generateFloor = addonSettings.isBedRockFloor();
-		final boolean generateCeiling = addonSettings.isBedRockRoof();
-
-		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, Material.STONE);
+		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, this.settings.getNormalMainBlock());
 
 		for (int x = 0; x < 16; x++)
 		{
@@ -267,6 +265,68 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	}
 
 
+	/**
+	 * This method returns material frequently and pack size map.
+	 * @param objectList List with objects that contains data.
+	 * @return Map that contains material, its rarity and pack size.
+	 */
+	private Map<Material, Pair<Integer, Integer>> getMaterialMap(List<String> objectList)
+	{
+		Map<Material, Pair<Integer, Integer>> materialMap = new HashMap<>(objectList.size());
+
+		// wrong material object.
+		objectList.stream().
+			filter(object -> object.startsWith("MATERIAL")).
+			map(object -> object.split(":")).
+			filter(splitString -> splitString.length == 4).
+			forEach(splitString -> {
+				Material material = Material.getMaterial(splitString[0]);
+
+				if (material != null)
+				{
+					materialMap.put(material,
+						new Pair<>(Integer.parseInt(splitString[1]), Integer.parseInt(splitString[2])));
+				}
+			});
+
+		return materialMap;
+	}
+
+
+	/**
+	 * This method returns Entity frequently and pack size map.
+	 * @param objectList List with objects that contains data.
+	 * @return Map that contains entity, its rarity and pack size.
+	 */
+	private Map<EntityType, Pair<Integer, Integer>> getEntityMap(List<String> objectList)
+	{
+		Map<EntityType, Pair<Integer, Integer>> entityMap = new HashMap<>(objectList.size());
+
+		Map<String, EntityType> entityTypeMap = Arrays.stream(EntityType.values()).
+			collect(Collectors.toMap(Enum::name,
+				entityType -> entityType,
+				(a, b) -> b,
+				() -> new HashMap<>(EntityType.values().length)));
+
+		// wrong material object.
+		objectList.stream().
+			filter(object -> object.startsWith("ENTITY")).
+			map(object -> object.split(":")).
+			filter(splitString -> splitString.length == 4).
+			forEach(splitString -> {
+				EntityType entity = entityTypeMap.getOrDefault(splitString[1], null);
+
+				if (entity != null)
+				{
+					entityMap.put(entity,
+						new Pair<>(Integer.parseInt(splitString[1]), Integer.parseInt(splitString[2])));
+				}
+			});
+
+		return entityMap;
+	}
+
+
 // ---------------------------------------------------------------------
 // Section: Variables
 // ---------------------------------------------------------------------
@@ -276,6 +336,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	 * CaveBlock addon.
 	 */
 	private CaveBlock addon;
+
+	/**
+	 * Addon settings.
+	 */
+	private Settings settings;
 
 	/**
 	 * Generator that allows to generate custom structures.
