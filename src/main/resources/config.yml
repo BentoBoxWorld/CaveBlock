@@ -54,6 +54,33 @@ world:
   # The permission acidisland.ban.maxlimit.X where X is a number can also be used per player
   # -1 = unlimited
   ban-limit: -1
+  #
+  # This is cave... no height... only depth. Max 256.
+  # Should not be less then island height.
+  world-depth: 256
+  # World settings.
+  normal:
+    # Make over world roof of bedrock, if false, it will be made from stone
+    roof: true
+    # Make over world floor of bedrock, if false, it will be made from stone
+    floor: true
+    # Main block of which world will be generated.
+    main-block: STONE
+    # Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size
+    # F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.
+    # Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.
+    blocks:
+      - DIAMOND_ORE:1:3
+      - GOLD_ORE:5:4
+      - IRON_ORE:5:4
+      - COAL_ORE:10:6
+      - EMERALD_ORE:1:1
+      - CLAY:3:6
+      - DIRT:3:10
+      - GRAVEL:3:6
+      - GRANITE:7:10
+      - ANDESITE:7:10
+      - DIORITE:12:8
   nether:
     # Generate Nether - if this is false, the nether world will not be made and access to
     # the nether will not occur. Other plugins may still enable portal usage.
@@ -66,18 +93,53 @@ world:
     # Nether trees are made if a player grows a tree in the nether (gravel and glowstone)
     # Applies to both vanilla and islands Nether
     trees: true
-    # Make the nether roof, if false, there is nothing up there
+    # Make the nether roof of bedrock, if false, it will be made from netherrack/soulsand
     # Change to false if lag is a problem from the generation
     # Only applies to islands Nether
     roof: true
+    # Make the nether floor of bedrock, if false, it will be made from netherrack/soulsand
+    # Change to false if lag is a problem from the generation
+    # Only applies to islands Nether
+    floor: true
+    # Main block of which world will be generated.
+    main-block: NETHERRACK
+    # Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size
+    # F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.
+    # Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.
+    blocks:
+      - QUARTZ_ORE:10:5
+      - SOUL_SAND:6:10
+      - MAGMA_BLOCK:1:3
+      - LAVA:1:1
     # Nether spawn protection radius - this is the distance around the nether spawn
     # that will be protected from player interaction (breaking blocks, pouring lava etc.)
     # Minimum is 0 (not recommended), maximum is 100. Default is 25.
     # Only applies to vanilla nether
     spawn-radius: 25
   end:
+    # Generate The End - if this is false, the nether world will not be made and access to
+    # the the end will not occur. Other plugins may still enable portal usage.
+    # Note: Some default challenges will not be possible if there is no end.
+    # Note that with a standard theend all players arrive at the same portal and entering a
+    # portal will return them back to their islands.
     generate: true
+    # Islands in the end. Change to false for standard vanilla end.
     islands: true
+    # Make the nether roof of bedrock, if false, it will be made from netherrack/soulsand
+    # Change to false if lag is a problem from the generation
+    # Only applies to islands Nether
+    roof: true
+    # Make the nether floor of bedrock, if false, it will be made from netherrack/soulsand
+    # Change to false if lag is a problem from the generation
+    # Only applies to islands Nether
+    floor: true
+    # Main block of which world will be generated.
+    main-block: END_STONE
+    # Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size
+    # F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.
+    # Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.
+    blocks:
+      - ENTITY:SHULKER:1:1
     # /!\ This feature is experimental and might not work as expected or might not work at all.
     dragon-spawn: false
   # Mob white list - these mobs will NOT be removed when logging in or doing /island

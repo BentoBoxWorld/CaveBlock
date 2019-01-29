@@ -3,6 +3,7 @@ package world.bentobox.caveblock;
 
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
 import java.util.*;
@@ -661,7 +662,79 @@ public class Settings implements DataObject, WorldSettings
 	}
 
 
-	// ---------------------------------------------------------------------
+	public int getWorldDepth()
+	{
+		return worldDepth;
+	}
+
+
+	public boolean isNormalRoof()
+	{
+		return normalRoof;
+	}
+
+
+	public boolean isNormalFloor()
+	{
+		return normalFloor;
+	}
+
+
+	public Material getNormalMainBlock()
+	{
+		return normalMainBlock;
+	}
+
+
+	public List<String> getNormalBlocks()
+	{
+		return normalBlocks;
+	}
+
+
+	public boolean isNetherFloor()
+	{
+		return netherFloor;
+	}
+
+
+	public Material getNetherMainBlock()
+	{
+		return netherMainBlock;
+	}
+
+
+	public List<String> getNetherBlocks()
+	{
+		return netherBlocks;
+	}
+
+
+	public boolean isEndRoof()
+	{
+		return endRoof;
+	}
+
+
+	public boolean isEndFloor()
+	{
+		return endFloor;
+	}
+
+
+	public Material getEndMainBlock()
+	{
+		return endMainBlock;
+	}
+
+
+	public List<String> getEndBlocks()
+	{
+		return endBlocks;
+	}
+
+
+// ---------------------------------------------------------------------
 // Section: Setters
 // ---------------------------------------------------------------------
 
@@ -1283,6 +1356,77 @@ public class Settings implements DataObject, WorldSettings
 	}
 
 
+	public void setWorldDepth(int worldDepth)
+	{
+		this.worldDepth = worldDepth;
+	}
+
+
+	public void setNormalRoof(boolean normalRoof)
+	{
+		this.normalRoof = normalRoof;
+	}
+
+
+	public void setNormalFloor(boolean normalFloor)
+	{
+		this.normalFloor = normalFloor;
+	}
+
+
+	public void setNormalMainBlock(Material normalMainBlock)
+	{
+		this.normalMainBlock = normalMainBlock;
+	}
+
+
+	public void setNormalBlocks(List<String> normalBlocks)
+	{
+		this.normalBlocks = normalBlocks;
+	}
+
+
+	public void setNetherFloor(boolean netherFloor)
+	{
+		this.netherFloor = netherFloor;
+	}
+
+
+	public void setNetherMainBlock(Material netherMainBlock)
+	{
+		this.netherMainBlock = netherMainBlock;
+	}
+
+
+	public void setNetherBlocks(List<String> netherBlocks)
+	{
+		this.netherBlocks = netherBlocks;
+	}
+
+
+	public void setEndRoof(boolean endRoof)
+	{
+		this.endRoof = endRoof;
+	}
+
+
+	public void setEndFloor(boolean endFloor)
+	{
+		this.endFloor = endFloor;
+	}
+
+
+	public void setEndMainBlock(Material endMainBlock)
+	{
+		this.endMainBlock = endMainBlock;
+	}
+
+
+	public void setEndBlocks(List<String> endBlocks)
+	{
+		this.endBlocks = endBlocks;
+	}
+
 
 // ---------------------------------------------------------------------
 // Section: Variables
@@ -1309,13 +1453,13 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigComment("It is the same for every dimension : Overworld, Nether and End.")
 	@ConfigComment("This value cannot be changed mid-game and the plugin will not start if it is different.")
 	@ConfigEntry(path = "world.distance-between-islands", needsReset = true)
-	private int islandDistance = 192;
+	private int islandDistance = 100;
 
 	@ConfigComment("Default protection range radius in blocks. Cannot be larger than distance.")
 	@ConfigComment("Admins can change protection sizes for players individually using /cbadmin range set <player> <new range>")
 	@ConfigComment("or set this permission: caveblock.island.range.<number>")
 	@ConfigEntry(path = "world.protection-range")
-	private int islandProtectionRange = 100;
+	private int islandProtectionRange = 50;
 
 	@ConfigComment("Start islands at these coordinates. This is where new islands will start in the")
 	@ConfigComment("world. These must be a factor of your island distance, but the plugin will auto")
@@ -1336,12 +1480,12 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigComment("Island height - Lowest is 5.")
 	@ConfigComment("It is the y coordinate of the bedrock block in the schem.")
 	@ConfigEntry(path = "world.island-height")
-	private int islandHeight = 100;
+	private int islandHeight = 60;
 
 	@ConfigComment("Use your own world generator for this world.")
 	@ConfigComment("In this case, the plugin will not generate anything.")
 	@ConfigEntry(path = "world.use-own-generator", experimental = true)
-	private boolean useOwnGenerator;
+	private boolean useOwnGenerator = true;
 
 	@ConfigComment("Sea height (don't changes this mid-game unless you delete the world)")
 	@ConfigComment("Minimum is 0, which means you are playing CaveBlock!")
@@ -1362,13 +1506,38 @@ public class Settings implements DataObject, WorldSettings
 
 	@ConfigComment("The default biome for the overworld")
 	@ConfigEntry(path = "world.default-biome")
-	private Biome defaultBiome = Biome.PLAINS;
+	private Biome defaultBiome = Biome.MOUNTAINS;
 
 	@ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
 	@ConfigComment("The permission acidisland.ban.maxlimit.X where X is a number can also be used per player")
 	@ConfigComment("-1 = unlimited")
 	@ConfigEntry(path = "world.ban-limit")
 	private int banLimit = -1;
+
+	@ConfigComment("")
+	@ConfigComment("This is cave... no height... only depth. Max 256.")
+	@ConfigComment("Should not be less then island height.")
+	@ConfigEntry(path = "world.world-depth")
+	private int worldDepth = 256;
+
+	@ConfigComment("")
+	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
+	@ConfigEntry(path = "world.normal.roof")
+	private boolean normalRoof = true;
+
+	@ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
+	@ConfigEntry(path = "world.normal.floor")
+	private boolean normalFloor = true;
+
+	@ConfigComment("Main block of which world will be generated.")
+	@ConfigEntry(path = "world.normal.main-block")
+	private Material normalMainBlock = Material.STONE;
+
+	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
+	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
+	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
+	@ConfigEntry(path = "world.normal.blocks")
+	private List<String> normalBlocks = new ArrayList<>();
 
 	// Nether
 	@ConfigComment("Generate Nether - if this is false, the nether world will not be made and access to")
@@ -1388,18 +1557,30 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigEntry(path = "world.nether.trees")
 	private boolean netherTrees = true;
 
-	@ConfigComment("Make the nether roof, if false, there is nothing up there")
-	@ConfigComment("Change to false if lag is a problem from the generation")
-	@ConfigComment("Only applies to islands Nether")
-	@ConfigEntry(path = "world.nether.roof")
-	private boolean netherRoof = true;
-
 	@ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
 	@ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
 	@ConfigComment("Minimum is 0 (not recommended), maximum is 100. Default is 25.")
 	@ConfigComment("Only applies to vanilla nether")
 	@ConfigEntry(path = "world.nether.spawn-radius")
 	private int netherSpawnRadius = 32;
+
+	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
+	@ConfigEntry(path = "world.nether.roof")
+	private boolean netherRoof = true;
+
+	@ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
+	@ConfigEntry(path = "world.nether.floor")
+	private boolean netherFloor = true;
+
+	@ConfigComment("Main block of which world will be generated.")
+	@ConfigEntry(path = "world.nether.main-block")
+	private Material netherMainBlock = Material.STONE;
+
+	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
+	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
+	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
+	@ConfigEntry(path = "world.nether.blocks")
+	private List<String> netherBlocks = new ArrayList<>();
 
 	// End
 	@ConfigEntry(path = "world.end.generate")
@@ -1410,6 +1591,26 @@ public class Settings implements DataObject, WorldSettings
 
 	@ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
 	private boolean dragonSpawn = false;
+
+	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
+	@ConfigEntry(path = "world.end.roof")
+	private boolean endRoof = true;
+
+	@ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
+	@ConfigEntry(path = "world.end.floor")
+	private boolean endFloor = true;
+
+	@ConfigComment("Main block of which world will be generated.")
+	@ConfigEntry(path = "world.end.main-block")
+	private Material endMainBlock = Material.STONE;
+
+	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
+	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
+	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
+	@ConfigEntry(path = "world.end.blocks")
+	private List<String> endBlocks = new ArrayList<>();
+
+	// Other staff.
 
 	@ConfigComment("Mob white list - these mobs will NOT be removed when logging in or doing /cave")
 	@ConfigEntry(path = "world.remove-mobs-whitelist")
@@ -1569,22 +1770,4 @@ public class Settings implements DataObject, WorldSettings
 	private long resetEpoch = 0;
 
 	private String uniqueId = "config";
-
-
-	public int getMountineHeight()
-	{
-		return 200;
-	}
-
-
-	public boolean isBedRockFloor()
-	{
-		return true;
-	}
-
-
-	public boolean isBedRockRoof()
-	{
-		return true;
-	}
 }
