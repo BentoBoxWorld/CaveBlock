@@ -70,17 +70,17 @@ world:
     # F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.
     # Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.
     blocks:
-      - DIAMOND_ORE:1:3
-      - GOLD_ORE:5:4
-      - IRON_ORE:5:4
-      - COAL_ORE:10:6
-      - EMERALD_ORE:1:1
-      - CLAY:3:6
-      - DIRT:3:10
-      - GRAVEL:3:6
-      - GRANITE:7:10
-      - ANDESITE:7:10
-      - DIORITE:12:8
+      - MATERIAL:DIAMOND_ORE:1:3
+      - MATERIAL:GOLD_ORE:5:4
+      - MATERIAL:IRON_ORE:5:4
+      - MATERIAL:COAL_ORE:10:6
+      - MATERIAL:EMERALD_ORE:1:1
+      - MATERIAL:CLAY:3:6
+      - MATERIAL:DIRT:3:10
+      - MATERIAL:GRAVEL:3:6
+      - MATERIAL:GRANITE:7:10
+      - MATERIAL:ANDESITE:7:10
+      - MATERIAL:DIORITE:12:8
   nether:
     # Generate Nether - if this is false, the nether world will not be made and access to
     # the nether will not occur. Other plugins may still enable portal usage.
@@ -107,10 +107,10 @@ world:
     # F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.
     # Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.
     blocks:
-      - QUARTZ_ORE:10:5
-      - SOUL_SAND:6:10
-      - MAGMA_BLOCK:1:3
-      - LAVA:1:1
+      - MATERIAL:QUARTZ_ORE:10:5
+      - MATERIAL:SOUL_SAND:6:10
+      - MATERIAL:MAGMA_BLOCK:1:3
+      - MATERIAL:LAVA:1:1
     # Nether spawn protection radius - this is the distance around the nether spawn
     # that will be protected from player interaction (breaking blocks, pouring lava etc.)
     # Minimum is 0 (not recommended), maximum is 100. Default is 25.
