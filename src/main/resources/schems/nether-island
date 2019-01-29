@@ -1,0 +1,899 @@
+blocks:
+  -6,-14,-6:
+    bd: minecraft:cracked_stone_bricks
+  -6,-14,-5:
+    bd: minecraft:cracked_stone_bricks
+  -6,-14,-4:
+    bd: minecraft:cracked_stone_bricks
+  -6,-14,-3:
+    bd: minecraft:cracked_stone_bricks
+  -6,-14,-2:
+    bd: minecraft:stone_bricks
+  -6,-14,-1:
+    bd: minecraft:stone_bricks
+  -6,-14,0:
+    bd: minecraft:stone_bricks
+  -6,-13,-6:
+    bd: minecraft:stone_bricks
+  -6,-12,-6:
+    bd: minecraft:stone_bricks
+  -6,-12,-4:
+    bd: minecraft:end_portal_frame[eye=true,facing=east]
+  -6,-12,-3:
+    bd: minecraft:end_portal_frame[eye=false,facing=east]
+  -6,-12,-2:
+    bd: minecraft:end_portal_frame[eye=true,facing=east]
+  -6,-11,-6:
+    bd: minecraft:stone_bricks
+  -6,-10,-6:
+    bd: minecraft:stone_bricks
+  -6,-9,-6:
+    bd: minecraft:stone_bricks
+  -5,-14,-6:
+    bd: minecraft:stone_bricks
+  -5,-14,-5:
+    bd: minecraft:cracked_stone_bricks
+  -5,-14,-4:
+    bd: minecraft:lava[level=0]
+  -5,-14,-3:
+    bd: minecraft:lava[level=0]
+  -5,-14,-2:
+    bd: minecraft:lava[level=0]
+  -5,-14,-1:
+    bd: minecraft:cracked_stone_bricks
+  -5,-12,-5:
+    bd: minecraft:end_portal_frame[eye=true,facing=south]
+  -5,-12,-1:
+    bd: minecraft:end_portal_frame[eye=false,facing=north]
+  -5,-9,-6:
+    bd: minecraft:mossy_stone_bricks
+  -5,-1,-5:
+    bd: minecraft:netherrack
+  -5,-1,-4:
+    bd: minecraft:netherrack
+  -5,-1,-3:
+    bd: minecraft:netherrack
+  -5,0,-5:
+    bd: minecraft:nether_quartz_ore
+  -5,0,-4:
+    bd: minecraft:nether_quartz_ore
+  -5,0,-3:
+    bd: minecraft:fire[age=11,east=false,north=false,south=false,up=false,west=false]
+  -5,1,-5:
+    bd: minecraft:nether_quartz_ore
+  -4,-14,-6:
+    bd: minecraft:stone_bricks
+  -4,-14,-5:
+    bd: minecraft:cracked_stone_bricks
+  -4,-14,-4:
+    bd: minecraft:lava[level=0]
+  -4,-14,-3:
+    bd: minecraft:lava[level=0]
+  -4,-14,-2:
+    bd: minecraft:lava[level=0]
+  -4,-14,-1:
+    bd: minecraft:cracked_stone_bricks
+  -4,-14,0:
+    bd: minecraft:stone_bricks
+  -4,-13,-6:
+    bd: minecraft:stone_bricks
+  -4,-12,-6:
+    bd: minecraft:stone_bricks
+  -4,-12,-5:
+    bd: minecraft:end_portal_frame[eye=true,facing=south]
+  -4,-12,-1:
+    bd: minecraft:end_portal_frame[eye=true,facing=north]
+  -4,-11,-6:
+    bd: minecraft:stone_bricks
+  -4,-10,-6:
+    bd: minecraft:mossy_stone_bricks
+  -4,-1,-5:
+    bd: minecraft:netherrack
+  -4,-1,-4:
+    bd: minecraft:netherrack
+  -4,-1,-3:
+    bd: minecraft:netherrack
+  -4,0,-5:
+    bd: minecraft:netherrack
+  -4,1,-5:
+    bd: minecraft:fire[age=15,east=false,north=false,south=false,up=false,west=false]
+  -3,-14,-5:
+    bd: minecraft:cracked_stone_bricks
+  -3,-14,-4:
+    bd: minecraft:lava[level=0]
+  -3,-14,-3:
+    bd: minecraft:lava[level=0]
+  -3,-14,-2:
+    bd: minecraft:lava[level=0]
+  -3,-14,-1:
+    bd: minecraft:cracked_stone_bricks
+  -3,-12,-5:
+    bd: minecraft:end_portal_frame[eye=true,facing=south]
+  -3,-12,-1:
+    bd: minecraft:end_portal_frame[eye=false,facing=north]
+  -3,-2,-2:
+    bd: minecraft:soul_sand
+  -3,-1,-5:
+    bd: minecraft:netherrack
+  -3,-1,-4:
+    bd: minecraft:nether_bricks
+  -3,-1,-3:
+    bd: minecraft:nether_bricks
+  -3,-1,-2:
+    bd: minecraft:nether_bricks
+  -3,-1,-1:
+    bd: minecraft:nether_bricks
+  -3,-1,0:
+    bd: minecraft:nether_bricks
+  -2,-14,-5:
+    bd: minecraft:stone_bricks
+  -2,-14,-4:
+    bd: minecraft:cracked_stone_bricks
+  -2,-14,-3:
+    bd: minecraft:stone_bricks
+  -2,-14,-2:
+    bd: minecraft:cracked_stone_bricks
+  -2,-14,-1:
+    bd: minecraft:cracked_stone_bricks
+  -2,-14,0:
+    bd: minecraft:stone_bricks
+  -2,-13,-5: {}
+  -2,-12,-4:
+    bd: minecraft:end_portal_frame[eye=true,facing=west]
+  -2,-12,-3:
+    bd: minecraft:end_portal_frame[eye=false,facing=west]
+  -2,-12,-2:
+    bd: minecraft:end_portal_frame[eye=true,facing=west]
+  -2,-3,-2:
+    bd: minecraft:nether_quartz_ore
+  -2,-2,-4:
+    bd: minecraft:netherrack
+  -2,-2,-3:
+    bd: minecraft:netherrack
+  -2,-2,-2:
+    bd: minecraft:netherrack
+  -2,-2,-1:
+    bd: minecraft:netherrack
+  -2,-2,0:
+    bd: minecraft:netherrack
+  -2,-1,-5:
+    bd: minecraft:nether_bricks
+  -2,-1,-4:
+    bd: minecraft:nether_bricks
+  -2,-1,-3:
+    bd: minecraft:nether_bricks
+  -2,-1,-2:
+    bd: minecraft:nether_bricks
+  -2,-1,-1:
+    bd: minecraft:nether_bricks
+  -2,-1,0:
+    bd: minecraft:nether_bricks
+  -2,-1,1:
+    bd: minecraft:nether_bricks
+  -2,0,-5:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=false]
+  -2,1,-5:
+    bd: minecraft:air
+  -1,-14,-5:
+    bd: minecraft:stone_bricks
+  -1,-14,-4:
+    bd: minecraft:stone_bricks
+  -1,-14,-3:
+    bd: minecraft:stone_bricks
+  -1,-14,-2:
+    bd: minecraft:stone_bricks
+  -1,-14,-1:
+    bd: minecraft:stone_bricks
+  -1,-13,-4:
+    bd: minecraft:stone_brick_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+  -1,-13,-3:
+    bd: minecraft:spawner
+    spawnedType: BLAZE
+    delay: 203
+    maxNearbyEntities: 6
+    maxSpawnDelay: 800
+    minSpawnDelay: 200
+    requiredPlayerRange: 8
+    spawnRange: 4
+  -1,-13,-2:
+    bd: minecraft:stone_brick_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+  -1,-6,-7:
+    bd: minecraft:obsidian
+  -1,-6,-6:
+    bd: minecraft:obsidian
+  -1,-5,-2:
+    bd: minecraft:obsidian
+  -1,-4,-2:
+    bd: minecraft:magma_block
+  -1,-3,-2:
+    bd: minecraft:gravel
+  -1,-2,-4:
+    bd: minecraft:netherrack
+  -1,-2,-3:
+    bd: minecraft:netherrack
+  -1,-2,-2:
+    bd: minecraft:netherrack
+  -1,-2,-1:
+    bd: minecraft:netherrack
+  -1,-2,0:
+    bd: minecraft:netherrack
+  -1,-1,-5:
+    bd: minecraft:nether_bricks
+  -1,-1,-4:
+    bd: minecraft:nether_bricks
+  -1,-1,-3:
+    bd: minecraft:soul_sand
+  -1,-1,-2:
+    bd: minecraft:nether_bricks
+  -1,-1,-1:
+    bd: minecraft:nether_bricks
+  -1,-1,0:
+    bd: minecraft:nether_bricks
+  -1,-1,1:
+    bd: minecraft:nether_bricks
+  -1,0,-5:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=true]
+  -1,0,-3:
+    bd: minecraft:nether_wart[age=3]
+  0,-14,-5:
+    bd: minecraft:stone_bricks
+  0,-14,-4:
+    bd: minecraft:stone_brick_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+  0,-14,-3:
+    bd: minecraft:stone_brick_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+  0,-14,-2:
+    bd: minecraft:stone_brick_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]
+  0,-13,-4: {}
+  0,-6,-7:
+    bd: minecraft:obsidian
+  0,-6,-6:
+    bd: minecraft:obsidian
+  0,-5,-8:
+    bd: minecraft:obsidian
+  0,-5,-5:
+    bd: minecraft:obsidian
+  0,-5,-3:
+    bd: minecraft:obsidian
+  0,-5,-2:
+    bd: minecraft:bedrock
+  0,-5,-1:
+    bd: minecraft:obsidian
+  0,-4,-8:
+    bd: minecraft:obsidian
+  0,-4,-5:
+    bd: minecraft:obsidian
+  0,-4,-3:
+    bd: minecraft:magma_block
+  0,-4,-2:
+    bd: minecraft:gravel
+  0,-4,-1:
+    bd: minecraft:magma_block
+  0,-3,-8:
+    bd: minecraft:obsidian
+  0,-3,-5:
+    bd: minecraft:obsidian
+  0,-3,-4:
+    bd: minecraft:nether_quartz_ore
+  0,-3,-3:
+    bd: minecraft:gravel
+  0,-3,-1:
+    bd: minecraft:gravel
+  0,-3,0:
+    bd: minecraft:nether_quartz_ore
+  0,-2,-7:
+    bd: minecraft:obsidian
+  0,-2,-6:
+    bd: minecraft:obsidian
+  0,-2,-5:
+    bd: minecraft:soul_sand
+  0,-2,-4:
+    bd: minecraft:netherrack
+  0,-2,-3:
+    bd: minecraft:netherrack
+  0,-2,-2:
+    bd: minecraft:netherrack
+  0,-2,-1:
+    bd: minecraft:netherrack
+  0,-2,0:
+    bd: minecraft:netherrack
+  0,-2,1:
+    bd: minecraft:soul_sand
+  0,-1,-5:
+    bd: minecraft:nether_bricks
+  0,-1,-4:
+    bd: minecraft:nether_bricks
+  0,-1,-3:
+    bd: minecraft:soul_sand
+  0,-1,-2:
+    bd: minecraft:nether_bricks
+  0,-1,-1:
+    bd: minecraft:nether_bricks
+  0,-1,0:
+    bd: minecraft:nether_bricks
+  0,-1,1:
+    bd: minecraft:nether_bricks
+  0,0,-5:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=true]
+  0,0,-3:
+    bd: minecraft:nether_wart[age=3]
+  0,0,-1:
+    bd: minecraft:chest[facing=south,type=single,waterlogged=false]
+    inventory:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: LAVA_BUCKET
+      '6':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: NETHER_BRICKS
+        amount: 2
+      '8':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: CLOCK
+      '10':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: FLINT_AND_STEEL
+      '11':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: SKELETON_HORSE_SPAWN_EGG
+      '16':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: GHAST_SPAWN_EGG
+        amount: 3
+      '18':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: NETHER_BRICK_FENCE
+        amount: 32
+      '21':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: GOLD_INGOT
+        amount: 4
+      '25':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: RED_NETHER_BRICKS
+        amount: 5
+  0,0,0:
+    bd: minecraft:air
+  0,0,1:
+    bd: minecraft:air
+  0,1,0:
+    bd: minecraft:air
+  1,-14,-5:
+    bd: minecraft:stone_bricks
+  1,-14,-4: {}
+  1,-6,-7:
+    bd: minecraft:obsidian
+  1,-6,-6:
+    bd: minecraft:obsidian
+  1,-6,-5:
+    bd: minecraft:nether_bricks
+  1,-6,-4:
+    bd: minecraft:nether_bricks
+  1,-5,-4: {}
+  1,-5,-2:
+    bd: minecraft:obsidian
+  1,-4,-2:
+    bd: minecraft:magma_block
+  1,-3,-2:
+    bd: minecraft:gravel
+  1,-3,-1:
+    bd: minecraft:nether_quartz_ore
+  1,-2,-4:
+    bd: minecraft:netherrack
+  1,-2,-3:
+    bd: minecraft:netherrack
+  1,-2,-2:
+    bd: minecraft:netherrack
+  1,-2,-1:
+    bd: minecraft:netherrack
+  1,-2,0:
+    bd: minecraft:netherrack
+  1,-1,-5:
+    bd: minecraft:nether_bricks
+  1,-1,-4:
+    bd: minecraft:nether_bricks
+  1,-1,-3:
+    bd: minecraft:soul_sand
+  1,-1,-2:
+    bd: minecraft:nether_bricks
+  1,-1,-1:
+    bd: minecraft:nether_bricks
+  1,-1,0:
+    bd: minecraft:nether_bricks
+  1,-1,1:
+    bd: minecraft:nether_bricks
+  1,0,-5:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=true]
+  1,0,-4: {}
+  1,0,-3:
+    bd: minecraft:nether_wart[age=3]
+  2,-14,-5:
+    bd: minecraft:stone_bricks
+  2,-7,-4:
+    bd: minecraft:netherrack
+  2,-7,-3:
+    bd: minecraft:netherrack
+  2,-6,-6:
+    bd: minecraft:nether_bricks
+  2,-6,-5:
+    bd: minecraft:nether_bricks
+  2,-6,-4:
+    bd: minecraft:nether_bricks
+  2,-6,-3:
+    bd: minecraft:nether_bricks
+  2,-5,-3:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=false]
+  2,-3,-2:
+    bd: minecraft:nether_quartz_ore
+  2,-2,-4:
+    bd: minecraft:netherrack
+  2,-2,-3:
+    bd: minecraft:netherrack
+  2,-2,-2:
+    bd: minecraft:netherrack
+  2,-2,-1:
+    bd: minecraft:netherrack
+  2,-2,0:
+    bd: minecraft:netherrack
+  2,-1,-5:
+    bd: minecraft:nether_bricks
+  2,-1,-4:
+    bd: minecraft:nether_bricks
+  2,-1,-3:
+    bd: minecraft:soul_sand
+  2,-1,-2:
+    bd: minecraft:nether_bricks
+  2,-1,-1:
+    bd: minecraft:nether_bricks
+  2,-1,0:
+    bd: minecraft:nether_bricks
+  2,-1,1:
+    bd: minecraft:nether_bricks
+  2,0,-5:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=true]
+  2,0,-3:
+    bd: minecraft:nether_wart[age=3]
+  2,0,-2:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=true,waterlogged=false,west=false]
+  2,0,-1:
+    bd: minecraft:nether_brick_fence[east=false,north=true,south=true,waterlogged=false,west=false]
+  2,0,0:
+    bd: minecraft:nether_brick_fence[east=true,north=true,south=false,waterlogged=false,west=false]
+  2,1,-5:
+    bd: minecraft:air
+  2,15,-5:
+    bd: minecraft:nether_bricks
+  2,15,-4:
+    bd: minecraft:nether_bricks
+  2,16,-5:
+    bd: minecraft:nether_brick_fence[east=false,north=false,south=true,waterlogged=false,west=false]
+  2,16,-4:
+    bd: minecraft:nether_brick_fence[east=false,north=true,south=false,waterlogged=false,west=false]
+  3,-14,-5:
+    bd: minecraft:mossy_stone_bricks
+  3,-14,-4: {}
+  3,-14,-2:
+    bd: minecraft:air
+  3,-14,-1:
+    bd: minecraft:stone_bricks
+  3,-13,-5:
+    bd: minecraft:mossy_stone_bricks
+  3,-13,-2:
+    bd: minecraft:air
+  3,-13,-1:
+    bd: minecraft:mossy_stone_bricks
+  3,-12,-4:
+    bd: minecraft:iron_bars[east=false,north=false,south=true,waterlogged=false,west=false]
+  3,-12,-3:
+    bd: minecraft:iron_bars[east=false,north=true,south=true,waterlogged=false,west=false]
+  3,-12,-2:
+    bd: minecraft:iron_bars[east=false,north=true,south=true,waterlogged=false,west=false]
+  3,-12,-1:
+    bd: minecraft:mossy_stone_bricks
+  3,-11,-3:
+    bd: minecraft:stone_bricks
+  3,-11,-2:
+    bd: minecraft:cracked_stone_bricks
+  3,-11,-1:
+    bd: minecraft:cracked_stone_bricks
+  3,-10,-3:
+    bd: minecraft:air
+  3,-7,-5:
+    bd: minecraft:netherrack
+  3,-7,-4:
+    bd: minecraft:netherrack
+  3,-7,-3:
+    bd: minecraft:netherrack
+  3,-7,-2:
+    bd: minecraft:netherrack
+  3,-6,-6:
+    bd: minecraft:nether_bricks
+  3,-6,-5:
+    bd: minecraft:nether_bricks
+  3,-6,-4:
+    bd: minecraft:gravel
+  3,-6,-3:
+    bd: minecraft:nether_bricks
+  3,-6,-2:
+    bd: minecraft:nether_bricks
+  3,-5,-3:
+    bd: minecraft:nether_brick_fence[east=false,north=false,south=true,waterlogged=false,west=true]
+  3,-5,-2:
+    bd: minecraft:nether_brick_fence[east=false,north=true,south=false,waterlogged=false,west=false]
+  3,-2,-2:
+    bd: minecraft:soul_sand
+  3,-2,-1:
+    bd: minecraft:netherrack
+  3,-1,-5:
+    bd: minecraft:nether_bricks
+  3,-1,-4:
+    bd: minecraft:nether_bricks
+  3,-1,-3:
+    bd: minecraft:nether_bricks
+  3,-1,-2:
+    bd: minecraft:nether_bricks
+  3,-1,-1:
+    bd: minecraft:netherrack
+  3,-1,0:
+    bd: minecraft:nether_bricks
+  3,0,-5:
+    bd: minecraft:nether_brick_fence[east=true,north=false,south=false,waterlogged=false,west=true]
+  3,0,-2:
+    bd: minecraft:nether_brick_fence[east=false,north=false,south=false,waterlogged=false,west=true]
+  3,0,-1:
+    bd: minecraft:fire[age=15,east=false,north=false,south=false,up=false,west=false]
+  3,0,0:
+    bd: minecraft:nether_brick_fence[east=false,north=false,south=false,waterlogged=false,west=true]
+  3,14,-4:
+    bd: minecraft:netherrack
+  3,14,-3:
+    bd: minecraft:netherrack
+  3,15,-6:
+    bd: minecraft:nether_bricks
+  3,15,-5:
+    bd: minecraft:nether_bricks
+  3,15,-4:
+    bd: minecraft:nether_bricks
+  3,15,-3:
+    bd: minecraft:nether_bricks
+  3,16,-5:
+    bd: minecraft:chest[facing=east,type=single,waterlogged=false]
+    inventory:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: IRON_HORSE_ARMOR
+      '8':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: SADDLE
+      '11':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: COCOA_BEANS
+      '15':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: LAVA_BUCKET
+      '22':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: ENDER_EYE
+  4,-10,-2: {}
+  4,-8,-2:
+    bd: minecraft:glowstone
+  4,-8,-1:
+    bd: minecraft:glowstone
+  4,-7,-6:
+    bd: minecraft:netherrack
+  4,-7,-5:
+    bd: minecraft:netherrack
+  4,-7,-4:
+    bd: minecraft:netherrack
+  4,-7,-3:
+    bd: minecraft:netherrack
+  4,-7,-2:
+    bd: minecraft:netherrack
+  4,-7,-1:
+    bd: minecraft:netherrack
+  4,-6,-6:
+    bd: minecraft:gravel
+  4,-6,-5:
+    bd: minecraft:nether_bricks
+  4,-6,-4:
+    bd: minecraft:gravel
+  4,-1,-4:
+    bd: minecraft:nether_bricks
+  4,0,-5:
+    bd: minecraft:nether_brick_fence[east=false,north=false,south=false,waterlogged=false,west=true]
+  4,14,-5:
+    bd: minecraft:netherrack
+  4,14,-4:
+    bd: minecraft:netherrack
+  4,14,-3:
+    bd: minecraft:netherrack
+  4,14,-2:
+    bd: minecraft:netherrack
+  4,15,-6:
+    bd: minecraft:nether_bricks
+  4,15,-5:
+    bd: minecraft:nether_bricks
+  4,15,-4:
+    bd: minecraft:nether_bricks
+  4,15,-3:
+    bd: minecraft:nether_bricks
+  4,15,-2:
+    bd: minecraft:nether_bricks
+  4,16,-2: {}
+  5,-9,-2:
+    bd: minecraft:glowstone
+  5,-9,-1:
+    bd: minecraft:glowstone
+  5,-8,-2:
+    bd: minecraft:netherrack
+  5,-8,-1:
+    bd: minecraft:netherrack
+  5,-8,0:
+    bd: minecraft:glowstone
+  5,-7,-6:
+    bd: minecraft:netherrack
+  5,-7,-5:
+    bd: minecraft:netherrack
+  5,-7,-4:
+    bd: minecraft:netherrack
+  5,-7,-3:
+    bd: minecraft:netherrack
+  5,-7,-2:
+    bd: minecraft:netherrack
+  5,-7,-1:
+    bd: minecraft:netherrack
+  5,-6,-5:
+    bd: minecraft:gravel
+  5,-6,-3:
+    bd: minecraft:spawner
+    spawnedType: MAGMA_CUBE
+    delay: 273
+    maxNearbyEntities: 6
+    maxSpawnDelay: 800
+    minSpawnDelay: 200
+    requiredPlayerRange: 8
+    spawnRange: 4
+  5,13,-2:
+    bd: minecraft:glowstone
+  5,13,-1:
+    bd: minecraft:glowstone
+  5,14,-6:
+    bd: minecraft:netherrack
+  5,14,-5:
+    bd: minecraft:netherrack
+  5,14,-4:
+    bd: minecraft:netherrack
+  5,14,-3:
+    bd: minecraft:netherrack
+  5,14,-2:
+    bd: minecraft:netherrack
+  5,14,-1:
+    bd: minecraft:netherrack
+  5,15,-6:
+    bd: minecraft:obsidian
+  5,15,-5:
+    bd: minecraft:nether_bricks
+  5,15,-4:
+    bd: minecraft:obsidian
+  5,15,-2: {}
+  6,-8,-2:
+    bd: minecraft:nether_quartz_ore
+  6,-8,-1:
+    bd: minecraft:glowstone
+  6,-7,-5:
+    bd: minecraft:netherrack
+  6,-7,-4:
+    bd: minecraft:magma_block
+  6,-7,-3:
+    bd: minecraft:netherrack
+  6,-7,-2:
+    bd: minecraft:nether_quartz_ore
+  6,-7,-1:
+    bd: minecraft:netherrack
+  6,-7,0:
+    bd: minecraft:netherrack
+  6,12,-2:
+    bd: minecraft:glowstone
+  6,12,-1:
+    bd: minecraft:glowstone
+  6,13,-3:
+    bd: minecraft:glowstone
+  6,13,-2:
+    bd: minecraft:netherrack
+  6,13,-1:
+    bd: minecraft:netherrack
+  6,13,0:
+    bd: minecraft:glowstone
+  6,14,-6:
+    bd: minecraft:netherrack
+  6,14,-5:
+    bd: minecraft:netherrack
+  6,14,-4:
+    bd: minecraft:netherrack
+  6,14,-3:
+    bd: minecraft:netherrack
+  6,14,-2:
+    bd: minecraft:netherrack
+  6,14,-1:
+    bd: minecraft:netherrack
+  6,14,1: {}
+  6,15,-6:
+    bd: minecraft:obsidian
+  6,15,-5:
+    bd: minecraft:obsidian
+  6,15,-4:
+    bd: minecraft:obsidian
+  6,16,-6: {}
+  7,-9,-3:
+    bd: minecraft:netherrack
+  7,-8,-3:
+    bd: minecraft:netherrack
+  7,-7,-4:
+    bd: minecraft:netherrack
+  7,-7,-3:
+    bd: minecraft:netherrack
+  7,-7,-2:
+    bd: minecraft:netherrack
+  7,-7,-1:
+    bd: minecraft:netherrack
+  7,-7,0:
+    bd: minecraft:netherrack
+  7,-6,0:
+    bd: minecraft:fire[age=13,east=false,north=false,south=false,up=false,west=false]
+  7,13,-1:
+    bd: minecraft:glowstone
+  7,14,-5:
+    bd: minecraft:netherrack
+  7,14,-4:
+    bd: minecraft:netherrack
+  7,14,-3:
+    bd: minecraft:netherrack
+  7,14,-1:
+    bd: minecraft:netherrack
+  7,14,0:
+    bd: minecraft:netherrack
+  7,15,-1:
+    bd: minecraft:spawner
+    spawnedType: SKELETON
+    delay: 343
+    maxNearbyEntities: 6
+    maxSpawnDelay: 800
+    minSpawnDelay: 200
+    requiredPlayerRange: 8
+    spawnRange: 4
+  7,16,-1: {}
+  8,-7,-2:
+    bd: minecraft:netherrack
+  8,-7,-1:
+    bd: minecraft:netherrack
+  8,12,-3:
+    bd: minecraft:netherrack
+  8,13,-3:
+    bd: minecraft:netherrack
+  8,14,-4:
+    bd: minecraft:netherrack
+  8,14,-3:
+    bd: minecraft:netherrack
+  8,14,-2:
+    bd: minecraft:netherrack
+  8,14,-1:
+    bd: minecraft:netherrack
+  8,14,0:
+    bd: minecraft:netherrack
+  8,15,-3: {}
+  8,15,0: {}
+  9,14,-2:
+    bd: minecraft:netherrack
+  9,14,-1:
+    bd: minecraft:netherrack
+  9,14,0:
+    bd: minecraft:netherrack
+  9,15,-2: {}
+  9,15,0:
+    bd: minecraft:fire[age=11,east=false,north=false,south=false,up=false,west=false]
+entities:
+  -2,-13,-5:
+    93d845b0-e5b6-4159-9902-7c1feb904fdd:
+      type: BLAZE
+  0,-13,-4:
+    3ea38461-a7ad-474f-927f-813bfc028a95:
+      type: BLAZE
+  1,-14,-4:
+    9411b510-6fb3-4e5c-9092-1eaeff9dde0c:
+      type: BLAZE
+  1,-5,-4:
+    40680555-83e2-4577-998f-91446c8799f3:
+      type: PIG_ZOMBIE
+  1,0,-4:
+    3c7f64cf-59c7-46fe-adbe-4d0238592318:
+      type: ENDERMAN
+  3,-14,-4:
+    7b8af36d-4408-4fb0-92c5-8ac3cfa234f4:
+      type: PIG_ZOMBIE
+  4,-10,-2:
+    11252858-a030-4e32-a1cd-87bc1c11f073:
+      type: BLAZE
+  4,16,-2:
+    0a80a57d-b79a-4f78-a5c9-e9776e703de4:
+      type: PIG_ZOMBIE
+  5,15,-2:
+    fd6bf00f-21b7-4780-827a-eaffb3f2fd6c:
+      type: PIG_ZOMBIE
+  6,14,1:
+    0931d66f-6189-4eef-af73-4bdb2f131242:
+      type: PIG_ZOMBIE
+  6,16,-6:
+    0b1db2cc-dd05-49a4-b162-658ca628881b:
+      type: WITHER_SKELETON
+  7,16,-1:
+    6010d461-276f-4fe2-9d76-d32ec4b99008:
+      type: SKELETON
+  8,15,-3:
+    b86e341a-b1f3-411f-a925-9339b309cd3c:
+      type: SKELETON
+  8,15,0:
+    afbe8e17-b22b-43d0-b1fe-06f1886c77d1:
+      type: PIG_ZOMBIE
+    369babf2-00fb-43ef-a22b-b43b0348db96:
+      type: PIG_ZOMBIE
+  9,15,-2:
+    b823930c-2168-4a70-b6f8-e2bd577d7936:
+      type: PIG_ZOMBIE
+  3,-14,-2:
+    bd: minecraft:air
+  3,-13,-2:
+    bd: minecraft:air
+  3,-10,-3:
+    bd: minecraft:air
+  0,1,0:
+    bd: minecraft:air
+  0,2,0:
+    bd: minecraft:air
+  1,0,0:
+    bd: minecraft:air
+  1,1,0:
+    bd: minecraft:air
+  1,2,0:
+    bd: minecraft:air
+  0,0,1:
+    bd: minecraft:air
+  0,1,1:
+    bd: minecraft:air
+  0,2,1:
+    bd: minecraft:air
+  1,0,1:
+    bd: minecraft:air
+  1,1,1:
+    bd: minecraft:air
+  1,2,1:
+    bd: minecraft:air
+attached:
+  -2,1,-5:
+    bd: minecraft:torch
+  0,0,0:
+    bd: minecraft:sign[rotation=8,waterlogged=false]
+    lines:
+    - '[spawn_here]'
+    - ''
+    - ''
+    - ''
+  2,1,-5:
+    bd: minecraft:torch
+bedrock: 0,-5,-2
+size:
+  xsize: 16
+  ysize: 31
+  zsize: 10
