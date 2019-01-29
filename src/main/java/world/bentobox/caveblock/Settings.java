@@ -1517,26 +1517,26 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigComment("")
 	@ConfigComment("This is cave... no height... only depth. Max 256.")
 	@ConfigComment("Should not be less then island height.")
-	@ConfigEntry(path = "world.world-depth")
+	@ConfigEntry(path = "world.world-depth", needsReset = true)
 	private int worldDepth = 256;
 
 	@ConfigComment("")
 	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
-	@ConfigEntry(path = "world.normal.roof")
+	@ConfigEntry(path = "world.normal.roof", needsReset = true)
 	private boolean normalRoof = true;
 
 	@ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
-	@ConfigEntry(path = "world.normal.floor")
+	@ConfigEntry(path = "world.normal.floor", needsReset = true)
 	private boolean normalFloor = true;
 
 	@ConfigComment("Main block of which world will be generated.")
-	@ConfigEntry(path = "world.normal.main-block")
+	@ConfigEntry(path = "world.normal.main-block", needsReset = true)
 	private Material normalMainBlock = Material.STONE;
 
 	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
 	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
 	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
-	@ConfigEntry(path = "world.normal.blocks")
+	@ConfigEntry(path = "world.normal.blocks", needsReset = true)
 	private List<String> normalBlocks = new ArrayList<>();
 
 	// Nether
@@ -1565,21 +1565,21 @@ public class Settings implements DataObject, WorldSettings
 	private int netherSpawnRadius = 32;
 
 	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
-	@ConfigEntry(path = "world.nether.roof")
+	@ConfigEntry(path = "world.nether.roof", needsReset = true)
 	private boolean netherRoof = true;
 
 	@ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
-	@ConfigEntry(path = "world.nether.floor")
+	@ConfigEntry(path = "world.nether.floor", needsReset = true)
 	private boolean netherFloor = true;
 
 	@ConfigComment("Main block of which world will be generated.")
-	@ConfigEntry(path = "world.nether.main-block")
+	@ConfigEntry(path = "world.nether.main-block", needsReset = true)
 	private Material netherMainBlock = Material.STONE;
 
 	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
 	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
 	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
-	@ConfigEntry(path = "world.nether.blocks")
+	@ConfigEntry(path = "world.nether.blocks", needsReset = true)
 	private List<String> netherBlocks = new ArrayList<>();
 
 	// End
@@ -1593,21 +1593,21 @@ public class Settings implements DataObject, WorldSettings
 	private boolean dragonSpawn = false;
 
 	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
-	@ConfigEntry(path = "world.end.roof")
+	@ConfigEntry(path = "world.end.roof", needsReset = true)
 	private boolean endRoof = true;
 
 	@ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
-	@ConfigEntry(path = "world.end.floor")
+	@ConfigEntry(path = "world.end.floor", needsReset = true)
 	private boolean endFloor = true;
 
 	@ConfigComment("Main block of which world will be generated.")
-	@ConfigEntry(path = "world.end.main-block")
+	@ConfigEntry(path = "world.end.main-block", needsReset = true)
 	private Material endMainBlock = Material.STONE;
 
 	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
 	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
 	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
-	@ConfigEntry(path = "world.end.blocks")
+	@ConfigEntry(path = "world.end.blocks", needsReset = true)
 	private List<String> endBlocks = new ArrayList<>();
 
 	// Other staff.
