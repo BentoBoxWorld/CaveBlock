@@ -3,16 +3,14 @@ package world.bentobox.caveblock.generators;
 
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.EntityType;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
-import org.bukkit.util.noise.PerlinOctaveGenerator;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
+import world.bentobox.caveblock.generators.populators.EntitiesPopulator;
+import world.bentobox.caveblock.generators.populators.MaterialPopulator;
 
 
 /**
@@ -36,6 +34,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 		super();
 		this.addon = addon;
 		this.settings = addon.getSettings();
+
+		this.blockPopulators = new ArrayList<>(1);
+
+		this.blockPopulators.add(new MaterialPopulator(this.addon));
+		this.blockPopulators.add(new EntitiesPopulator(this.addon));
 	}
 
 
@@ -72,20 +75,19 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 		ChunkGenerator.BiomeGrid biomeGrid)
 	{
 		ChunkData result = this.createChunkData(world);
-		this.generator = new PerlinOctaveGenerator((long) (random.nextLong() * random.nextGaussian()), 8);
 
 		// Populate chunk with necessary information
 		if (world.getEnvironment().equals(World.Environment.NETHER))
 		{
-			this.populateNetherChunk(world, result, random, biomeGrid);
+			this.populateNetherChunk(result);
 		}
 		else if (world.getEnvironment().equals(World.Environment.THE_END))
 		{
-			this.populateTheEndChunk(world, result, random, biomeGrid);
+			this.populateTheEndChunk(result);
 		}
 		else
 		{
-			this.populateOverWorldChunk(world, result, random, biomeGrid);
+			this.populateOverWorldChunk(result, biomeGrid);
 		}
 
 		return result;
@@ -95,159 +97,80 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	/**
 	 * This method populates The End world chunk data.
 	 * @param chunkData ChunkData that must be populated.
-	 * @param random Randomness in given world.
-	 * @param biomeGrid BiomeGrid for this chunk.
 	 */
-	private void populateTheEndChunk(World world, ChunkData chunkData, Random random, BiomeGrid biomeGrid)
+	private void populateTheEndChunk(ChunkData chunkData)
 	{
+		// because everything starts at 0 and ends at 255
 		final int worldHeight = this.settings.getWorldDepth();
-		final boolean generateFloor = this.settings.isEndFloor();
-		final boolean generateCeiling = this.settings.isEndRoof();
 
-		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, this.settings.getEndMainBlock());
+		// Fill all blocks
+		chunkData.setRegion(0, 1, 0,
+			16, worldHeight - 1, 16,
+			this.settings.getEndMainBlock());
 
-		for (int x = 0; x < 16; x++)
-		{
-			for (int z = 0; z < 16; z++)
-			{
-				chunkData.setBlock(x, 0, z, generateFloor ? Material.BEDROCK : Material.END_STONE);
-				chunkData.setBlock(x, worldHeight, z, generateCeiling ? Material.BEDROCK : Material.END_STONE);
-			}
-		}
+		// Generate ground and ceiling.
+		chunkData.setRegion(0, 0, 0,
+			16, 1, 16,
+			this.settings.isEndFloor() ? Material.BEDROCK : this.settings.getEndMainBlock());
+		chunkData.setRegion(0, worldHeight - 1, 0,
+			16, worldHeight, 16,
+			this.settings.isEndRoof() ? Material.BEDROCK : this.settings.getEndMainBlock());
 	}
 
 
 	/**
 	 * This method populates nether world chunk data.
 	 * @param chunkData ChunkData that must be populated.
-	 * @param random Randomness in given world.
-	 * @param biomeGrid BiomeGrid for this chunk.
 	 */
-	private void populateNetherChunk(World world, ChunkData chunkData, Random random, BiomeGrid biomeGrid)
+	private void populateNetherChunk(ChunkData chunkData)
 	{
+		// because everything starts at 0 and ends at 255
 		final int worldHeight = this.settings.getWorldDepth();
-		final boolean generateFloor = this.settings.isNetherFloor();
-		final boolean generateCeiling = this.settings.isNetherRoof();
 
-		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, this.settings.getNetherMainBlock());
+		// Fill all blocks
+		chunkData.setRegion(0, 1, 0,
+			16, worldHeight - 1, 16,
+			this.settings.getNetherMainBlock());
 
-		for (int x = 0; x < 16; x++)
-		{
-			for (int z = 0; z < 16; z++)
-			{
-				chunkData.setBlock(x, 0, z, generateFloor ? Material.BEDROCK : Material.NETHERRACK);
-				chunkData.setBlock(x, worldHeight, z, generateCeiling ? Material.BEDROCK : Material.NETHERRACK);
-
-				// Populate with GlowStone randomness
-
-				// Next three layers are a mix of bedrock
-				for (int y = 2; y < 5; y++)
-				{
-					double r = this.generator.noise(x, (worldHeight - y), z, 0.5, 0.5);
-
-					if (r > 0D)
-					{
-						chunkData.setBlock(x, (worldHeight - y), z, Material.BEDROCK);
-					}
-				}
-
-				// Layer 8 may be glowstone
-				double r = this.generator.noise(x,
-					(double) worldHeight - 8,
-					z,
-					random.nextFloat(),
-					random.nextFloat());
-
-				if (r > 0.5D)
-				{
-					// Have blobs of glowstone
-					switch (random.nextInt(4))
-					{
-						case 1:
-							// Single block
-							chunkData.setBlock(x, (worldHeight - 8), z, Material.GLOWSTONE);
-
-							if (x < 14 && z < 14)
-							{
-								chunkData.setBlock(x + 1,
-									(worldHeight - 8),
-									z + 1,
-									Material.GLOWSTONE);
-								chunkData.setBlock(x + 2,
-									(worldHeight - 8),
-									z + 2,
-									Material.GLOWSTONE);
-								chunkData.setBlock(x + 1,
-									(worldHeight - 8),
-									z + 2,
-									Material.GLOWSTONE);
-								chunkData.setBlock(x + 1,
-									(worldHeight - 8),
-									z + 2,
-									Material.GLOWSTONE);
-							}
-							break;
-						case 2:
-							// Stalatite
-							for (int i = 0; i < random.nextInt(10); i++)
-							{
-								chunkData.setBlock(x,
-									(worldHeight - 8 - i),
-									z,
-									Material.GLOWSTONE);
-							}
-							break;
-						case 3:
-							chunkData.setBlock(x, (worldHeight - 8), z, Material.GLOWSTONE);
-
-							if (x > 3 && z > 3)
-							{
-								for (int xx = 0; xx < 3; xx++)
-								{
-									for (int zz = 0; zz < 3; zz++)
-									{
-										chunkData.setBlock(x - xx,
-											(worldHeight - 8 - random.nextInt(2)),
-											z - xx,
-											Material.GLOWSTONE);
-									}
-								}
-							}
-							break;
-						default:
-							chunkData.setBlock(x, (worldHeight - 8), z, Material.GLOWSTONE);
-							break;
-					}
-
-					chunkData.setBlock(x, (worldHeight - 8), z, Material.GLOWSTONE);
-				}
-			}
-		}
+		// Generate ground and ceiling.
+		chunkData.setRegion(0, 0, 0,
+			16, 1, 16,
+			this.settings.isNetherFloor() ? Material.BEDROCK : this.settings.getNetherMainBlock());
+		chunkData.setRegion(0, worldHeight - 1, 0,
+			16, worldHeight, 16,
+			this.settings.isNetherRoof() ? Material.BEDROCK : this.settings.getNetherMainBlock());
 	}
 
 
 	/**
 	 * This method populates Over world chunk data.
 	 * @param chunkData ChunkData that must be populated.
-	 * @param random Randomness in given world.
 	 * @param biomeGrid BiomeGrid for this chunk.
 	 */
-	private void populateOverWorldChunk(World world, ChunkData chunkData, Random random, BiomeGrid biomeGrid)
+	private void populateOverWorldChunk(ChunkData chunkData, BiomeGrid biomeGrid)
 	{
+		// because everything starts at 0 and ends at 255
 		final int worldHeight = this.settings.getWorldDepth();
-		final boolean generateFloor = this.settings.isNormalFloor();
-		final boolean generateCeiling = this.settings.isNormalRoof();
 
-		chunkData.setRegion(0, 0, 0, 16, worldHeight, 16, this.settings.getNormalMainBlock());
+		// Fill all blocks
+		chunkData.setRegion(0, 1, 0,
+			16, worldHeight - 1, 16,
+			this.settings.getNormalMainBlock());
 
+		// Generate ground and ceiling.
+		chunkData.setRegion(0, 0, 0,
+			16, 1, 16,
+			this.settings.isNormalFloor() ? Material.BEDROCK : this.settings.getNormalMainBlock());
+		chunkData.setRegion(0, worldHeight - 1, 0,
+			16, worldHeight, 16,
+			this.settings.isNormalRoof() ? Material.BEDROCK : this.settings.getNormalMainBlock());
+
+		// Set biome
 		for (int x = 0; x < 16; x++)
 		{
 			for (int z = 0; z < 16; z++)
 			{
-				chunkData.setBlock(x, 0, z, generateFloor ? Material.BEDROCK : Material.STONE);
-				chunkData.setBlock(x, worldHeight, z, generateCeiling ? Material.BEDROCK : Material.STONE);
-
-				biomeGrid.setBiome(x, z, this.addon.getSettings().getDefaultBiome());
+				biomeGrid.setBiome(x, z, this.settings.getDefaultBiome());
 			}
 		}
 	}
@@ -261,69 +184,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	@Override
 	public List<BlockPopulator> getDefaultPopulators(final World world)
 	{
-		return Arrays.asList(new BlockPopulator[0]);
-	}
-
-
-	/**
-	 * This method returns material frequently and pack size map.
-	 * @param objectList List with objects that contains data.
-	 * @return Map that contains material, its rarity and pack size.
-	 */
-	private Map<Integer, Pair<Material, Integer>> getMaterialMap(List<String> objectList)
-	{
-		Map<Integer, Pair<Material, Integer>> materialMap = new HashMap<>(objectList.size());
-
-		// wrong material object.
-		objectList.stream().
-			filter(object -> object.startsWith("MATERIAL")).
-			map(object -> object.split(":")).
-			filter(splitString -> splitString.length == 4).
-			forEach(splitString -> {
-				Material material = Material.getMaterial(splitString[1]);
-
-				if (material != null)
-				{
-					materialMap.put(Integer.parseInt(splitString[2]),
-						new Pair<>(material, Integer.parseInt(splitString[3])));
-				}
-			});
-
-		return materialMap;
-	}
-
-
-	/**
-	 * This method returns Entity frequently and pack size map.
-	 * @param objectList List with objects that contains data.
-	 * @return Map that contains entity, its rarity and pack size.
-	 */
-	private Map<Integer, Pair<EntityType, Integer>> getEntityMap(List<String> objectList)
-	{
-		Map<Integer, Pair<EntityType, Integer>> entityMap = new HashMap<>(objectList.size());
-
-		Map<String, EntityType> entityTypeMap = Arrays.stream(EntityType.values()).
-			collect(Collectors.toMap(Enum::name,
-				entityType -> entityType,
-				(a, b) -> b,
-				() -> new HashMap<>(EntityType.values().length)));
-
-		// wrong material object.
-		objectList.stream().
-			filter(object -> object.startsWith("ENTITY")).
-			map(object -> object.split(":")).
-			filter(splitString -> splitString.length == 4).
-			forEach(splitString -> {
-				EntityType entity = entityTypeMap.getOrDefault(splitString[1], null);
-
-				if (entity != null)
-				{
-					entityMap.put(Integer.parseInt(splitString[2]),
-						new Pair<>(entity, Integer.parseInt(splitString[3])));
-				}
-			});
-
-		return entityMap;
+		return this.blockPopulators;
 	}
 
 
@@ -343,7 +204,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	private Settings settings;
 
 	/**
-	 * Generator that allows to generate custom structures.
+	 * This list contains block populators that will be applied after chunk is generated.
 	 */
-	private PerlinOctaveGenerator generator;
+	private List<BlockPopulator> blockPopulators;
 }
