@@ -734,7 +734,12 @@ public class Settings implements DataObject, WorldSettings
 	}
 
 
-// ---------------------------------------------------------------------
+	public int getNumberOfBlockGenerationTries()
+	{
+		return numberOfBlockGenerationTries;
+	}
+
+	// ---------------------------------------------------------------------
 // Section: Setters
 // ---------------------------------------------------------------------
 
@@ -1428,7 +1433,13 @@ public class Settings implements DataObject, WorldSettings
 	}
 
 
-// ---------------------------------------------------------------------
+	public void setNumberOfBlockGenerationTries(int numberOfBlockGenerationTries)
+	{
+		this.numberOfBlockGenerationTries = numberOfBlockGenerationTries;
+	}
+
+
+	// ---------------------------------------------------------------------
 // Section: Variables
 // ---------------------------------------------------------------------
 
@@ -1519,6 +1530,10 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigComment("Should not be less then island height.")
 	@ConfigEntry(path = "world.world-depth", needsReset = true)
 	private int worldDepth = 256;
+
+	@ConfigComment("This indicate how many times block should be tried to generate.")
+	@ConfigEntry(path = "world.generation-tries", needsReset = true)
+	private int numberOfBlockGenerationTries = 1;
 
 	@ConfigComment("")
 	@ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
