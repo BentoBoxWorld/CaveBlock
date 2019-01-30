@@ -270,9 +270,9 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	 * @param objectList List with objects that contains data.
 	 * @return Map that contains material, its rarity and pack size.
 	 */
-	private Map<Material, Pair<Integer, Integer>> getMaterialMap(List<String> objectList)
+	private Map<Integer, Pair<Material, Integer>> getMaterialMap(List<String> objectList)
 	{
-		Map<Material, Pair<Integer, Integer>> materialMap = new HashMap<>(objectList.size());
+		Map<Integer, Pair<Material, Integer>> materialMap = new HashMap<>(objectList.size());
 
 		// wrong material object.
 		objectList.stream().
@@ -280,12 +280,12 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 			map(object -> object.split(":")).
 			filter(splitString -> splitString.length == 4).
 			forEach(splitString -> {
-				Material material = Material.getMaterial(splitString[0]);
+				Material material = Material.getMaterial(splitString[1]);
 
 				if (material != null)
 				{
-					materialMap.put(material,
-						new Pair<>(Integer.parseInt(splitString[1]), Integer.parseInt(splitString[2])));
+					materialMap.put(Integer.parseInt(splitString[2]),
+						new Pair<>(material, Integer.parseInt(splitString[3])));
 				}
 			});
 
@@ -298,9 +298,9 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 	 * @param objectList List with objects that contains data.
 	 * @return Map that contains entity, its rarity and pack size.
 	 */
-	private Map<EntityType, Pair<Integer, Integer>> getEntityMap(List<String> objectList)
+	private Map<Integer, Pair<EntityType, Integer>> getEntityMap(List<String> objectList)
 	{
-		Map<EntityType, Pair<Integer, Integer>> entityMap = new HashMap<>(objectList.size());
+		Map<Integer, Pair<EntityType, Integer>> entityMap = new HashMap<>(objectList.size());
 
 		Map<String, EntityType> entityTypeMap = Arrays.stream(EntityType.values()).
 			collect(Collectors.toMap(Enum::name,
@@ -318,8 +318,8 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 
 				if (entity != null)
 				{
-					entityMap.put(entity,
-						new Pair<>(Integer.parseInt(splitString[1]), Integer.parseInt(splitString[2])));
+					entityMap.put(Integer.parseInt(splitString[2]),
+						new Pair<>(entity, Integer.parseInt(splitString[3])));
 				}
 			});
 
