@@ -74,14 +74,7 @@ public class EntitiesPopulator extends BlockPopulator
 						int z = random.nextInt(15);
 						int y = subY + random.nextInt(15);
 
-						Block block = chunk.getBlock(x, y, z);
-
-						if (block.getType().equals(mainMaterial) && this.isValidBlock(world, block, x, z))
-						{
-							block.setType(Material.CAVE_AIR);
-
-							world.spawnEntity(block.getLocation(), entry.getKey());
-						}
+						this.tryToPlaceEntity(world, chunk.getBlock(x, y, z), entry.getKey(), x, z, mainMaterial);
 					}
 				}
 			}
@@ -139,6 +132,93 @@ public class EntitiesPopulator extends BlockPopulator
 				world.isChunkGenerated(block.getX(), block.getZ() - 1) &&
 				world.isChunkGenerated(block.getX(), block.getZ() + 1);
 	}
+
+
+
+	private void tryToPlaceEntity(World world, Block block, EntityType entity, int x, int z, Material originalMaterial)
+	{
+		if (this.isValidBlock(world, block, x, z) && block.getType().equals(originalMaterial))
+		{
+			if (entity.isAlive())
+			{
+				int height = 0;
+				int width = 0;
+				int length = 0;
+				boolean water = false;
+
+				switch (entity)
+				{
+					case SPIDER:
+						width = 1;
+						length = 1;
+						break;
+					case SLIME:
+					case ELDER_GUARDIAN:
+					case GHAST:
+					case MAGMA_CUBE:
+					case WITHER:
+						height = 2;
+						width = 2;
+						length = 2;
+						break;
+					case ENDERMAN:
+					case IRON_GOLEM:
+						height = 2;
+						break;
+					case WITHER_SKELETON:
+					case STRAY:
+					case HUSK:
+					case ZOMBIE_VILLAGER:
+					case EVOKER:
+					case VINDICATOR:
+					case ILLUSIONER:
+					case CREEPER:
+					case SKELETON:
+					case ZOMBIE:
+					case BLAZE:
+					case SNOWMAN:
+					case VILLAGER:
+					case PIG_ZOMBIE:
+					case WITCH:
+					case SHULKER:
+					case SHEEP:
+					case COW:
+					case MUSHROOM_COW:
+						height = 12;
+						break;
+					case SKELETON_HORSE:
+					case ZOMBIE_HORSE:
+					case DONKEY:
+					case MULE:
+					case HORSE:
+					case POLAR_BEAR:
+					case LLAMA:
+						height = 1;
+						width = 1;
+						break;
+					case GUARDIAN:
+					case SQUID:
+					case COD:
+					case SALMON:
+					case PUFFERFISH:
+					case TROPICAL_FISH:
+						water = true;
+						break;
+					case DROWNED:
+					case DOLPHIN:
+						water = true;
+						height = 1;
+						break;
+				}
+			}
+			else
+			{
+				block.setType(Material.CAVE_AIR);
+				world.spawnEntity(block.getLocation(), entity);
+			}
+		}
+	}
+
 
 
 // ---------------------------------------------------------------------
