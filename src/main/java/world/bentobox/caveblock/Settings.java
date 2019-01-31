@@ -662,78 +662,130 @@ public class Settings implements DataObject, WorldSettings
 	}
 
 
+	/**
+	 * This method returns the worldDepth value.
+	 * @return the value of worldDepth.
+	 */
 	public int getWorldDepth()
 	{
 		return worldDepth;
 	}
 
 
+	/**
+	 * This method returns the normalRoof value.
+	 * @return the value of normalRoof.
+	 */
 	public boolean isNormalRoof()
 	{
 		return normalRoof;
 	}
 
 
+	/**
+	 * This method returns the normalFloor value.
+	 * @return the value of normalFloor.
+	 */
 	public boolean isNormalFloor()
 	{
 		return normalFloor;
 	}
 
 
+	/**
+	 * This method returns the normalMainBlock value.
+	 * @return the value of normalMainBlock.
+	 */
 	public Material getNormalMainBlock()
 	{
 		return normalMainBlock;
 	}
 
 
+	/**
+	 * This method returns the normalBlocks value.
+	 * @return the value of normalBlocks.
+	 */
 	public List<String> getNormalBlocks()
 	{
 		return normalBlocks;
 	}
 
 
+	/**
+	 * This method returns the netherFloor value.
+	 * @return the value of netherFloor.
+	 */
 	public boolean isNetherFloor()
 	{
 		return netherFloor;
 	}
 
 
+	/**
+	 * This method returns the netherMainBlock value.
+	 * @return the value of netherMainBlock.
+	 */
 	public Material getNetherMainBlock()
 	{
 		return netherMainBlock;
 	}
 
 
+	/**
+	 * This method returns the netherBlocks value.
+	 * @return the value of netherBlocks.
+	 */
 	public List<String> getNetherBlocks()
 	{
 		return netherBlocks;
 	}
 
 
+	/**
+	 * This method returns the endRoof value.
+	 * @return the value of endRoof.
+	 */
 	public boolean isEndRoof()
 	{
 		return endRoof;
 	}
 
 
+	/**
+	 * This method returns the endFloor value.
+	 * @return the value of endFloor.
+	 */
 	public boolean isEndFloor()
 	{
 		return endFloor;
 	}
 
 
+	/**
+	 * This method returns the endMainBlock value.
+	 * @return the value of endMainBlock.
+	 */
 	public Material getEndMainBlock()
 	{
 		return endMainBlock;
 	}
 
 
+	/**
+	 * This method returns the endBlocks value.
+	 * @return the value of endBlocks.
+	 */
 	public List<String> getEndBlocks()
 	{
 		return endBlocks;
 	}
 
 
+	/**
+	 * This method returns the numberOfBlockGenerationTries value.
+	 * @return the value of numberOfBlockGenerationTries.
+	 */
 	public int getNumberOfBlockGenerationTries()
 	{
 		return numberOfBlockGenerationTries;
@@ -1361,78 +1413,143 @@ public class Settings implements DataObject, WorldSettings
 	}
 
 
+	/**
+	 * This method sets the worldDepth value.
+	 * @param worldDepth the worldDepth new value.
+	 *
+	 */
 	public void setWorldDepth(int worldDepth)
 	{
 		this.worldDepth = worldDepth;
 	}
 
 
+	/**
+	 * This method sets the normalRoof value.
+	 * @param normalRoof the normalRoof new value.
+	 *
+	 */
 	public void setNormalRoof(boolean normalRoof)
 	{
 		this.normalRoof = normalRoof;
 	}
 
 
+	/**
+	 * This method sets the normalFloor value.
+	 * @param normalFloor the normalFloor new value.
+	 *
+	 */
 	public void setNormalFloor(boolean normalFloor)
 	{
 		this.normalFloor = normalFloor;
 	}
 
 
+	/**
+	 * This method sets the normalMainBlock value.
+	 * @param normalMainBlock the normalMainBlock new value.
+	 *
+	 */
 	public void setNormalMainBlock(Material normalMainBlock)
 	{
 		this.normalMainBlock = normalMainBlock;
 	}
 
 
+	/**
+	 * This method sets the normalBlocks value.
+	 * @param normalBlocks the normalBlocks new value.
+	 *
+	 */
 	public void setNormalBlocks(List<String> normalBlocks)
 	{
 		this.normalBlocks = normalBlocks;
 	}
 
 
+	/**
+	 * This method sets the netherFloor value.
+	 * @param netherFloor the netherFloor new value.
+	 *
+	 */
 	public void setNetherFloor(boolean netherFloor)
 	{
 		this.netherFloor = netherFloor;
 	}
 
 
+	/**
+	 * This method sets the netherMainBlock value.
+	 * @param netherMainBlock the netherMainBlock new value.
+	 *
+	 */
 	public void setNetherMainBlock(Material netherMainBlock)
 	{
 		this.netherMainBlock = netherMainBlock;
 	}
 
 
+	/**
+	 * This method sets the netherBlocks value.
+	 * @param netherBlocks the netherBlocks new value.
+	 *
+	 */
 	public void setNetherBlocks(List<String> netherBlocks)
 	{
 		this.netherBlocks = netherBlocks;
 	}
 
 
+	/**
+	 * This method sets the endRoof value.
+	 * @param endRoof the endRoof new value.
+	 *
+	 */
 	public void setEndRoof(boolean endRoof)
 	{
 		this.endRoof = endRoof;
 	}
 
 
+	/**
+	 * This method sets the endFloor value.
+	 * @param endFloor the endFloor new value.
+	 *
+	 */
 	public void setEndFloor(boolean endFloor)
 	{
 		this.endFloor = endFloor;
 	}
 
 
+	/**
+	 * This method sets the endMainBlock value.
+	 * @param endMainBlock the endMainBlock new value.
+	 *
+	 */
 	public void setEndMainBlock(Material endMainBlock)
 	{
 		this.endMainBlock = endMainBlock;
 	}
 
 
+	/**
+	 * This method sets the endBlocks value.
+	 * @param endBlocks the endBlocks new value.
+	 *
+	 */
 	public void setEndBlocks(List<String> endBlocks)
 	{
 		this.endBlocks = endBlocks;
 	}
 
 
+	/**
+	 * This method sets the numberOfBlockGenerationTries value.
+	 * @param numberOfBlockGenerationTries the numberOfBlockGenerationTries new value.
+	 *
+	 */
 	public void setNumberOfBlockGenerationTries(int numberOfBlockGenerationTries)
 	{
 		this.numberOfBlockGenerationTries = numberOfBlockGenerationTries;
@@ -1548,9 +1665,15 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigEntry(path = "world.normal.main-block", needsReset = true)
 	private Material normalMainBlock = Material.STONE;
 
-	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
-	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
-	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
+	@ConfigComment("Blocks that will occasionally replace main block by random chance.")
+	@ConfigComment("Blocks will replace only main-block and will try to create packs that")
+	@ConfigComment("are set in their strings. Chance of spawning also is required.")
+	@ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
+	@ConfigComment("Entities spawned via generator are not protected from despawing.")
+	@ConfigComment("Working only with 2 high mobs currently.")
+	@ConfigComment("Example:")
+	@ConfigComment("MATERIAL:DIAMOND:100:5 - means there is 100% chace of spawing diamonds")
+	@ConfigComment("where max amount in pack are 5 per each subchunk!")
 	@ConfigEntry(path = "world.normal.blocks", needsReset = true)
 	private List<String> normalBlocks = new ArrayList<>();
 
@@ -1591,9 +1714,15 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigEntry(path = "world.nether.main-block", needsReset = true)
 	private Material netherMainBlock = Material.STONE;
 
-	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
-	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
-	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
+	@ConfigComment("Blocks that will occasionally replace main block by random chance.")
+	@ConfigComment("Blocks will replace only main-block and will try to create packs that")
+	@ConfigComment("are set in their strings. Chance of spawning also is required.")
+	@ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
+	@ConfigComment("Entities spawned via generator are not protected from despawing.")
+	@ConfigComment("Working only with 2 high mobs currently.")
+	@ConfigComment("Example:")
+	@ConfigComment("MATERIAL:DIAMOND:100:5 - means there is 100% chace of spawing diamonds")
+	@ConfigComment("where max amount in pack are 5 per each subchunk!")
 	@ConfigEntry(path = "world.nether.blocks", needsReset = true)
 	private List<String> netherBlocks = new ArrayList<>();
 
@@ -1619,9 +1748,15 @@ public class Settings implements DataObject, WorldSettings
 	@ConfigEntry(path = "world.end.main-block", needsReset = true)
 	private Material endMainBlock = Material.STONE;
 
-	@ConfigComment("Rare blocks that will be randomly placed around world. 1-material, 2-rarity, 3-pack size")
-	@ConfigComment("F.E. DIAMOND_ORE:1:3 means that diamond has ~0.1% chance being spawned and max of 3 blocks.")
-	@ConfigComment("Rarity index can be over 100. It will be summed and rarity for block will be BLOCK_RARITY/RARITY_SUM * 10.")
+	@ConfigComment("Blocks that will occasionally replace main block by random chance.")
+	@ConfigComment("Blocks will replace only main-block and will try to create packs that")
+	@ConfigComment("are set in their strings. Chance of spawning also is required.")
+	@ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
+	@ConfigComment("Entities spawned via generator are not protected from despawing.")
+	@ConfigComment("Working only with 2 high mobs currently.")
+	@ConfigComment("Example:")
+	@ConfigComment("MATERIAL:DIAMOND:100:5 - means there is 100% chace of spawing diamonds")
+	@ConfigComment("where max amount in pack are 5 per each subchunk!")
 	@ConfigEntry(path = "world.end.blocks", needsReset = true)
 	private List<String> endBlocks = new ArrayList<>();
 
