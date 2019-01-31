@@ -64,7 +64,7 @@ public class EntitiesPopulator extends BlockPopulator
 
 		for (Map.Entry<EntityType, Pair<Integer, Integer>> entry : entityChanceMap.entrySet())
 		{
-			for (int subY = 1; subY < worldHeight; subY += 16)
+			for (int subY = 0; subY < worldHeight; subY += 16)
 			{
 				for (int tries = 0; tries < generationTry; tries++)
 				{
@@ -72,7 +72,7 @@ public class EntitiesPopulator extends BlockPopulator
 					{
 						int x = random.nextInt(15);
 						int z = random.nextInt(15);
-						int y = subY + random.nextInt(15);
+						int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
 
 						this.tryToPlaceEntity(world, chunk.getBlock(x, y, z), entry.getKey(), x, z, mainMaterial);
 					}
