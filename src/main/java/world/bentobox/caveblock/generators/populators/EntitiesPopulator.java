@@ -134,7 +134,17 @@ public class EntitiesPopulator extends BlockPopulator
 	}
 
 
-
+	/**
+	 * This method is not completed. It must reserve space for entities to spawn, but
+	 * current implementation just allows to spawn 2 high mobs that can be in single
+	 * place.
+	 * @param world - World were mob must be spawned.
+ 	 * @param block - Block that was choosed by random.
+	 * @param entity - Entity that must be spawned.
+	 * @param x - ChunkX coordinate.
+	 * @param z - ChunkY coordinate.
+	 * @param originalMaterial - replacement manterial.
+	 */
 	private void tryToPlaceEntity(World world, Block block, EntityType entity, int x, int z, Material originalMaterial)
 	{
 		if (this.isValidBlock(world, block, x, z) && block.getType().equals(originalMaterial))
@@ -209,6 +219,28 @@ public class EntitiesPopulator extends BlockPopulator
 						water = true;
 						height = 1;
 						break;
+				}
+
+				Block otherBlock = world.getBlockAt(block.getX(), block.getY() + 1, block.getZ());
+
+				if (!otherBlock.getType().equals(originalMaterial))
+				{
+					otherBlock = world.getBlockAt(block.getX(), block.getY() - 1, block.getZ());
+				}
+
+				if (otherBlock.getType().equals(originalMaterial))
+				{
+					block.setType(Material.CAVE_AIR);
+					otherBlock.setType(Material.CAVE_AIR);
+
+					if (otherBlock.getY() < block.getY())
+					{
+						world.spawnEntity(otherBlock.getLocation(), entity);
+					}
+					else
+					{
+						world.spawnEntity(block.getLocation(), entity);
+					}
 				}
 			}
 			else
