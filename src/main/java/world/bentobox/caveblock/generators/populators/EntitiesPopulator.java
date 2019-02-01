@@ -221,25 +221,28 @@ public class EntitiesPopulator extends BlockPopulator
 						break;
 				}
 
-				Block otherBlock = world.getBlockAt(block.getX(), block.getY() + 1, block.getZ());
-
-				if (!otherBlock.getType().equals(originalMaterial))
+				if (block.getY() > 1 && block.getY() < world.getMaxHeight() - 2)
 				{
-					otherBlock = world.getBlockAt(block.getX(), block.getY() - 1, block.getZ());
-				}
+					Block otherBlock = world.getBlockAt(block.getX(), block.getY() + 1, block.getZ());
 
-				if (otherBlock.getType().equals(originalMaterial))
-				{
-					block.setType(Material.CAVE_AIR);
-					otherBlock.setType(Material.CAVE_AIR);
-
-					if (otherBlock.getY() < block.getY())
+					if (!otherBlock.getType().equals(originalMaterial))
 					{
-						world.spawnEntity(otherBlock.getLocation(), entity);
+						otherBlock = world.getBlockAt(block.getX(), block.getY() - 1, block.getZ());
 					}
-					else
+
+					if (otherBlock.getType().equals(originalMaterial))
 					{
-						world.spawnEntity(block.getLocation(), entity);
+						block.setType(Material.CAVE_AIR);
+						otherBlock.setType(Material.CAVE_AIR);
+
+						if (otherBlock.getY() < block.getY())
+						{
+							world.spawnEntity(otherBlock.getLocation(), entity);
+						}
+						else
+						{
+							world.spawnEntity(block.getLocation(), entity);
+						}
 					}
 				}
 			}
