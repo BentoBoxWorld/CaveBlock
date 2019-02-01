@@ -66,7 +66,7 @@ public class MaterialPopulator extends BlockPopulator
 
 		for (Map.Entry<Material, Pair<Integer, Integer>> entry : materialChanceMap.entrySet())
 		{
-			for (int subY = 1; subY < worldHeight; subY += 16)
+			for (int subY = 0; subY < worldHeight; subY += 16)
 			{
 				for (int tries = 0; tries < generationTry; tries++)
 				{
@@ -74,7 +74,7 @@ public class MaterialPopulator extends BlockPopulator
 					{
 						int x = random.nextInt(15);
 						int z =  random.nextInt(15);
-						int y = subY + random.nextInt(16);
+						int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
 
 						Block block = chunk.getBlock(x, y, z);
 
@@ -100,7 +100,7 @@ public class MaterialPopulator extends BlockPopulator
 										x = Math.min(15, x + 1);
 										break;
 									case 1:
-										y = Math.min(worldHeight - 1, y + 1);
+										y = Math.min(worldHeight - 2, y + 1);
 										break;
 									case 2:
 										z = Math.min(15, z + 1);
@@ -109,7 +109,7 @@ public class MaterialPopulator extends BlockPopulator
 										x = Math.max(0, x - 1);
 										break;
 									case 4:
-										y = Math.max(0, y - 1);
+										y = Math.max(1, y - 1);
 										break;
 									case 5:
 										z = Math.max(0, z - 1);
