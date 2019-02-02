@@ -240,10 +240,12 @@ public class EntitiesPopulator extends BlockPopulator
 
                     if (otherBlock.getY() < block.getY())
                     {
+                        addon.log("DEBUG: spawning " + entity.toString() + " at " + otherBlock.getLocation());
                         world.spawnEntity(otherBlock.getLocation(), entity);
                     }
                     else
                     {
+                        addon.log("DEBUG: spawning " + entity.toString() + " at " + block.getLocation());
                         world.spawnEntity(block.getLocation(), entity);
                     }
                 }
@@ -252,6 +254,7 @@ public class EntitiesPopulator extends BlockPopulator
             {
                 block.setType(Material.CAVE_AIR);
                 world.spawnEntity(block.getLocation(), entity);
+                addon.log("DEBUG: spawning " + entity.toString() + " at " + block.getLocation());
             }
         }
     }
