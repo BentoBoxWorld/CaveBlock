@@ -57,8 +57,6 @@ world:
   # This is cave... no height... only depth. Max 256.
   # Should not be less then island height.
   world-depth: 256
-  # This indicate how many times block should be tried to generate.
-  generation-tries: 2
   normal:
     #
     # Make over world roof of bedrock, if false, it will be made from stone
@@ -88,6 +86,9 @@ world:
     - MATERIAL:GRANITE:20:10
     - MATERIAL:ANDESITE:20:10
     - MATERIAL:DIORITE:30:8
+    - ENTITY:ZOMBIE:1:1
+    - ENTITY:DROWNED:1:1
+    - ENTITY:TROPICAL_FISH:1:1
   nether:
     # Generate Nether - if this is false, the nether world will not be made and access to
     # the nether will not occur. Other plugins may still enable portal usage.

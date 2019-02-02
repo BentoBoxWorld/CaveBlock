@@ -1,6 +1,7 @@
 package world.bentobox.caveblock.generators.populators;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.generator.BlockPopulator;
 
@@ -28,8 +30,6 @@ public class EntitiesPopulator extends BlockPopulator
 {
 
     private Map<Environment, Chances> chances;
-
-    private final int generationTry;
 
     private int worldHeight;
 
@@ -51,7 +51,6 @@ public class EntitiesPopulator extends BlockPopulator
         // End
         chances.put(Environment.THE_END, new Chances(this.getEntityMap(this.settings.getEndBlocks()), this.settings.getEndMainBlock()));
         // Other settings
-        generationTry = this.settings.getNumberOfBlockGenerationTries();
         worldHeight = this.settings.getWorldDepth() - 1;
     }
 
@@ -69,16 +68,13 @@ public class EntitiesPopulator extends BlockPopulator
         {
             for (int subY = 0; subY < worldHeight; subY += 16)
             {
-                for (int tries = 0; tries < generationTry; tries++)
+                if (random.nextInt(100) < entry.getValue().x)
                 {
-                    if (random.nextInt(100) < entry.getValue().x)
-                    {
-                        int x = random.nextInt(15);
-                        int z = random.nextInt(15);
-                        int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
-
-                        this.tryToPlaceEntity(world, chunk.getBlock(x, y, z), entry.getKey(), x, z, chances.get(world.getEnvironment()).mainMaterial);
-                    }
+                    // Do not pick blocks at edge of chunk
+                    int x = random.nextInt(13)+2;
+                    int z = random.nextInt(13)+2;
+                    int y = Math.min(worldHeight - 3, subY + random.nextInt(15));
+                    this.tryToPlaceEntity(world, chunk.getBlock(x, y, z), entry.getKey(), chances.get(world.getEnvironment()).mainMaterial);
                 }
             }
         }
@@ -120,142 +116,29 @@ public class EntitiesPopulator extends BlockPopulator
 
 
     /**
-     * This method checks if all chunks around given block is generated.
-     * @param world World in which block is located
-     * @param block Block that must be checked.
-     * @param x Block x-index in chunk
-     * @param z Block z-index in chunk
-     * @return true, if all chunks around given block are generated.
-     */
-    private boolean isValidBlock(World world, Block block, int x, int z)
-    {
-        return x > 0 && x < 15 && z > 0 && z < 15 ||
-                world.isChunkGenerated(block.getX() + 1, block.getZ()) &&
-                world.isChunkGenerated(block.getX() - 1, block.getZ()) &&
-                world.isChunkGenerated(block.getX(), block.getZ() - 1) &&
-                world.isChunkGenerated(block.getX(), block.getZ() + 1);
-    }
-
-
-    /**
      * This method is not completed. It must reserve space for entities to spawn, but
      * current implementation just allows to spawn 2 high mobs that can be in single
      * place.
      * @param world - World were mob must be spawned.
-     * @param block - Block that was choosed by random.
+     * @param block - Block that was chosen by random.
      * @param entity - Entity that must be spawned.
-     * @param x - ChunkX coordinate.
-     * @param z - ChunkY coordinate.
-     * @param originalMaterial - replacement manterial.
+     * @param originalMaterial - material to be replaced
      */
-    private void tryToPlaceEntity(World world, Block block, EntityType entity, int x, int z, Material originalMaterial)
+    private void tryToPlaceEntity(World world, Block block, EntityType entity, Material originalMaterial)
     {
-        if (this.isValidBlock(world, block, x, z) && block.getType().equals(originalMaterial))
+        space.clear();
+        space.add(block);
+        space.add(block.getRelative(BlockFace.UP));
+        space.add(block.getRelative(BlockFace.WEST));
+        space.add(block.getRelative(BlockFace.UP).getRelative(BlockFace.WEST));
+        space.add(block.getRelative(BlockFace.NORTH));
+        space.add(block.getRelative(BlockFace.UP).getRelative(BlockFace.NORTH));
+        space.add(block.getRelative(BlockFace.NORTH_WEST));
+        space.add(block.getRelative(BlockFace.UP).getRelative(BlockFace.NORTH_WEST));
+        if (space.stream().allMatch(b -> b.getType().equals(originalMaterial)))
         {
-            if (entity.isAlive())
-            {
-                int height = 0;
-                int width = 0;
-                int length = 0;
-                boolean water = false;
-
-                switch (entity)
-                {
-                case SPIDER:
-                    width = 1;
-                    length = 1;
-                    break;
-                case SLIME:
-                case ELDER_GUARDIAN:
-                case GHAST:
-                case MAGMA_CUBE:
-                case WITHER:
-                    height = 2;
-                    width = 2;
-                    length = 2;
-                    break;
-                case ENDERMAN:
-                case IRON_GOLEM:
-                    height = 2;
-                    break;
-                case WITHER_SKELETON:
-                case STRAY:
-                case HUSK:
-                case ZOMBIE_VILLAGER:
-                case EVOKER:
-                case VINDICATOR:
-                case ILLUSIONER:
-                case CREEPER:
-                case SKELETON:
-                case ZOMBIE:
-                case BLAZE:
-                case SNOWMAN:
-                case VILLAGER:
-                case PIG_ZOMBIE:
-                case WITCH:
-                case SHULKER:
-                case SHEEP:
-                case COW:
-                case MUSHROOM_COW:
-                    height = 12;
-                    break;
-                case SKELETON_HORSE:
-                case ZOMBIE_HORSE:
-                case DONKEY:
-                case MULE:
-                case HORSE:
-                case POLAR_BEAR:
-                case LLAMA:
-                    height = 1;
-                    width = 1;
-                    break;
-                case GUARDIAN:
-                case SQUID:
-                case COD:
-                case SALMON:
-                case PUFFERFISH:
-                case TROPICAL_FISH:
-                    water = true;
-                    break;
-                case DROWNED:
-                case DOLPHIN:
-                    water = true;
-                    height = 1;
-                    break;
-                default:
-                    break;
-                }
-
-                Block otherBlock = world.getBlockAt(block.getX(), block.getY() + 1, block.getZ());
-
-                if (!otherBlock.getType().equals(originalMaterial))
-                {
-                    otherBlock = world.getBlockAt(block.getX(), block.getY() - 1, block.getZ());
-                }
-
-                if (otherBlock.getType().equals(originalMaterial))
-                {
-                    block.setType(Material.CAVE_AIR);
-                    otherBlock.setType(Material.CAVE_AIR);
-
-                    if (otherBlock.getY() < block.getY())
-                    {
-                        addon.log("DEBUG: spawning " + entity.toString() + " at " + otherBlock.getLocation());
-                        world.spawnEntity(otherBlock.getLocation(), entity);
-                    }
-                    else
-                    {
-                        addon.log("DEBUG: spawning " + entity.toString() + " at " + block.getLocation());
-                        world.spawnEntity(block.getLocation(), entity);
-                    }
-                }
-            }
-            else
-            {
-                block.setType(Material.CAVE_AIR);
-                world.spawnEntity(block.getLocation(), entity);
-                addon.log("DEBUG: spawning " + entity.toString() + " at " + block.getLocation());
-            }
+            space.forEach(b -> b.setType(WATER_ENTITIES.contains(entity) ? Material.WATER : Material.CAVE_AIR));
+            world.spawnEntity(block.getLocation().add(0.5, 0, 0.5), entity);
         }
     }
 
@@ -269,6 +152,17 @@ public class EntitiesPopulator extends BlockPopulator
      * CaveBlock addon.
      */
     private CaveBlock addon;
+
+    List<Block> space = new ArrayList<>();
+
+    private final static List<EntityType> WATER_ENTITIES = Arrays.asList(EntityType.GUARDIAN,
+            EntityType.SQUID,
+            EntityType.COD,
+            EntityType.SALMON,
+            EntityType.PUFFERFISH,
+            EntityType.TROPICAL_FISH,
+            EntityType.DROWNED,
+            EntityType.DOLPHIN);
 
     /**
      * CaveBlock settings.

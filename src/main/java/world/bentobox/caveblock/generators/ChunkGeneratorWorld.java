@@ -117,6 +117,9 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         // Create ores
         generateOres(world, random, result, maxHeight);
 
+        // Create space
+        result.setRegion(5, 5, 5, 5, 7, 5, Material.CAVE_AIR);
+
         return result;
     }
 

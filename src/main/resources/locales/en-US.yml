@@ -221,7 +221,7 @@ caveblock:
           &aif they are falling.
         hint: "&cYou cannot teleport while you are falling!"
     locked: "&cThis cave is locked!"
-    protected: "&ccave protected: [description]"
+    protected: "&cCave protected: [description]"
 
     panel:
       PROTECTION:
