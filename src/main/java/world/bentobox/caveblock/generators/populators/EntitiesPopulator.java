@@ -13,26 +13,22 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.generator.BlockPopulator;
+import org.bukkit.util.BoundingBox;
 
 import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
-import world.bentobox.caveblock.Settings;
 
 
 /**
- * This class populates generated chunk with enitites by random chance.
+ * This class populates generated chunk with entites by random chance.
  */
 public class EntitiesPopulator extends BlockPopulator
 {
-
-    private Map<Environment, Chances> chances;
-
-    private final int generationTry;
-
-    private int worldHeight;
-
 
     /**
      * This is default constructor
@@ -41,18 +37,21 @@ public class EntitiesPopulator extends BlockPopulator
     public EntitiesPopulator(CaveBlock addon)
     {
         this.addon = addon;
-        this.settings = addon.getSettings();
+        loadSettings();
+    }
+
+
+    public void loadSettings() {
         // Set up chances
         chances = new HashMap<>();
         // Normal
-        chances.put(Environment.NORMAL, new Chances(this.getEntityMap(this.settings.getNormalBlocks()), this.settings.getNormalMainBlock()));
+        chances.put(Environment.NORMAL, new Chances(this.getEntityMap(addon.getSettings().getNormalBlocks()), addon.getSettings().getNormalMainBlock()));
         // Nether
-        chances.put(Environment.NETHER, new Chances(this.getEntityMap(this.settings.getNetherBlocks()), this.settings.getNetherMainBlock()));
+        chances.put(Environment.NETHER, new Chances(this.getEntityMap(addon.getSettings().getNetherBlocks()), addon.getSettings().getNetherMainBlock()));
         // End
-        chances.put(Environment.THE_END, new Chances(this.getEntityMap(this.settings.getEndBlocks()), this.settings.getEndMainBlock()));
+        chances.put(Environment.THE_END, new Chances(this.getEntityMap(addon.getSettings().getEndBlocks()), addon.getSettings().getEndMainBlock()));
         // Other settings
-        generationTry = this.settings.getNumberOfBlockGenerationTries();
-        worldHeight = this.settings.getWorldDepth() - 1;
+        worldHeight = addon.getSettings().getWorldDepth() - 1;
     }
 
 
@@ -65,20 +64,16 @@ public class EntitiesPopulator extends BlockPopulator
     @Override
     public void populate(World world, Random random, Chunk chunk)
     {
-        for (Map.Entry<EntityType, Pair<Integer, Integer>> entry : chances.get(world.getEnvironment()).entityChanceMap.entrySet())
+        for (Map.Entry<EntityType, Pair<Double, Integer>> entry : chances.get(world.getEnvironment()).entityChanceMap.entrySet())
         {
             for (int subY = 0; subY < worldHeight; subY += 16)
             {
-                for (int tries = 0; tries < generationTry; tries++)
+                // Use double so chance can be < 1
+                if (random.nextDouble() * 100 < entry.getValue().x)
                 {
-                    if (random.nextInt(100) < entry.getValue().x)
-                    {
-                        int x = random.nextInt(15);
-                        int z = random.nextInt(15);
-                        int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
-
-                        this.tryToPlaceEntity(world, chunk.getBlock(x, y, z), entry.getKey(), x, z, chances.get(world.getEnvironment()).mainMaterial);
-                    }
+                    int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
+                    // Spawn only in middle of chunk because bounding box will grow out from here
+                    this.tryToPlaceEntity(world, chunk.getBlock(7, y, 7), entry.getKey(), chances.get(world.getEnvironment()).mainMaterial);
                 }
             }
         }
@@ -90,9 +85,9 @@ public class EntitiesPopulator extends BlockPopulator
      * @param objectList List with objects that contains data.
      * @return Map that contains entity, its rarity and pack size.
      */
-    private Map<EntityType, Pair<Integer, Integer>> getEntityMap(List<String> objectList)
+    private Map<EntityType, Pair<Double, Integer>> getEntityMap(List<String> objectList)
     {
-        Map<EntityType, Pair<Integer, Integer>> entityMap = new HashMap<>(objectList.size());
+        Map<EntityType, Pair<Double, Integer>> entityMap = new HashMap<>(objectList.size());
 
         Map<String, EntityType> entityTypeMap = Arrays.stream(EntityType.values()).
                 collect(Collectors.toMap(Enum::name,
@@ -111,147 +106,52 @@ public class EntitiesPopulator extends BlockPopulator
             if (entity != null)
             {
                 entityMap.put(entity,
-                        new Pair<>(Integer.parseInt(splitString[2]), Integer.parseInt(splitString[3])));
+                        new Pair<>(Double.parseDouble(splitString[2]), Integer.parseInt(splitString[3])));
             }
         });
 
         return entityMap;
     }
 
-
     /**
-     * This method checks if all chunks around given block is generated.
-     * @param world World in which block is located
-     * @param block Block that must be checked.
-     * @param x Block x-index in chunk
-     * @param z Block z-index in chunk
-     * @return true, if all chunks around given block are generated.
-     */
-    private boolean isValidBlock(World world, Block block, int x, int z)
-    {
-        return x > 0 && x < 15 && z > 0 && z < 15 ||
-                world.isChunkGenerated(block.getX() + 1, block.getZ()) &&
-                world.isChunkGenerated(block.getX() - 1, block.getZ()) &&
-                world.isChunkGenerated(block.getX(), block.getZ() - 1) &&
-                world.isChunkGenerated(block.getX(), block.getZ() + 1);
-    }
-
-
-    /**
-     * This method is not completed. It must reserve space for entities to spawn, but
-     * current implementation just allows to spawn 2 high mobs that can be in single
-     * place.
+     * Places entities if there is room for them.
      * @param world - World were mob must be spawned.
-     * @param block - Block that was choosed by random.
+     * @param block - Block that was chosen by random.
      * @param entity - Entity that must be spawned.
-     * @param x - ChunkX coordinate.
-     * @param z - ChunkY coordinate.
-     * @param originalMaterial - replacement manterial.
+     * @param originalMaterial - replacement material.
      */
-    private void tryToPlaceEntity(World world, Block block, EntityType entity, int x, int z, Material originalMaterial)
+    private void tryToPlaceEntity(World world, Block block, EntityType entity, Material originalMaterial)
     {
-        if (this.isValidBlock(world, block, x, z) && block.getType().equals(originalMaterial))
-        {
-            if (entity.isAlive())
-            {
-                int height = 0;
-                int width = 0;
-                int length = 0;
-                boolean water = false;
-
-                switch (entity)
-                {
-                case SPIDER:
-                    width = 1;
-                    length = 1;
-                    break;
-                case SLIME:
-                case ELDER_GUARDIAN:
-                case GHAST:
-                case MAGMA_CUBE:
-                case WITHER:
-                    height = 2;
-                    width = 2;
-                    length = 2;
-                    break;
-                case ENDERMAN:
-                case IRON_GOLEM:
-                    height = 2;
-                    break;
-                case WITHER_SKELETON:
-                case STRAY:
-                case HUSK:
-                case ZOMBIE_VILLAGER:
-                case EVOKER:
-                case VINDICATOR:
-                case ILLUSIONER:
-                case CREEPER:
-                case SKELETON:
-                case ZOMBIE:
-                case BLAZE:
-                case SNOWMAN:
-                case VILLAGER:
-                case PIG_ZOMBIE:
-                case WITCH:
-                case SHULKER:
-                case SHEEP:
-                case COW:
-                case MUSHROOM_COW:
-                    height = 12;
-                    break;
-                case SKELETON_HORSE:
-                case ZOMBIE_HORSE:
-                case DONKEY:
-                case MULE:
-                case HORSE:
-                case POLAR_BEAR:
-                case LLAMA:
-                    height = 1;
-                    width = 1;
-                    break;
-                case GUARDIAN:
-                case SQUID:
-                case COD:
-                case SALMON:
-                case PUFFERFISH:
-                case TROPICAL_FISH:
-                    water = true;
-                    break;
-                case DROWNED:
-                case DOLPHIN:
-                    water = true;
-                    height = 1;
-                    break;
-                default:
-                    break;
-                }
-
-                Block otherBlock = world.getBlockAt(block.getX(), block.getY() + 1, block.getZ());
-
-                if (!otherBlock.getType().equals(originalMaterial))
-                {
-                    otherBlock = world.getBlockAt(block.getX(), block.getY() - 1, block.getZ());
-                }
-
-                if (otherBlock.getType().equals(originalMaterial))
-                {
-                    block.setType(Material.CAVE_AIR);
-                    otherBlock.setType(Material.CAVE_AIR);
-
-                    if (otherBlock.getY() < block.getY())
-                    {
-                        world.spawnEntity(otherBlock.getLocation(), entity);
-                    }
-                    else
-                    {
-                        world.spawnEntity(block.getLocation(), entity);
-                    }
-                }
+        if (block.getType().equals(originalMaterial)) {
+            // Spawn entity
+            Entity e = world.spawnEntity(block.getLocation().add(0.5, 0, 0.5), entity);
+            if (e instanceof LivingEntity) {
+                // Do not despawn
+                ((LivingEntity)e).setRemoveWhenFarAway(false);
             }
-            else
-            {
-                block.setType(Material.CAVE_AIR);
-                world.spawnEntity(block.getLocation(), entity);
+            // Make space for entity based on the entity's size
+            BoundingBox bb = e.getBoundingBox();
+            for (int x = (int) bb.getMinX(); x < bb.getMaxX(); x++) {
+                for (int z = (int) bb.getMinZ(); z < bb.getMaxZ(); z++) {
+                    int y = (int) bb.getMinY();
+                    Block b = world.getBlockAt(x, y, z);
+                    for (; y < bb.getMaxY(); y++) {
+                        if (addon.getSettings().isDebug()) {
+                            addon.log("DEBUG: Entity spawn: " + world.getName() + " " + x + " " + y + " " + z + " " + e.getType());
+                        }
+                        b = world.getBlockAt(x, y, z);
+                        if (!b.getType().equals(originalMaterial)) {
+                            // Cannot place entity
+                            e.remove();
+                            return;
+                        }
+                        b.setType(WATER_ENTITIES.contains(entity) ? Material.WATER : Material.CAVE_AIR);
+                    }
+                    // Add air block on top for all water entities (required for dolphin, okay for others)
+                    if (WATER_ENTITIES.contains(entity) && b.getRelative(BlockFace.UP).getType().equals(originalMaterial)) {
+                        b.getRelative(BlockFace.UP).setType(Material.CAVE_AIR);
+                    }
+                }
             }
         }
     }
@@ -267,24 +167,32 @@ public class EntitiesPopulator extends BlockPopulator
      */
     private CaveBlock addon;
 
-    /**
-     * CaveBlock settings.
-     */
-    private Settings settings;
+    private Map<Environment, Chances> chances;
+
+    private int worldHeight;
+
+    private final static List<EntityType> WATER_ENTITIES = Arrays.asList(EntityType.GUARDIAN,
+            EntityType.SQUID,
+            EntityType.COD,
+            EntityType.SALMON,
+            EntityType.PUFFERFISH,
+            EntityType.TROPICAL_FISH,
+            EntityType.DROWNED,
+            EntityType.DOLPHIN);
 
     /**
      * Chances class to store chances for environments and main material
      *
      */
     private class Chances {
-        final Map<EntityType, Pair<Integer, Integer>> entityChanceMap;
+        final Map<EntityType, Pair<Double, Integer>> entityChanceMap;
         final Material mainMaterial;
 
         /**
          * @param materialChanceMap
          * @param mainMaterial
          */
-        public Chances(Map<EntityType, Pair<Integer, Integer>> entityChanceMap, Material mainMaterial) {
+        public Chances(Map<EntityType, Pair<Double, Integer>> entityChanceMap, Material mainMaterial) {
             this.entityChanceMap = entityChanceMap;
             this.mainMaterial = mainMaterial;
         }
