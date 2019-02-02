@@ -16,7 +16,6 @@ import org.bukkit.generator.BlockPopulator;
 
 import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
-import world.bentobox.caveblock.Settings;
 
 
 /**
@@ -24,11 +23,6 @@ import world.bentobox.caveblock.Settings;
  */
 public class MaterialPopulator extends BlockPopulator
 {
-    private Map<Environment, Chances> chances;
-
-    private final int generationTry;
-
-    private int worldHeight;
 
     /**
      * This is default constructor
@@ -37,19 +31,25 @@ public class MaterialPopulator extends BlockPopulator
     public MaterialPopulator(CaveBlock addon)
     {
         this.addon = addon;
-        this.settings = addon.getSettings();
+        // Load settings
+        loadSettings();
+    }
+
+
+    /**
+     * Loads chances for Material Populator
+     */
+    public void loadSettings() {
         // Set up chances
         chances = new HashMap<>();
         // Normal
-        chances.put(Environment.NORMAL, new Chances(this.getMaterialMap(this.settings.getNormalBlocks()), this.settings.getNormalMainBlock()));
+        chances.put(Environment.NORMAL, new Chances(this.getMaterialMap(addon.getSettings().getNormalBlocks()), addon.getSettings().getNormalMainBlock()));
         // Nether
-        chances.put(Environment.NETHER, new Chances(this.getMaterialMap(this.settings.getNetherBlocks()), this.settings.getNetherMainBlock()));
+        chances.put(Environment.NETHER, new Chances(this.getMaterialMap(addon.getSettings().getNetherBlocks()), addon.getSettings().getNetherMainBlock()));
         // End
-        chances.put(Environment.THE_END, new Chances(this.getMaterialMap(this.settings.getEndBlocks()), this.settings.getEndMainBlock()));
+        chances.put(Environment.THE_END, new Chances(this.getMaterialMap(addon.getSettings().getEndBlocks()), addon.getSettings().getEndMainBlock()));
         // Other settings
-        generationTry = this.settings.getNumberOfBlockGenerationTries();
-        worldHeight = this.settings.getWorldDepth() - 1;
-
+        worldHeight = addon.getSettings().getWorldDepth() - 1;
     }
 
 
@@ -62,65 +62,67 @@ public class MaterialPopulator extends BlockPopulator
     @Override
     public void populate(World world, Random random, Chunk chunk)
     {
-        for (Map.Entry<Material, Pair<Integer, Integer>> entry : chances.get(world.getEnvironment()).materialChanceMap.entrySet())
+        for (Map.Entry<Material, Pair<Double, Integer>> entry : chances.get(world.getEnvironment()).materialChanceMap.entrySet())
         {
-            for (int subY = 0; subY < worldHeight; subY += 16)
+            for (int subY = 1; subY < worldHeight; subY += 16)
             {
-                for (int tries = 0; tries < generationTry; tries++)
+                if (random.nextDouble() * 100 < entry.getValue().x)
                 {
-                    if (random.nextInt(100) < entry.getValue().x)
+
+                    // Blocks must be 1 away from edge to avoid adjacent chunk loading
+                    int x = random.nextInt(13) + 1;
+                    int z =  random.nextInt(13) + 1;
+                    int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
+                    /*
+                     * TODO: remove
+                    if (addon.getSettings().isDebug()) {
+                        addon.log("DEBUG: Material: " + world.getName() + " " + x + " " + y + " " + z + " " + entry.getKey());
+                    }
+                     */
+                    Block block = chunk.getBlock(x, y, z);
+
+                    if (block.getType().equals(chances.get(world.getEnvironment()).mainMaterial))
                     {
-                        int x = random.nextInt(15);
-                        int z =  random.nextInt(15);
-                        int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
+                        int packSize = random.nextInt(entry.getValue().z);
 
-                        Block block = chunk.getBlock(x, y, z);
+                        boolean continuePlacing = true;
 
-                        if (block.getType().equals(chances.get(world.getEnvironment()).mainMaterial) &&
-                                this.isValidBlock(world, block, x, z))
+                        while (continuePlacing)
                         {
-                            int packSize = random.nextInt(entry.getValue().z);
-
-                            boolean continuePlacing = true;
-
-                            while (continuePlacing)
+                            if (!block.getType().equals(entry.getKey()))
                             {
-                                if (!block.getType().equals(entry.getKey()))
-                                {
-                                    block.setType(entry.getKey());
-                                    packSize--;
-                                }
-
-                                // The direction chooser
-                                switch (random.nextInt(5))
-                                {
-                                case 0:
-                                    x = Math.min(15, x + 1);
-                                    break;
-                                case 1:
-                                    y = Math.min(worldHeight - 2, y + 1);
-                                    break;
-                                case 2:
-                                    z = Math.min(15, z + 1);
-                                    break;
-                                case 3:
-                                    x = Math.max(0, x - 1);
-                                    break;
-                                case 4:
-                                    y = Math.max(1, y - 1);
-                                    break;
-                                case 5:
-                                    z = Math.max(0, z - 1);
-                                    break;
-                                }
-
-                                block = chunk.getBlock(x, y, z);
-
-                                continuePlacing = this.isValidBlock(world, block, x, z) &&
-                                        packSize > 0 &&
-                                        (block.getType().equals(chances.get(world.getEnvironment()).mainMaterial) ||
-                                                block.getType().equals(entry.getKey()));
+                                block.setType(entry.getKey());
+                                packSize--;
                             }
+
+                            // The direction chooser
+                            switch (random.nextInt(5))
+                            {
+                            case 0:
+                                x = Math.min(15, x + 1);
+                                break;
+                            case 1:
+                                y = Math.min(worldHeight - 2, y + 1);
+                                break;
+                            case 2:
+                                z = Math.min(15, z + 1);
+                                break;
+                            case 3:
+                                x = Math.max(0, x - 1);
+                                break;
+                            case 4:
+                                y = Math.max(1, y - 1);
+                                break;
+                            case 5:
+                                z = Math.max(0, z - 1);
+                                break;
+                            }
+
+                            block = chunk.getBlock(x, y, z);
+
+                            continuePlacing = packSize > 0 &&
+                                    (block.getType().equals(chances.get(world.getEnvironment()).mainMaterial) ||
+                                            block.getType().equals(entry.getKey()));
                         }
                     }
                 }
@@ -128,33 +130,14 @@ public class MaterialPopulator extends BlockPopulator
         }
     }
 
-
-    /**
-     * This method checks if all chunks around given block is generated.
-     * @param world World in which block is located
-     * @param block Block that must be checked.
-     * @param x Block x-index in chunk
-     * @param z Block z-index in chunk
-     * @return true, if all chunks around given block are generated.
-     */
-    private boolean isValidBlock(World world, Block block, int x, int z)
-    {
-        return x > 0 && x < 15 && z > 0 && z < 15 ||
-                world.isChunkGenerated(block.getX() + 1, block.getZ()) &&
-                world.isChunkGenerated(block.getX() - 1, block.getZ()) &&
-                world.isChunkGenerated(block.getX(), block.getZ() - 1) &&
-                world.isChunkGenerated(block.getX(), block.getZ() + 1);
-    }
-
-
     /**
      * This method returns material frequently and pack size map.
      * @param objectList List with objects that contains data.
      * @return Map that contains material, its rarity and pack size.
      */
-    private Map<Material, Pair<Integer, Integer>> getMaterialMap(List<String> objectList)
+    private Map<Material, Pair<Double, Integer>> getMaterialMap(List<String> objectList)
     {
-        Map<Material, Pair<Integer, Integer>> materialMap = new HashMap<>(objectList.size());
+        Map<Material, Pair<Double, Integer>> materialMap = new HashMap<>(objectList.size());
 
         // wrong material object.
         objectList.stream().
@@ -167,7 +150,7 @@ public class MaterialPopulator extends BlockPopulator
             if (material != null)
             {
                 materialMap.put(material,
-                        new Pair<>(Integer.parseInt(splitString[2]), Integer.parseInt(splitString[3])));
+                        new Pair<>(Double.parseDouble(splitString[2]), Integer.parseInt(splitString[3])));
             }
         });
 
@@ -185,25 +168,23 @@ public class MaterialPopulator extends BlockPopulator
      */
     private CaveBlock addon;
 
-    /**
-     * CaveBlock settings.
-     */
-    private Settings settings;
+    private Map<Environment, Chances> chances;
 
+    private int worldHeight;
 
     /**
      * Chances class to store chances for environments and main material
      *
      */
     private class Chances {
-        final Map<Material, Pair<Integer, Integer>> materialChanceMap;
+        final Map<Material, Pair<Double, Integer>> materialChanceMap;
         final Material mainMaterial;
 
         /**
          * @param materialChanceMap
          * @param mainMaterial
          */
-        public Chances(Map<Material, Pair<Integer, Integer>> materialChanceMap, Material mainMaterial) {
+        public Chances(Map<Material, Pair<Double, Integer>> materialChanceMap, Material mainMaterial) {
             this.materialChanceMap = materialChanceMap;
             this.mainMaterial = mainMaterial;
         }

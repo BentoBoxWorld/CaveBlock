@@ -50,6 +50,7 @@ public class CaveBlock extends GameModeAddon
     {
         super.onReload();
         this.loadSettings();
+        this.chunkGenerator.reload();
     }
 
 
