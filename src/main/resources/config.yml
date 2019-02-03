@@ -1,7 +1,7 @@
 # CaveBlock Configuration ${version}
 # This config file is dynamic and saved when the server is shutdown.
-# You cannot edit it while the server is running because changes will
-# be lost! Use in-game settings GUI or edit when server is offline.
+# If you edit it while the server is running use /cbadmin reload
+# otherwise your settings will be lost.
 world:
   # Friendly name for this world. Used in admin commands. Must be a single word
   friendly-name: CaveBlock
@@ -45,17 +45,30 @@ world:
   # The default biome for the overworld
   default-biome: MOUNTAINS
   # The maximum number of players a player can ban at any one time in this game mode.
-  # The permission acidisland.ban.maxlimit.X where X is a number can also be used per player
+  # The permission caveblock.ban.maxlimit.X where X is a number can also be used per player
   # -1 = unlimited
   ban-limit: -1
-  # 
+  #
   # This is cave... no height... only depth. Max 256.
   # Should not be less then island height.
   world-depth: 256
   # This indicate how many times block should be tried to generate.
   generation-tries: 2
+  #
+  # Allows to walk over the world roof.
+  sky-walking: false
+  #
+  # Enables different ways how to get to other worlds.
+  # If players fall into void, then they will be teleported:
+  #  - to nether if falls into void from over world
+  #  - to the end if falls into void from nether
+  #  - to over world if falls into void from the end
+  alternative-teleports: true
+  #
+  # This disabled default portals from obsidian or end portal.
+  disable-default-portal: true
   normal:
-    # 
+    #
     # Make over world roof of bedrock, if false, it will be made from stone
     roof: true
     # Make over world floor of bedrock, if false, it will be made from stone

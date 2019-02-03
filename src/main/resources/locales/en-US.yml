@@ -9,6 +9,11 @@ caveblock:
     line1: "Welcome!"
     line2: "[name]"
     line3: "Start digging! &c<3"
+
+  informational:
+    to-nether: "So unlucky to fall into nether."
+    to-the-end: "You have reached the end."
+    to-normal: "Back to your cave."
   # Override BentoBox default command strings
   # General strings
   general:
@@ -19,6 +24,7 @@ caveblock:
       already-have-island: "&cYou already have a cave!"
       no-safe-location: "&cNo safe location found!"
       not-owner: "&cYou are not the owner of your team!"
+      cave-limit-reached: "&cYou have reached the top of your cave. You cannot get higher!"
   commands:
     # Override BentoBox default island command strings
     island:
