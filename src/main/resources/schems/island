@@ -1,0 +1,1162 @@
+blocks:
+  -3,-4,-5:
+    bd: minecraft:stone
+  -3,-4,-4:
+    bd: minecraft:stone
+  -3,-4,-3:
+    bd: minecraft:stone
+  -3,-4,-2:
+    bd: minecraft:stone
+  -3,-4,-1:
+    bd: minecraft:stone
+  -3,-4,0:
+    bd: minecraft:stone
+  -3,-4,1:
+    bd: minecraft:stone
+  -3,-3,-5:
+    bd: minecraft:stone
+  -3,-3,-4:
+    bd: minecraft:stone
+  -3,-3,-3:
+    bd: minecraft:stone
+  -3,-3,-2:
+    bd: minecraft:stone
+  -3,-3,-1:
+    bd: minecraft:stone
+  -3,-3,0:
+    bd: minecraft:stone
+  -3,-3,1:
+    bd: minecraft:stone
+  -3,-2,-5:
+    bd: minecraft:stone
+  -3,-2,-4:
+    bd: minecraft:stone
+  -3,-2,-3:
+    bd: minecraft:cobblestone_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+  -3,-2,-2:
+    bd: minecraft:stone
+  -3,-2,-1:
+    bd: minecraft:stone
+  -3,-2,0:
+    bd: minecraft:stone
+  -3,-2,1:
+    bd: minecraft:stone
+  -3,-1,-5:
+    bd: minecraft:stone
+  -3,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  -3,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  -3,-1,-2:
+    bd: minecraft:grass_block[snowy=false]
+  -3,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  -3,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  -3,-1,1:
+    bd: minecraft:stone
+  -3,0,-5:
+    bd: minecraft:air
+  -3,0,-4:
+    bd: minecraft:air
+  -3,0,-3:
+    bd: minecraft:air
+  -3,0,-2:
+    bd: minecraft:air
+  -3,0,-1:
+    bd: minecraft:air
+  -3,0,0:
+    bd: minecraft:air
+  -3,0,1:
+    bd: minecraft:air
+  -3,1,-5:
+    bd: minecraft:air
+  -3,1,-4:
+    bd: minecraft:air
+  -3,1,-3:
+    bd: minecraft:air
+  -3,1,-2:
+    bd: minecraft:air
+  -3,1,-1:
+    bd: minecraft:air
+  -3,1,0:
+    bd: minecraft:air
+  -3,1,1:
+    bd: minecraft:air
+  -3,2,-5:
+    bd: minecraft:air
+  -3,2,-4:
+    bd: minecraft:air
+  -3,2,-3:
+    bd: minecraft:air
+  -3,2,-2:
+    bd: minecraft:air
+  -3,2,-1:
+    bd: minecraft:air
+  -3,2,0:
+    bd: minecraft:air
+  -3,2,1:
+    bd: minecraft:air
+  -3,3,-5:
+    bd: minecraft:air
+  -3,3,-4:
+    bd: minecraft:air
+  -3,3,-3:
+    bd: minecraft:air
+  -3,3,-2:
+    bd: minecraft:air
+  -3,3,-1:
+    bd: minecraft:air
+  -3,3,0:
+    bd: minecraft:air
+  -3,3,1:
+    bd: minecraft:air
+  -3,4,-5:
+    bd: minecraft:air
+  -3,4,-4:
+    bd: minecraft:air
+  -3,4,-3:
+    bd: minecraft:air
+  -3,4,-2:
+    bd: minecraft:air
+  -3,4,-1:
+    bd: minecraft:air
+  -3,4,0:
+    bd: minecraft:air
+  -3,4,1:
+    bd: minecraft:air
+  -3,5,-5:
+    bd: minecraft:air
+  -3,5,-4:
+    bd: minecraft:air
+  -3,5,-3:
+    bd: minecraft:air
+  -3,5,-2:
+    bd: minecraft:air
+  -3,5,-1:
+    bd: minecraft:air
+  -3,5,0:
+    bd: minecraft:air
+  -3,5,1:
+    bd: minecraft:air
+  -3,6,-5:
+    bd: minecraft:air
+  -3,6,-4:
+    bd: minecraft:air
+  -3,6,-3:
+    bd: minecraft:air
+  -3,6,-2:
+    bd: minecraft:air
+  -3,6,-1:
+    bd: minecraft:air
+  -3,6,0:
+    bd: minecraft:air
+  -3,6,1:
+    bd: minecraft:air
+  -2,-4,-5:
+    bd: minecraft:stone
+  -2,-4,-4:
+    bd: minecraft:stone
+  -2,-4,-3:
+    bd: minecraft:stone
+  -2,-4,-2:
+    bd: minecraft:stone
+  -2,-4,-1:
+    bd: minecraft:stone
+  -2,-4,0:
+    bd: minecraft:stone
+  -2,-4,1:
+    bd: minecraft:stone
+  -2,-3,-5:
+    bd: minecraft:stone
+  -2,-3,-4:
+    bd: minecraft:stone
+  -2,-3,-3:
+    bd: minecraft:cobblestone_stairs[facing=east,half=top,shape=straight,waterlogged=false]
+  -2,-3,-2:
+    bd: minecraft:dirt
+  -2,-3,-1:
+    bd: minecraft:stone
+  -2,-3,0:
+    bd: minecraft:stone
+  -2,-3,1:
+    bd: minecraft:stone
+  -2,-2,-5:
+    bd: minecraft:stone
+  -2,-2,-4:
+    bd: minecraft:stone
+  -2,-2,-3:
+    bd: minecraft:dirt
+  -2,-2,-2:
+    bd: minecraft:dirt
+  -2,-2,-1:
+    bd: minecraft:dirt
+  -2,-2,0:
+    bd: minecraft:dirt
+  -2,-2,1:
+    bd: minecraft:stone
+  -2,-1,-5:
+    bd: minecraft:grass_block[snowy=false]
+  -2,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  -2,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  -2,-1,-2:
+    bd: minecraft:grass_block[snowy=false]
+  -2,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  -2,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  -2,-1,1:
+    bd: minecraft:grass_block[snowy=false]
+  -2,0,-5:
+    bd: minecraft:air
+  -2,0,-4:
+    bd: minecraft:air
+  -2,0,-3:
+    bd: minecraft:air
+  -2,0,-2:
+    bd: minecraft:air
+  -2,0,-1:
+    bd: minecraft:air
+  -2,0,0:
+    bd: minecraft:air
+  -2,0,1:
+    bd: minecraft:air
+  -2,1,-5:
+    bd: minecraft:air
+  -2,1,-4:
+    bd: minecraft:air
+  -2,1,-3:
+    bd: minecraft:air
+  -2,1,-2:
+    bd: minecraft:air
+  -2,1,-1:
+    bd: minecraft:air
+  -2,1,0:
+    bd: minecraft:air
+  -2,1,1:
+    bd: minecraft:air
+  -2,2,-5:
+    bd: minecraft:air
+  -2,2,-4:
+    bd: minecraft:oak_leaves[distance=4,persistent=false]
+  -2,2,-3:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -2,2,-2:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -2,2,-1:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -2,2,0:
+    bd: minecraft:air
+  -2,2,1:
+    bd: minecraft:air
+  -2,3,-5:
+    bd: minecraft:air
+  -2,3,-4:
+    bd: minecraft:oak_leaves[distance=4,persistent=false]
+  -2,3,-3:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -2,3,-2:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -2,3,-1:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -2,3,0:
+    bd: minecraft:air
+  -2,3,1:
+    bd: minecraft:air
+  -2,4,-5:
+    bd: minecraft:air
+  -2,4,-4:
+    bd: minecraft:air
+  -2,4,-3:
+    bd: minecraft:air
+  -2,4,-2:
+    bd: minecraft:air
+  -2,4,-1:
+    bd: minecraft:air
+  -2,4,0:
+    bd: minecraft:air
+  -2,4,1:
+    bd: minecraft:air
+  -2,5,-5:
+    bd: minecraft:air
+  -2,5,-4:
+    bd: minecraft:air
+  -2,5,-3:
+    bd: minecraft:air
+  -2,5,-2:
+    bd: minecraft:air
+  -2,5,-1:
+    bd: minecraft:air
+  -2,5,0:
+    bd: minecraft:air
+  -2,5,1:
+    bd: minecraft:air
+  -2,6,-5:
+    bd: minecraft:air
+  -2,6,-4:
+    bd: minecraft:air
+  -2,6,-3:
+    bd: minecraft:air
+  -2,6,-2:
+    bd: minecraft:air
+  -2,6,-1:
+    bd: minecraft:air
+  -2,6,0:
+    bd: minecraft:air
+  -2,6,1:
+    bd: minecraft:air
+  -1,-4,-5:
+    bd: minecraft:stone
+  -1,-4,-4:
+    bd: minecraft:stone
+  -1,-4,-3:
+    bd: minecraft:stone
+  -1,-4,-2:
+    bd: minecraft:dirt
+  -1,-4,-1:
+    bd: minecraft:stone
+  -1,-4,0:
+    bd: minecraft:stone
+  -1,-4,1:
+    bd: minecraft:stone
+  -1,-3,-5:
+    bd: minecraft:stone
+  -1,-3,-4:
+    bd: minecraft:cobweb
+  -1,-3,-3:
+    bd: minecraft:dirt
+  -1,-3,-2:
+    bd: minecraft:dirt
+  -1,-3,-1:
+    bd: minecraft:dirt
+  -1,-3,0:
+    bd: minecraft:cobweb
+  -1,-3,1:
+    bd: minecraft:stone
+  -1,-2,-5:
+    bd: minecraft:stone
+  -1,-2,-4:
+    bd: minecraft:dirt
+  -1,-2,-3:
+    bd: minecraft:dirt
+  -1,-2,-2:
+    bd: minecraft:dirt
+  -1,-2,-1:
+    bd: minecraft:dirt
+  -1,-2,0:
+    bd: minecraft:dirt
+  -1,-2,1:
+    bd: minecraft:stone
+  -1,-1,-5:
+    bd: minecraft:grass_block[snowy=false]
+  -1,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  -1,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  -1,-1,-2:
+    bd: minecraft:grass_block[snowy=false]
+  -1,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  -1,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  -1,-1,1:
+    bd: minecraft:grass_block[snowy=false]
+  -1,0,-5:
+    bd: minecraft:air
+  -1,0,-4:
+    bd: minecraft:air
+  -1,0,-3:
+    bd: minecraft:air
+  -1,0,-2:
+    bd: minecraft:air
+  -1,0,-1:
+    bd: minecraft:air
+  -1,0,0:
+    bd: minecraft:air
+  -1,0,1:
+    bd: minecraft:air
+  -1,1,-5:
+    bd: minecraft:air
+  -1,1,-4:
+    bd: minecraft:air
+  -1,1,-3:
+    bd: minecraft:air
+  -1,1,-2:
+    bd: minecraft:air
+  -1,1,-1:
+    bd: minecraft:air
+  -1,1,0:
+    bd: minecraft:air
+  -1,1,1:
+    bd: minecraft:air
+  -1,2,-5:
+    bd: minecraft:air
+  -1,2,-4:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -1,2,-3:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,2,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  -1,2,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,2,0:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -1,2,1:
+    bd: minecraft:air
+  -1,3,-5:
+    bd: minecraft:air
+  -1,3,-4:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -1,3,-3:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,3,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  -1,3,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,3,0:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  -1,3,1:
+    bd: minecraft:air
+  -1,4,-5:
+    bd: minecraft:air
+  -1,4,-4:
+    bd: minecraft:air
+  -1,4,-3:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,4,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  -1,4,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,4,0:
+    bd: minecraft:air
+  -1,4,1:
+    bd: minecraft:air
+  -1,5,-5:
+    bd: minecraft:air
+  -1,5,-4:
+    bd: minecraft:air
+  -1,5,-3:
+    bd: minecraft:air
+  -1,5,-2:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  -1,5,-1:
+    bd: minecraft:air
+  -1,5,0:
+    bd: minecraft:air
+  -1,5,1:
+    bd: minecraft:air
+  -1,6,-5:
+    bd: minecraft:air
+  -1,6,-4:
+    bd: minecraft:air
+  -1,6,-3:
+    bd: minecraft:air
+  -1,6,-2:
+    bd: minecraft:air
+  -1,6,-1:
+    bd: minecraft:air
+  -1,6,0:
+    bd: minecraft:air
+  -1,6,1:
+    bd: minecraft:air
+  0,-4,-5:
+    bd: minecraft:stone
+  0,-4,-4:
+    bd: minecraft:stone
+  0,-4,-3:
+    bd: minecraft:dirt
+  0,-4,-2:
+    bd: minecraft:sand
+  0,-4,-1:
+    bd: minecraft:dirt
+  0,-4,0:
+    bd: minecraft:stone
+  0,-4,1:
+    bd: minecraft:stone
+  0,-3,-5:
+    bd: minecraft:stone
+  0,-3,-4:
+    bd: minecraft:dirt
+  0,-3,-3:
+    bd: minecraft:dirt
+  0,-3,-2:
+    bd: minecraft:sand
+  0,-3,-1:
+    bd: minecraft:dirt
+  0,-3,0:
+    bd: minecraft:dirt
+  0,-3,1:
+    bd: minecraft:stone
+  0,-2,-5:
+    bd: minecraft:dirt
+  0,-2,-4:
+    bd: minecraft:dirt
+  0,-2,-3:
+    bd: minecraft:dirt
+  0,-2,-2:
+    bd: minecraft:sand
+  0,-2,-1:
+    bd: minecraft:dirt
+  0,-2,0:
+    bd: minecraft:dirt
+  0,-2,1:
+    bd: minecraft:dirt
+  0,-1,-5:
+    bd: minecraft:grass_block[snowy=false]
+  0,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  0,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  0,-1,-2:
+    bd: minecraft:dirt
+  0,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  0,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  0,-1,1:
+    bd: minecraft:grass_block[snowy=false]
+  0,0,-5:
+    bd: minecraft:air
+  0,0,-4:
+    bd: minecraft:air
+  0,0,-3:
+    bd: minecraft:air
+  0,0,-2:
+    bd: minecraft:oak_log[axis=y]
+  0,0,-1:
+    bd: minecraft:chest[facing=south,type=single,waterlogged=false]
+    inventory:
+      '0':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: LAVA_BUCKET
+      '2':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: SUGAR_CANE
+      '4':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: RED_MUSHROOM
+      '6':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: MELON_SLICE
+      '10':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: ICE
+        amount: 2
+      '12':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: BONE
+        amount: 2
+      '14':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: OAK_SAPLING
+      '16':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: PUMPKIN
+      '18':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: CACTUS
+      '20':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: BROWN_MUSHROOM
+      '22':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: COBBLESTONE
+        amount: 5
+      '24':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: beetroot_seeds
+      '26':
+        ==: org.bukkit.inventory.ItemStack
+        v: 1631
+        type: MUSHROOM_STEW
+  0,0,0:
+    bd: minecraft:air
+  0,0,1:
+    bd: minecraft:air
+  0,1,-5:
+    bd: minecraft:air
+  0,1,-4:
+    bd: minecraft:air
+  0,1,-3:
+    bd: minecraft:air
+  0,1,-2:
+    bd: minecraft:oak_log[axis=y]
+  0,1,-1:
+    bd: minecraft:air
+  0,1,0:
+    bd: minecraft:air
+  0,1,1:
+    bd: minecraft:air
+  0,2,-5:
+    bd: minecraft:air
+  0,2,-4:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  0,2,-3:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,2,-2:
+    bd: minecraft:oak_log[axis=y]
+  0,2,-1:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,2,0:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  0,2,1:
+    bd: minecraft:air
+  0,3,-5:
+    bd: minecraft:air
+  0,3,-4:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  0,3,-3:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,3,-2:
+    bd: minecraft:oak_log[axis=y]
+  0,3,-1:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,3,0:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  0,3,1:
+    bd: minecraft:air
+  0,4,-5:
+    bd: minecraft:air
+  0,4,-4:
+    bd: minecraft:air
+  0,4,-3:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,4,-2:
+    bd: minecraft:oak_log[axis=y]
+  0,4,-1:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,4,0:
+    bd: minecraft:air
+  0,4,1:
+    bd: minecraft:air
+  0,5,-5:
+    bd: minecraft:air
+  0,5,-4:
+    bd: minecraft:air
+  0,5,-3:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  0,5,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  0,5,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  0,5,0:
+    bd: minecraft:air
+  0,5,1:
+    bd: minecraft:air
+  0,6,-5:
+    bd: minecraft:air
+  0,6,-4:
+    bd: minecraft:air
+  0,6,-3:
+    bd: minecraft:air
+  0,6,-2:
+    bd: minecraft:air
+  0,6,-1:
+    bd: minecraft:air
+  0,6,0:
+    bd: minecraft:air
+  0,6,1:
+    bd: minecraft:air
+  1,-4,-5:
+    bd: minecraft:stone
+  1,-4,-4:
+    bd: minecraft:stone
+  1,-4,-3:
+    bd: minecraft:cobweb
+  1,-4,-2:
+    bd: minecraft:stone
+  1,-4,-1:
+    bd: minecraft:stone
+  1,-4,0:
+    bd: minecraft:stone
+  1,-4,1:
+    bd: minecraft:stone
+  1,-3,-5:
+    bd: minecraft:stone
+  1,-3,-4:
+    bd: minecraft:stone
+  1,-3,-3:
+    bd: minecraft:dirt
+  1,-3,-2:
+    bd: minecraft:dirt
+  1,-3,-1:
+    bd: minecraft:stone
+  1,-3,0:
+    bd: minecraft:stone
+  1,-3,1:
+    bd: minecraft:stone
+  1,-2,-5:
+    bd: minecraft:stone
+  1,-2,-4:
+    bd: minecraft:dirt
+  1,-2,-3:
+    bd: minecraft:dirt
+  1,-2,-2:
+    bd: minecraft:dirt
+  1,-2,-1:
+    bd: minecraft:dirt
+  1,-2,0:
+    bd: minecraft:dirt
+  1,-2,1:
+    bd: minecraft:stone
+  1,-1,-5:
+    bd: minecraft:grass_block[snowy=false]
+  1,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  1,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  1,-1,-2:
+    bd: minecraft:grass_block[snowy=false]
+  1,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  1,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  1,-1,1:
+    bd: minecraft:grass_block[snowy=false]
+  1,0,-5:
+    bd: minecraft:air
+  1,0,-4:
+    bd: minecraft:air
+  1,0,-3:
+    bd: minecraft:air
+  1,0,-2:
+    bd: minecraft:air
+  1,0,-1:
+    bd: minecraft:air
+  1,0,0:
+    bd: minecraft:air
+  1,0,1:
+    bd: minecraft:air
+  1,1,-5:
+    bd: minecraft:air
+  1,1,-4:
+    bd: minecraft:air
+  1,1,-3:
+    bd: minecraft:air
+  1,1,-2:
+    bd: minecraft:air
+  1,1,-1:
+    bd: minecraft:air
+  1,1,0:
+    bd: minecraft:air
+  1,1,1:
+    bd: minecraft:air
+  1,2,-5:
+    bd: minecraft:air
+  1,2,-4:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  1,2,-3:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  1,2,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  1,2,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  1,2,0:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  1,2,1:
+    bd: minecraft:air
+  1,3,-5:
+    bd: minecraft:air
+  1,3,-4:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  1,3,-3:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  1,3,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  1,3,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  1,3,0:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  1,3,1:
+    bd: minecraft:air
+  1,4,-5:
+    bd: minecraft:air
+  1,4,-4:
+    bd: minecraft:air
+  1,4,-3:
+    bd: minecraft:air
+  1,4,-2:
+    bd: minecraft:oak_leaves[distance=1,persistent=false]
+  1,4,-1:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  1,4,0:
+    bd: minecraft:air
+  1,4,1:
+    bd: minecraft:air
+  1,5,-5:
+    bd: minecraft:air
+  1,5,-4:
+    bd: minecraft:air
+  1,5,-3:
+    bd: minecraft:air
+  1,5,-2:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  1,5,-1:
+    bd: minecraft:air
+  1,5,0:
+    bd: minecraft:air
+  1,5,1:
+    bd: minecraft:air
+  1,6,-5:
+    bd: minecraft:air
+  1,6,-4:
+    bd: minecraft:air
+  1,6,-3:
+    bd: minecraft:air
+  1,6,-2:
+    bd: minecraft:air
+  1,6,-1:
+    bd: minecraft:air
+  1,6,0:
+    bd: minecraft:air
+  1,6,1:
+    bd: minecraft:air
+  2,-4,-5:
+    bd: minecraft:stone
+  2,-4,-4:
+    bd: minecraft:stone
+  2,-4,-3:
+    bd: minecraft:stone
+  2,-4,-2:
+    bd: minecraft:stone
+  2,-4,-1:
+    bd: minecraft:stone
+  2,-4,0:
+    bd: minecraft:stone
+  2,-4,1:
+    bd: minecraft:stone
+  2,-3,-5:
+    bd: minecraft:stone
+  2,-3,-4:
+    bd: minecraft:stone
+  2,-3,-3:
+    bd: minecraft:cobblestone_slab[type=top,waterlogged=false]
+  2,-3,-2:
+    bd: minecraft:dirt
+  2,-3,-1:
+    bd: minecraft:stone
+  2,-3,0:
+    bd: minecraft:stone
+  2,-3,1:
+    bd: minecraft:stone
+  2,-2,-5:
+    bd: minecraft:stone
+  2,-2,-4:
+    bd: minecraft:dirt
+  2,-2,-3:
+    bd: minecraft:dirt
+  2,-2,-2:
+    bd: minecraft:dirt
+  2,-2,-1:
+    bd: minecraft:dirt
+  2,-2,0:
+    bd: minecraft:dirt
+  2,-2,1:
+    bd: minecraft:stone
+  2,-1,-5:
+    bd: minecraft:grass_block[snowy=false]
+  2,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  2,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  2,-1,-2:
+    bd: minecraft:grass_block[snowy=false]
+  2,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  2,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  2,-1,1:
+    bd: minecraft:grass_block[snowy=false]
+  2,0,-5:
+    bd: minecraft:air
+  2,0,-4:
+    bd: minecraft:air
+  2,0,-3:
+    bd: minecraft:air
+  2,0,-2:
+    bd: minecraft:air
+  2,0,-1:
+    bd: minecraft:air
+  2,0,0:
+    bd: minecraft:air
+  2,0,1:
+    bd: minecraft:air
+  2,1,-5:
+    bd: minecraft:air
+  2,1,-4:
+    bd: minecraft:air
+  2,1,-3:
+    bd: minecraft:air
+  2,1,-2:
+    bd: minecraft:air
+  2,1,-1:
+    bd: minecraft:air
+  2,1,0:
+    bd: minecraft:air
+  2,1,1:
+    bd: minecraft:air
+  2,2,-5:
+    bd: minecraft:air
+  2,2,-4:
+    bd: minecraft:air
+  2,2,-3:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  2,2,-2:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  2,2,-1:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  2,2,0:
+    bd: minecraft:oak_leaves[distance=4,persistent=false]
+  2,2,1:
+    bd: minecraft:air
+  2,3,-5:
+    bd: minecraft:air
+  2,3,-4:
+    bd: minecraft:oak_leaves[distance=4,persistent=false]
+  2,3,-3:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  2,3,-2:
+    bd: minecraft:oak_leaves[distance=2,persistent=false]
+  2,3,-1:
+    bd: minecraft:oak_leaves[distance=3,persistent=false]
+  2,3,0:
+    bd: minecraft:air
+  2,3,1:
+    bd: minecraft:air
+  2,4,-5:
+    bd: minecraft:air
+  2,4,-4:
+    bd: minecraft:air
+  2,4,-3:
+    bd: minecraft:air
+  2,4,-2:
+    bd: minecraft:air
+  2,4,-1:
+    bd: minecraft:air
+  2,4,0:
+    bd: minecraft:air
+  2,4,1:
+    bd: minecraft:air
+  2,5,-5:
+    bd: minecraft:air
+  2,5,-4:
+    bd: minecraft:air
+  2,5,-3:
+    bd: minecraft:air
+  2,5,-2:
+    bd: minecraft:air
+  2,5,-1:
+    bd: minecraft:air
+  2,5,0:
+    bd: minecraft:air
+  2,5,1:
+    bd: minecraft:air
+  2,6,-5:
+    bd: minecraft:air
+  2,6,-4:
+    bd: minecraft:air
+  2,6,-3:
+    bd: minecraft:air
+  2,6,-2:
+    bd: minecraft:air
+  2,6,-1:
+    bd: minecraft:air
+  2,6,0:
+    bd: minecraft:air
+  2,6,1:
+    bd: minecraft:air
+  3,-4,-5:
+    bd: minecraft:stone
+  3,-4,-4:
+    bd: minecraft:stone
+  3,-4,-3:
+    bd: minecraft:stone
+  3,-4,-2:
+    bd: minecraft:stone
+  3,-4,-1:
+    bd: minecraft:stone
+  3,-4,0:
+    bd: minecraft:stone
+  3,-4,1:
+    bd: minecraft:stone
+  3,-3,-5:
+    bd: minecraft:stone
+  3,-3,-4:
+    bd: minecraft:stone
+  3,-3,-3:
+    bd: minecraft:stone
+  3,-3,-2:
+    bd: minecraft:stone
+  3,-3,-1:
+    bd: minecraft:stone
+  3,-3,0:
+    bd: minecraft:stone
+  3,-3,1:
+    bd: minecraft:stone
+  3,-2,-5:
+    bd: minecraft:stone
+  3,-2,-4:
+    bd: minecraft:stone
+  3,-2,-3:
+    bd: minecraft:stone
+  3,-2,-2:
+    bd: minecraft:dirt
+  3,-2,-1:
+    bd: minecraft:stone
+  3,-2,0:
+    bd: minecraft:stone
+  3,-2,1:
+    bd: minecraft:stone
+  3,-1,-5:
+    bd: minecraft:stone
+  3,-1,-4:
+    bd: minecraft:grass_block[snowy=false]
+  3,-1,-3:
+    bd: minecraft:grass_block[snowy=false]
+  3,-1,-2:
+    bd: minecraft:grass_block[snowy=false]
+  3,-1,-1:
+    bd: minecraft:grass_block[snowy=false]
+  3,-1,0:
+    bd: minecraft:grass_block[snowy=false]
+  3,-1,1:
+    bd: minecraft:stone
+  3,0,-5:
+    bd: minecraft:air
+  3,0,-4:
+    bd: minecraft:air
+  3,0,-3:
+    bd: minecraft:air
+  3,0,-2:
+    bd: minecraft:air
+  3,0,-1:
+    bd: minecraft:air
+  3,0,0:
+    bd: minecraft:air
+  3,0,1:
+    bd: minecraft:air
+  3,1,-5:
+    bd: minecraft:air
+  3,1,-4:
+    bd: minecraft:air
+  3,1,-3:
+    bd: minecraft:air
+  3,1,-2:
+    bd: minecraft:air
+  3,1,-1:
+    bd: minecraft:air
+  3,1,0:
+    bd: minecraft:air
+  3,1,1:
+    bd: minecraft:air
+  3,2,-5:
+    bd: minecraft:air
+  3,2,-4:
+    bd: minecraft:air
+  3,2,-3:
+    bd: minecraft:air
+  3,2,-2:
+    bd: minecraft:air
+  3,2,-1:
+    bd: minecraft:air
+  3,2,0:
+    bd: minecraft:air
+  3,2,1:
+    bd: minecraft:air
+  3,3,-5:
+    bd: minecraft:air
+  3,3,-4:
+    bd: minecraft:air
+  3,3,-3:
+    bd: minecraft:air
+  3,3,-2:
+    bd: minecraft:air
+  3,3,-1:
+    bd: minecraft:air
+  3,3,0:
+    bd: minecraft:air
+  3,3,1:
+    bd: minecraft:air
+  3,4,-5:
+    bd: minecraft:air
+  3,4,-4:
+    bd: minecraft:air
+  3,4,-3:
+    bd: minecraft:air
+  3,4,-2:
+    bd: minecraft:air
+  3,4,-1:
+    bd: minecraft:air
+  3,4,0:
+    bd: minecraft:air
+  3,4,1:
+    bd: minecraft:air
+  3,5,-5:
+    bd: minecraft:air
+  3,5,-4:
+    bd: minecraft:air
+  3,5,-3:
+    bd: minecraft:air
+  3,5,-2:
+    bd: minecraft:air
+  3,5,-1:
+    bd: minecraft:air
+  3,5,0:
+    bd: minecraft:air
+  3,5,1:
+    bd: minecraft:air
+  3,6,-5:
+    bd: minecraft:air
+  3,6,-4:
+    bd: minecraft:air
+  3,6,-3:
+    bd: minecraft:air
+  3,6,-2:
+    bd: minecraft:air
+  3,6,-1:
+    bd: minecraft:air
+  3,6,0:
+    bd: minecraft:air
+  3,6,1:
+    bd: minecraft:air
+entities:
+  -1,0,0:
+    47f04eb3-0fa6-4746-a180-6c0bfe198ff6:
+      type: COW
+      name: MooMoo
+      adult: true
+attached:
+  0,0,0:
+    bd: minecraft:sign[rotation=8,waterlogged=false]
+    lines:
+    - '[spawn_here]'
+    - ''
+    - ''
+    - ''
+  0,0,1:
+    bd: minecraft:sign[rotation=8,waterlogged=false]
+    lines:
+    - '[start]'
+    - ''
+    - ''
+    - ''
+  1,1,-2:
+    bd: minecraft:wall_torch[facing=east]
+size:
+  xsize: 7
+  ysize: 11
+  zsize: 7
