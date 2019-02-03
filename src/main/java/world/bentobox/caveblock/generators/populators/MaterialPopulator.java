@@ -32,14 +32,14 @@ public class MaterialPopulator extends BlockPopulator
     {
         this.addon = addon;
         // Load settings
-        loadSettings();
+        this.loadSettings();
     }
 
 
     /**
      * Loads chances for Material Populator
      */
-    public void loadSettings() {
+    private void loadSettings() {
         // Set up chances
         chances = new HashMap<>();
         // Normal
@@ -159,6 +159,39 @@ public class MaterialPopulator extends BlockPopulator
 
 
     // ---------------------------------------------------------------------
+    // Section: Private Classes
+    // ---------------------------------------------------------------------
+
+
+    /**
+     * Chances class to store chances for environments and main material
+     */
+    private class Chances
+    {
+        /**
+         * @param materialChanceMap - contains chances for each material.
+         * @param mainMaterial - material on which material can replace.
+         */
+        Chances(Map<Material, Pair<Double, Integer>> materialChanceMap, Material mainMaterial)
+        {
+            this.materialChanceMap = materialChanceMap;
+            this.mainMaterial = mainMaterial;
+        }
+
+
+        /**
+         * Map that contains chances for entity to spawn.
+         */
+        final Map<Material, Pair<Double, Integer>> materialChanceMap;
+
+        /**
+         * Main material that can be replaced.
+         */
+        final Material mainMaterial;
+    }
+
+
+    // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
 
@@ -168,25 +201,13 @@ public class MaterialPopulator extends BlockPopulator
      */
     private CaveBlock addon;
 
+    /**
+     * Map that contains chances for spawning per environment.
+     */
     private Map<Environment, Chances> chances;
 
-    private int worldHeight;
-
     /**
-     * Chances class to store chances for environments and main material
-     *
+     * World height
      */
-    private class Chances {
-        final Map<Material, Pair<Double, Integer>> materialChanceMap;
-        final Material mainMaterial;
-
-        /**
-         * @param materialChanceMap
-         * @param mainMaterial
-         */
-        public Chances(Map<Material, Pair<Double, Integer>> materialChanceMap, Material mainMaterial) {
-            this.materialChanceMap = materialChanceMap;
-            this.mainMaterial = mainMaterial;
-        }
-    }
+    private int worldHeight;
 }

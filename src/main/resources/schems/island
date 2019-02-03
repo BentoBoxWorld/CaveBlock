@@ -578,7 +578,7 @@ blocks:
       '24':
         ==: org.bukkit.inventory.ItemStack
         v: 1631
-        type: beetroot_seeds
+        type: BEETROOT_SEEDS
       '26':
         ==: org.bukkit.inventory.ItemStack
         v: 1631

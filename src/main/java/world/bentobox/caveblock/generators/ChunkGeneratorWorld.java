@@ -47,7 +47,6 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     // ---------------------------------------------------------------------
 
 
-
     /**
      * This method sets if given coordinates can be set as spawn location
      */
@@ -217,6 +216,4 @@ public class ChunkGeneratorWorld extends ChunkGenerator
      * This list contains block populators that will be applied after chunk is generated.
      */
     private List<BlockPopulator> blockPopulators;
-
-
 }

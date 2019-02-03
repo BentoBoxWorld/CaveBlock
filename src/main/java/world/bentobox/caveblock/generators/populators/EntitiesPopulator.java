@@ -37,11 +37,14 @@ public class EntitiesPopulator extends BlockPopulator
     public EntitiesPopulator(CaveBlock addon)
     {
         this.addon = addon;
-        loadSettings();
+        this.loadSettings();
     }
 
 
-    public void loadSettings() {
+    /**
+     * This method load chances per environment.
+     */
+    private void loadSettings() {
         // Set up chances
         chances = new HashMap<>();
         // Normal
@@ -157,6 +160,38 @@ public class EntitiesPopulator extends BlockPopulator
     }
 
 
+    // ---------------------------------------------------------------------
+    // Section: Private Classes
+    // ---------------------------------------------------------------------
+
+
+    /**
+     * Chances class to store chances for environments and main material
+     */
+    private class Chances
+    {
+        /**
+         * @param entityChanceMap - contains chances for each entity.
+         * @param mainMaterial - material on which entity can replace.
+         */
+        Chances(Map<EntityType, Pair<Double, Integer>> entityChanceMap, Material mainMaterial)
+        {
+            this.entityChanceMap = entityChanceMap;
+            this.mainMaterial = mainMaterial;
+        }
+
+
+        /**
+         * Map that contains chances for entity to spawn.
+         */
+        final Map<EntityType, Pair<Double, Integer>> entityChanceMap;
+
+        /**
+         * Main material that can be replaced.
+         */
+        final Material mainMaterial;
+    }
+
 
     // ---------------------------------------------------------------------
     // Section: Variables
@@ -167,10 +202,19 @@ public class EntitiesPopulator extends BlockPopulator
      */
     private CaveBlock addon;
 
+    /**
+     * Map that contains chances for spawning per environment.
+     */
     private Map<Environment, Chances> chances;
 
+    /**
+     * World height
+     */
     private int worldHeight;
 
+    /**
+     * Water entities
+     */
     private final static List<EntityType> WATER_ENTITIES = Arrays.asList(EntityType.GUARDIAN,
             EntityType.SQUID,
             EntityType.COD,
@@ -179,22 +223,4 @@ public class EntitiesPopulator extends BlockPopulator
             EntityType.TROPICAL_FISH,
             EntityType.DROWNED,
             EntityType.DOLPHIN);
-
-    /**
-     * Chances class to store chances for environments and main material
-     *
-     */
-    private class Chances {
-        final Map<EntityType, Pair<Double, Integer>> entityChanceMap;
-        final Material mainMaterial;
-
-        /**
-         * @param materialChanceMap
-         * @param mainMaterial
-         */
-        public Chances(Map<EntityType, Pair<Double, Integer>> entityChanceMap, Material mainMaterial) {
-            this.entityChanceMap = entityChanceMap;
-            this.mainMaterial = mainMaterial;
-        }
-    }
 }
