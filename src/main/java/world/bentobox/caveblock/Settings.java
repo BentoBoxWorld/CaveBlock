@@ -818,6 +818,16 @@ public class Settings implements DataObject, WorldSettings
     }
 
 
+    /**
+     * This method returns the beaconAllowed object.
+     * @return the beaconAllowed object.
+     */
+    public boolean isBeaconAllowed()
+    {
+        return beaconAllowed;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Setters
     // ---------------------------------------------------------------------
@@ -1594,6 +1604,17 @@ public class Settings implements DataObject, WorldSettings
 
 
     /**
+     * This method sets the beaconAllowed object value.
+     * @param beaconAllowed the beaconAllowed object new value.
+     *
+     */
+    public void setBeaconAllowed(boolean beaconAllowed)
+    {
+        this.beaconAllowed = beaconAllowed;
+    }
+
+
+    /**
      * @return the debug
      */
     public boolean isDebug() {
@@ -1701,7 +1722,6 @@ public class Settings implements DataObject, WorldSettings
     @ConfigEntry(path = "world.sky-walking")
     private boolean skyWalking;
 
-    @ConfigComment("")
     @ConfigComment("Enables different ways how to get to other worlds.")
     @ConfigComment("If players fall into void, then they will be teleported:")
     @ConfigComment(" - to nether if falls into void from over world")
@@ -1709,6 +1729,13 @@ public class Settings implements DataObject, WorldSettings
     @ConfigComment(" - to over world if falls into void from the end")
     @ConfigEntry(path = "world.alternative-teleports")
     private boolean alternativeTeleports;
+
+    @ConfigComment("Enables ability to use beacon, if world roof is made of Bedrock. It will replace")
+    @ConfigComment("bedrock with black stained glass and on beacon placing, and replace it with bedrock if")
+    @ConfigComment("beacon is destroyed.")
+    @ConfigComment("This will not do anything, if roof is not made of bedrock.")
+    @ConfigEntry(path = "world.allow-beacon")
+    private boolean beaconAllowed;
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
