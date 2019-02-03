@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import world.bentobox.bentobox.api.user.User;
 import world.bentobox.bentobox.util.Util;
@@ -32,6 +33,12 @@ public class CustomHeightLimitations implements Listener
 		this.worldHeight = addon.getSettings().getWorldDepth() - 1;
 	}
 
+	/**
+	 * Method onPlayerMove disables movement if user tries to get on top of the world.
+	 * It allows movement only downwards.
+	 *
+	 * @param event of type PlayerMoveEvent
+	 */
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
@@ -118,6 +125,44 @@ public class CustomHeightLimitations implements Listener
 					break;
 			}
 
+			return;
+		}
+
+		// Prevent to get over world height
+		if (nextY >= this.worldHeight)
+		{
+			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
+			event.setCancelled(true);
+		}
+	}
+
+
+	/**
+	 * Method onPlayerTeleport disables all teleports that involves moving on top of the world.
+	 *
+	 * @param event of type PlayerTeleportEvent
+	 */
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerTeleport(PlayerTeleportEvent event)
+	{
+		Player player = event.getPlayer();
+		final double nextY = event.getTo().getY();
+
+		if (this.addon.getSettings().isSkyWalking() ||
+			player.isOp() ||
+			player.isDead() ||
+			player.getGameMode().equals(GameMode.CREATIVE) ||
+			player.getGameMode().equals(GameMode.SPECTATOR) ||
+			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
+			player.hasPermission("caveblock.skywalker") ||
+			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
+			nextY > 0 && nextY < this.worldHeight ||
+			// Next check will allow to go down, but never up.
+			event.getFrom().getBlockY() <= event.getFrom().getBlockY() &&
+				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
+				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
+		{
+			// interested only in movements that is below 0 or above height limit.
 			return;
 		}
 
