@@ -82,6 +82,16 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         }
         else if (world.getEnvironment().equals(World.Environment.THE_END))
         {
+            // This will leave a hollow space of 4 chunks around 0,0 for the nether exit island to be able to be placed
+            if ((chunkX == 0 && chunkZ == 0) || (chunkX == -1 && chunkZ == 0) || (chunkX == 0 && chunkZ == -1) || (chunkX == -1 && chunkZ == -1)) {
+                // Set the block to have the island high up
+                if (chunkX == 0  && chunkZ == 0)
+                {
+                    result.setBlock(0, 255, 0, Material.BEDROCK);
+                }
+                return result;
+            }
+
             this.populateTheEndChunk(result);
         }
         else
