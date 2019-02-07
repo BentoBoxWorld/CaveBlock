@@ -146,11 +146,13 @@ public class MaterialPopulator extends BlockPopulator
         filter(splitString -> splitString.length == 4).
         forEach(splitString -> {
             Material material = Material.getMaterial(splitString[1]);
-
-            if (material != null)
+            // Material must be a block otherwise the chunk cannot be populated
+            if (material != null && material.isBlock())
             {
                 materialMap.put(material,
                         new Pair<>(Double.parseDouble(splitString[2]), Integer.parseInt(splitString[3])));
+            } else {
+                addon.logError("Could not parse MATERIAL in config.yml: " + splitString[1] + " is not a valid block.");
             }
         });
 
