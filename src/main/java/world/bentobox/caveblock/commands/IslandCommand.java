@@ -15,7 +15,9 @@ import world.bentobox.caveblock.CaveBlock;
 public class IslandCommand extends CompositeCommand {
 
     public IslandCommand(CaveBlock addon) {
-        super(addon, "cave", "cb");
+        super(addon,
+            addon.getSettings().getIslandCommand().split(" ")[0],
+            addon.getSettings().getIslandCommand().split(" "));
     }
 
     /* (non-Javadoc)

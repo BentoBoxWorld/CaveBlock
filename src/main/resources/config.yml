@@ -2,6 +2,14 @@
 # This config file is dynamic and saved when the server is shutdown.
 # If you edit it while the server is running use /cbadmin reload
 # otherwise your settings will be lost.
+caveblock:
+  command:
+    # Cave Command. What command users will run to access their cave.
+    # To define alias, just separate commands with white space.
+    island: cave cb
+    # The Cave admin command.
+    # To define alias, just separate commands with white space.
+    admin: cbadmin cba
 world:
   # Friendly name for this world. Used in admin commands. Must be a single word
   friendly-name: CaveBlock

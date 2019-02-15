@@ -798,7 +798,27 @@ public class Settings implements DataObject, WorldSettings
     }
 
 
-    // ---------------------------------------------------------------------
+	/**
+	 * This method returns the islandCommand value.
+	 * @return the value of islandCommand.
+	 */
+	public String getIslandCommand()
+	{
+		return islandCommand;
+	}
+
+
+	/**
+	 * This method returns the adminCommand value.
+	 * @return the value of adminCommand.
+	 */
+	public String getAdminCommand()
+	{
+		return adminCommand;
+	}
+
+
+	// ---------------------------------------------------------------------
     // Section: Setters
     // ---------------------------------------------------------------------
 
@@ -1565,9 +1585,44 @@ public class Settings implements DataObject, WorldSettings
         this.debug = debug;
     }
 
-    // ---------------------------------------------------------------------
+
+	/**
+	 * This method sets the islandCommand value.
+	 * @param islandCommand the islandCommand new value.
+	 *
+	 */
+	public void setIslandCommand(String islandCommand)
+	{
+		this.islandCommand = islandCommand;
+	}
+
+
+	/**
+	 * This method sets the adminCommand value.
+	 * @param adminCommand the adminCommand new value.
+	 *
+	 */
+	public void setAdminCommand(String adminCommand)
+	{
+		this.adminCommand = adminCommand;
+	}
+
+
+	// ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
+
+
+	/* Commands */
+	@ConfigComment("Cave Command. What command users will run to access their cave.")
+	@ConfigComment("To define alias, just separate commands with white space.")
+	@ConfigEntry(path = "cave.command.island")
+	private String islandCommand = "cave cb";
+
+	@ConfigComment("The Cave admin command.")
+	@ConfigComment("To define alias, just separate commands with white space.")
+	@ConfigEntry(path = "cave.command.admin")
+	private String adminCommand = "cbadmin cba";
 
     /*      WORLD       */
     @ConfigComment("Friendly name for this world. Used in admin commands. Must be a single word")
