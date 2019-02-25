@@ -64,6 +64,12 @@ public class AdminCommand extends CompositeCommand {
         new AdminReloadCommand(this);
         // Spawn
         new AdminSetspawnCommand(this);
+        // Reset flags
+        new AdminResetFlagsCommand(this);
+        // Trash
+        new AdminTrashCommand(this);
+        new AdminEmptyTrashCommand(this);
+        new AdminSwitchtoCommand(this);
     }
 
     @Override
