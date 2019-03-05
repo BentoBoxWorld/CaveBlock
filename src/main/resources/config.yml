@@ -2,6 +2,14 @@
 # This config file is dynamic and saved when the server is shutdown.
 # If you edit it while the server is running use /cbadmin reload
 # otherwise your settings will be lost.
+caveblock:
+  command:
+    # Cave Command. What command users will run to access their cave.
+    # To define alias, just separate commands with white space.
+    island: cave cb
+    # The Cave admin command.
+    # To define alias, just separate commands with white space.
+    admin: cbadmin cba
 world:
   # Friendly name for this world. Used in admin commands. Must be a single word
   friendly-name: CaveBlock
@@ -133,11 +141,11 @@ world:
     # MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds
     # where max amount in pack are 5 per each subchunk!
     blocks:
-    - MATERIAL:QUARTZ_ORE:30:5
+    - MATERIAL:NETHER_QUARTZ_ORE:30:5
     - MATERIAL:SOUL_SAND:40:10
     - MATERIAL:MAGMA_BLOCK:10:3
     - MATERIAL:GLOWSTONE:20:8
-    - MATERIAL:NETHER_BRICK:10:5
+    - MATERIAL:NETHER_BRICKS:10:5
     - MATERIAL:LAVA:10:1
     - ENTITY:MAGMA_CUBE:0.5:1
     - ENTITY:GHAST:0.1:1
@@ -166,7 +174,7 @@ world:
     blocks:
     - ENTITY:SHULKER:0.2:1
     - MATERIAL:OBSIDIAN:1:1
-    - MATERIAL:CHORUS_FRUIT:1:3
+    - MATERIAL:CHORUS_PLANT:1:3
   # Mob white list - these mobs will NOT be removed when logging in or doing /cave
   remove-mobs-whitelist:
   - WITHER
@@ -311,10 +319,6 @@ island:
       inventory: false
       # Reset Ender Chest - if true, the player's Ender Chest will be cleared.
       ender-chest: false
-  require-confirmation:
-    reset: true
-  # Have player's respawn on their island if they die
-  respawn-on-island: false
   sethome:
     nether:
       allow: true
@@ -364,9 +368,6 @@ protection:
   - HOT_FLOOR
   - CRAMMING
   - VOID
-panel:
-  # Whether GUIs should be closed when the player clicks outside.
-  close-on-click-outside: true
 do-not-edit-these-settings:
   # These settings should not be edited
   reset-epoch: 0
