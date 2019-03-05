@@ -50,12 +50,12 @@
 		<!-- Revision variable removes warning about dynamic version -->
 		<revision>${build.version}</revision>
 		<!-- This allows to change between versions and snapshots. -->
-		<build.version>1.3.0-SNAPSHOT</build.version>
+		<build.version>1.3.0</build.version>
 	</properties>
 
 	<profiles>
 		<profile>
-			<id>ci</id>
+			<id>develop</id>
 			<activation>
 				<property>
 					<name>env.BUILD_NUMBER</name>
@@ -63,7 +63,22 @@
 			</activation>
 			<properties>
 				<!-- Override only if necessary -->
-				<revision>${build.version} #${env.BUILD_NUMBER}</revision>
+				<revision>${build.version}-SNAPSHOT #${env.BUILD_NUMBER}</revision>
+				<!-- GIT_BRANCH -->
+			</properties>
+		</profile>
+		<profile>
+			<id>master</id>
+			<activation>
+				<property>
+					<name>env.GIT_BRANCH</name>
+					<value>origin/master</value>
+				</property>
+			</activation>
+			<properties>
+				<!-- Override only if necessary -->
+				<revision>${build.version}</revision>
+				<!-- GIT_BRANCH -->
 			</properties>
 		</profile>
 	</profiles>
