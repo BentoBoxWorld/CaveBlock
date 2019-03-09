@@ -63,7 +63,7 @@
 			</activation>
 			<properties>
 				<!-- Override only if necessary -->
-				<revision>${build.version}-SNAPSHOT #${env.BUILD_NUMBER}</revision>
+				<revision>${build.version}-SNAPSHOT-${env.BUILD_NUMBER}</revision>
 				<!-- GIT_BRANCH -->
 			</properties>
 		</profile>
