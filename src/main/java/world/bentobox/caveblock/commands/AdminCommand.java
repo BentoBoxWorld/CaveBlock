@@ -21,7 +21,9 @@ import world.bentobox.caveblock.CaveBlock;
 public class AdminCommand extends CompositeCommand {
 
     public AdminCommand(CaveBlock addon) {
-        super(addon, "cbadmin", "cba");
+        super(addon,
+            addon.getSettings().getAdminCommand().split(" ")[0],
+            addon.getSettings().getAdminCommand().split(" "));
     }
 
     @Override
@@ -62,6 +64,12 @@ public class AdminCommand extends CompositeCommand {
         new AdminReloadCommand(this);
         // Spawn
         new AdminSetspawnCommand(this);
+        // Reset flags
+        new AdminResetFlagsCommand(this);
+        // Trash
+        new AdminTrashCommand(this);
+        new AdminEmptyTrashCommand(this);
+        new AdminSwitchtoCommand(this);
     }
 
     @Override

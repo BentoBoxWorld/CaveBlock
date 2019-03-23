@@ -13,7 +13,6 @@ import world.bentobox.bentobox.api.configuration.WorldSettings;
 import world.bentobox.caveblock.commands.AdminCommand;
 import world.bentobox.caveblock.commands.IslandCommand;
 import world.bentobox.caveblock.generators.ChunkGeneratorWorld;
-import world.bentobox.caveblock.listeners.BeaconEnabler;
 import world.bentobox.caveblock.listeners.CustomHeightLimitations;
 
 
@@ -163,7 +162,6 @@ public class CaveBlock extends GameModeAddon
         }
 
         this.getServer().getPluginManager().registerEvents(new CustomHeightLimitations(this), this.getPlugin());
-        this.getServer().getPluginManager().registerEvents(new BeaconEnabler(this), this.getPlugin());
     }
 
 
