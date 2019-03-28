@@ -44,6 +44,10 @@ public class IslandCommand extends CompositeCommand {
         new IslandBanCommand(this);
         new IslandUnbanCommand(this);
         new IslandBanlistCommand(this);
+
+        // Expel command
+        new IslandExpelCommand(this);
+
         // Team commands
         new IslandTeamCommand(this);
     }
