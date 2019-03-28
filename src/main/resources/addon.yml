@@ -1,6 +1,6 @@
 name: CaveBlock
 main: world.bentobox.caveblock.CaveBlock
-version: ${version}
+version: ${version}-#${build.number}
 
 authors: BONNe
 

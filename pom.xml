@@ -46,16 +46,19 @@
 		<java.version>1.8</java.version>
 		<!-- More visible way how to change dependency versions -->
 		<spigot.version>1.13.2-R0.1-SNAPSHOT</spigot.version>
-		<bentobox.version>1.4.0-SNAPSHOT</bentobox.version>
+		<bentobox.version>1.4.0</bentobox.version>
 		<!-- Revision variable removes warning about dynamic version -->
-		<revision>${build.version}</revision>
+		<revision>${build.version}-SNAPSHOT</revision>
 		<!-- This allows to change between versions and snapshots. -->
-		<build.version>1.4.0-SNAPSHOT</build.version>
+		<build.version>1.4.0</build.version>
+		<build.number>0</build.number>
 	</properties>
 
 	<profiles>
+		<!-- Build profile is activated by BUILD_NUMBER variable. It replaces 0 with correct build number.  -->
+		<!-- This profile will be used only if BUILD_NUMBER environment variable exists. -->
 		<profile>
-			<id>develop</id>
+			<id>ci</id>
 			<activation>
 				<property>
 					<name>env.BUILD_NUMBER</name>
@@ -63,10 +66,13 @@
 			</activation>
 			<properties>
 				<!-- Override only if necessary -->
-				<revision>${build.version}-SNAPSHOT #${env.BUILD_NUMBER}</revision>
+				<build.number>${env.BUILD_NUMBER}</build.number>
 				<!-- GIT_BRANCH -->
 			</properties>
 		</profile>
+		<!-- master profile is activated by GIT_BRANCH variable. It removes '-SNAPSHOT' at the end of -->
+		<!-- ${build.version} -->
+		<!-- This profile will be used only if environment variable GIT_BRANCH is origin/master. -->
 		<profile>
 			<id>master</id>
 			<activation>
