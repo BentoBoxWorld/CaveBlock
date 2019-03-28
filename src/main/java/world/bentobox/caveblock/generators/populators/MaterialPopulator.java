@@ -62,7 +62,9 @@ public class MaterialPopulator extends BlockPopulator
     @Override
     public void populate(World world, Random random, Chunk chunk)
     {
-        for (Map.Entry<Material, Pair<Double, Integer>> entry : chances.get(world.getEnvironment()).materialChanceMap.entrySet())
+        Chances chances = this.chances.get(world.getEnvironment());
+
+        for (Map.Entry<Material, Pair<Double, Integer>> entry : chances.materialChanceMap.entrySet())
         {
             for (int subY = 1; subY < worldHeight; subY += 16)
             {
@@ -81,7 +83,7 @@ public class MaterialPopulator extends BlockPopulator
                      */
                     Block block = chunk.getBlock(x, y, z);
 
-                    if (block.getType().equals(chances.get(world.getEnvironment()).mainMaterial))
+                    if (block.getType().equals(chances.mainMaterial))
                     {
                         int packSize = random.nextInt(entry.getValue().z);
 
@@ -120,9 +122,8 @@ public class MaterialPopulator extends BlockPopulator
 
                             block = chunk.getBlock(x, y, z);
 
-                            continuePlacing = packSize > 0 &&
-                                    (block.getType().equals(chances.get(world.getEnvironment()).mainMaterial) ||
-                                            block.getType().equals(entry.getKey()));
+                            continuePlacing = packSize > 0 && (block.getType().equals(chances.mainMaterial) ||
+                                block.getType().equals(entry.getKey()));
                         }
                     }
                 }
