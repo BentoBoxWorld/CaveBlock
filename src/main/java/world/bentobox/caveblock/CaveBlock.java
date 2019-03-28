@@ -29,6 +29,7 @@ public class CaveBlock extends GameModeAddon
 
         this.saveDefaultConfig();
         this.loadSettings();
+        this.saveWorldSettings();
     }
 
 
@@ -61,10 +62,7 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void onDisable()
     {
-        if (this.settings != null)
-        {
-            new Config<>(this, Settings.class).saveConfigObject(this.settings);
-        }
+        // Do nothing
     }
 
 
@@ -204,6 +202,13 @@ public class CaveBlock extends GameModeAddon
         return this.settings;
     }
 
+    @Override
+    public void saveWorldSettings() {
+        if (settings != null) {
+            new Config<>(this, Settings.class).saveConfigObject(settings);
+        }
+
+    }
 
     // ---------------------------------------------------------------------
     // Section: Variables
@@ -235,4 +240,5 @@ public class CaveBlock extends GameModeAddon
      * String for the end world.
      */
     private static final String THE_END = "_the_end";
+
 }

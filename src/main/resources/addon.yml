@@ -1,6 +1,6 @@
 name: CaveBlock
 main: world.bentobox.caveblock.CaveBlock
-version: ${version}
+version: ${version}-#${build.number}
 
 authors: BONNe
 
@@ -13,9 +13,6 @@ permissions:
     default: true
   caveblock.island.home:
     description: Allow teleporting to player cave
-    default: true
-  caveblock.island.sethome:
-    description: Let the player use the sethome command
     default: true
   caveblock.island.info:
     description: Let the player check their cave level
