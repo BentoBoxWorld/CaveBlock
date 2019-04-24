@@ -768,36 +768,6 @@ public class Settings implements DataObject, WorldSettings
     }
 
 
-    /**
-     * This method returns the skyWalking object.
-     * @return the skyWalking object.
-     */
-    public boolean isSkyWalking()
-    {
-        return skyWalking;
-    }
-
-
-    /**
-     * This method returns the alternativeTeleports object.
-     * @return the alternativeTeleports object.
-     */
-    public boolean isAlternativeTeleports()
-    {
-        return alternativeTeleports;
-    }
-
-
-    /**
-     * This method returns the beaconAllowed object.
-     * @return the beaconAllowed object.
-     */
-    public boolean isBeaconAllowed()
-    {
-        return beaconAllowed;
-    }
-
-
 	/**
 	 * This method returns the islandCommand value.
 	 * @return the value of islandCommand.
@@ -1538,39 +1508,6 @@ public class Settings implements DataObject, WorldSettings
 
 
     /**
-     * This method sets the skyWalking object value.
-     * @param skyWalking the skyWalking object new value.
-     *
-     */
-    public void setSkyWalking(boolean skyWalking)
-    {
-        this.skyWalking = skyWalking;
-    }
-
-
-    /**
-     * This method sets the alternativeTeleports object value.
-     * @param alternativeTeleports the alternativeTeleports object new value.
-     *
-     */
-    public void setAlternativeTeleports(boolean alternativeTeleports)
-    {
-        this.alternativeTeleports = alternativeTeleports;
-    }
-
-
-    /**
-     * This method sets the beaconAllowed object value.
-     * @param beaconAllowed the beaconAllowed object new value.
-     *
-     */
-    public void setBeaconAllowed(boolean beaconAllowed)
-    {
-        this.beaconAllowed = beaconAllowed;
-    }
-
-
-    /**
      * @return the debug
      */
     public boolean isDebug() {
@@ -1707,26 +1644,6 @@ public class Settings implements DataObject, WorldSettings
     @ConfigComment("This indicate how many times block should be tried to generate.")
     @ConfigEntry(path = "world.generation-tries", needsReset = true)
     private int numberOfBlockGenerationTries = 1;
-
-    @ConfigComment("")
-    @ConfigComment("Allows to walk over the world roof.")
-    @ConfigEntry(path = "world.sky-walking")
-    private boolean skyWalking;
-
-    @ConfigComment("Enables different ways how to get to other worlds.")
-    @ConfigComment("If players fall into void, then they will be teleported:")
-    @ConfigComment(" - to nether if falls into void from over world")
-    @ConfigComment(" - to the end if falls into void from nether")
-    @ConfigComment(" - to over world if falls into void from the end")
-    @ConfigEntry(path = "world.alternative-teleports")
-    private boolean alternativeTeleports;
-
-    @ConfigComment("Enables ability to use beacon, if world roof is made of Bedrock. It will replace")
-    @ConfigComment("bedrock with black stained glass and on beacon placing, and replace it with bedrock if")
-    @ConfigComment("beacon is destroyed.")
-    @ConfigComment("This will not do anything, if roof is not made of bedrock.")
-    @ConfigEntry(path = "world.allow-beacon")
-    private boolean beaconAllowed;
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")

@@ -43,9 +43,9 @@ public class CustomHeightLimitations implements Listener
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
 		Player player = event.getPlayer();
-		final double nextY = event.getTo().getY();
+		final double nextY = event.getTo() == null ? 1 : event.getTo().getY();
 
-		if (this.addon.getSettings().isSkyWalking() ||
+		if (CaveBlock.SKY_WALKER_FLAG.isSetForWorld(player.getWorld()) ||
 			player.isOp() ||
 			player.isDead() ||
 			player.getGameMode().equals(GameMode.CREATIVE) ||
@@ -53,9 +53,87 @@ public class CustomHeightLimitations implements Listener
 			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
 			player.hasPermission("caveblock.skywalker") ||
 			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
-			nextY > 0 && nextY < this.worldHeight ||
+			nextY < this.worldHeight ||
 			// Next check will allow to go down, but never up.
-			event.getFrom().getBlockY() <= event.getFrom().getBlockY() &&
+			event.getFrom().getY() >= nextY &&
+				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
+				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
+		{
+			// interested only in movements that is above height limit.
+			return;
+		}
+
+
+		// Prevent to get over world height
+		if (nextY >= this.worldHeight)
+		{
+			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
+			event.setCancelled(true);
+		}
+	}
+
+
+	/**
+	 * Method onPlayerTeleport disables all teleports that involves moving on top of the world.
+	 *
+	 * @param event of type PlayerTeleportEvent
+	 */
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerTeleport(PlayerTeleportEvent event)
+	{
+		Player player = event.getPlayer();
+		final double nextY = event.getTo() == null ? 1 : event.getTo().getY();
+
+		if (CaveBlock.SKY_WALKER_FLAG.isSetForWorld(player.getWorld()) ||
+			player.isOp() ||
+			player.isDead() ||
+			player.getGameMode().equals(GameMode.CREATIVE) ||
+			player.getGameMode().equals(GameMode.SPECTATOR) ||
+			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
+			player.hasPermission("caveblock.skywalker") ||
+			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
+			nextY < this.worldHeight ||
+			// Next check will allow to go down, but never up.
+			event.getFrom().getY() >= nextY &&
+				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
+				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
+		{
+			// interested only in movements that is below 0 or above height limit.
+			return;
+		}
+
+		// Prevent to get over world height
+		if (nextY >= this.worldHeight)
+		{
+			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
+			event.setCancelled(true);
+		}
+	}
+
+
+
+	/**
+	 * Method onPlayerMove disables movement if player is falling in void and alternative
+	 * teleport flag is enabled.
+	 * It will work only when player reach negative Y coordinates.
+	 *
+	 * @param event of type PlayerMoveEvent
+	 */
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerLeftWorld(PlayerMoveEvent event)
+	{
+		Player player = event.getPlayer();
+		final double nextY = event.getTo() == null ? 1 : event.getTo().getY();
+
+		if (event.isCancelled() ||
+			!CaveBlock.ALTERNATIVE_TELEPORT_FLAG.isSetForWorld(player.getWorld()) ||
+			player.isDead() ||
+			player.getGameMode().equals(GameMode.SPECTATOR) ||
+			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
+			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
+			nextY > 0 ||
+			// Next check will allow to go down, but never up.
+			event.getFrom().getY() <= nextY &&
 				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
 				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
 		{
@@ -64,7 +142,7 @@ public class CustomHeightLimitations implements Listener
 		}
 
 		// Use custom teleport to different world
-		if (this.addon.getSettings().isAlternativeTeleports() && nextY <= 0)
+		if (CaveBlock.ALTERNATIVE_TELEPORT_FLAG.isSetForWorld(player.getWorld()) && nextY <= 0)
 		{
 			switch (player.getWorld().getEnvironment())
 			{
@@ -124,53 +202,6 @@ public class CustomHeightLimitations implements Listener
 				default:
 					break;
 			}
-
-			return;
-		}
-
-		// Prevent to get over world height
-		if (nextY >= this.worldHeight)
-		{
-			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
-			event.setCancelled(true);
-		}
-	}
-
-
-	/**
-	 * Method onPlayerTeleport disables all teleports that involves moving on top of the world.
-	 *
-	 * @param event of type PlayerTeleportEvent
-	 */
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerTeleport(PlayerTeleportEvent event)
-	{
-		Player player = event.getPlayer();
-		final double nextY = event.getTo().getY();
-
-		if (this.addon.getSettings().isSkyWalking() ||
-			player.isOp() ||
-			player.isDead() ||
-			player.getGameMode().equals(GameMode.CREATIVE) ||
-			player.getGameMode().equals(GameMode.SPECTATOR) ||
-			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
-			player.hasPermission("caveblock.skywalker") ||
-			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
-			nextY > 0 && nextY < this.worldHeight ||
-			// Next check will allow to go down, but never up.
-			event.getFrom().getBlockY() <= event.getFrom().getBlockY() &&
-				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
-				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
-		{
-			// interested only in movements that is below 0 or above height limit.
-			return;
-		}
-
-		// Prevent to get over world height
-		if (nextY >= this.worldHeight)
-		{
-			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
-			event.setCancelled(true);
 		}
 	}
 
