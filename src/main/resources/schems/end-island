@@ -298,7 +298,7 @@ blocks:
     bd: minecraft:air
 attached:
   0,0,0:
-    bd: minecraft:sign[rotation=8,waterlogged=false]
+    bd: minecraft:oak_sign[rotation=8,waterlogged=false]
     lines:
     - '[spawn_here]'
     - ''

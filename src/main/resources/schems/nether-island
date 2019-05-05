@@ -11695,7 +11695,7 @@ attached:
   7,18,-7:
     bd: minecraft:torch
   9,17,-2:
-    bd: minecraft:sign[rotation=8,waterlogged=false]
+    bd: minecraft:oak_sign[rotation=8,waterlogged=false]
     lines:
     - '[spawn_here]'
     - ''
