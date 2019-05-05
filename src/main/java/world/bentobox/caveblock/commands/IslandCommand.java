@@ -16,8 +16,8 @@ public class IslandCommand extends CompositeCommand {
 
     public IslandCommand(CaveBlock addon) {
         super(addon,
-            addon.getSettings().getIslandCommand().split(" ")[0],
-            addon.getSettings().getIslandCommand().split(" "));
+                addon.getSettings().getIslandCommand().split(" ")[0],
+                addon.getSettings().getIslandCommand().split(" "));
     }
 
     /* (non-Javadoc)
@@ -44,6 +44,7 @@ public class IslandCommand extends CompositeCommand {
         new IslandBanCommand(this);
         new IslandUnbanCommand(this);
         new IslandBanlistCommand(this);
+        new IslandNearCommand(this);
 
         // Expel command
         new IslandExpelCommand(this);
