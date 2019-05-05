@@ -32,6 +32,12 @@ public class CaveBlock extends GameModeAddon
         this.saveDefaultConfig();
         this.loadSettings();
         this.saveWorldSettings();
+
+        this.chunkGenerator = new ChunkGeneratorWorld(this);
+
+        this.playerCommand = new IslandCommand(this);
+        this.adminCommand = new AdminCommand(this);
+
     }
 
 
@@ -41,8 +47,6 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void onEnable()
     {
-        this.playerCommand = new IslandCommand(this);
-        this.adminCommand = new AdminCommand(this);
 
         // Register flags
         CaveBlock.ALTERNATIVE_TELEPORT_FLAG.addGameModeAddon(this);
@@ -112,8 +116,6 @@ public class CaveBlock extends GameModeAddon
         {
             this.getLogger().info("Creating CaveBlock world ...");
         }
-
-        this.chunkGenerator = new ChunkGeneratorWorld(this);
 
         // Create the world if it does not exist
         this.islandWorld = WorldCreator.name(worldName).
@@ -249,7 +251,7 @@ public class CaveBlock extends GameModeAddon
      * into void and this flag is enabled, then he will be teleported to different world.
      */
     public final static Flag ALTERNATIVE_TELEPORT_FLAG =
-        new Flag.Builder("ALTERNATIVE_TELEPORT_FLAG", Material.ENDER_PEARL).
+            new Flag.Builder("ALTERNATIVE_TELEPORT_FLAG", Material.ENDER_PEARL).
             type(Flag.Type.WORLD_SETTING).
             defaultSetting(false).
             build();
@@ -260,7 +262,7 @@ public class CaveBlock extends GameModeAddon
      * top of the world.
      */
     public final static Flag SKY_WALKER_FLAG =
-        new Flag.Builder("SKY_WALKER_FLAG", Material.FEATHER).
+            new Flag.Builder("SKY_WALKER_FLAG", Material.FEATHER).
             type(Flag.Type.WORLD_SETTING).
             defaultSetting(false).
             build();
