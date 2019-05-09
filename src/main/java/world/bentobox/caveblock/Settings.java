@@ -31,24 +31,11 @@ import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
  */
 @StoreAt(filename="config.yml", path="addons/CaveBlock")
 @ConfigComment("CaveBlock Configuration [version]")
-@ConfigComment("This config file is dynamic and saved when the server is shutdown.")
-@ConfigComment("If you edit it while the server is running use /cbadmin reload")
-@ConfigComment("otherwise your settings will be lost.")
-public class Settings implements DataObject, WorldSettings
+public class Settings implements WorldSettings
 {
     // ---------------------------------------------------------------------
     // Section: Getters
     // ---------------------------------------------------------------------
-
-
-    /**
-     * @return the uniqueId
-     */
-    @Override
-    public String getUniqueId()
-    {
-        return this.uniqueId;
-    }
 
 
     /**
@@ -791,16 +778,6 @@ public class Settings implements DataObject, WorldSettings
 	// ---------------------------------------------------------------------
     // Section: Setters
     // ---------------------------------------------------------------------
-
-
-    /**
-     * @param uniqueId - unique ID the uniqueId to set
-     */
-    @Override
-    public void setUniqueId(String uniqueId)
-    {
-        this.uniqueId = uniqueId;
-    }
 
 
     /**
@@ -1900,6 +1877,4 @@ public class Settings implements DataObject, WorldSettings
     @ConfigEntry(path = "do-not-edit-these-settings.reset-epoch")
     private long resetEpoch = 0;
     private boolean debug;
-
-    private String uniqueId = "config";
 }
