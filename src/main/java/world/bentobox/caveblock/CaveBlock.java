@@ -1,6 +1,7 @@
 package world.bentobox.caveblock;
 
 
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
@@ -10,6 +11,7 @@ import org.eclipse.jdt.annotation.NonNull;
 import world.bentobox.bentobox.api.addons.GameModeAddon;
 import world.bentobox.bentobox.api.configuration.Config;
 import world.bentobox.bentobox.api.configuration.WorldSettings;
+import world.bentobox.bentobox.api.flags.Flag;
 import world.bentobox.caveblock.commands.AdminCommand;
 import world.bentobox.caveblock.commands.IslandCommand;
 import world.bentobox.caveblock.generators.ChunkGeneratorWorld;
@@ -41,6 +43,16 @@ public class CaveBlock extends GameModeAddon
     {
         this.playerCommand = new IslandCommand(this);
         this.adminCommand = new AdminCommand(this);
+
+        // Register flags
+        CaveBlock.ALTERNATIVE_TELEPORT_FLAG.addGameModeAddon(this);
+        CaveBlock.SKY_WALKER_FLAG.addGameModeAddon(this);
+
+        this.getPlugin().getFlagsManager().registerFlag(CaveBlock.ALTERNATIVE_TELEPORT_FLAG);
+        this.getPlugin().getFlagsManager().registerFlag(CaveBlock.SKY_WALKER_FLAG);
+
+        // Register listener
+        this.registerListener(new CustomHeightLimitations(this));
     }
 
 
@@ -160,8 +172,6 @@ public class CaveBlock extends GameModeAddon
                         createWorld();
             }
         }
-
-        this.getServer().getPluginManager().registerEvents(new CustomHeightLimitations(this), this.getPlugin());
     }
 
 
@@ -202,13 +212,16 @@ public class CaveBlock extends GameModeAddon
         return this.settings;
     }
 
-    @Override
-    public void saveWorldSettings() {
-        if (settings != null) {
-            new Config<>(this, Settings.class).saveConfigObject(settings);
-        }
 
+    @Override
+    public void saveWorldSettings()
+    {
+        if (this.settings != null)
+        {
+            new Config<>(this, Settings.class).saveConfigObject(this.settings);
+        }
     }
+
 
     // ---------------------------------------------------------------------
     // Section: Variables
@@ -230,6 +243,27 @@ public class CaveBlock extends GameModeAddon
     // Section: Constants
     // ---------------------------------------------------------------------
 
+
+    /**
+     * This flag allows enables and disables alternative teleport paths. If player falls
+     * into void and this flag is enabled, then he will be teleported to different world.
+     */
+    public final static Flag ALTERNATIVE_TELEPORT_FLAG =
+        new Flag.Builder("ALTERNATIVE_TELEPORT_FLAG", Material.ENDER_PEARL).
+            type(Flag.Type.WORLD_SETTING).
+            defaultSetting(false).
+            build();
+
+    /**
+     * This flag allows enables and disables to walk on top of the world without a
+     * permission. When enabled, players will be able to reach other player islands through
+     * top of the world.
+     */
+    public final static Flag SKY_WALKER_FLAG =
+        new Flag.Builder("SKY_WALKER_FLAG", Material.FEATHER).
+            type(Flag.Type.WORLD_SETTING).
+            defaultSetting(false).
+            build();
 
     /**
      * String for nether world.

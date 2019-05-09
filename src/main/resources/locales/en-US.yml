@@ -239,4 +239,14 @@ caveblock:
         description: |-
           &aGeneral settings
           &afor this cave
-    
+
+protection:
+  flags:
+    ALTERNATIVE_TELEPORT_FLAG:
+      description: "&5&oThis allows to enable/disable\n&5&oability to teleport to\n&5&odiferent dimension if\n&5&oplayer falls in void."
+      name: "Alternative teleports"
+      hint: "Falling in void will not end in death."
+    SKY_WALKER_FLAG:
+      description: "&5&oThis allows to enable/disable\n&5&oability to walk on the\n&5&otop of the cave world\n&5&owithout extra permissions."
+      name: "Sky Walker"
+      hint: "Allows to walk on cave ceiling."

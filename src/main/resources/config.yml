@@ -62,20 +62,6 @@ world:
   world-depth: 256
   # This indicate how many times block should be tried to generate.
   generation-tries: 2
-  #
-  # Allows to walk over the world roof.
-  sky-walking: false
-  # Enables different ways how to get to other worlds.
-  # If players fall into void, then they will be teleported:
-  #  - to nether if falls into void from over world
-  #  - to the end if falls into void from nether
-  #  - to over world if falls into void from the end
-  alternative-teleports: true
-  # Enables ability to use beacon, if world roof is made of Bedrock. It will replace
-  # bedrock with black stained glass and on beacon placing, and replace it with bedrock if
-  # beacon is destroyed.
-  # This will not do anything, if roof is not made of bedrock.
-  allow-beacon: false
   normal:
     #
     # Make over world roof of bedrock, if false, it will be made from stone
