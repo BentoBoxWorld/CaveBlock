@@ -110,7 +110,7 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void createWorlds()
     {
-        String worldName = this.settings.getWorldName();
+        String worldName = this.settings.getWorldName().toLowerCase();
 
         if (this.getServer().getWorld(worldName) == null)
         {
