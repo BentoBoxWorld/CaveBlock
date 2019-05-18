@@ -93,7 +93,8 @@ public class MaterialPopulator extends BlockPopulator
                         {
                             if (!block.getType().equals(entry.getKey()))
                             {
-                                block.setType(entry.getKey());
+                                // Set type without physics is required otherwise server goes into an infinite loop
+                                block.setType(entry.getKey(), false);
                                 packSize--;
                             }
 
@@ -123,7 +124,7 @@ public class MaterialPopulator extends BlockPopulator
                             block = chunk.getBlock(x, y, z);
 
                             continuePlacing = packSize > 0 && (block.getType().equals(chances.mainMaterial) ||
-                                block.getType().equals(entry.getKey()));
+                                    block.getType().equals(entry.getKey()));
                         }
                     }
                 }
