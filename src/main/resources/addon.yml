@@ -1,6 +1,9 @@
 name: CaveBlock
 main: world.bentobox.caveblock.CaveBlock
 version: ${version}${build.number}
+metrics: true
+repository: "BentoBoxWorld/CaveBlock"
+icon: "STONE_PICKAXE"
 
 authors: BONNe
 
