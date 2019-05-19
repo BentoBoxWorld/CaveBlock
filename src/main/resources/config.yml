@@ -12,7 +12,7 @@ world:
   friendly-name: CaveBlock
   # Name of the world - if it does not exist then it will be generated.
   # It acts like a prefix for nether and end (e.g. CaveBlock-world, CaveBlock-world_nether, CaveBlock-world_end)
-  world-name: CaveBlock-world
+  world-name: caveblock-world
   # World difficulty setting - PEACEFUL, EASY, NORMAL, HARD
   # Other plugins may override this setting
   difficulty: NORMAL
