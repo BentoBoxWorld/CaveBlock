@@ -19,7 +19,6 @@ import world.bentobox.bentobox.api.configuration.ConfigEntry;
 import world.bentobox.bentobox.api.configuration.StoreAt;
 import world.bentobox.bentobox.api.configuration.WorldSettings;
 import world.bentobox.bentobox.api.flags.Flag;
-import world.bentobox.bentobox.database.objects.DataObject;
 import world.bentobox.bentobox.database.objects.adapters.Adapter;
 import world.bentobox.bentobox.database.objects.adapters.FlagSerializer;
 import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
@@ -755,27 +754,27 @@ public class Settings implements WorldSettings
     }
 
 
-	/**
-	 * This method returns the islandCommand value.
-	 * @return the value of islandCommand.
-	 */
-	public String getIslandCommand()
-	{
-		return islandCommand;
-	}
+    /**
+     * This method returns the islandCommand value.
+     * @return the value of islandCommand.
+     */
+    public String getIslandCommand()
+    {
+        return islandCommand;
+    }
 
 
-	/**
-	 * This method returns the adminCommand value.
-	 * @return the value of adminCommand.
-	 */
-	public String getAdminCommand()
-	{
-		return adminCommand;
-	}
+    /**
+     * This method returns the adminCommand value.
+     * @return the value of adminCommand.
+     */
+    public String getAdminCommand()
+    {
+        return adminCommand;
+    }
 
 
-	// ---------------------------------------------------------------------
+    // ---------------------------------------------------------------------
     // Section: Setters
     // ---------------------------------------------------------------------
 
@@ -1500,43 +1499,43 @@ public class Settings implements WorldSettings
     }
 
 
-	/**
-	 * This method sets the islandCommand value.
-	 * @param islandCommand the islandCommand new value.
-	 *
-	 */
-	public void setIslandCommand(String islandCommand)
-	{
-		this.islandCommand = islandCommand;
-	}
+    /**
+     * This method sets the islandCommand value.
+     * @param islandCommand the islandCommand new value.
+     *
+     */
+    public void setIslandCommand(String islandCommand)
+    {
+        this.islandCommand = islandCommand;
+    }
 
 
-	/**
-	 * This method sets the adminCommand value.
-	 * @param adminCommand the adminCommand new value.
-	 *
-	 */
-	public void setAdminCommand(String adminCommand)
-	{
-		this.adminCommand = adminCommand;
-	}
+    /**
+     * This method sets the adminCommand value.
+     * @param adminCommand the adminCommand new value.
+     *
+     */
+    public void setAdminCommand(String adminCommand)
+    {
+        this.adminCommand = adminCommand;
+    }
 
 
-	// ---------------------------------------------------------------------
+    // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
 
 
-	/* Commands */
-	@ConfigComment("Cave Command. What command users will run to access their cave.")
-	@ConfigComment("To define alias, just separate commands with white space.")
-	@ConfigEntry(path = "cave.command.island")
-	private String islandCommand = "cave cb";
+    /* Commands */
+    @ConfigComment("Cave Command. What command users will run to access their cave.")
+    @ConfigComment("To define alias, just separate commands with white space.")
+    @ConfigEntry(path = "cave.command.island")
+    private String islandCommand = "cave cb";
 
-	@ConfigComment("The Cave admin command.")
-	@ConfigComment("To define alias, just separate commands with white space.")
-	@ConfigEntry(path = "cave.command.admin")
-	private String adminCommand = "cbadmin cba";
+    @ConfigComment("The Cave admin command.")
+    @ConfigComment("To define alias, just separate commands with white space.")
+    @ConfigEntry(path = "cave.command.admin")
+    private String adminCommand = "cbadmin cba";
 
     /*      WORLD       */
     @ConfigComment("Friendly name for this world. Used in admin commands. Must be a single word")
@@ -1546,7 +1545,7 @@ public class Settings implements WorldSettings
     @ConfigComment("Name of the world - if it does not exist then it will be generated.")
     @ConfigComment("It acts like a prefix for nether and end (e.g. CaveBlock-world, CaveBlock-world_nether, CaveBlock-world_end)")
     @ConfigEntry(path = "world.world-name")
-    private String worldName = "CaveBlock-world";
+    private String worldName = "caveblock-world";
 
     @ConfigComment("World difficulty setting - PEACEFUL, EASY, NORMAL, HARD")
     @ConfigComment("Other plugins may override this setting")
