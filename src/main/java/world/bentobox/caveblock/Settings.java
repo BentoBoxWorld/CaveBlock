@@ -1550,7 +1550,7 @@ public class Settings implements WorldSettings
     @ConfigComment("World difficulty setting - PEACEFUL, EASY, NORMAL, HARD")
     @ConfigComment("Other plugins may override this setting")
     @ConfigEntry(path = "world.difficulty")
-    private Difficulty difficulty = Difficulty.NORMAL;
+    private Difficulty difficulty = Difficulty.HARD;
 
     @ConfigComment("Radius of cave in blocks. (So distance between caves is twice this)")
     @ConfigComment("Will be rounded up to the nearest 16 blocks.")

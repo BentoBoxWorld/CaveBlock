@@ -15,7 +15,7 @@ world:
   world-name: caveblock-world
   # World difficulty setting - PEACEFUL, EASY, NORMAL, HARD
   # Other plugins may override this setting
-  difficulty: NORMAL
+  difficulty: HARD
   # Radius of cave in blocks. (So distance between caves is twice this)
   # Will be rounded up to the nearest 16 blocks.
   # It is the same for every dimension : Overworld, Nether and End.

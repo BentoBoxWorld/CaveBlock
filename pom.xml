@@ -121,7 +121,10 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
+				<filtering>false</filtering>
+				<includes>
+					<include>*</include>
+				</includes>
 			</resource>
 			<resource>
 				<directory>src/main/resources/locales</directory>
@@ -132,11 +135,12 @@
 				</includes>
 			</resource>
 			<resource>
-				<directory>src/main/resources/schems</directory>
-				<targetPath>./schems</targetPath>
-				<filtering>false</filtering>
+				<directory>src/main/resources/blueprints</directory>
+				<targetPath>./blueprints</targetPath>
+				<filtering>true</filtering>
 				<includes>
-					<include>*.schem</include>
+					<include>*.json</include>
+					<include>*.blu</include>
 				</includes>
 			</resource>
 		</resources>
@@ -152,7 +156,7 @@
 				<version>3.1.0</version>
 				<configuration>
 					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>schem</nonFilteredFileExtension>
+						<nonFilteredFileExtension>blu</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
 				</configuration>
 			</plugin>
@@ -205,14 +209,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.1.1</version>
-				<configuration>
-					<minimizeJar>false</minimizeJar>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

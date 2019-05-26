@@ -3,7 +3,6 @@ package world.bentobox.caveblock.listeners;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,7 +12,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import world.bentobox.bentobox.api.user.User;
 import world.bentobox.bentobox.util.Util;
-import world.bentobox.bentobox.util.teleport.SafeSpotTeleport;
 import world.bentobox.caveblock.CaveBlock;
 
 
@@ -45,19 +43,7 @@ public class CustomHeightLimitations implements Listener
 		Player player = event.getPlayer();
 		final double nextY = event.getTo() == null ? 1 : event.getTo().getY();
 
-		if (CaveBlock.SKY_WALKER_FLAG.isSetForWorld(player.getWorld()) ||
-			player.isOp() ||
-			player.isDead() ||
-			player.getGameMode().equals(GameMode.CREATIVE) ||
-			player.getGameMode().equals(GameMode.SPECTATOR) ||
-			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
-			player.hasPermission("caveblock.skywalker") ||
-			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
-			nextY < this.worldHeight ||
-			// Next check will allow to go down, but never up.
-			event.getFrom().getY() >= nextY &&
-				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
-				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
+		if (this.shouldNotBeCancelled(nextY, player, event.getFrom(), event.getTo()))
 		{
 			// interested only in movements that is above height limit.
 			return;
@@ -84,19 +70,7 @@ public class CustomHeightLimitations implements Listener
 		Player player = event.getPlayer();
 		final double nextY = event.getTo() == null ? 1 : event.getTo().getY();
 
-		if (CaveBlock.SKY_WALKER_FLAG.isSetForWorld(player.getWorld()) ||
-			player.isOp() ||
-			player.isDead() ||
-			player.getGameMode().equals(GameMode.CREATIVE) ||
-			player.getGameMode().equals(GameMode.SPECTATOR) ||
-			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
-			player.hasPermission("caveblock.skywalker") ||
-			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
-			nextY < this.worldHeight ||
-			// Next check will allow to go down, but never up.
-			event.getFrom().getY() >= nextY &&
-				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
-				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
+		if (this.shouldNotBeCancelled(nextY, player, event.getFrom(), event.getTo()))
 		{
 			// interested only in movements that is below 0 or above height limit.
 			return;
@@ -111,98 +85,30 @@ public class CustomHeightLimitations implements Listener
 	}
 
 
-
 	/**
-	 * Method onPlayerMove disables movement if player is falling in void and alternative
-	 * teleport flag is enabled.
-	 * It will work only when player reach negative Y coordinates.
-	 *
-	 * @param event of type PlayerMoveEvent
+	 * This method checks and returns if current player movement from location to to location should be
+	 * managed by current addon.
+	 * @param nextY NextY location for player.
+ 	 * @param player Player who makes movement
+	 * @param from Start location
+	 * @param to Next location
+	 * @return {@code true} if addon should not manage current movement, {@code false} otherwise.
 	 */
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerLeftWorld(PlayerMoveEvent event)
+	private boolean shouldNotBeCancelled(double nextY, Player player, Location from, Location to)
 	{
-		Player player = event.getPlayer();
-		final double nextY = event.getTo() == null ? 1 : event.getTo().getY();
-
-		if (event.isCancelled() ||
-			!CaveBlock.ALTERNATIVE_TELEPORT_FLAG.isSetForWorld(player.getWorld()) ||
+		return nextY < this.worldHeight ||
+			from == to ||
+			from.getY() >= nextY &&
+				from.getBlockX() == to.getBlockX() &&
+				from.getBlockZ() == to.getBlockZ() ||
+			player.isOp() ||
 			player.isDead() ||
+			player.getGameMode().equals(GameMode.CREATIVE) ||
 			player.getGameMode().equals(GameMode.SPECTATOR) ||
+			player.hasPermission("caveblock.skywalker") ||
 			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
 			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
-			nextY > 0 ||
-			// Next check will allow to go down, but never up.
-			event.getFrom().getY() <= nextY &&
-				event.getFrom().getBlockX() == event.getTo().getBlockX() &&
-				event.getFrom().getBlockZ() == event.getTo().getBlockZ())
-		{
-			// interested only in movements that is below 0 or above height limit.
-			return;
-		}
-
-		// Use custom teleport to different world
-		if (CaveBlock.ALTERNATIVE_TELEPORT_FLAG.isSetForWorld(player.getWorld()) && nextY <= 0)
-		{
-			switch (player.getWorld().getEnvironment())
-			{
-				case NORMAL:
-				{
-					// From normal world users will get to nether.
-
-					Location to = this.addon.getIslands().getIslandAt(event.getFrom()).
-						map(i -> i.getSpawnPoint(World.Environment.NETHER)).
-						orElse(event.getFrom().toVector().toLocation(this.addon.getNetherWorld()));
-
-					event.setCancelled(true);
-
-					new SafeSpotTeleport.Builder(this.addon.getPlugin()).
-						entity(event.getPlayer()).
-						location(to).
-						portal().
-						build();
-
-					break;
-				}
-				case NETHER:
-				{
-					// From nether world users will get to the end.
-
-					Location to = this.addon.getIslands().getIslandAt(event.getFrom()).
-						map(i -> i.getSpawnPoint(World.Environment.THE_END)).
-						orElse(event.getFrom().toVector().toLocation(this.addon.getEndWorld()));
-
-					event.setCancelled(true);
-
-					new SafeSpotTeleport.Builder(this.addon.getPlugin()).
-						entity(event.getPlayer()).
-						location(to).
-						portal().
-						build();
-
-					break;
-				}
-				case THE_END:
-				{
-					// From the end users will get to over world.
-
-					Location to = this.addon.getIslands().getIslandAt(event.getFrom()).
-						map(i -> i.getSpawnPoint(World.Environment.NORMAL)).
-						orElse(event.getFrom().toVector().toLocation(this.addon.getOverWorld()));
-
-					event.setCancelled(true);
-
-					new SafeSpotTeleport.Builder(this.addon.getPlugin()).
-						entity(event.getPlayer()).
-						location(to).
-						portal().
-						build();
-					break;
-				}
-				default:
-					break;
-			}
-		}
+			CaveBlock.SKY_WALKER_FLAG.isSetForWorld(player.getWorld());
 	}
 
 
