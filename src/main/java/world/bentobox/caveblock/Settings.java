@@ -402,6 +402,7 @@ public class Settings implements WorldSettings
      * This method returns the leaversLoseReset object.
      * @return the leaversLoseReset object.
      */
+    @Override
     public boolean isLeaversLoseReset()
     {
         return leaversLoseReset;
@@ -412,6 +413,7 @@ public class Settings implements WorldSettings
      * This method returns the kickedKeepInventory object.
      * @return the kickedKeepInventory object.
      */
+    @Override
     public boolean isKickedKeepInventory()
     {
         return kickedKeepInventory;
@@ -554,6 +556,7 @@ public class Settings implements WorldSettings
      * This method returns the deathsSumTeam object.
      * @return the deathsSumTeam object.
      */
+    @Override
     public boolean isDeathsSumTeam()
     {
         return deathsSumTeam;
@@ -1789,8 +1792,7 @@ public class Settings implements WorldSettings
     private boolean leaversLoseReset = false;
 
     @ConfigComment("Allow kicked players to keep their inventory.")
-    @ConfigComment("If false, kicked player's inventory will be thrown at the island leader if the")
-    @ConfigComment("kicked player is online and in the island world.")
+    @ConfigComment("Overrides the on-leave inventory reset for kicked players.")
     @ConfigEntry(path = "island.reset.kicked-keep-inventory")
     private boolean kickedKeepInventory = false;
 
