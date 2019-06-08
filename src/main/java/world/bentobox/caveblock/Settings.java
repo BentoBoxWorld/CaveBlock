@@ -553,17 +553,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the deathsSumTeam object.
-     * @return the deathsSumTeam object.
-     */
-    @Override
-    public boolean isDeathsSumTeam()
-    {
-        return deathsSumTeam;
-    }
-
-
-    /**
      * This method returns the teamJoinDeathReset object.
      * @return the teamJoinDeathReset object.
      */
@@ -1289,17 +1278,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method sets the deathsSumTeam object value.
-     * @param deathsSumTeam the deathsSumTeam object new value.
-     *
-     */
-    public void setDeathsSumTeam(boolean deathsSumTeam)
-    {
-        this.deathsSumTeam = deathsSumTeam;
-    }
-
-
-    /**
      * This method sets the teamJoinDeathReset object value.
      * @param teamJoinDeathReset the teamJoinDeathReset object new value.
      *
@@ -1851,9 +1829,6 @@ public class Settings implements WorldSettings
     @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
     @ConfigEntry(path = "island.deaths.max")
     private int deathsMax = 10;
-
-    @ConfigEntry(path = "island.deaths.sum-team")
-    private boolean deathsSumTeam = false;
 
     @ConfigComment("When a player joins a team, reset their death count")
     @ConfigEntry(path = "island.deaths.team-join-reset")
