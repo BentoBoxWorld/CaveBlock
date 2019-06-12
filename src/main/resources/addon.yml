@@ -21,14 +21,14 @@ permissions:
     description: Let the player use the sethome command
     default: true
   caveblock.island.info:
-    description: Let the player check their cave level
-    default: true
-  caveblock.island.sethome:
-    description: Let the player set their cave teleport point
+    description: Let the player check other players info
     default: true
   caveblock.island.lock:
     description: Allows cave locking
-    default: false
+    default: true
+  caveblock.island.near:
+    description: Players can see nearby cave names
+    default: true
   caveblock.island.expel:
     description: Allows expelling of visitors
     default: true
@@ -49,7 +49,7 @@ permissions:
     default: true
   caveblock.island.reset:
     description: Player can use the cave reset or restart command
-    default: true  
+    default: true
   caveblock.island.team:
     description: Let a player use team commands
     default: true
@@ -59,21 +59,18 @@ permissions:
   caveblock.island.team.coop:
     description: Let a player use team coop commands
     default: true
+  caveblock.island.team.promote:
+    description: Let a player use promote commands
+    default: true
   caveblock.settings.*:
     description: Allow use of settings on cave
     default: true
   caveblock.mod.info:
     description: Let a moderator see info on a player
     default: op
-  caveblock.mod.resethome:
-    description: Allows setting or reseting of a player's home position
-    default: op
   caveblock.mod.clearreset:
     description: Allow clearing of cave reset limit
     default: false
-  caveblock.mod.tp:
-    description: Allows teleport to an cave
-    default: op
   caveblock.mod.bypasscooldowns:
     description: Allow moderator to bypass cooldowns
     default: op
@@ -83,21 +80,24 @@ permissions:
   caveblock.mod.bypassexpel:
     description: Allow moderator to bypass cave expulsion
     default: op
+  caveblock.mod.switch:
+    description: Allows moderator to switch bypass protection on and off
+    default: op
   caveblock.mod.lock:
-    description: Locks or unlocks an cave
+    description: Locks or unlocks a cave
     default: op
   caveblock.mod.bypasslock:
-    description: Bypasses an cave lock
+    description: Bypasses a cave lock
+    default: op
+  caveblock.mod.bypassban:
+    description: Bypasses cave ban
     default: op
   caveblock.mod.team:
     description: Enables modification of teams via kick and add commands
     default: false
-  caveblock.mod.name:
-    description: Enables naming of player's caves
-    default: false
-  caveblock.mod.resetname:
-    description: Enables reset of player's cave names
-    default: false
+  caveblock.admin.tp:
+    description: Allows teleport to a cave
+    default: op
   caveblock.admin.clearresetall:
     description: Allow clearing of cave reset limit of all players
     default: op
@@ -107,17 +107,11 @@ permissions:
   caveblock.admin.delete:
     description: Let a player completely remove a player (including cave)
     default: op
-  caveblock.admin.deleteisland:
-    description: Let a player completely remove the cave the player is on
-    default: op
   caveblock.admin.register:
     description: Let a player register the nearest cave to another player.
     default: op
   caveblock.admin.unregister:
-    description: Removes a player from an cave without deleting the cave blocks.
-    default: op
-  caveblock.admin.purge:
-    description: Let a player purge old caves.
+    description: Removes a player from a cave without deleting the cave blocks.
     default: op
   caveblock.admin.setspawn:
     description: Allows use of spawn tools
@@ -125,18 +119,15 @@ permissions:
   caveblock.admin.setrange:
     description: Allows setting of cave protection range
     default: op
-  caveblock.admin.reserve:
-    description: Reserves an empty spot for a player's next cave
-    default: op
   caveblock.admin.settingsreset:
     description: Resets all the caves to default protection settings
     default: op
   caveblock.admin.noban:
-    description: Player cannot be banned from an cave
+    description: Player cannot be banned from a cave
+    default: op
+  caveblock.admin.noexpel:
+    description: Player cannot be expelled from a cave
     default: op
   caveblock.admin.setlanguage:
     description: Resets all player languages and sets the default language
-    default: op
-  caveblock.skywalker:
-    description: Allows player to walk over the heigh limit.
     default: op

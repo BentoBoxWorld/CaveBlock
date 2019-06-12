@@ -49,10 +49,7 @@ public class CaveBlock extends GameModeAddon
     {
 
         // Register flags
-        CaveBlock.ALTERNATIVE_TELEPORT_FLAG.addGameModeAddon(this);
         CaveBlock.SKY_WALKER_FLAG.addGameModeAddon(this);
-
-        this.getPlugin().getFlagsManager().registerFlag(CaveBlock.ALTERNATIVE_TELEPORT_FLAG);
         this.getPlugin().getFlagsManager().registerFlag(CaveBlock.SKY_WALKER_FLAG);
 
         // Register listener
@@ -110,7 +107,7 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void createWorlds()
     {
-        String worldName = this.settings.getWorldName();
+        String worldName = this.settings.getWorldName().toLowerCase();
 
         if (this.getServer().getWorld(worldName) == null)
         {
@@ -245,16 +242,6 @@ public class CaveBlock extends GameModeAddon
     // Section: Constants
     // ---------------------------------------------------------------------
 
-
-    /**
-     * This flag allows enables and disables alternative teleport paths. If player falls
-     * into void and this flag is enabled, then he will be teleported to different world.
-     */
-    public final static Flag ALTERNATIVE_TELEPORT_FLAG =
-            new Flag.Builder("ALTERNATIVE_TELEPORT_FLAG", Material.ENDER_PEARL).
-            type(Flag.Type.WORLD_SETTING).
-            defaultSetting(false).
-            build();
 
     /**
      * This flag allows enables and disables to walk on top of the world without a
