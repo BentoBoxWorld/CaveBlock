@@ -17,235 +17,1009 @@ caveblock:
   # Override BentoBox default command strings
   # General strings
   general:
+    success: "&aSuccess!"
+    invalid: "Invalid"
     errors:
+      command-cancelled: "&cCommand cancelled."
+      no-permission: "&cYou don't have the permission to execute this command (&7[permission]&c)."
+      use-in-game: "&cThis command is only available in game."
+      no-team: "&cYou do not have a team!"
       no-island: "&cYou do not have a cave!"
       player-has-island: "&cPlayer already has a cave!"
       player-has-no-island: "&cThat player has no cave!"
       already-have-island: "&cYou already have a cave!"
-      no-safe-location: "&cNo safe location found!"
-      not-owner: "&cYou are not the owner of your team!"
-      cave-limit-reached: "&cYou have reached the top of your cave. You cannot get higher!"
+      no-safe-location-found: "&cCould not find a safe spot to teleport you to on the cave."
+      not-owner: "&cYou are not the owner of your cave!"
+      not-in-team: "&cThat player is not in your team!"
+      offline-player: "&cThat player is offline or doesn't exist."
+      unknown-player: "&c[name] is an unknown player!"
+      general: "&cThat command is not ready yet - contact admin"
+      unknown-command: "&cUnknown command. Do &b/[label] help &cfor help."
+      wrong-world: "&cYou are not in the right world to do that!"
+      you-must-wait: "&cYou must wait [number]s before you can do that command again."
+      must-be-positive-number: "&c[number] is not a valid positive number."
+    tips:
+      changing-obsidian-to-lava: "Changing obsidian back into lava. Be careful!"
+
   commands:
-    # Override BentoBox default island command strings
-    island:
+    # Parameters in <> are required, parameters in [] are optional
+    admin:
+      help:
+        description: "admin command"
+      resets:
+        description: "edit resets of the players"
+        set:
+          description: "sets the resets of this player"
+          parameters: "<player> <resets>"
+        reset:
+          description: "resets the resets of this player to 0"
+          parameters: "<player>"
+      team:
+        add:
+          parameters: "<owner> <player>"
+          description: "add player to owner's team"
+          name-not-owner: "&c[name] is not the owner."
+          name-has-island: "&c[name] has a cave. Unregister or delete them first!"
+          success: "&b[name]&a has been added to &b[owner]&a's cave."
+        disband:
+          parameters: "<owner>"
+          description: "disband owner's team"
+          use-disband-owner: "&cNot owner! Use disband [owner]."
+          disbanded: "&cAdmin disbanded your team!"
+          success: "&b[name]&a's team has been disbanded."
+        kick:
+          parameters: "<team player>"
+          description: "kick a player from a team"
+          cannot-kick-owner: "&cYou cannot kick the owner. Kick members first."
+          not-in-team: "&cThis player is not in a team."
+          admin-kicked: "&cThe admin kicked you from the team."
+          success: "&b[name] &ahas been kicked from &b[owner]&a's cave."
+        setowner:
+          parameters: "<player>"
+          description: "transfers cave ownership to the player"
+          already-owner: "&c[name] is already the owner of this cave!"
+          success: "&b[name]&a is now the owner of this cave."
+      range:
+        description: "Admin cave range command"
+        display:
+          already-off: "&cIndicators are already off"
+          already-on: "&cIndicators are already on"
+          description: "show/hide cave range indicators"
+          hiding: "&2Hiding range indicators"
+          hint: |-
+            &cRed Barrier icons &fshow the current cave protected range limit.
+            &7Gray Particles &fshow the max cave limit.
+            &aGreen Particles &fshow the default protected range if the cave protection range differs from it.
+          showing: "&2Showing range indicators"
+        set:
+          parameters: "<player> <range>"
+          description: "sets the cave protected range"
+          invalid-value:
+            not-numeric: "&c[number] is not a whole number!"
+            too-low: "&cThe protection range must be greater than &b1&c!"
+            too-high: "&cThe protection range should be equal or less than &b[number]&c!"
+            same-as-before: "&cThe protection range is already set to &b[number]&c!"
+          success: "&aSet cave protection range to &b[number]&a."
+        reset:
+          parameters: "<player>"
+          description: "resets the cave protected range to the world default"
+          success: "&aReset cave protection range to &b[number]&a."
+      register:
+        parameters: "<player>"
+        description: "register player to unowned cave you are on"
+        registered-island: "&aRegistered player to cave at [xyz]."
+        already-owned: "&cIsland is already owned by another player!"
+        no-island-here: "&cThere is no cave here. Confirm to make one."
+        in-deletion: "&cThis cave space is currently being deleted. Try later."
+        cannot-make-island: "&ca cave cannot be placed here, sorry. See console for possible errors."
+      unregister:
+        parameters: "<owner>"
+        description: "unregister owner from cave, but keep cave blocks"
+        unregistered-island: "&aUnregistered player from cave at [xyz]."
       info:
-        description: "display info about your cave or the player's cave"
+        parameters: "<player>"
+        description: "get info on where you are or player's cave"
+        no-island: "&cYou are not in a cave right now..."
+        title: "========== Cave Info ============"
+        islands-in-trash: "&dPlayer has caves in trash."
+        is-spawn: "Island is a spawn cave"
+        banned-players: "Orks:"
+        banned-format: "&c[name]"
+        unowned: "&cUnowned"
+      switch:
+        op: "&cOps can always bypass protection. Deop to use command."
+        removing: "Removing protection bypass..."
+        adding: "Adding protection bypass..."
+      switchto:
+        parameters: "<player> <number>"
+        description: "switch player's cave to the numbered one in trash"
+        out-of-range: "&cNumber must be between 1 and [number]. Use &l[label] trash [player] &r&cto see cave numbers"
+        cannot-switch: "&cSwitch failed. See console log for error."
+      trash:
+        no-unowned-in-trash: "&cNo unowned caves in trash"
+        no-islands-in-trash: "&cPlayer has no caves in trash"
+        parameters: "[player]"
+        description: "show unowned caves or player's caves in trash"
+        title: "&d=========== Caves in Trash ==========="
+        count: "&l&dIsland [number]:"
+        use-switch: "&aUse &l[label] switchto <player> <number>&r&a to switch player to cave in trash"
+        use-emptytrash: "&aUse &l[label] emptytrash [player]&r&a to permanently remove trash items"
+      emptytrash:
+        parameters: "[player]"
+        description: "Clear trash for player, or all unowned caves in trash"
+      version:
+        description: "display BentoBox and addons versions"
+      setrange:
+        parameters: "<player> <range>"
+        description: "set the range of player's cave"
+        range-updated: "Island range updated to [number]"
+      reload:
+        description: "reload"
+      tp:
+        parameters: "<player>"
+        description: "teleport to a player's cave"
+        manual: "&cNo safe warp found! Manually tp near to &b[location] &cand check it out"
+      getrank:
+        parameters: "<player>"
+        description: "get a player's rank on their cave"
+        rank-is: "&aRank is [rank] on their cave."
+      setrank:
+        parameters: "<player> <rank>"
+        description: "set a player's rank on their cave"
+        unknown-rank: "&cUnknown rank!"
+        rank-set: "&aRank set from [from] to [to]."
+      setspawn:
+        description: "set a cave as spawn for this world"
+        already-spawn: "&cThis cave is already a spawn!"
+        no-island-here: "&cThere is no cave here."
+        confirmation: "&cAre you sure you want to set this cave as the spawn for this world?"
+      blueprint:
+        parameters: "<load/copy/paste/pos1/pos2/save>"
+        description: "manipulate blueprints"
+        copy-first: "&cCopy first!"
+        file-exists: "&cFile already exists, overwrite?"
+        no-such-file: "&cNo such file!"
+        could-not-load: "&cCould not load that file!"
+        could-not-save: "&cHmm, something went wrong saving that file: [message]"
+        set-pos1: "&aPosition 1 set at [vector]"
+        set-pos2: "&aPosition 2 set at [vector]"
+        set-different-pos: "&cSet a different location - this pos is already set!"
+        need-pos1-pos2: "&cSet pos1 and pos2 first!"
+        copying: "&bCopying blocks..."
+        copied-blocks: "&bCopied [number] blocks to clipboard"
+        look-at-a-block: "&cLook at block within 20 blocks to set"
+        mid-copy: "&cYou are mid-copy. Wait until the copy is done."
+        copied-percent: "&6Copied [number]%"
+        copy:
+          parameters: "[air]"
+          description: "copy the clipboard set by pos1 and pos2 and optionally the air blocks"
+        load:
+          parameters: "<name>"
+          description: "load blueprint into the clipboard"
+        list:
+          description: "list available blueprints"
+          no-blueprints: "&cNo blueprints in blueprints folder!"
+          available-blueprints: "&aThese blueprints are available for loading:"
+        origin:
+          description: "set the blueprint's origin to your position"
+        paste:
+          description: "paste the clipboard to your location"
+          pasting: "&aPasting..."
+        pos1:
+          description: "set 1st corner of cuboid clipboard"
+        pos2:
+          description: "set 2nd corner of cuboid clipboard"
+        save:
+          parameters: "<blueprint name>"
+          description: "save the copied clipboard"
+        management:
+          back: "Back"
+          instruction: "Click on blueprint then click here"
+          normal: "Normal"
+          nether: "Nether"
+          end: "The End"
+          title: "Blueprint Bundle Manager"
+          edit: "Click to edit"
+          edit-description: "Click to edit description"
+          world-name-syntax: "[name] world"
+          world-instructions: |
+            Place blueprint
+            to right to set
+          trash: "Trash"
+          trash-instructions: "Right click here to delete"
+          permission: "Permission"
+          perm-required: "Required"
+          perm-not-required: "Not Required"
+          perm-format: "&e"
+          remove: "Right click to remove"
+          blueprint-instruction: "Click to select, then add to bundle"
+          select-first: "Select Blueprint first"
+          new-bundle: "New Bundle"
+          new-bundle-instructions: "Click to make a new bundle"
+          name:
+            quit: "quit"
+            prompt: "Enter a name, or 'quit' to quit"
+            too-long: "&cToo long"
+            pick-a-unique-name: "Please pick a more unique name"
+            success: "Success!"
+            conversation-prefix: ">"
+          description:
+            quit: "quit"
+            instructions: |
+              Enter a multi line description for [name]
+              and 'quit' on a line by itself to finish.
+            default-color: ""
+            success: "Success!"
+            cancelling: "Cancelling"
+      resetflags:
+        description: "Reset all caves to default flag settings in config.yml"
+      world:
+        description: "Manage world settings"
+      delete:
+        parameters: "<player>"
+        description: "deletes a player's cave"
+        cannot-delete-owner: "&cAll cave members have to be kicked from the cave before deleting it."
+        deleted-island: "&aIsland at &e[xyz] &ahas been successfully deleted."
+      why:
+        parameters: "<player>"
+        description:  "toggle console protection debug reporting"
+        turning-on: "Turning on console debug for [name]."
+        turning-off: "Turning off console debug for [name]."
+      deaths:
+        description: "edit deaths of players"
+        reset:
+          description: "resets deaths of the player"
+          parameters: "<player>"
+          success: "&aSuccessfully reset &b[name]&a's deaths to &b0&a."
+        set:
+          description: "sets deaths of the player"
+          parameters: "<player> <deaths>"
+          success: "&aSuccessfully set &b[name]&a's deaths to &b[number]&a."
+    bentobox:
+      description: "BentoBox admin command"
+      about:
+        description: "display copyright and license info"
+      reload:
+        parameters: "[addon]"
+        description: "reloads all addons, settings and locales or reloads an individual addon"
+        locales-reloaded: "&2Languages reloaded."
+        addons-reloaded: "&2Addons reloaded."
+        settings-reloaded: "&2Settings reloaded."
+        addon: "&6Reloading &b[name]&2."
+        addon-reloaded: "&b[name] &2reloaded."
+        unknown-addon: "&2Unknown addon!"
+      version:
+        plugin-version: "&2BentoBox version: &3[version]"
+        description: "display BentoBox and addons versions"
+        loaded-addons: "Loaded Addons:"
+        loaded-game-worlds: "Loaded Game Worlds:"
+        addon-syntax: "&2[name] &3[version]"
+        game-world: "&2[name] &7(&3[addon]&7): &aOverworld&7, &r[nether_color]Nether&7, &r[end_color]End"
+        server: "&2Running &3[name] [version]&2."
+      manage:
+        description: "display the management panel"
+      catalog:
+        description: "display the Addons catalog"
+      locale:
+        description: "perform locale analysis"
+        see-console: |-
+          &aCheck the console to see the feedback.
+          &aThis command is so spammy that the feedback cannot be read from chat...
+      migrate:
+        description: "migrates data from one database to another"
+        players: "&6Migrating players"
+        names: "&6Migrating names"
+        addons: "&6Migrating addons"
+        class: "&6Migrating [description]"
+        migrated: "&AMigrated"
+
+    confirmation:
+      confirm: "&cType command again within &b[seconds]s&c to confirm."
+      previous-request-cancelled: "&6Previous confirmation request cancelled."
+      request-cancelled: "&cConfirmation timeout - &brequest cancelled."
+    island:
+      about:
+        description: "About this addon"
       go:
+        parameters: "[home number]"
         description: "teleport you to your cave"
         teleport: "&aTeleporting you to your cave."
+        teleported: "&aTeleported you to home &e#[number]."
+        tip: "&bType /[label] help &afor help."
+      help:
+        description: "The main cave command"
+        pick-world: "&cSpecify world from [worlds]"
+      spawn:
+        description: "teleport you to the spawn"
+        teleporting: "&aTeleporting you to the spawn."
+        no-spawn: "&cThere is no spawn in this world."
       create:
-        description: "create a cave, using optional schem (requires permission)"
+        description: "create a cave, using optional blueprint (requires permission)"
+        parameters: "<blueprint>"
         too-many-islands: "&cThere are too many caves in this world: there isn't enough room for yours to be created."
         unable-create-island: "&cYour cave could not be generated, please contact an administrator."
         creating-island: "&aCreating your cave, please wait a moment..."
-      reset:
-        description: "restart your cave from scratch"
+        pick: "&aPick a cave"
+        unknown-blueprint: "&cThat blueprint has not been loaded yet."
+      info:
+        description: "display info about your cave or the player's cave"
+        parameters: "<player>"
+      near:
+        description: "show the name of neighboring caves around you"
         parameters: ""
-        must-remove-members: "&cYou must remove all team players before you can restart (/[label] team kick <player>)."
+        the-following-islands: "&aThe following caves are nearby:"
+        syntax: "&6[direction]: &a[name]"
+        north: North
+        south: South
+        east: East
+        west: West
+        no-neighbors: "&cYou have no immediate neighboring caves!"
+      reset:
+        description: "restart your cave and remove the old one"
+        parameters: "<blueprint>"
+        must-remove-members: "&cYou must remove all members from your cave before you can restart it (/island team kick <player>)."
+        none-left: "&cYou have no more resets left!"
+        resets-left: "&cYou have [number] resets left"
       sethome:
-        must-be-on-your-island: "&cYou must be in your cave to set home!"
-        home-set: "&6Your home has been set to your current location."
+        description: "set your home teleport point"
+        must-be-on-your-island: "&cYou must be on your cave to set home!"
+        num-homes: "&cHomes can be 1 to [number]."
+        home-set: "&6Your cave home has been set to your current location."
+        nether:
+          not-allowed: "&cYou are not allowed to set your home in the Nether."
+          confirmation: "&cAre you sure you want to set your home in the Nether?"
+        the-end:
+          not-allowed: "&cYou are not allowed to set your home in the End."
+          confirmation: "&cAre you sure you want to set your home in the End?"
+        parameters: "[home number]"
       setname:
         description: "set a name for your cave"
+        name-too-short: "&cToo short. Minimum size is [number] characters."
+        name-too-long: "&cToo long. Maximum size is [number] characters."
+        parameters: "<name>"
       resetname:
         description: "reset your cave name"
       team:
+        description: "manage your team"
+        info:
+          description: "display detailed info about your team"
         coop:
-          description: "make a player coop rank"
+          description: "make a player coop rank on your cave"
+          parameters: "<player>"
+          cannot-coop-yourself: "&cYou cannot coop yourself!"
+          already-has-rank: "&cPlayer already has a rank!"
+          you-are-a-coop-member: "&2You were cooped by [name]"
         uncoop:
+          description: "remove a coop rank from player"
+          parameters: "<player>"
+          cannot-uncoop-yourself: "&cYou cannot uncoop yourself!"
+          cannot-uncoop-member: "&cYou cannot uncoop a team member!"
+          player-not-cooped: "&cPlayer is not cooped!"
           you-are-no-longer-a-coop-member: "&cYou are no longer a coop member of [name]'s cave"
-          all-members-logged-off: "&cAll team members logged off so you are no longer a coop member of [name]'s cave"
+          all-members-logged-off: "&cAll cave members logged off so you are no longer a coop member of [name]'s cave"
         trust:
-          description: "give a player trusted rank"
+          description: "give a player trusted rank on your cave"
+          parameters: "<player>"
+          trust-in-yourself: "&cTrust in yourself!"
+          members-trusted: "&cMembers are already trusted"
+          player-already-trusted: "&cPlayer is already trusted!"
+          you-are-trusted: "&2You are trusted by [name]!"
+        untrust:
+          description: "remove trusted player rank from player"
+          parameters: "<player>"
+          cannot-untrust-yourself: "&cYou cannot untrust yourself!"
+          cannot-untrust-member: "&cYou cannot untrust a team member!"
+          player-not-trusted: "&cPlayer is not trusted!"
+          you-are-no-longer-trusted: "&cYou are no longer trusted by [name]!"
         invite:
-          description: "invite a player to join your team"
-          name-has-invited-you: "&a[name] has invited you to join their team."
+          description: "invite a player to join your cave"
+          invitation-sent: "&aInvitation sent to [name]"
+          removing-invite: "&cRemoving invite"
+          name-has-invited-you: "&a[name] has invited you to join their cave."
           to-accept-or-reject: "&aDo /[label] team accept to accept, or /[label] team reject to reject"
-          you-will-lose-your-island: "&cWARNING! You will lose your our cave if you accept!"
+          you-will-lose-your-island: "&cWARNING! You will lose your cave if you accept!"
           errors:
-            island-is-full: "&cYour team is full, you can't invite anyone else."
+            cannot-invite-self: "&cYou cannot invite yourself!"
+            cooldown: "&cYou cannot invite that person for another [number] seconds"
+            island-is-full: "&cYour cave is full, you can't invite anyone else."
+            none-invited-you: "&cNo one invited you :c."
+            you-already-are-in-team: "&cYou are already on a team!"
+            already-on-team: "&cThat player is already on a team!"
+            invalid-invite: "&cThat invite is no longer valid, sorry."
+          parameters: "<player>"
+          you-can-invite: "&aYou can invite [number] more players."
           accept:
-            you-joined-island: "&aYou joined a team! Use /[label] team info to see the other members."
-            name-joined-your-island: "&a[name] joined your team!"
+            description: "accept an invitation"
+            you-joined-island: "&aYou joined a cave! Use /[label] team info to see the other members."
+            name-joined-your-island: "&a[name] joined your cave!"
             confirmation: |-
               &cAre you sure you want to accept this invite?
-              &c&lThis will &nDESTORY &r&c&lyour current cave!
+              &c&lYou will &nLOSE&r &c&lyour current cave!
           reject:
-            you-rejected-invite: "&aYou rejected the invitation to join a team."
-            name-rejected-your-invite: "&c[name] rejected your invite!"
+            description: "reject an invitation"
+            you-rejected-invite: "&aYou rejected the invitation to join a cave."
+            name-rejected-your-invite: "&c[name] rejected your cave invite!"
           cancel:
-            description: "cancel the pending invite to join your team"
+            description: "cancel the pending invite to join your cave"
         leave:
-          description: "leave your team"
-          left-your-island: "&c[name] &cleft your team"
+          cannot-leave: "&cOwners cannot leave! Become a member first, or kick all members."
+          description: "leave your cave"
+          left-your-island: "&c[name] &cleft your cave"
         kick:
-          description: "remove a team member"
-          owner-kicked: "&cThe owner kicked you from the team!"
+          description: "remove a member from your cave"
+          parameters: "<player>"
+          owner-kicked: "&cThe owner kicked you from the cave!"
+          cannot-kick: "&cYou cannot kick yourself!"
+          success: "&b[name] &ahas been kicked from your cave."
         demote:
-          description: "demote a player one rank"
+          description: "demote a player on your cave down a rank"
+          parameters: "<player>"
+          failure: "&cPlayer cannot be demoted any further!"
+          success: "&aDemoted [name] to [rank]"
         promote:
-          description: "promote a player one rank"
+          description: "promote a player on your cave up a rank"
+          parameters: "<player>"
+          failure: "&cPlayer cannot be promoted any further!"
+          success: "&aPromoted [name] to [rank]"
         setowner:
-          description: "transfer team ownership to a member"
+          description: "transfer your cave ownership to a member"
           errors:
-            target-is-not-member: "&cThat player is not part of your team!"
+            cant-transfer-to-yourself: "&cYou can't transfer ownership to yourself! &7(&oWell, in fact, you could... But we don't want you to. Because it's useless.&r&7)"
+            target-is-not-member: "&cThat player is not part of your cave team!"
           name-is-the-owner: "&a[name] is now the cave owner!"
+          parameters: "<player>"
           you-are-the-owner: "&aYou are now the cave owner!"
       ban:
         description: "ban a player from your cave"
-        cannot-ban-more-players: "&cYou reached the ban limit, you cannot ban any more players."
+        parameters: "<player>"
+        cannot-ban-yourself: "&cYou cannot ban yourself!"
+        cannot-ban: "&cThat player cannot be banned."
+        cannot-ban-member: "&cKick the team member first, then ban."
+        cannot-ban-more-players: "&cYou reached the ban limit, you cannot ban any more players from your cave."
+        player-already-banned: "&cPlayer is already banned."
+        player-banned: "&b[name]&c is now banned from your cave."
         owner-banned-you: "&b[name]&c banned you from their cave!"
         you-are-banned: "&bYou are banned from this cave!"
       unban:
         description: "unban a player from your cave"
+        parameters: "<player>"
+        cannot-unban-yourself: "&cYou cannot unban yourself!"
+        player-not-banned: "&cPlayer is not banned."
+        player-unbanned: "&b[name]&a is now unbanned from your cave."
         you-are-unbanned: "&b[name]&a unbanned you from their cave!"
       banlist:
-        noone: "&aNo one is banned on this cave"
+        description: "list banned players"
+        noone: "&aNo one is banned on this cave."
+        the-following: "&bThe following players are banned:"
+        names: "&c[line]"
+        you-can-ban: "&bYou can ban up to &e[number] &bmore players."
       settings:
         description: "display cave settings"
-    # Admin commands
-    admin:
-      team:
-        add:
-          name-has-island: "&c[name] has a cave. Unregister or delete them first!"
-        setowner:
-          description: "transfers cave ownership to the player"
-          already-owner: "&cPlayer is already the owner of this cave!"
-      range:
-        description: "Admin cave range command"
-        display:
-          description: "Show/hide cave range indicators"
-          hint: |-
-            &cRed Barrier icons &fshow the current protected range limit.
-            &7Gray Particles &fshow the max limit.
-            &aGreen Particles &fshow the default protected range if the protection range differs from it.
-        set:
-          description: "Sets the cave protected range"
-        reset:
-          description: "Resets the protected range to the world default"
-      register:
+      language:
+        description: "select language"
+      expel:
+        description: "expel a player from your cave"
         parameters: "<player>"
-        description: "register player to unowned cave you are in"
-        registered-island: "&aRegistered player to cave at [xyz]."
-        already-owned: "&ccave is already owned by another player!"
-        no-island-here: "&cThere is no player cave here. Confirm to make one."
-        in-deletion: "&cThis space is currently being regenerated. Try later."
-      unregister:
-        description: "unregister owner from a cave, but keep cave blocks as-is"
-        unregistered-island: "&aUnregistered player from cave at [xyz]."
-      info:
-        parameters: "<player>"
-        description: "get info on where you are or on player"
-        no-island: "&cYou are not in a registered cave right now..."
-        title: "========== Cave Info ============"
-        owner: "Owner: [owner] ([uuid])"
-        last-login: "Last login: [date]"
-        deaths: "Deaths: [number]"
-        resets-left: "Resets: [number] (Max: [total])"
-        team-members-title: "Team members:"
-        team-owner-format: "&a[name] [rank]"
-        team-member-format: "&b[name] [rank]"
-        island-location: "Cave location: [xyz]"
-        island-coords: "Cave coordinates: [xz1] to [xz2]"
-        protection-range: "Protection range: [range]"
-        max-protection-range: "Largest historical protection range: [range]"
-        protection-coords: "Protection coordinates: [xz1] to [xz2]"
-        is-spawn: "Cave is a spawn cave"
-        banned-players: "Banned players:"
-        banned-format: "&c[name]"
-        unowned: "&cUnowned"
-      setrange:
-        description: "set the range of player's cave"
-        range-updated: "Cave range updated to [number]"
-      tp:
-        parameters: "<player>"
-        description: "teleport to a player's cave"
-      getrank:
-        description: "get a player's rank in their cave"
-        rank-is: "&aRank is [rank] in their cave."
-      setrank:
-        description: "set a player's rank in their cave"
-      setspawn:
-        description: "set a cave as spawn for this world"
-        already-spawn: "&cThis cave is already a spawn!"
-        no-island-here: "&cThere is no registered cave here."
-        confirmation: "&cAre you sure you want to set this cave as the spawn for this world?"
-      delete:
-        parameters: ""
-        description: "deletes a player and regenerates their cave"
-        cannot-delete-owner: "&cAll team members must be kicked before deleting."
-        deleted-island: "&aCave at &e[xyz] &ahas been successfully regenerated."
+        cannot-expel-yourself: "&cYou cannot expel yourself!"
+        cannot-expel: "&cThat player cannot be expelled."
+        cannot-ban-member: "&cYou cannot expel a team member!"
+        not-on-island: "&cThat player is not on your cave!"
+        player-expelled-you: "&b[name]&c expelled you from the cave!"
+
+  ranks:
+    owner: "Dwarf King"
+    sub-owner: "Dwarf Knight"
+    member: "Dwarf"
+    trusted: "Trusted"
+    coop: "Coop"
+    visitor: "Human"
+    banned: "Ork"
 
   protection:
+    command-is-banned: "Command is banned for visitors"
     flags:
-      ELYTRA: 
-        description: "Toggle use"
-      ENDERMAN_GRIEFING: 
+      ANIMAL_SPAWN:
+        description: "Toggle spawning"
+        name: "Animal spawning"
+      ANVIL:
+        description: "Toggle interaction"
+        name: "Anvils"
+        hint: "Anvil use disabled"
+      ARMOR_STAND:
+        description: "Toggle interaction"
+        name: "Armor stands"
+        hint: "Armor stand use disabled"
+      BEACON:
+        description: "Toggle interaction"
+        name: "Beacons"
+        hint: "Beacon use disabled"
+      BED:
+        description: "Toggle interaction"
+        name: "Beds"
+        hint: "Bed use disabled"
+      BOAT:
+        name: "Boats"
+        description: "Toggle boats interactions"
+        hint: "No boat interaction allowed"
+      BREAK_BLOCKS:
+        description: "Toggle breaking"
+        name: "Break blocks"
+        hint: "Block breaking disabled"
+      BREEDING:
+        description: "Toggle breeding"
+        name: "Breed animals"
+        hint: "Animal breeding protected"
+      BREWING:
+        description: "Toggle interaction"
+        name: "Brewing stands"
+        hint: "No brewing allowed"
+      BUCKET:
+        description: "Toggle interaction"
+        name: "Buckets"
+        hint: "No bucket use allowed"
+      BUTTON:
+        description: "Toggle button use"
+        name: "Buttons"
+        hint: "No button use allowed"
+      CONTAINER:
+        name: "Containers"
         description: |-
-           &aEndermen can remove
-           &ablocks
-      ENTER_EXIT_MESSAGES: 
+          &aToggle interaction with chests,
+          &ashulker boxes and flower pots.
+
+          &7Other containers are handled
+          &7by dedicated flags.
+        hint: "Container access disabled"
+      DISPENSER:
+        name: "Dispensers"
+        description: "Toggle dispenser interaction"
+        hint: "Dispenser interaction disabled"
+      DROPPER:
+        name: "Droppers"
+        description: "Toggle dropper interaction"
+        hint: "Dropper interaction disabled"
+      HOPPER:
+        name: "Hoppers"
+        description: "Toggle hopper interaction"
+        hint: "Hopper interaction disabled"
+      CHEST_DAMAGE:
+        description: "Toggle chest damage from explosions"
+        name: "Chest Damage"
+      CHORUS_FRUIT:
+        description: "Toggle teleportation"
+        name: "Chorus fruits"
+        hint: "No teleporting"
+      CLEAN_SUPER_FLAT:
+        description: |-
+          &aEnable to clean any
+          &asuper-flat chunks in
+          &aisland worlds
+        name: "Clean Super Flat"
+      COARSE_DIRT_TILLING:
+        description: |-
+          &aToggle tilling coarse
+          &adirt and breaking podzol
+          &ato obtain dirt
+        name: "Coarse dirt tilling"
+        hint: "No coarse dirt tilling"
+      COLLECT_LAVA:
+        description: |-
+          &aToggle collecting lava
+          &a(override Buckets)
+        name: "Collect lava"
+        hint: "No lava collection"
+      COLLECT_WATER:
+        description: |-
+          &aToggle collecting water
+          &a(override Buckets)
+        name: "Collect water"
+        hint: "No water collection"
+      COMMAND_RANKS:
+        name: "&eCommand Ranks"
+        description: "&aConfigure command ranks"
+      CRAFTING:
+        description: "Toggle use"
+        name: "Workbenches"
+        hint: "No workbench use"
+      CREEPER_DAMAGE:
+        description: "Toggle creeper damage"
+        name: "Creeper damage"
+      CREEPER_GRIEFING:
+        description: "Toggle creeper griefing"
+        name: "Creeper griefing"
+        hint: "No creeper griefing allowed"
+      CROP_TRAMPLE:
+        description: "Toggle crop trampling"
+        name: "Trample crops"
+        hint: "Crops are protected"
+      DOOR:
+        description: "Toggle door usage"
+        name: "Use doors"
+        hint: "No door use"
+      DRAGON_EGG:
+        name: "Dragon Egg"
+        description: |-
+          &aPrevents interaction with Dragon Eggs.
+
+          &cThis does not protect it from being
+          &cplaced or broken.
+        hint: "No Dragon Egg interaction"
+      DYE:
+        description: "Prevent dye use"
+        name: "Dye use"
+        hint: "No dying allowed"
+      EGGS:
+        description: "Toggle egg throwing"
+        name: "Egg throwing"
+        hint: "No egg throwing"
+      ELYTRA:
+        description: "Toggle use on cave"
+        name: "Elytra"
+        hint: "No elytra flying allowed"
+      ENCHANTING:
+        description: "Toggle use"
+        name: "Enchanting table"
+        hint: "No table use"
+      ENDER_CHEST:
+        description: "Toggle use/crafting"
+        name: "Ender Chests"
+        hint: "Ender chests are disabled in this world"
+      ENDERMAN_DEATH_DROP:
+        description: |-
+          &aEndermen will drop
+          &aany block they are
+          &aholding if killed.
+        name: "Enderman Death Drop"
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aEndermen can remove
+          &ablocks from caves
+        name: "Enderman griefing"
+      ENDER_PEARL:
+        description: "Toggle use"
+        name: "EnderPearls"
+        hint: "No enderpearl use"
+      ENTER_EXIT_MESSAGES:
         description: "Display entry and exit messages"
-        island: "[name]'s protected cave"
+        island: "[name]'s cave"
         name: "Enter/Exit messages"
         now-entering: "&bNow entering [name]"
         now-leaving: "&bNow leaving [name]"
-      GEO_LIMIT_MOBS: 
+      EXPERIENCE_BOTTLE_THROWING:
+        name: "Experience bottle throwing"
+        description: "Toggle throwing experience bottles."
+        hint: "Not allowed to throw experience bottles"
+      FIRE_BURNING:
+        name: "Fire burning"
         description: |-
-           &aRemove mobs that go
-           &aoutside protected
-           &aplayer space
-        name: "&eLimit mobs to player cave"
+          &aToggle whether fire can burn
+          &ablocks or not.
+      FIRE_EXTINGUISH:
+        description: "Toggle extinguishing fires"
+        name: "Fire extinguish"
+        hint: "No fire extinguishing allowed"
+      FIRE_IGNITE:
+        name: "Fire ignition"
+        description: |-
+          &aToggle whether fire can be ignited
+          &aby non-player means or not.
+      FIRE_SPREAD:
+        name: "Fire spread"
+        description: |-
+          &aToggle whether fire can spread
+          &ato nearby blocks or not.
+      FISH_SCOOPING:
+        name: "Fish Scooping"
+        description: "Allow scooping of fishes using a bucket"
+        hint: "No scooping of fishes"
+      FLINT_AND_STEEL:
+        name: "Flint and steel"
+        description: |-
+          &aAllow players to ignite fires using
+          &aflint and steel or fire charges.
+        hint: "No flint and steel or fire charges usage"
+      FURNACE:
+        description: "Toggle use"
+        name: "Furnace"
+        hint: "No furnace use"
+      GATE:
+        description: "Toggle use"
+        name: "Gates"
+        hint: "No gate use"
+      GEO_LIMIT_MOBS:
+        description: |-
+          &aRemove mobs that go
+          &aoutside protected
+          &aisland space
+        name: "&eLimit mobs to cave"
+      HURT_ANIMALS:
+        description: "Toggle hurting"
+        name: "Hurt animals"
+        hint: "No animal hurting allowed"
+      HURT_MONSTERS:
+        description: "Toggle hurting"
+        name: "Hurt monsters"
+        hint: "No monster hurting"
+      HURT_VILLAGERS:
+        description: "Toggle hurting"
+        name: "Hurt villagers"
+        hint: "No villager hurting"
+      ITEM_FRAME:
+        name: "Item Frame"
+        description: "Toggle interaction"
+        hint: "Item Frame use disabled"
+      ITEM_FRAME_DAMAGE:
+        description: |-
+          &aMobs can damage
+          &aitem frames
+        name: "Item Frame Damage"
+      INVINCIBLE_VISITORS:
+        description: |-
+          &aConfigure invincible visitor
+          &asettings.
+        name: "&eInvincible Visitors"
+        hint: "&cVisitors protected"
       ISLAND_RESPAWN:
         description: |-
           &aPlayers respawn
-          &ain their cave
-        name: "Cave respawn"
-      LOCK: 
-        name: "Lock player cave"
+          &aon cave
+        name: "Island respawn"
+      ITEM_DROP:
+        description: "Toggle dropping"
+        name: "Item drop"
+        hint: "Items cannot be dropped"
+      ITEM_PICKUP:
+        description: "Toggle pickup"
+        name: "Item pickup"
+        hint: "Items cannot be picked up"
+      JUKEBOX:
+        description: "Toggle usage"
+        name: "Jukebox use"
+        hint: "No jukebox use allowed"
+      LEAF_DECAY:
+        name: "Leaf decay"
+        description: "Allow leaves to naturally decay"
+      LEASH:
+        description: "Toggle use"
+        name: "Leash use"
+      LEVER:
+        description: "Toggle use"
+        name: "Lever use"
+        hint: "No lever use"
+      LIQUIDS_FLOWING_OUT:
+        name: "Liquids flowing outside caves"
+        description: |-
+          &aToggle whether liquids can flow outside
+          &aof the cave's protection range.
+          &aDisabling it helps avoiding lava and water
+          &agenerating cobblestone in the area between
+          &atwo caves.
+
+          &cNote that liquids will still flow vertically.
+          &cThey will also not spread horizontally if
+          &cthey are placed outside a cave's
+          &cprotection range.
+      LOCK:
+        description: "Toggle lock"
+        name: "Lock cave"
+      MILKING:
+        description: "Toggle cow milking"
+        name: "Milking"
+        hint: "No milking allowed"
+      MINECART:
+        name: "Minecarts"
+        description: "Toggle minecart interactions"
+        hint: "No minecart interaction allowed"
+      MONSTER_SPAWN:
+        description: "Toggle spawning"
+        name: "Monster spawning"
+      MOUNT_INVENTORY:
+        description: |-
+          &aToggle access
+          &ato mount inventory
+        name: "Mount inventory"
+        hint: "No access to mount inventory"
+      NAME_TAG:
+        name: "Name tags"
+        description: "Toggle use"
+        hint: "No name tags use"
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: "Natural creature spawning outside range"
+        description: |-
+          &aToggle whether creatures (animals and
+          &amonsters) can spawn naturally outside
+          &aa cave's protection range.
+
+          &cNote that it doesn't prevent creatures
+          &cto spawn via a mob spawner or a spawn
+          &cegg.
+      NOTE_BLOCK:
+        description: "Toggle use"
+        name: "Note block"
+        hint: "No note block use"
+      OBSIDIAN_SCOOPING:
+        name: "Obsidian scooping"
+        description: |
+          &aToggle scooping
+          &aAllow obsidian to be scooped up
+          &awith an empty bucket back into lava.
+          &aProtects newbies. Reduces resets.
+      OFFLINE_GROWTH:
+        description: |-
+          &aWhen disabled, plants
+          &awill not grow on caves
+          &awhere all members are offline.
+          &aMay help reduce lag.
+        name: "Offline Growth"
       OFFLINE_REDSTONE:
         description: |-
-            &aWhen disabled, redstone
-            &awill not operate in caves
-            &awhere all members are offline.
-            &aMay help reduce lag.   
-      PISTON_PUSH: 
+          &aWhen disabled, redstone
+          &awill not operate on caves
+          &awhere all members are offline.
+          &aMay help reduce lag.
+        name: "Offline Redstone"
+      PISTON_PUSH:
         description: |-
-            &aAllow pistons to push
-            &ablocks outside a player's cave
-      PVP_OVERWORLD: 
+          &aAllow pistons to push
+          &ablocks outside cave
+        name: "Piston Push"
+      PLACE_BLOCKS:
+        description: "Toggle placing"
+        name: "Place blocks"
+        hint: "Not allowed to place blocks"
+      POTION_THROWING:
+        name: "Potion throwing"
         description: |-
-            &cEnable/Disable PVP
-            &cin protected cave.
-      REMOVE_MOBS: 
+          &aToggle throwing potions.
+          &aThis include splash and lingering potions.
+        hint: "Not allowed to throw potions"
+      NETHER_PORTAL:
+        description: "Toggle use"
+        name: "Nether Portal"
+        hint: "Portal use is disallowed"
+      END_PORTAL:
+        description: "Toggle use"
+        name: "End Portal"
+        hint: "Portal use is disallowed"
+      PRESSURE_PLATE:
+        description: "Toggle usage"
+        name: "Pressure Plates"
+        hint: "No pressure plate use"
+      PVP_END:
+        description: |-
+          &cEnable/Disable PVP
+          &cin the End.
+        name: "End PVP"
+        hint: "No PVP allowed in the End"
+      PVP_NETHER:
+        description: |-
+          &cEnable/Disable PVP
+          &cin the Nether.
+        name: "Nether PVP"
+        hint: "No PVP allowed in the Nether"
+      PVP_OVERWORLD:
+        description: |-
+          &cEnable/Disable PVP
+          &con cave.
+        name: "Overworld PVP"
+        hint: "&cPVP is not allowed"
+        active: "&cPVP is active here!"
+      REDSTONE:
+        description: "Toggle use"
+        name: "Redstone items"
+        hint: "No redstone item use"
+      REMOVE_END_EXIT_ISLAND:
+        description: |-
+          &aPrevents the end exit
+          &aisland from generating
+          &aat coordinates 0,0
+        name: "Remove end exit cave"
+      REMOVE_MOBS:
         description: |-
           &aRemove monsters when
-          &ateleporting to a cave
+          &ateleporting to cave
+        name: "Remove monsters"
+      RIDING:
+        description: "Toggle riding"
+        name: "Animal riding"
+        hint: "No animal riding allowed"
+      SHEARING:
+        description: "Toggle shearing"
+        name: "Shearing"
+        hint: "No shearing"
+      SPAWN_EGGS:
+        description: "Toggle use"
+        name: "Spawn eggs"
+        hint: "No throwing spawn eggs"
+      TNT_DAMAGE:
+        description: |-
+          &aAllow TNT and TNT minecarts
+          &ato break blocks and damage
+          &aentities.
+        name: "TNT damage"
+      TNT_PRIMING:
+        description: |-
+          &aPrevents priming TNT.
+          &aIt does not override the
+          &aFlint and steel protection.
+        name: "TNT priming"
+        hint: "No TNT priming"
+      TRADING:
+        description: "Toggle trading"
+        name: "Villager trading"
+        hint: "No villager trading"
+      TRAPDOOR:
+        description: "Toggle access"
+        name: "Trap doors"
+        hint: "No trapdoor use"
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: "Trees growing outside range"
+        description: |-
+          &aToggle whether trees can grow outside an
+          &aisland's protection range or not.
+          &aNot only will it prevent saplings placed
+          &aoutside a cave's protection range from
+          &agrowing, but it will also block generation
+          &aof leaves/logs outside of the cave, thus
+          &acutting the tree.
+      TURTLE_EGGS:
+        description: "Toggle crushing"
+        name: "Turtle Eggs"
+        hint: "Turtle eggs cannot be crushed!"
+      FROST_WALKER:
+        description: "Toggle Frost Walker enchantment"
+        name: "Frost Walker"
+        hint: "Frost Walker cannot be used here"
+      EXPERIENCE_PICKUP:
+        name: "Experience pickup"
+        description: "Toggle experience orb pickup"
+        hint: "cannot pickup experience orb"
       PREVENT_TELEPORT_WHEN_FALLING:
+        name: "Prevent teleport when falling"
         description: |-
           &aPrevent players from teleporting
+          &aback to their cave using commands
           &aif they are falling.
-        hint: "&cYou cannot teleport while you are falling!"
+        hint: "&cYou cannot teleport back to your cave while you are falling."
     locked: "&cThis cave is locked!"
-    protected: "&ccave protected: [description]"
+    protected: "&cIsland protected: [description]"
+    spawn-protected: "&cSpawn protected: [description]"
 
     panel:
+      next: "Next Page"
+      previous: "Previous Page"
       PROTECTION:
         title: "&6Protection"
         description: |-
           &aProtection settings
           &afor this cave
       SETTING:
+        title: "&6Settings"
         description: |-
           &aGeneral settings
           &afor this cave
+      WORLD_SETTING:
+        title: "&b[world_name] &6Settings"
+        description: "&aSettings for this game world"
+      flag-item:
+        name-layout: "&a[name]"
+        description-layout: |
+          &a[description]
+
+          &7Allowed for:
+        allowed-rank: "&3- &a"
+        blocked-rank: "&3- &c"
+        minimal-rank: "&3- &2"
+        menu-layout: "&a[description]"
+        setting-layout: |
+          &a[description]
+
+          &7Current setting: [setting]
+        setting-active: "&aActive"
+        setting-disabled: "&cDisabled"
 
 protection:
   flags:
-    ALTERNATIVE_TELEPORT_FLAG:
-      description: "&5&oThis allows to enable/disable\n&5&oability to teleport to\n&5&odiferent dimension if\n&5&oplayer falls in void."
-      name: "Alternative teleports"
-      hint: "Falling in void will not end in death."
     SKY_WALKER_FLAG:
       description: "&5&oThis allows to enable/disable\n&5&oability to walk on the\n&5&otop of the cave world\n&5&owithout extra permissions."
       name: "Sky Walker"

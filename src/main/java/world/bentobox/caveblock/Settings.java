@@ -19,7 +19,6 @@ import world.bentobox.bentobox.api.configuration.ConfigEntry;
 import world.bentobox.bentobox.api.configuration.StoreAt;
 import world.bentobox.bentobox.api.configuration.WorldSettings;
 import world.bentobox.bentobox.api.flags.Flag;
-import world.bentobox.bentobox.database.objects.DataObject;
 import world.bentobox.bentobox.database.objects.adapters.Adapter;
 import world.bentobox.bentobox.database.objects.adapters.FlagSerializer;
 import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
@@ -31,24 +30,11 @@ import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
  */
 @StoreAt(filename="config.yml", path="addons/CaveBlock")
 @ConfigComment("CaveBlock Configuration [version]")
-@ConfigComment("This config file is dynamic and saved when the server is shutdown.")
-@ConfigComment("If you edit it while the server is running use /cbadmin reload")
-@ConfigComment("otherwise your settings will be lost.")
-public class Settings implements DataObject, WorldSettings
+public class Settings implements WorldSettings
 {
     // ---------------------------------------------------------------------
     // Section: Getters
     // ---------------------------------------------------------------------
-
-
-    /**
-     * @return the uniqueId
-     */
-    @Override
-    public String getUniqueId()
-    {
-        return this.uniqueId;
-    }
 
 
     /**
@@ -416,6 +402,7 @@ public class Settings implements DataObject, WorldSettings
      * This method returns the leaversLoseReset object.
      * @return the leaversLoseReset object.
      */
+    @Override
     public boolean isLeaversLoseReset()
     {
         return leaversLoseReset;
@@ -426,6 +413,7 @@ public class Settings implements DataObject, WorldSettings
      * This method returns the kickedKeepInventory object.
      * @return the kickedKeepInventory object.
      */
+    @Override
     public boolean isKickedKeepInventory()
     {
         return kickedKeepInventory;
@@ -561,16 +549,6 @@ public class Settings implements DataObject, WorldSettings
     public int getDeathsMax()
     {
         return deathsMax;
-    }
-
-
-    /**
-     * This method returns the deathsSumTeam object.
-     * @return the deathsSumTeam object.
-     */
-    public boolean isDeathsSumTeam()
-    {
-        return deathsSumTeam;
     }
 
 
@@ -768,39 +746,29 @@ public class Settings implements DataObject, WorldSettings
     }
 
 
-	/**
-	 * This method returns the islandCommand value.
-	 * @return the value of islandCommand.
-	 */
-	public String getIslandCommand()
-	{
-		return islandCommand;
-	}
-
-
-	/**
-	 * This method returns the adminCommand value.
-	 * @return the value of adminCommand.
-	 */
-	public String getAdminCommand()
-	{
-		return adminCommand;
-	}
-
-
-	// ---------------------------------------------------------------------
-    // Section: Setters
-    // ---------------------------------------------------------------------
+    /**
+     * This method returns the islandCommand value.
+     * @return the value of islandCommand.
+     */
+    public String getIslandCommand()
+    {
+        return islandCommand;
+    }
 
 
     /**
-     * @param uniqueId - unique ID the uniqueId to set
+     * This method returns the adminCommand value.
+     * @return the value of adminCommand.
      */
-    @Override
-    public void setUniqueId(String uniqueId)
+    public String getAdminCommand()
     {
-        this.uniqueId = uniqueId;
+        return adminCommand;
     }
+
+
+    // ---------------------------------------------------------------------
+    // Section: Setters
+    // ---------------------------------------------------------------------
 
 
     /**
@@ -1310,17 +1278,6 @@ public class Settings implements DataObject, WorldSettings
 
 
     /**
-     * This method sets the deathsSumTeam object value.
-     * @param deathsSumTeam the deathsSumTeam object new value.
-     *
-     */
-    public void setDeathsSumTeam(boolean deathsSumTeam)
-    {
-        this.deathsSumTeam = deathsSumTeam;
-    }
-
-
-    /**
      * This method sets the teamJoinDeathReset object value.
      * @param teamJoinDeathReset the teamJoinDeathReset object new value.
      *
@@ -1523,43 +1480,43 @@ public class Settings implements DataObject, WorldSettings
     }
 
 
-	/**
-	 * This method sets the islandCommand value.
-	 * @param islandCommand the islandCommand new value.
-	 *
-	 */
-	public void setIslandCommand(String islandCommand)
-	{
-		this.islandCommand = islandCommand;
-	}
+    /**
+     * This method sets the islandCommand value.
+     * @param islandCommand the islandCommand new value.
+     *
+     */
+    public void setIslandCommand(String islandCommand)
+    {
+        this.islandCommand = islandCommand;
+    }
 
 
-	/**
-	 * This method sets the adminCommand value.
-	 * @param adminCommand the adminCommand new value.
-	 *
-	 */
-	public void setAdminCommand(String adminCommand)
-	{
-		this.adminCommand = adminCommand;
-	}
+    /**
+     * This method sets the adminCommand value.
+     * @param adminCommand the adminCommand new value.
+     *
+     */
+    public void setAdminCommand(String adminCommand)
+    {
+        this.adminCommand = adminCommand;
+    }
 
 
-	// ---------------------------------------------------------------------
+    // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
 
 
-	/* Commands */
-	@ConfigComment("Cave Command. What command users will run to access their cave.")
-	@ConfigComment("To define alias, just separate commands with white space.")
-	@ConfigEntry(path = "cave.command.island")
-	private String islandCommand = "cave cb";
+    /* Commands */
+    @ConfigComment("Cave Command. What command users will run to access their cave.")
+    @ConfigComment("To define alias, just separate commands with white space.")
+    @ConfigEntry(path = "cave.command.island")
+    private String islandCommand = "cave cb";
 
-	@ConfigComment("The Cave admin command.")
-	@ConfigComment("To define alias, just separate commands with white space.")
-	@ConfigEntry(path = "cave.command.admin")
-	private String adminCommand = "cbadmin cba";
+    @ConfigComment("The Cave admin command.")
+    @ConfigComment("To define alias, just separate commands with white space.")
+    @ConfigEntry(path = "cave.command.admin")
+    private String adminCommand = "cbadmin cba";
 
     /*      WORLD       */
     @ConfigComment("Friendly name for this world. Used in admin commands. Must be a single word")
@@ -1569,12 +1526,12 @@ public class Settings implements DataObject, WorldSettings
     @ConfigComment("Name of the world - if it does not exist then it will be generated.")
     @ConfigComment("It acts like a prefix for nether and end (e.g. CaveBlock-world, CaveBlock-world_nether, CaveBlock-world_end)")
     @ConfigEntry(path = "world.world-name")
-    private String worldName = "CaveBlock-world";
+    private String worldName = "caveblock-world";
 
     @ConfigComment("World difficulty setting - PEACEFUL, EASY, NORMAL, HARD")
     @ConfigComment("Other plugins may override this setting")
     @ConfigEntry(path = "world.difficulty")
-    private Difficulty difficulty = Difficulty.NORMAL;
+    private Difficulty difficulty = Difficulty.HARD;
 
     @ConfigComment("Radius of cave in blocks. (So distance between caves is twice this)")
     @ConfigComment("Will be rounded up to the nearest 16 blocks.")
@@ -1813,8 +1770,7 @@ public class Settings implements DataObject, WorldSettings
     private boolean leaversLoseReset = false;
 
     @ConfigComment("Allow kicked players to keep their inventory.")
-    @ConfigComment("If false, kicked player's inventory will be thrown at the island leader if the")
-    @ConfigComment("kicked player is online and in the island world.")
+    @ConfigComment("Overrides the on-leave inventory reset for kicked players.")
     @ConfigEntry(path = "island.reset.kicked-keep-inventory")
     private boolean kickedKeepInventory = false;
 
@@ -1874,9 +1830,6 @@ public class Settings implements DataObject, WorldSettings
     @ConfigEntry(path = "island.deaths.max")
     private int deathsMax = 10;
 
-    @ConfigEntry(path = "island.deaths.sum-team")
-    private boolean deathsSumTeam = false;
-
     @ConfigComment("When a player joins a team, reset their death count")
     @ConfigEntry(path = "island.deaths.team-join-reset")
     private boolean teamJoinDeathReset = true;
@@ -1900,6 +1853,4 @@ public class Settings implements DataObject, WorldSettings
     @ConfigEntry(path = "do-not-edit-these-settings.reset-epoch")
     private long resetEpoch = 0;
     private boolean debug;
-
-    private String uniqueId = "config";
 }

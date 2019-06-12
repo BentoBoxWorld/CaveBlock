@@ -32,6 +32,12 @@ public class CaveBlock extends GameModeAddon
         this.saveDefaultConfig();
         this.loadSettings();
         this.saveWorldSettings();
+
+        this.chunkGenerator = new ChunkGeneratorWorld(this);
+
+        this.playerCommand = new IslandCommand(this);
+        this.adminCommand = new AdminCommand(this);
+
     }
 
 
@@ -41,14 +47,9 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void onEnable()
     {
-        this.playerCommand = new IslandCommand(this);
-        this.adminCommand = new AdminCommand(this);
 
         // Register flags
-        CaveBlock.ALTERNATIVE_TELEPORT_FLAG.addGameModeAddon(this);
         CaveBlock.SKY_WALKER_FLAG.addGameModeAddon(this);
-
-        this.getPlugin().getFlagsManager().registerFlag(CaveBlock.ALTERNATIVE_TELEPORT_FLAG);
         this.getPlugin().getFlagsManager().registerFlag(CaveBlock.SKY_WALKER_FLAG);
 
         // Register listener
@@ -106,14 +107,12 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void createWorlds()
     {
-        String worldName = this.settings.getWorldName();
+        String worldName = this.settings.getWorldName().toLowerCase();
 
         if (this.getServer().getWorld(worldName) == null)
         {
             this.getLogger().info("Creating CaveBlock world ...");
         }
-
-        this.chunkGenerator = new ChunkGeneratorWorld(this);
 
         // Create the world if it does not exist
         this.islandWorld = WorldCreator.name(worldName).
@@ -245,22 +244,12 @@ public class CaveBlock extends GameModeAddon
 
 
     /**
-     * This flag allows enables and disables alternative teleport paths. If player falls
-     * into void and this flag is enabled, then he will be teleported to different world.
-     */
-    public final static Flag ALTERNATIVE_TELEPORT_FLAG =
-        new Flag.Builder("ALTERNATIVE_TELEPORT_FLAG", Material.ENDER_PEARL).
-            type(Flag.Type.WORLD_SETTING).
-            defaultSetting(false).
-            build();
-
-    /**
      * This flag allows enables and disables to walk on top of the world without a
      * permission. When enabled, players will be able to reach other player islands through
      * top of the world.
      */
     public final static Flag SKY_WALKER_FLAG =
-        new Flag.Builder("SKY_WALKER_FLAG", Material.FEATHER).
+            new Flag.Builder("SKY_WALKER_FLAG", Material.FEATHER).
             type(Flag.Type.WORLD_SETTING).
             defaultSetting(false).
             build();
