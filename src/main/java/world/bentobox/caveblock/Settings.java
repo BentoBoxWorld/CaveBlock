@@ -235,17 +235,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the netherTrees object.
-     * @return the netherTrees object.
-     */
-    @Override
-    public boolean isNetherTrees()
-    {
-        return netherTrees;
-    }
-
-
-    /**
      * This method returns the netherRoof object.
      * @return the netherRoof object.
      */
@@ -538,6 +527,17 @@ public class Settings implements WorldSettings
     public boolean isDeathsCounted()
     {
         return deathsCounted;
+    }
+
+
+    /**
+     * @return true if deaths in the world are reset when the player has a new island
+     * @since 1.6.0
+     */
+    @Override
+    public boolean isDeathsResetOnNewIsland()
+    {
+        return this.deathsResetOnNewIsland;
     }
 
 
@@ -959,17 +959,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method sets the netherTrees object value.
-     * @param netherTrees the netherTrees object new value.
-     *
-     */
-    public void setNetherTrees(boolean netherTrees)
-    {
-        this.netherTrees = netherTrees;
-    }
-
-
-    /**
      * This method sets the netherRoof object value.
      * @param netherRoof the netherRoof object new value.
      *
@@ -1267,6 +1256,17 @@ public class Settings implements WorldSettings
 
 
     /**
+     * This method sets the deathsResetOnNewIsland value.
+     * @param deathsResetOnNewIsland the deathsResetOnNewIsland new value.
+     *
+     */
+    public void setDeathsResetOnNewIsland(boolean deathsResetOnNewIsland)
+    {
+        this.deathsResetOnNewIsland = deathsResetOnNewIsland;
+    }
+
+
+    /**
      * This method sets the deathsMax object value.
      * @param deathsMax the deathsMax object new value.
      *
@@ -1510,12 +1510,12 @@ public class Settings implements WorldSettings
     /* Commands */
     @ConfigComment("Cave Command. What command users will run to access their cave.")
     @ConfigComment("To define alias, just separate commands with white space.")
-    @ConfigEntry(path = "cave.command.island")
+    @ConfigEntry(path = "caveblock.command.island")
     private String islandCommand = "cave cb";
 
     @ConfigComment("The Cave admin command.")
     @ConfigComment("To define alias, just separate commands with white space.")
-    @ConfigEntry(path = "cave.command.admin")
+    @ConfigEntry(path = "caveblock.command.admin")
     private String adminCommand = "cbadmin cba";
 
     /*      WORLD       */
@@ -1587,7 +1587,7 @@ public class Settings implements WorldSettings
     private Biome defaultBiome = Biome.MOUNTAINS;
 
     @ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
-    @ConfigComment("The permission acidisland.ban.maxlimit.X where X is a number can also be used per player")
+    @ConfigComment("The permission caveblock.ban.maxlimit.X where X is a number can also be used per player")
     @ConfigComment("-1 = unlimited")
     @ConfigEntry(path = "world.ban-limit")
     private int banLimit = -1;
@@ -1639,11 +1639,6 @@ public class Settings implements WorldSettings
     @ConfigComment("Islands in Nether. Change to false for standard vanilla nether.")
     @ConfigEntry(path = "world.nether.islands", needsReset = true)
     private boolean netherIslands = true;
-
-    @ConfigComment("Nether trees are made if a player grows a tree in the nether (gravel and glowstone)")
-    @ConfigComment("Applies to both vanilla and islands Nether")
-    @ConfigEntry(path = "world.nether.trees")
-    private boolean netherTrees = true;
 
     @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
     @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
@@ -1829,6 +1824,10 @@ public class Settings implements WorldSettings
     @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
     @ConfigEntry(path = "island.deaths.max")
     private int deathsMax = 10;
+
+    @ConfigComment("Reset player death count when they start a new cave or reset a cave")
+    @ConfigEntry(path = "island.deaths.reset-on-new")
+    private boolean deathsResetOnNewIsland = true;
 
     @ConfigComment("When a player joins a team, reset their death count")
     @ConfigEntry(path = "island.deaths.team-join-reset")
