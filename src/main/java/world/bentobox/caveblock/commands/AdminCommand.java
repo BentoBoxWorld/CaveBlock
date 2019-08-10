@@ -22,8 +22,8 @@ public class AdminCommand extends CompositeCommand {
 
     public AdminCommand(CaveBlock addon) {
         super(addon,
-            addon.getSettings().getAdminCommand().split(" ")[0],
-            addon.getSettings().getAdminCommand().split(" "));
+                addon.getSettings().getAdminCommand().split(" ")[0],
+                addon.getSettings().getAdminCommand().split(" "));
     }
 
     @Override
@@ -73,6 +73,8 @@ public class AdminCommand extends CompositeCommand {
 
         // Switch
         new AdminSwitchCommand(this);
+        // Settings
+        new AdminSettingsCommand(this);
     }
 
     @Override
