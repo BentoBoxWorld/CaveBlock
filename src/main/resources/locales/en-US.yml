@@ -10,11 +10,8 @@ caveblock:
     line2: "[name]"
     line3: "Start digging! &c<3"
 
-  informational:
-    to-nether: "So unlucky to fall into nether."
-    to-the-end: "You have reached the end."
-    to-normal: "Back to your cave."
-    
+  cave-limit-reached: "&cYou have reached the end of your cave!"
+
   # Override BentoBox default command strings
   # General strings
   general:
