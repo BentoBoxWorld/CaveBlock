@@ -33,6 +33,8 @@ caveblock:
         description: 管理洞窟範囲コマンド
         display:
           description: 洞窟範囲インジケータの表示/非表示
+          hint: "＆c赤い障壁のアイコンは、&f現在の洞窟で保護されている範囲の制限を示しています。 &7灰色の粒子は&f最大洞窟限界を示します。
+            洞窟の保護範囲が異なる場合、&a緑色の粒子は&fデフォルトの保護範囲を表示します。"
         set:
           description: 洞窟の保護範囲を設定します
           success: "＆a洞窟保護範囲を＆b [number]＆aに設定します。"
@@ -54,12 +56,17 @@ caveblock:
         no-island: "＆cあなたは今洞窟の中にいません..."
         title: "==========洞窟情報============"
         is-spawn: 島はスポーン洞窟です
+        islands-in-trash: "＆dプレーヤーにはゴミ箱があります。"
       switchto:
         description: プレイヤーの洞窟をゴミ箱にある番号付きの洞窟に切り替える
+        out-of-range: 数値は1〜[number]の間でなければなりません。 洞窟番号を見るには＆l [label] trash [player]＆r＆cを使用してください
       trash:
         no-unowned-in-trash: "＆cゴミ箱に所有されていない洞窟がない"
         description: 所有していない洞窟またはプレイヤーの洞窟をゴミ箱に入れる
         title: "＆d ===========ゴミ箱の洞窟==========="
+        no-islands-in-trash: "＆cプレーヤーにはゴミ箱がありません"
+        count: "＆l＆d洞窟 [number]："
+        use-switch: "＆a＆l [label] switchto <player><number> を使用＆r＆aプレーヤーをゴミ箱に切り替える"
       emptytrash:
         description: プレイヤーのゴミ箱をクリアするか、所有していないすべての洞窟をゴミ箱に入れます
       setrange:
@@ -69,6 +76,7 @@ caveblock:
         description: プレイヤーの洞窟にテレポートする
       getrank:
         description: 洞窟でプレイヤーのランクを取得する
+        rank-is: "＆aランクは洞窟内で[rank]です。"
       setrank:
         description: 洞窟にプレイヤーのランクを設定します
       setspawn:
@@ -126,16 +134,21 @@ caveblock:
             island-is-full: "＆cあなたの洞窟はいっぱいです。他の人を招待することはできません。"
           accept:
             name-joined-your-island: "＆a [name]が洞窟に加わりました！"
+            you-joined-island: "＆a洞窟に参加しました！ / [label] team info を使用して、他のメンバーを表示します。"
+            confirmation: "＆cこの招待を受け入れてもよろしいですか？ \n ＆c＆lあなたは現在の洞窟を壊します！"
           reject:
             you-rejected-invite: "＆a洞窟への招待を拒否しました。"
             name-rejected-your-invite: "＆c [name]は洞窟への招待を拒否しました！"
           cancel:
             description: 保留中の招待をキャンセルして洞窟に参加する
+          you-will-lose-your-island: "＆c警告！受け入れると洞窟を失います！"
         leave:
           description: 洞窟を出る
+          left-your-island: "＆c [name]＆cはあなたの洞窟を去った。"
         kick:
           description: 洞窟からメンバーを削除する
           owner-kicked: "＆c所有者があなたを洞窟から追い出した！"
+          success: "＆b [name]＆aはあなたの洞窟から追い出されました。"
         demote:
           description: 洞窟のプレイヤーをランクダウンする
         promote:
@@ -176,10 +189,19 @@ caveblock:
     flags:
       ENDERMAN_GRIEFING:
         name: エンダーマンの悲嘆
+        description: |-
+          ＆aエンダーマンは削除できます
+          洞窟からのブロック
       GEO_LIMIT_MOBS:
         name: モーブを洞窟に限定
+        description: |-
+          ＆a保護されたスペースに
+           ＆a移動するMobを削除
       ISLAND_RESPAWN:
         name: 洞窟の復活
+        description: |-
+          ＆aプレイヤーは洞窟を
+          &a再出現します
       LIQUIDS_FLOWING_OUT:
         name: 洞窟の外を流れる液体
         description: |-
@@ -190,10 +212,19 @@ caveblock:
         name: ロック洞窟
       NATURAL_SPAWNING_OUTSIDE_RANGE:
         name: 範囲外に産卵する自然生物
+        description: |-
+          &aクリーチャー（動物とモンスター）が
+          &a洞窟の保護範囲外で自然に出現
+          &aできるかどうかを切り替えます。
+           &aクリーチャーがMob Spawnerまたは
+          &aSpawn Eggを介してスポーンすることを
+          &a妨げないことに注意してください。
       OFFLINE_GROWTH:
         name: オフライン成長
+        description: "＆a無効にすると、植物\n&a洞窟では成長しない\n&aすべてのメンバーがオフラインの場合。 \n "
       OFFLINE_REDSTONE:
         name: オフラインレッドストーン
+        description: "＆a無効にすると、レッドストーン\n&a洞窟では動作しません\n&aすべてのメンバーがオフラインです。 \n "
       PISTON_PUSH:
         description: |-
           ＆aピストンが押すことを許可する
@@ -206,6 +237,9 @@ caveblock:
         name: モンスターを取り除く
       TREES_GROWING_OUTSIDE_RANGE:
         name: 範囲外に成長する木
+        description: |-
+          ＆a木が洞窟の保護範囲外に成長
+          &aできるかどうかを切り替えます。
       PREVENT_TELEPORT_WHEN_FALLING:
         name: 落下時のテレポートを防ぐ
         description: |-
@@ -213,6 +247,8 @@ caveblock:
           コマンドを使用して洞窟に戻る
           落下している場合。
         hint: "＆c落下中に洞窟にテレポートすることはできません。"
+      ENTER_EXIT_MESSAGES:
+        island: "[name]の洞窟"
     locked: "＆cこの洞窟はロックされています！"
     spawn-protected: "＆cSpawn protected：[説明]"
     panel:
@@ -220,8 +256,17 @@ caveblock:
         description: |-
           ＆a一般設定
           この洞窟について
+      PROTECTION:
+        description: |-
+          &aこの洞窟の
+          &a保護設定
+    protected: "＆c洞窟は保護されています：[description]"
 protection:
   flags:
     SKY_WALKER_FLAG:
       name: スカイウォーカー
       hint: 洞窟の天井を歩くことができます。
+      description: |-
+        &5&o追加の許可なしに世界の
+        &5&oトップを歩く機能を
+        &5&o有効/無効にします。
