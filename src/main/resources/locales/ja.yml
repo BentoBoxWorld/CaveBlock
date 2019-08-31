@@ -1,0 +1,272 @@
+---
+caveblock:
+  sign:
+    line0: "＆cCaveBlock"
+    line1: ようこそ！
+    line2: "[名]"
+    line3: 掘り始めましょう！ ＆c &lt;3
+  informational:
+    to-nether: 地獄に落ちるのは不運です。
+    to-the-end: あなたは終わりに達しました。
+    to-normal: 洞窟に戻ります。
+  general:
+    errors:
+      no-island: "＆c洞窟がありません！"
+      player-has-island: "＆cPlayerにはすでに洞窟があります！"
+      player-has-no-island: "＆cそのプレイヤーには洞窟がありません！"
+      already-have-island: "＆cあなたはすでに洞窟を持っています！"
+      no-safe-location-found: "＆c洞窟でテレポートする安全な場所が見つかりませんでした。"
+      not-owner: "＆cあなたは洞窟の所有者ではありません！"
+  commands:
+    admin:
+      team:
+        add:
+          name-has-island: "＆c[name]には洞窟があります。最初に登録解除または削除してください！"
+          success: "＆b[name]＆aが＆b[owner]＆aの洞窟に追加されました。"
+        kick:
+          success: "＆b[name]＆aは＆b[owner]＆aの洞窟から追い出されました。"
+        setowner:
+          description: 洞窟の所有権をプレイヤーに譲渡します
+          already-owner: "＆c[name]はすでにこの洞窟の所有者です！"
+          success: "＆b[name]＆aがこの洞窟の所有者になりました。"
+      range:
+        description: 管理洞窟範囲コマンド
+        display:
+          description: 洞窟範囲インジケータの表示/非表示
+          hint: "＆c赤い障壁のアイコンは、&f現在の洞窟で保護されている範囲の制限を示しています。 &7灰色の粒子は&f最大洞窟限界を示します。
+            洞窟の保護範囲が異なる場合、&a緑色の粒子は&fデフォルトの保護範囲を表示します。"
+        set:
+          description: 洞窟の保護範囲を設定します
+          success: "＆a洞窟保護範囲を＆b[number]＆aに設定します。"
+        reset:
+          description: 洞窟の保護範囲を世界のデフォルトにリセットします
+          success: "＆a洞窟保護範囲を＆b[number]＆aにリセットします。"
+      register:
+        description: あなたがいる所有していない洞窟にプレイヤーを登録する
+        registered-island: "＆a[xyz]に洞窟を作る登録プレイヤー。"
+        already-owned: "＆c洞窟はすでに別のプレーヤーが所有しています！"
+        no-island-here: "＆cここには洞窟はありません。確認して確認してください。"
+        in-deletion: "＆cこの洞窟空間は現在削除中です。後で試してください。"
+        cannot-make-island: "＆c洞窟をここに配置することはできません、申し訳ありません。考えられるエラーについては、コンソールを参照してください。"
+      unregister:
+        description: 所有者を洞窟から登録解除しますが、洞窟ブロックは保持します
+        unregistered-island: "＆a [xyz]の洞窟から未登録のプレーヤー。"
+      info:
+        description: 現在地またはプレイヤーの洞窟に関する情報を取得する
+        no-island: "＆cあなたは今洞窟の中にいません..."
+        title: "==========洞窟情報============"
+        is-spawn: 島はスポーン洞窟です
+        islands-in-trash: "＆dプレーヤーにはゴミ箱があります。"
+      switchto:
+        description: プレイヤーの洞窟をゴミ箱にある番号付きの洞窟に切り替える
+        out-of-range: 数値は1〜[number]の間でなければなりません。 洞窟番号を見るには＆l[label] trash [player]＆r＆cを使用してください
+      trash:
+        no-unowned-in-trash: "＆cゴミ箱に所有されていない洞窟がない"
+        description: 所有していない洞窟またはプレイヤーの洞窟をゴミ箱に入れる
+        title: "＆d ===========ゴミ箱の洞窟==========="
+        no-islands-in-trash: "＆cプレーヤーにはゴミ箱がありません"
+        count: "＆l＆d洞窟 [number]："
+        use-switch: "＆a＆l[label] switchto <player><number> を使用＆r＆aプレーヤーをゴミ箱に切り替える"
+      emptytrash:
+        description: プレイヤーのゴミ箱をクリアするか、所有していないすべての洞窟をゴミ箱に入れます
+      setrange:
+        description: プレイヤーの洞窟の範囲を設定します
+        range-updated: 洞窟の範囲が[number]に更新されました
+      tp:
+        description: プレイヤーの洞窟にテレポートする
+      getrank:
+        description: 洞窟でプレイヤーのランクを取得する
+        rank-is: "＆aランクは洞窟内で[rank]です。"
+      setrank:
+        description: 洞窟にプレイヤーのランクを設定します
+      setspawn:
+        description: この世界のスポーンとして洞窟を設定します
+        already-spawn: "＆cこの洞窟はすでに出現しています！"
+        no-island-here: "＆cここには洞窟はありません。"
+        confirmation: "＆cこの洞窟をこの世界のスポーンとして設定してもよろしいですか？"
+      resetflags:
+        description: すべての洞窟をconfig.ymlのデフォルトのフラグ設定にリセットします
+      delete:
+        description: プレイヤーの洞窟を削除します
+        cannot-delete-owner: "＆cすべての洞窟のメンバーは、削除する前に洞窟から追い出されなければなりません。"
+        deleted-island: "＆a [xyz]の&a洞窟は正常に削除されました。"
+    island:
+      go:
+        description: 洞窟にテレポートする
+        teleport: 洞窟に移動します。
+      help:
+        description: メインの洞窟コマンド
+      create:
+        description: オプションのブループリントを使用して洞窟を作成します（許可が必要です）
+        too-many-islands: "＆cこの世界にはあまりにも多くの洞窟があります。あなたの洞窟を作成するのに十分なスペースがありません。"
+        unable-create-island: "＆cあなたの洞窟を生成できませんでした。管理者に連絡してください。"
+        creating-island: 洞窟を作成しています。しばらくお待ちください...
+        pick: 洞窟を選ぶ
+      info:
+        description: 洞窟またはプレイヤーの洞窟に関する情報を表示する
+      near:
+        description: 周囲の洞窟の名前を表示する
+        the-following-islands: "＆a次の洞窟が近くにあります。"
+        no-neighbors: "＆cすぐ近くにある洞窟はありません！"
+      reset:
+        description: 洞窟を再起動して古いものを削除します
+        must-remove-members: "＆c洞窟を再開するには、すべてのメンバーを洞窟から削除する必要があります（/[label] team kick
+          <player> ）。"
+      sethome:
+        must-be-on-your-island: "＆c家に帰るには洞窟にいる必要があります！"
+        home-set: "＆6洞窟の家は現在の場所に設定されています。"
+      setname:
+        description: 洞窟の名前を設定します
+      resetname:
+        description: 洞窟名をリセット
+      team:
+        coop:
+          description: 洞窟でプレイヤー協同組合ランクを作る
+        uncoop:
+          you-are-no-longer-a-coop-member: "＆cあなたは[name]の洞窟の協同組合員ではなくなりました"
+          all-members-logged-off: "＆cすべての洞窟メンバーがログオフしたため、あなたはもはや[name]の洞窟の協力メンバーではありません"
+        trust:
+          description: 洞窟でプレイヤーに信頼できるランクを与える
+        invite:
+          description: 洞窟に参加するプレイヤーを招待する
+          name-has-invited-you: "＆a[name]はあなたを洞窟に招待しました。"
+          errors:
+            island-is-full: "＆cあなたの洞窟はいっぱいです。他の人を招待することはできません。"
+          accept:
+            name-joined-your-island: "＆a[name]が洞窟に加わりました！"
+            you-joined-island: "＆a洞窟に参加しました！ /[label] team info を使用して、他のメンバーを表示します。"
+            confirmation: "＆cこの招待を受け入れてもよろしいですか？ \n ＆c＆lあなたは現在の洞窟を壊します！"
+          reject:
+            you-rejected-invite: "＆a洞窟への招待を拒否しました。"
+            name-rejected-your-invite: "＆c[name]は洞窟への招待を拒否しました！"
+          cancel:
+            description: 保留中の招待をキャンセルして洞窟に参加する
+          you-will-lose-your-island: "＆c警告！受け入れると洞窟を失います！"
+        leave:
+          description: 洞窟を出る
+          left-your-island: "＆c[name]＆cはあなたの洞窟を去った。"
+        kick:
+          description: 洞窟からメンバーを削除する
+          owner-kicked: "＆c所有者があなたを洞窟から追い出した！"
+          success: "＆b[name]＆aはあなたの洞窟から追い出されました。"
+        demote:
+          description: 洞窟のプレイヤーをランクダウンする
+        promote:
+          description: 洞窟のプレイヤーを昇進させる
+        setowner:
+          description: 洞窟の所有権をメンバーに譲渡する
+          errors:
+            target-is-not-member: "＆cそのプレイヤーは洞窟チームの一員ではありません！"
+          name-is-the-owner: "＆a[name]が洞窟の所有者になりました！"
+          you-are-the-owner: "＆aあなたは今、洞窟の所有者です！"
+      ban:
+        description: 洞窟からプレイヤーを禁止する
+        cannot-ban-more-players: "＆c禁止制限に達したため、これ以上洞窟からプレイヤーを禁止することはできません。"
+        player-banned: "＆b[name]＆cは洞窟から禁止されています。"
+        owner-banned-you: "＆b[name]＆cは洞窟からあなたを禁止しました！"
+        you-are-banned: "＆bあなたはこの洞窟から禁止されています！"
+      unban:
+        description: 洞窟からプレイヤーを解禁する
+        player-unbanned: "＆b[name]＆aは洞窟から禁止されなくなりました。"
+        you-are-unbanned: "＆b[name]＆aは洞窟からあなたを禁止しませんでした！"
+      banlist:
+        noone: "＆aこの洞窟では誰も禁止されていません。"
+      settings:
+        description: 洞窟の設定を表示する
+      expel:
+        description: 洞窟からプレイヤーを追放する
+        not-on-island: "＆cそのプレイヤーはあなたの洞窟にいない！"
+        player-expelled-you: "＆b[name]＆cは洞窟からあなたを追放しました！"
+  ranks:
+    owner: ドワーフキング
+    sub-owner: ドワーフナイト
+    member: ドワーフ
+    trusted: 信頼できる
+    coop: コープ
+    visitor: 人間
+    banned: オーク
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        name: エンダーマンの悲嘆
+        description: |-
+          ＆aエンダーマンは削除できます
+          洞窟からのブロック
+      GEO_LIMIT_MOBS:
+        name: モーブを洞窟に限定
+        description: |-
+          ＆a保護されたスペースに
+           ＆a移動するMobを削除
+      ISLAND_RESPAWN:
+        name: 洞窟の復活
+        description: |-
+          ＆aプレイヤーは洞窟を
+          &a再出現します
+      LIQUIDS_FLOWING_OUT:
+        name: 洞窟の外を流れる液体
+        description: |-
+          ＆a液体が外部に流れることができるかどうかを切り替えます
+          洞窟の保護範囲。
+      LOCK:
+        description: ロックの切り替え
+        name: ロック洞窟
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: 範囲外に産卵する自然生物
+        description: |-
+          &aクリーチャー（動物とモンスター）が
+          &a洞窟の保護範囲外で自然に出現
+          &aできるかどうかを切り替えます。
+           &aクリーチャーがMob Spawnerまたは
+          &aSpawn Eggを介してスポーンすることを
+          &a妨げないことに注意してください。
+      OFFLINE_GROWTH:
+        name: オフライン成長
+        description: "＆a無効にすると、植物\n&a洞窟では成長しない\n&aすべてのメンバーがオフラインの場合。 \n "
+      OFFLINE_REDSTONE:
+        name: オフラインレッドストーン
+        description: "＆a無効にすると、レッドストーン\n&a洞窟では動作しません\n&aすべてのメンバーがオフラインです。\n "
+      PISTON_PUSH:
+        description: |-
+          ＆aピストンが押すことを許可する
+          洞窟の外でブロック
+        name: ピストンプッシュ
+      REMOVE_MOBS:
+        description: |-
+          ＆aモンスターを削除するとき
+          洞窟への移動
+        name: モンスターを取り除く
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: 範囲外に成長する木
+        description: |-
+          ＆a木が洞窟の保護範囲外に成長
+          &aできるかどうかを切り替えます。
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: 落下時のテレポートを防ぐ
+        description: |-
+          ＆aプレイヤーのテレポートを防ぐ
+          コマンドを使用して洞窟に戻る
+          落下している場合。
+        hint: "＆c落下中に洞窟にテレポートすることはできません。"
+      ENTER_EXIT_MESSAGES:
+        island: "[name]の洞窟"
+    locked: "＆cこの洞窟はロックされています！"
+    spawn-protected: "＆c保護されたスポーン：[description]"
+    panel:
+      SETTING:
+        description: |-
+          ＆a一般設定
+          この洞窟について
+      PROTECTION:
+        description: |-
+          &aこの洞窟の
+          &a保護設定
+    protected: "＆c洞窟は保護されています：[description]"
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      name: スカイウォーカー
+      hint: 洞窟の天井を歩くことができます。
+      description: |-
+        &5&o追加の許可なしに世界の
+        &5&oトップを歩く機能を
+        &5&o有効/無効にします。
