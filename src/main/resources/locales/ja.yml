@@ -21,13 +21,13 @@ caveblock:
     admin:
       team:
         add:
-          name-has-island: "＆c [name]には洞窟があります。最初に登録解除または削除してください！"
-          success: "＆b [name]＆aが＆b [owner]＆aの洞窟に追加されました。"
+          name-has-island: "＆c[name]には洞窟があります。最初に登録解除または削除してください！"
+          success: "＆b[name]＆aが＆b[owner]＆aの洞窟に追加されました。"
         kick:
-          success: "＆b [name]＆ahasは＆b [owner]＆aの洞窟から追い出されました。"
+          success: "＆b[name]＆aは＆b[owner]＆aの洞窟から追い出されました。"
         setowner:
           description: 洞窟の所有権をプレイヤーに譲渡します
-          already-owner: "＆c [name]はすでにこの洞窟の所有者です！"
+          already-owner: "＆c[name]はすでにこの洞窟の所有者です！"
           success: "＆b[name]＆aがこの洞窟の所有者になりました。"
       range:
         description: 管理洞窟範囲コマンド
@@ -43,7 +43,7 @@ caveblock:
           success: "＆a洞窟保護範囲を＆b[number]＆aにリセットします。"
       register:
         description: あなたがいる所有していない洞窟にプレイヤーを登録する
-        registered-island: "＆a [xyz]に洞窟を作る登録プレイヤー。"
+        registered-island: "＆a[xyz]に洞窟を作る登録プレイヤー。"
         already-owned: "＆c洞窟はすでに別のプレーヤーが所有しています！"
         no-island-here: "＆cここには洞窟はありません。確認して確認してください。"
         in-deletion: "＆cこの洞窟空間は現在削除中です。後で試してください。"
@@ -59,7 +59,7 @@ caveblock:
         islands-in-trash: "＆dプレーヤーにはゴミ箱があります。"
       switchto:
         description: プレイヤーの洞窟をゴミ箱にある番号付きの洞窟に切り替える
-        out-of-range: 数値は1〜[number]の間でなければなりません。 洞窟番号を見るには＆l [label] trash [player]＆r＆cを使用してください
+        out-of-range: 数値は1〜[number]の間でなければなりません。 洞窟番号を見るには＆l[label] trash [player]＆r＆cを使用してください
       trash:
         no-unowned-in-trash: "＆cゴミ箱に所有されていない洞窟がない"
         description: 所有していない洞窟またはプレイヤーの洞窟をゴミ箱に入れる
