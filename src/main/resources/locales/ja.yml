@@ -28,7 +28,7 @@ caveblock:
         setowner:
           description: 洞窟の所有権をプレイヤーに譲渡します
           already-owner: "＆c [name]はすでにこの洞窟の所有者です！"
-          success: "＆b [name]＆aがこの洞窟の所有者になりました。"
+          success: "＆b[name]＆aがこの洞窟の所有者になりました。"
       range:
         description: 管理洞窟範囲コマンド
         display:
@@ -37,14 +37,14 @@ caveblock:
             洞窟の保護範囲が異なる場合、&a緑色の粒子は&fデフォルトの保護範囲を表示します。"
         set:
           description: 洞窟の保護範囲を設定します
-          success: "＆a洞窟保護範囲を＆b [number]＆aに設定します。"
+          success: "＆a洞窟保護範囲を＆b[number]＆aに設定します。"
         reset:
           description: 洞窟の保護範囲を世界のデフォルトにリセットします
-          success: "＆a洞窟保護範囲を＆b [number]＆aにリセットします。"
+          success: "＆a洞窟保護範囲を＆b[number]＆aにリセットします。"
       register:
         description: あなたがいる所有していない洞窟にプレイヤーを登録する
         registered-island: "＆a [xyz]に洞窟を作る登録プレイヤー。"
-        already-owned: "＆cCaveはすでに別のプレーヤーが所有しています！"
+        already-owned: "＆c洞窟はすでに別のプレーヤーが所有しています！"
         no-island-here: "＆cここには洞窟はありません。確認して確認してください。"
         in-deletion: "＆cこの洞窟空間は現在削除中です。後で試してください。"
         cannot-make-island: "＆c洞窟をここに配置することはできません、申し訳ありません。考えられるエラーについては、コンソールを参照してください。"
@@ -66,7 +66,7 @@ caveblock:
         title: "＆d ===========ゴミ箱の洞窟==========="
         no-islands-in-trash: "＆cプレーヤーにはゴミ箱がありません"
         count: "＆l＆d洞窟 [number]："
-        use-switch: "＆a＆l [label] switchto <player><number> を使用＆r＆aプレーヤーをゴミ箱に切り替える"
+        use-switch: "＆a＆l[label] switchto <player><number> を使用＆r＆aプレーヤーをゴミ箱に切り替える"
       emptytrash:
         description: プレイヤーのゴミ箱をクリアするか、所有していないすべての洞窟をゴミ箱に入れます
       setrange:
@@ -89,7 +89,7 @@ caveblock:
       delete:
         description: プレイヤーの洞窟を削除します
         cannot-delete-owner: "＆cすべての洞窟のメンバーは、削除する前に洞窟から追い出されなければなりません。"
-        deleted-island: "＆a [xyz]の＆aIslandは正常に削除されました。"
+        deleted-island: "＆a [xyz]の&a洞窟は正常に削除されました。"
     island:
       go:
         description: 洞窟にテレポートする
@@ -110,7 +110,7 @@ caveblock:
         no-neighbors: "＆cすぐ近くにある洞窟はありません！"
       reset:
         description: 洞窟を再起動して古いものを削除します
-        must-remove-members: "＆c洞窟を再開するには、すべてのメンバーを洞窟から削除する必要があります（/ island team kick
+        must-remove-members: "＆c洞窟を再開するには、すべてのメンバーを洞窟から削除する必要があります（/[label] team kick
           <player> ）。"
       sethome:
         must-be-on-your-island: "＆c家に帰るには洞窟にいる必要があります！"
@@ -129,26 +129,26 @@ caveblock:
           description: 洞窟でプレイヤーに信頼できるランクを与える
         invite:
           description: 洞窟に参加するプレイヤーを招待する
-          name-has-invited-you: "＆a [name]はあなたを洞窟に招待しました。"
+          name-has-invited-you: "＆a[name]はあなたを洞窟に招待しました。"
           errors:
             island-is-full: "＆cあなたの洞窟はいっぱいです。他の人を招待することはできません。"
           accept:
-            name-joined-your-island: "＆a [name]が洞窟に加わりました！"
-            you-joined-island: "＆a洞窟に参加しました！ / [label] team info を使用して、他のメンバーを表示します。"
+            name-joined-your-island: "＆a[name]が洞窟に加わりました！"
+            you-joined-island: "＆a洞窟に参加しました！ /[label] team info を使用して、他のメンバーを表示します。"
             confirmation: "＆cこの招待を受け入れてもよろしいですか？ \n ＆c＆lあなたは現在の洞窟を壊します！"
           reject:
             you-rejected-invite: "＆a洞窟への招待を拒否しました。"
-            name-rejected-your-invite: "＆c [name]は洞窟への招待を拒否しました！"
+            name-rejected-your-invite: "＆c[name]は洞窟への招待を拒否しました！"
           cancel:
             description: 保留中の招待をキャンセルして洞窟に参加する
           you-will-lose-your-island: "＆c警告！受け入れると洞窟を失います！"
         leave:
           description: 洞窟を出る
-          left-your-island: "＆c [name]＆cはあなたの洞窟を去った。"
+          left-your-island: "＆c[name]＆cはあなたの洞窟を去った。"
         kick:
           description: 洞窟からメンバーを削除する
           owner-kicked: "＆c所有者があなたを洞窟から追い出した！"
-          success: "＆b [name]＆aはあなたの洞窟から追い出されました。"
+          success: "＆b[name]＆aはあなたの洞窟から追い出されました。"
         demote:
           description: 洞窟のプレイヤーをランクダウンする
         promote:
@@ -157,18 +157,18 @@ caveblock:
           description: 洞窟の所有権をメンバーに譲渡する
           errors:
             target-is-not-member: "＆cそのプレイヤーは洞窟チームの一員ではありません！"
-          name-is-the-owner: "＆a [name]が洞窟の所有者になりました！"
+          name-is-the-owner: "＆a[name]が洞窟の所有者になりました！"
           you-are-the-owner: "＆aあなたは今、洞窟の所有者です！"
       ban:
         description: 洞窟からプレイヤーを禁止する
         cannot-ban-more-players: "＆c禁止制限に達したため、これ以上洞窟からプレイヤーを禁止することはできません。"
-        player-banned: "＆b [name]＆cは洞窟から禁止されています。"
-        owner-banned-you: "＆b [name]＆cは洞窟からあなたを禁止しました！"
+        player-banned: "＆b[name]＆cは洞窟から禁止されています。"
+        owner-banned-you: "＆b[name]＆cは洞窟からあなたを禁止しました！"
         you-are-banned: "＆bあなたはこの洞窟から禁止されています！"
       unban:
         description: 洞窟からプレイヤーを解禁する
-        player-unbanned: "＆b [name]＆aは洞窟から禁止されなくなりました。"
-        you-are-unbanned: "＆b [name]＆aは洞窟からあなたを禁止しませんでした！"
+        player-unbanned: "＆b[name]＆aは洞窟から禁止されなくなりました。"
+        you-are-unbanned: "＆b[name]＆aは洞窟からあなたを禁止しませんでした！"
       banlist:
         noone: "＆aこの洞窟では誰も禁止されていません。"
       settings:
@@ -176,7 +176,7 @@ caveblock:
       expel:
         description: 洞窟からプレイヤーを追放する
         not-on-island: "＆cそのプレイヤーはあなたの洞窟にいない！"
-        player-expelled-you: "＆b [name]＆cは洞窟からあなたを追放しました！"
+        player-expelled-you: "＆b[name]＆cは洞窟からあなたを追放しました！"
   ranks:
     owner: ドワーフキング
     sub-owner: ドワーフナイト
@@ -224,7 +224,7 @@ caveblock:
         description: "＆a無効にすると、植物\n&a洞窟では成長しない\n&aすべてのメンバーがオフラインの場合。 \n "
       OFFLINE_REDSTONE:
         name: オフラインレッドストーン
-        description: "＆a無効にすると、レッドストーン\n&a洞窟では動作しません\n&aすべてのメンバーがオフラインです。 \n "
+        description: "＆a無効にすると、レッドストーン\n&a洞窟では動作しません\n&aすべてのメンバーがオフラインです。\n "
       PISTON_PUSH:
         description: |-
           ＆aピストンが押すことを許可する
@@ -250,7 +250,7 @@ caveblock:
       ENTER_EXIT_MESSAGES:
         island: "[name]の洞窟"
     locked: "＆cこの洞窟はロックされています！"
-    spawn-protected: "＆cSpawn protected：[説明]"
+    spawn-protected: "＆c保護されたスポーン：[description]"
     panel:
       SETTING:
         description: |-
