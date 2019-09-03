@@ -1,6 +1,7 @@
 # CaveBlock
 
 [![Discord](https://img.shields.io/discord/272499714048524288.svg?logo=discord)](https://discord.bentobox.world)
+[![Build Status](https://ci.codemc.org/buildStatus/icon?job=BentoBoxWorld/CaveBlock)](https://ci.codemc.org/job/BentoBoxWorld/job/CaveBlock/)
 
 CaveBlock is an addon for BentoBox, so to run CaveBlock, you must have BentoBox installed. It is not a Bukkit plugin and trying to use it as one will not work.
 
