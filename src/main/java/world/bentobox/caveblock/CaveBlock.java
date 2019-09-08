@@ -20,6 +20,7 @@ import world.bentobox.caveblock.listeners.CustomHeightLimitations;
 
 public class CaveBlock extends GameModeAddon
 {
+
     /**
      * Executes code when loading the addon. This is called before {@link #onEnable()}. This should preferably
      * be used to setup configuration and worlds.
@@ -84,7 +85,7 @@ public class CaveBlock extends GameModeAddon
      */
     private void loadSettings()
     {
-        this.settings = new Config<>(this, Settings.class).loadConfigObject();
+        this.settings = settingsConfig.loadConfigObject();
 
         if (this.settings == null)
         {
@@ -217,7 +218,7 @@ public class CaveBlock extends GameModeAddon
     {
         if (this.settings != null)
         {
-            new Config<>(this, Settings.class).saveConfigObject(this.settings);
+            settingsConfig.saveConfigObject(this.settings);
         }
     }
 
@@ -226,6 +227,10 @@ public class CaveBlock extends GameModeAddon
     // Section: Variables
     // ---------------------------------------------------------------------
 
+    /**
+     * Config object
+     */
+    private final Config<Settings> settingsConfig = new Config<>(this, Settings.class);
 
     /**
      * This stores CaveBlock addon settings.
@@ -263,5 +268,6 @@ public class CaveBlock extends GameModeAddon
      * String for the end world.
      */
     private static final String THE_END = "_the_end";
+
 
 }

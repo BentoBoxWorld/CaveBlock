@@ -1,8 +1,14 @@
 # CaveBlock
 
 [![Discord](https://img.shields.io/discord/272499714048524288.svg?logo=discord)](https://discord.bentobox.world)
+[![Build Status](https://ci.codemc.org/buildStatus/icon?job=BentoBoxWorld/CaveBlock)](https://ci.codemc.org/job/BentoBoxWorld/job/CaveBlock/)
 
 CaveBlock is an addon for BentoBox, so to run CaveBlock, you must have BentoBox installed. It is not a Bukkit plugin and trying to use it as one will not work.
+
+## Translation
+
+As most of BentoBox projects, CaveBlock Addon is translatable in any language. Everyone can contribute, and translate some parts of the addon in their language via [GitLocalize](https://gitlocalize.com/repo/2968).
+If your language is not in the list, please contact to developers via Discord and it will be added there.
 
 ## Installation
 

@@ -1,0 +1,15 @@
+{
+  "uniqueId": "miner-cave",
+  "icon": "MOSSY_STONE_BRICKS",
+  "displayName": "&eThe Miner's Cave",
+  "description": [
+    "The Miner's Cave"
+  ],
+  "requirePermission": false,
+  "blueprints": {
+    "NORMAL": "miner's cave",
+    "NETHER": "the nether cave",
+    "THE_END": "the end cave"
+  },
+  "slot": 1
+}

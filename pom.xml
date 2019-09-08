@@ -46,11 +46,11 @@
 		<java.version>1.8</java.version>
 		<!-- More visible way how to change dependency versions -->
 		<spigot.version>1.13.2-R0.1-SNAPSHOT</spigot.version>
-		<bentobox.version>1.6.0</bentobox.version>
+		<bentobox.version>1.7.0</bentobox.version>
 		<!-- Revision variable removes warning about dynamic version -->
 		<revision>${build.version}-SNAPSHOT</revision>
 		<!-- This allows to change between versions and snapshots. -->
-		<build.version>1.6.0</build.version>
+		<build.version>1.7.0</build.version>
 		<build.number>-LOCAL</build.number>
 	</properties>
 
