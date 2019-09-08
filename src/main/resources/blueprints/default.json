@@ -1,15 +1,15 @@
 {
   "uniqueId": "default",
   "icon": "STONE",
-  "displayName": "§eThe Default CaveBlock",
+  "displayName": "&eThe Default CaveBlock",
   "description": [
-    "Miner's Cave"
+    "Default Cave"
   ],
   "requirePermission": false,
   "blueprints": {
-    "NORMAL": "miner's cave",
-    "NETHER": "nether-cave",
-    "THE_END": "end-cave"
+    "NORMAL": "the cave",
+    "NETHER": "the nether cave",
+    "THE_END": "the end cave"
   },
   "slot": 0
 }
