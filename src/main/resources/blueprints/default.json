@@ -3,15 +3,13 @@
   "icon": "STONE",
   "displayName": "§eThe Default CaveBlock",
   "description": [
-    "§bStandard cave, with a cow - moo!",
-    "§aIncludes an Overworld cave",
-    "§cIncludes a Nether cave",
-    "§6Includes an End cave"
+    "Miner's Cave"
   ],
   "requirePermission": false,
   "blueprints": {
-    "NORMAL": "cave",
+    "NORMAL": "miner's cave",
     "NETHER": "nether-cave",
     "THE_END": "end-cave"
-  }
+  },
+  "slot": 0
 }
