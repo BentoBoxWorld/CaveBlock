@@ -32,7 +32,6 @@ public class CaveBlock extends GameModeAddon
 
         this.saveDefaultConfig();
         this.loadSettings();
-        this.saveWorldSettings();
 
         this.chunkGenerator = new ChunkGeneratorWorld(this);
 
@@ -93,6 +92,16 @@ public class CaveBlock extends GameModeAddon
             this.logError("CaveBlock settings could not load! Addon disabled.");
             this.setState(State.DISABLED);
         }
+    }
+
+    /* (non-Javadoc)
+     * @see world.bentobox.bentobox.api.addons.Addon#allLoaded()
+     */
+    @Override
+    public void allLoaded() {
+        // Reload settings and save them. This will occur after all addons have loaded
+        this.loadSettings();
+        this.saveWorldSettings();
     }
 
     // ---------------------------------------------------------------------
