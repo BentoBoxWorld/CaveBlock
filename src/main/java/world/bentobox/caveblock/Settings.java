@@ -1501,11 +1501,42 @@ public class Settings implements WorldSettings
         this.adminCommand = adminCommand;
     }
 
+    /**
+     * @return the onJoinCommands
+     */
+    @Override
+    public List<String> getOnJoinCommands() {
+        return onJoinCommands;
+    }
+
+
+    /**
+     * @param onJoinCommands the onJoinCommands to set
+     */
+    public void setOnJoinCommands(List<String> onJoinCommands) {
+        this.onJoinCommands = onJoinCommands;
+    }
+
+
+    /**
+     * @return the onLeaveCommands
+     */
+    @Override
+    public List<String> getOnLeaveCommands() {
+        return onLeaveCommands;
+    }
+
+
+    /**
+     * @param onLeaveCommands the onLeaveCommands to set
+     */
+    public void setOnLeaveCommands(List<String> onLeaveCommands) {
+        this.onLeaveCommands = onLeaveCommands;
+    }
 
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
-
 
     /* Commands */
     @ConfigComment("Cave Command. What command users will run to access their cave.")
@@ -1802,6 +1833,15 @@ public class Settings implements WorldSettings
     @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
     @ConfigEntry(path = "island.reset.on-leave.ender-chest")
     private boolean onLeaveResetEnderChest = false;
+
+    // Commands
+    @ConfigComment("List of commands to run when a player joins.")
+    @ConfigEntry(path = "island.commands.on-join")
+    private List<String> onJoinCommands = new ArrayList<>();
+
+    @ConfigComment("list of commands to run when a player leaves.")
+    @ConfigEntry(path = "island.commands.on-leave")
+    private List<String> onLeaveCommands = new ArrayList<>();
 
     // Sethome
     @ConfigEntry(path = "island.sethome.nether.allow")
