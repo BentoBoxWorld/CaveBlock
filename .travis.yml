@@ -1,0 +1,23 @@
+language: java
+sudo: false
+addons:
+    sonarcloud:
+        organization: "bentobox-world"
+        token:
+            secure: $SONAR_TOKEN
+jdk:
+    - openjdk8
+    - openjdk11
+    
+matrix:
+  allow_failures:
+    - jdk: openjdk11
+    
+script:
+    # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=BentoBoxWorld_CaveBlock
+
+cache:
+    directories:
+        - '$HOME/.m2/repository'
+        - '$HOME/.sonar/cache'
