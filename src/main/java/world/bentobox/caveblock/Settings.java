@@ -1128,6 +1128,17 @@ public class Settings implements WorldSettings
     }
 
 
+	/**
+	 * This method sets the fallingBannedCommands object value.
+	 * @param fallingBannedCommands the fallingBannedCommands object new value.
+	 *
+	 */
+	public void setFallingBannedCommands(List<String> fallingBannedCommands)
+	{
+		this.fallingBannedCommands = fallingBannedCommands;
+	}
+
+
     /**
      * This method sets the maxTeamSize object value.
      * @param maxTeamSize the maxTeamSize object new value.
@@ -1247,6 +1258,38 @@ public class Settings implements WorldSettings
     {
         this.onLeaveResetEnderChest = onLeaveResetEnderChest;
     }
+
+
+	/**
+	 * This method sets the createCaveOnFirstLoginEnabled object value.
+	 * @param createCaveOnFirstLoginEnabled the createCaveOnFirstLoginEnabled object new value.
+	 *
+	 */
+	public void setCreateCaveOnFirstLoginEnabled(boolean createCaveOnFirstLoginEnabled)
+	{
+		this.createCaveOnFirstLoginEnabled = createCaveOnFirstLoginEnabled;
+	}
+
+	/**
+	 * This method sets the createCaveOnFirstLoginDelay object value.
+	 * @param createCaveOnFirstLoginDelay the createCaveOnFirstLoginDelay object new value.
+	 *
+	 */
+	public void setCreateCaveOnFirstLoginDelay(int createCaveOnFirstLoginDelay)
+	{
+		this.createCaveOnFirstLoginDelay = createCaveOnFirstLoginDelay;
+	}
+
+
+	/**
+	 * This method sets the createCaveOnFirstLoginDelay object value.
+	 * @param createCaveOnFirstLoginAbortOnLogout the createCaveOnFirstLoginDelay object new value.
+	 *
+	 */
+	public void setCreateCaveOnFirstLoginAbortOnLogout(boolean createCaveOnFirstLoginAbortOnLogout)
+	{
+		this.createCaveOnFirstLoginAbortOnLogout = createCaveOnFirstLoginAbortOnLogout;
+	}
 
 
     /**
