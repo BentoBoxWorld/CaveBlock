@@ -3,7 +3,7 @@ caveblock:
   command:
     # Cave Command. What command users will run to access their cave.
     # To define alias, just separate commands with white space.
-    island: cave cb
+    cave: cave cb
     # The Cave admin command.
     # To define alias, just separate commands with white space.
     admin: cbadmin cba
@@ -26,9 +26,9 @@ world:
   # Admins can change protection sizes for players individually using /cbadmin range set <player> <new range>
   # or set this permission: caveblock.island.range.<number>
   protection-range: 50
-  # Start islands at these coordinates. This is where new islands will start in the
-  # world. These must be a factor of your island distance, but the plugin will auto
-  # calculate the closest location on the grid. Islands develop around this location
+  # Start caves at these coordinates. This is where new caves will start in the
+  # world. These must be a factor of your cave distance, but the plugin will auto
+  # calculate the closest location on the grid. Caves develop around this location
   # both positively and negatively in a square grid.
   # If none of this makes sense, leave it at 0,0.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
@@ -44,11 +44,11 @@ world:
   # In this case, the plugin will not generate anything.
   # /!\ This feature is experimental and might not work as expected or might not work at all.
   use-own-generator: true
-  # Maximum number of islands in the world. Set to -1 or 0 for unlimited.
-  # If the number of islands is greater than this number, it will stop players from creating islands.
-  max-islands: 0
+  # Maximum number of caves in the world. Set to -1 or 0 for unlimited.
+  # If the number of caves is greater than this number, it will stop players from creating caves.
+  max-caves: 0
   # The default game mode for this world. Players will be set to this mode when they create
-  # a new island for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR
+  # a new cave for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR
   default-game-mode: SURVIVAL
   # The default biome for the overworld
   default-biome: MOUNTAINS
@@ -58,7 +58,7 @@ world:
   ban-limit: -1
   #
   # This is cave... no height... only depth. Max 256.
-  # Should not be less then island height.
+  # Should not be less then cave height.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
   world-depth: 256
   # This indicate how many times block should be tried to generate.
@@ -105,11 +105,11 @@ world:
     # the nether will not occur. Other plugins may still enable portal usage.
     # Note: Some default challenges will not be possible if there is no nether.
     # Note that with a standard nether all players arrive at the same portal and entering a
-    # portal will return them back to their islands.
+    # portal will return them back to their caves.
     generate: true
-    # Islands in Nether. Change to false for standard vanilla nether.
+    # Caves in Nether. Change to false for standard vanilla nether.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-    islands: true
+    caves: true
     # Nether spawn protection radius - this is the distance around the nether spawn
     # that will be protected from player interaction (breaking blocks, pouring lava etc.)
     # Minimum is 0 (not recommended), maximum is 100. Default is 25.
@@ -148,7 +148,7 @@ world:
   end:
     generate: true
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-    islands: true
+    caves: true
     # /!\ This feature is experimental and might not work as expected or might not work at all.
     dragon-spawn: false
     # Make over world roof of bedrock, if false, it will be made from stone
@@ -197,10 +197,10 @@ world:
     REMOVE_MOBS: true
     ENDER_CHEST: false
     ITEM_FRAME_DAMAGE: false
-  # These are the default protection settings for new islands.
-  # The value is the minimum island rank required allowed to do the action
+  # These are the default protection settings for new caves.
+  # The value is the minimum cave rank required allowed to do the action
   # Ranks are: Visitor = 0, Member = 900, Owner = 1000
-  default-island-flags:
+  default-cave-flags:
     HURT_ANIMALS: 500
     REDSTONE: 500
     BUCKET: 500
@@ -255,8 +255,8 @@ world:
     CONTAINER: 500
     JUKEBOX: 500
     POTION_THROWING: 500
-  # These are the default settings for new islands
-  default-island-settings:
+  # These are the default settings for new caves
+  default-cave-settings:
     PVP_END: false
     PVP_NETHER: false
     ANIMAL_SPAWN: true
@@ -266,7 +266,7 @@ world:
   # These settings/flags are hidden from users
   # Ops can toggle hiding in-game using SHIFT-LEFT-CLICK on flags in settings
   hidden-flags: []
-  # Visitor banned commands - Visitors to islands cannot use these commands in this world
+  # Visitor banned commands - Visitors to caves cannot use these commands in this world
   visitor-banned-commands:
     - spawner
     - spawnmob
@@ -275,7 +275,7 @@ world:
   falling-banned-commands:
     - warp
     - spawn
-island:
+cave:
   # Default max team size
   # Permission size cannot be less than the default below.
   max-team-size: 4
@@ -285,19 +285,19 @@ island:
   reset:
     # How many resets a player is allowed (override with /cbadmin clearresets <player>)
     # Value of -1 means unlimited, 0 means hardcore - no resets.
-    # Example, 2 resets means they get 2 resets or 3 islands lifetime
+    # Example, 2 resets means they get 2 resets or 3 caves lifetime
     reset-limit: -1
     # Kicked or leaving players lose resets
-    # Players who leave a team will lose an island reset chance
+    # Players who leave a team will lose a cave reset chance
     # If a player has zero resets left and leaves a team, they cannot make a new
-    # island by themselves and can only join a team.
-    # Leave this true to avoid players exploiting free islands
+    # cave by themselves and can only join a team.
+    # Leave this true to avoid players exploiting free caves
     leavers-lose-reset: false
     # Allow kicked players to keep their inventory.
     # Overrides the on-leave inventory reset for kicked players.
     kicked-keep-inventory: false
     on-join:
-      # What the addon should reset when the player joins or creates an island
+      # What the addon should reset when the player joins or creates a cave
       # Reset Money - if this is true, will reset the player's money to the starting money
       # Recommendation is that this is set to true, but if you run multi-worlds
       # make sure your economy handles multi-worlds too.
@@ -315,7 +315,7 @@ island:
       # Reset Ender Chest - if true, the player's Ender Chest will be cleared.
       ender-chest: false
     on-leave:
-      # What the plugin should reset when the player leaves or is kicked from an island
+      # What the plugin should reset when the player leaves or is kicked from a cave
       # Reset Money - if this is true, will reset the player's money to the starting money
       # Recommendation is that this is set to true, but if you run multi-worlds
       # make sure your economy handles multi-worlds too.
@@ -387,7 +387,7 @@ island:
     team-join-reset: true
 protection:
   # Geo restrict mobs.
-  # Mobs that exit the island space where they were spawned will be removed.
+  # Mobs that exit the cave space where they were spawned will be removed.
   geo-limit-settings:
     - GHAST
     - BAT

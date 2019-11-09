@@ -170,7 +170,7 @@ public class Settings implements WorldSettings
 
 
     /**
-     * 0 or -1 is unlimited. It will block island creation if the island count for the world is higher than this.
+     * 0 or -1 is unlimited. It will block cave creation if the cave count for the world is higher than this.
      * @return the maxIslands
      */
     @Override
@@ -430,7 +430,7 @@ public class Settings implements WorldSettings
     @Override
     public boolean isCreateIslandOnFirstLoginEnabled()
     {
-        return this.createCaveOnFirstLoginEnabled;
+        return this.createIslandOnFirstLoginEnabled;
     }
 
 
@@ -442,7 +442,7 @@ public class Settings implements WorldSettings
     @Override
     public int getCreateIslandOnFirstLoginDelay()
     {
-        return this.createCaveOnFirstLoginDelay;
+        return this.createIslandOnFirstLoginDelay;
     }
 
 
@@ -454,7 +454,7 @@ public class Settings implements WorldSettings
     @Override
     public boolean isCreateIslandOnFirstLoginAbortOnLogout()
     {
-        return this.createCaveOnFirstLoginAbortOnLogout;
+        return this.createIslandOnFirstLoginAbortOnLogout;
     }
 
 
@@ -580,7 +580,7 @@ public class Settings implements WorldSettings
 
 
     /**
-     * @return true if deaths in the world are reset when the player has a new island
+     * @return true if deaths in the world are reset when the player has a new cave
      * @since 1.6.0
      */
     @Override
@@ -1262,33 +1262,33 @@ public class Settings implements WorldSettings
 
 	/**
 	 * This method sets the createCaveOnFirstLoginEnabled object value.
-	 * @param createCaveOnFirstLoginEnabled the createCaveOnFirstLoginEnabled object new value.
+	 * @param createIslandOnFirstLoginEnabled the createCaveOnFirstLoginEnabled object new value.
 	 *
 	 */
-	public void setCreateCaveOnFirstLoginEnabled(boolean createCaveOnFirstLoginEnabled)
+	public void setCreateIslandOnFirstLoginEnabled(boolean createIslandOnFirstLoginEnabled)
 	{
-		this.createCaveOnFirstLoginEnabled = createCaveOnFirstLoginEnabled;
+		this.createIslandOnFirstLoginEnabled = createIslandOnFirstLoginEnabled;
 	}
 
 	/**
 	 * This method sets the createCaveOnFirstLoginDelay object value.
-	 * @param createCaveOnFirstLoginDelay the createCaveOnFirstLoginDelay object new value.
+	 * @param createIslandOnFirstLoginDelay the createCaveOnFirstLoginDelay object new value.
 	 *
 	 */
-	public void setCreateCaveOnFirstLoginDelay(int createCaveOnFirstLoginDelay)
+	public void setCreateIslandOnFirstLoginDelay(int createIslandOnFirstLoginDelay)
 	{
-		this.createCaveOnFirstLoginDelay = createCaveOnFirstLoginDelay;
+		this.createIslandOnFirstLoginDelay = createIslandOnFirstLoginDelay;
 	}
 
 
 	/**
 	 * This method sets the createCaveOnFirstLoginDelay object value.
-	 * @param createCaveOnFirstLoginAbortOnLogout the createCaveOnFirstLoginDelay object new value.
+	 * @param createIslandOnFirstLoginAbortOnLogout the createCaveOnFirstLoginDelay object new value.
 	 *
 	 */
-	public void setCreateCaveOnFirstLoginAbortOnLogout(boolean createCaveOnFirstLoginAbortOnLogout)
+	public void setCreateIslandOnFirstLoginAbortOnLogout(boolean createIslandOnFirstLoginAbortOnLogout)
 	{
-		this.createCaveOnFirstLoginAbortOnLogout = createCaveOnFirstLoginAbortOnLogout;
+		this.createIslandOnFirstLoginAbortOnLogout = createIslandOnFirstLoginAbortOnLogout;
 	}
 
 
@@ -1734,7 +1734,7 @@ public class Settings implements WorldSettings
     /* Commands */
     @ConfigComment("Cave Command. What command users will run to access their cave.")
     @ConfigComment("To define alias, just separate commands with white space.")
-    @ConfigEntry(path = "caveblock.command.island")
+    @ConfigEntry(path = "caveblock.command.cave")
     private String islandCommand = "cave cb";
 
     @ConfigComment("The Cave admin command.")
@@ -1770,9 +1770,9 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.protection-range")
     private int islandProtectionRange = 50;
 
-    @ConfigComment("Start islands at these coordinates. This is where new islands will start in the")
-    @ConfigComment("world. These must be a factor of your island distance, but the plugin will auto")
-    @ConfigComment("calculate the closest location on the grid. Islands develop around this location")
+    @ConfigComment("Start caves at these coordinates. This is where new caves will start in the")
+    @ConfigComment("world. These must be a factor of your cave distance, but the plugin will auto")
+    @ConfigComment("calculate the closest location on the grid. Caves develop around this location")
     @ConfigComment("both positively and negatively in a square grid.")
     @ConfigComment("If none of this makes sense, leave it at 0,0.")
     @ConfigEntry(path = "world.start-x", needsReset = true)
@@ -1796,13 +1796,13 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.use-own-generator", experimental = true)
     private boolean useOwnGenerator = true;
 
-    @ConfigComment("Maximum number of islands in the world. Set to -1 or 0 for unlimited.")
-    @ConfigComment("If the number of islands is greater than this number, it will stop players from creating islands.")
-    @ConfigEntry(path = "world.max-islands")
+    @ConfigComment("Maximum number of caves in the world. Set to -1 or 0 for unlimited.")
+    @ConfigComment("If the number of caves is greater than this number, it will stop players from creating caves.")
+    @ConfigEntry(path = "world.max-caves")
     private int maxIslands = -1;
 
     @ConfigComment("The default game mode for this world. Players will be set to this mode when they create")
-    @ConfigComment("a new island for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR")
+    @ConfigComment("a new cave for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR")
     @ConfigEntry(path = "world.default-game-mode")
     private GameMode defaultGameMode = GameMode.SURVIVAL;
 
@@ -1818,7 +1818,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("")
     @ConfigComment("This is cave... no height... only depth. Max 256.")
-    @ConfigComment("Should not be less then island height.")
+    @ConfigComment("Should not be less then cave height.")
     @ConfigEntry(path = "world.world-depth", needsReset = true)
     private int worldDepth = 256;
 
@@ -1856,12 +1856,12 @@ public class Settings implements WorldSettings
     @ConfigComment("the nether will not occur. Other plugins may still enable portal usage.")
     @ConfigComment("Note: Some default challenges will not be possible if there is no nether.")
     @ConfigComment("Note that with a standard nether all players arrive at the same portal and entering a")
-    @ConfigComment("portal will return them back to their islands.")
+    @ConfigComment("portal will return them back to their caves.")
     @ConfigEntry(path = "world.nether.generate")
     private boolean netherGenerate = true;
 
-    @ConfigComment("Islands in Nether. Change to false for standard vanilla nether.")
-    @ConfigEntry(path = "world.nether.islands", needsReset = true)
+    @ConfigComment("Caves in Nether. Change to false for standard vanilla nether.")
+    @ConfigEntry(path = "world.nether.caves", needsReset = true)
     private boolean netherIslands = true;
 
     @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
@@ -1899,7 +1899,7 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.end.generate")
     private boolean endGenerate = true;
 
-    @ConfigEntry(path = "world.end.islands", needsReset = true)
+    @ConfigEntry(path = "world.end.caves", needsReset = true)
     private boolean endIslands = true;
 
     @ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
@@ -1939,15 +1939,15 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.flags")
     private Map<String, Boolean> worldFlags = new HashMap<>();
 
-    @ConfigComment("These are the default protection settings for new islands.")
-    @ConfigComment("The value is the minimum island rank required allowed to do the action")
+    @ConfigComment("These are the default protection settings for new caves.")
+    @ConfigComment("The value is the minimum cave rank required allowed to do the action")
     @ConfigComment("Ranks are: Visitor = 0, Member = 900, Owner = 1000")
-    @ConfigEntry(path = "world.default-island-flags")
+    @ConfigEntry(path = "world.default-cave-flags")
     @Adapter(FlagSerializer.class)
     private Map<Flag, Integer> defaultIslandFlags = new HashMap<>();
 
-    @ConfigComment("These are the default settings for new islands")
-    @ConfigEntry(path = "world.default-island-settings")
+    @ConfigComment("These are the default settings for new caves")
+    @ConfigEntry(path = "world.default-cave-settings")
     @Adapter(FlagSerializer2.class)
     private Map<Flag, Integer> defaultIslandSettings = new HashMap<>();
 
@@ -1956,7 +1956,7 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.hidden-flags")
     private List<String> hiddenFlags = new ArrayList<>();
 
-    @ConfigComment("Visitor banned commands - Visitors to islands cannot use these commands in this world")
+    @ConfigComment("Visitor banned commands - Visitors to caves cannot use these commands in this world")
     @ConfigEntry(path = "world.visitor-banned-commands")
     private List<String> visitorBannedCommands = new ArrayList<>();
 
@@ -1967,93 +1967,93 @@ public class Settings implements WorldSettings
 
     // ---------------------------------------------
 
-    /*      ISLAND      */
+    /*      Cave      */
     @ConfigComment("Default max team size")
     @ConfigComment("Permission size cannot be less than the default below. ")
-    @ConfigEntry(path = "island.max-team-size")
+    @ConfigEntry(path = "cave.max-team-size")
     private int maxTeamSize = 4;
 
     @ConfigComment("Default maximum number of homes a player can have. Min = 1")
     @ConfigComment("Accessed via /cave sethome <number> or /cave go <number>")
-    @ConfigEntry(path = "island.max-homes")
+    @ConfigEntry(path = "cave..max-homes")
     private int maxHomes = 5;
 
     // Reset
     @ConfigComment("How many resets a player is allowed (override with /cbadmin clearresets <player>)")
     @ConfigComment("Value of -1 means unlimited, 0 means hardcore - no resets.")
-    @ConfigComment("Example, 2 resets means they get 2 resets or 3 islands lifetime")
-    @ConfigEntry(path = "island.reset.reset-limit")
+    @ConfigComment("Example, 2 resets means they get 2 resets or 3 caves lifetime")
+    @ConfigEntry(path = "cave..reset.reset-limit")
     private int resetLimit = -1;
 
     @ConfigComment("Kicked or leaving players lose resets")
-    @ConfigComment("Players who leave a team will lose an island reset chance")
+    @ConfigComment("Players who leave a team will lose a cave reset chance")
     @ConfigComment("If a player has zero resets left and leaves a team, they cannot make a new")
-    @ConfigComment("island by themselves and can only join a team.")
-    @ConfigComment("Leave this true to avoid players exploiting free islands")
-    @ConfigEntry(path = "island.reset.leavers-lose-reset")
+    @ConfigComment("cave by themselves and can only join a team.")
+    @ConfigComment("Leave this true to avoid players exploiting free caves")
+    @ConfigEntry(path = "cave..reset.leavers-lose-reset")
     private boolean leaversLoseReset = false;
 
     @ConfigComment("Allow kicked players to keep their inventory.")
     @ConfigComment("Overrides the on-leave inventory reset for kicked players.")
-    @ConfigEntry(path = "island.reset.kicked-keep-inventory")
+    @ConfigEntry(path = "cave..reset.kicked-keep-inventory")
     private boolean kickedKeepInventory = false;
 
-    @ConfigComment("What the plugin should reset when the player joins or creates an island")
+    @ConfigComment("What the plugin should reset when the player joins or creates a cave")
     @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
     @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
     @ConfigComment("make sure your economy handles multi-worlds too.")
-    @ConfigEntry(path = "island.reset.on-join.money")
+    @ConfigEntry(path = "cave..reset.on-join.money")
     private boolean onJoinResetMoney = false;
 
     @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
     @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
     @ConfigComment("plugin may still reset the inventory when the world changes.")
-    @ConfigEntry(path = "island.reset.on-join.inventory")
+    @ConfigEntry(path = "cave..reset.on-join.inventory")
     private boolean onJoinResetInventory = false;
 
     @ConfigComment("Reset health - if true, the player's health will be reset.")
-    @ConfigEntry(path = "island.reset.on-join.health")
+    @ConfigEntry(path = "cave..reset.on-join.health")
     private boolean onJoinResetHealth = true;
 
     @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
-    @ConfigEntry(path = "island.reset.on-join.hunger")
+    @ConfigEntry(path = "cave..reset.on-join.hunger")
     private boolean onJoinResetHunger = true;
 
     @ConfigComment("Reset experience points - if true, the player's experience will be reset.")
-    @ConfigEntry(path = "island.reset.on-join.exp")
+    @ConfigEntry(path = "cave..reset.on-join.exp")
     private boolean onJoinResetXP = false;
 
     @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
-    @ConfigEntry(path = "island.reset.on-join.ender-chest")
+    @ConfigEntry(path = "cave..reset.on-join.ender-chest")
     private boolean onJoinResetEnderChest = false;
 
-    @ConfigComment("What the plugin should reset when the player leaves or is kicked from an island")
+    @ConfigComment("What the plugin should reset when the player leaves or is kicked from a cave")
     @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
     @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
     @ConfigComment("make sure your economy handles multi-worlds too.")
-    @ConfigEntry(path = "island.reset.on-leave.money")
+    @ConfigEntry(path = "cave..reset.on-leave.money")
     private boolean onLeaveResetMoney = false;
 
     @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
     @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
     @ConfigComment("plugin may still reset the inventory when the world changes.")
-    @ConfigEntry(path = "island.reset.on-leave.inventory")
+    @ConfigEntry(path = "cave..reset.on-leave.inventory")
     private boolean onLeaveResetInventory = false;
 
     @ConfigComment("Reset health - if true, the player's health will be reset.")
-    @ConfigEntry(path = "island.reset.on-leave.health")
+    @ConfigEntry(path = "cave..reset.on-leave.health")
     private boolean onLeaveResetHealth = false;
 
     @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
-    @ConfigEntry(path = "island.reset.on-leave.hunger")
+    @ConfigEntry(path = "cave..reset.on-leave.hunger")
     private boolean onLeaveResetHunger = false;
 
     @ConfigComment("Reset experience - if true, the player's experience will be reset.")
-    @ConfigEntry(path = "island.reset.on-leave.exp")
+    @ConfigEntry(path = "cave..reset.on-leave.exp")
     private boolean onLeaveResetXP = false;
 
     @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
-    @ConfigEntry(path = "island.reset.on-leave.ender-chest")
+    @ConfigEntry(path = "cave..reset.on-leave.ender-chest")
     private boolean onLeaveResetEnderChest = false;
 
     @ConfigComment("Toggles the automatic cave creation upon the player's first login on your server.")
@@ -2071,14 +2071,14 @@ public class Settings implements WorldSettings
     @ConfigComment("  * Cave creation can be resource-intensive, please consider the options below to help mitigate")
     @ConfigComment("    the potential issues, especially if you expect a lot of players to connect to your server")
     @ConfigComment("    in a limited period of time.")
-    @ConfigEntry(path = "island.create-cave-on-first-login.enable")
-    private boolean createCaveOnFirstLoginEnabled;
+    @ConfigEntry(path = "cave..create-cave-on-first-login.enable")
+    private boolean createIslandOnFirstLoginEnabled;
 
     @ConfigComment("Time in seconds after the player logged in, before his cave gets created.")
     @ConfigComment("If set to 0 or less, the cave will be created directly upon the player's login.")
     @ConfigComment("It is recommended to keep this value under a minute's time.")
-    @ConfigEntry(path = "island.create-cave-on-first-login.delay")
-    private int createCaveOnFirstLoginDelay = 5;
+    @ConfigEntry(path = "cave..create-cave-on-first-login.delay")
+    private int createIslandOnFirstLoginDelay = 5;
 
     @ConfigComment("Toggles whether the cave creation should be aborted if the player logged off while the")
     @ConfigComment("delay (see the option above) has not worn off yet.")
@@ -2090,53 +2090,53 @@ public class Settings implements WorldSettings
     @ConfigComment("  * If the cave creation started before the player logged off, it will continue.")
     @ConfigComment("If set to false, the player's cave will be created even if he went offline in the meantime.")
     @ConfigComment("Note this option has no effect if the delay (see the option above) is set to 0 or less.")
-    @ConfigEntry(path = "island.create-cave-on-first-login.abort-on-logout")
-    private boolean createCaveOnFirstLoginAbortOnLogout = true;
+    @ConfigEntry(path = "cave..create-cave-on-first-login.abort-on-logout")
+    private boolean createIslandOnFirstLoginAbortOnLogout = true;
 
     // Commands
     @ConfigComment("List of commands to run when a player joins.")
-    @ConfigEntry(path = "island.commands.on-join")
+    @ConfigEntry(path = "cave..commands.on-join")
     private List<String> onJoinCommands = new ArrayList<>();
 
     @ConfigComment("list of commands to run when a player leaves.")
-    @ConfigEntry(path = "island.commands.on-leave")
+    @ConfigEntry(path = "cave..commands.on-leave")
     private List<String> onLeaveCommands = new ArrayList<>();
 
     // Sethome
-    @ConfigEntry(path = "island.sethome.nether.allow")
+    @ConfigEntry(path = "cave..sethome.nether.allow")
     private boolean allowSetHomeInNether = true;
 
-    @ConfigEntry(path = "island.sethome.nether.require-confirmation")
+    @ConfigEntry(path = "cave..sethome.nether.require-confirmation")
     private boolean requireConfirmationToSetHomeInNether = true;
 
-    @ConfigEntry(path = "island.sethome.the-end.allow")
+    @ConfigEntry(path = "cave..sethome.the-end.allow")
     private boolean allowSetHomeInTheEnd = true;
 
-    @ConfigEntry(path = "island.sethome.the-end.require-confirmation")
+    @ConfigEntry(path = "cave..sethome.the-end.require-confirmation")
     private boolean requireConfirmationToSetHomeInTheEnd = true;
 
     // Deaths
     @ConfigComment("Whether deaths are counted or not.")
-    @ConfigEntry(path = "island.deaths.counted")
+    @ConfigEntry(path = "cave..deaths.counted")
     private boolean deathsCounted = true;
 
     @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
-    @ConfigEntry(path = "island.deaths.max")
+    @ConfigEntry(path = "cave..deaths.max")
     private int deathsMax = 10;
 
     @ConfigComment("Reset player death count when they start a new cave or reset a cave")
-    @ConfigEntry(path = "island.deaths.reset-on-new")
+    @ConfigEntry(path = "cave..deaths.reset-on-new")
     private boolean deathsResetOnNewIsland = true;
 
     @ConfigComment("When a player joins a team, reset their death count")
-    @ConfigEntry(path = "island.deaths.team-join-reset")
+    @ConfigEntry(path = "cave..deaths.team-join-reset")
     private boolean teamJoinDeathReset = true;
 
     // ---------------------------------------------
     /*      PROTECTION      */
 
     @ConfigComment("Geo restrict mobs.")
-    @ConfigComment("Mobs that exit the island space where they were spawned will be removed.")
+    @ConfigComment("Mobs that exit the cave space where they were spawned will be removed.")
     @ConfigEntry(path = "protection.geo-limit-settings")
     private List<String> geoLimitSettings = new ArrayList<>();
 
