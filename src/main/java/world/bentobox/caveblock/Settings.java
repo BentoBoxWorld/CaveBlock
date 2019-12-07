@@ -26,7 +26,7 @@ import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
 
 /**
  * @author BONNe
- * This class contains all necessary settings fro CaveBlock addon.
+ * This class contains all necessary settings for CaveBlock addon.
  */
 @StoreAt(filename="config.yml", path="addons/CaveBlock")
 @ConfigComment("CaveBlock Configuration [version]")
@@ -1940,8 +1940,14 @@ public class Settings implements WorldSettings
     private Map<String, Boolean> worldFlags = new HashMap<>();
 
     @ConfigComment("These are the default protection settings for new caves.")
-    @ConfigComment("The value is the minimum cave rank required allowed to do the action")
-    @ConfigComment("Ranks are: Visitor = 0, Member = 900, Owner = 1000")
+    @ConfigComment("The value is the minimum cave rank required allowed to do the action.")
+    @ConfigComment("Ranks are the following:")
+    @ConfigComment("  VISITOR   = 0")
+    @ConfigComment("  COOP      = 200")
+    @ConfigComment("  TRUSTED   = 400")
+    @ConfigComment("  MEMBER    = 500")
+    @ConfigComment("  SUB-OWNER = 900")
+    @ConfigComment("  OWNER     = 1000")
     @ConfigEntry(path = "world.default-cave-flags")
     @Adapter(FlagSerializer.class)
     private Map<Flag, Integer> defaultIslandFlags = new HashMap<>();
