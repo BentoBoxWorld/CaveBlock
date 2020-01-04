@@ -26,7 +26,7 @@ import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
 
 /**
  * @author BONNe
- * This class contains all necessary settings fro CaveBlock addon.
+ * This class contains all necessary settings for CaveBlock addon.
  */
 @StoreAt(filename="config.yml", path="addons/CaveBlock")
 @ConfigComment("CaveBlock Configuration [version]")
@@ -1727,6 +1727,53 @@ public class Settings implements WorldSettings
         this.onLeaveResetXP = onLeaveResetXP;
     }
 
+
+    /**
+     * Method Settings#isTeleportPlayerToIslandUponIslandCreation returns the teleportPlayerToIslandUponIslandCreation of this object.
+     *
+     * @return the teleportPlayerToIslandUponIslandCreation (type boolean) of this object.
+     */
+    @Override
+    public boolean isTeleportPlayerToIslandUponIslandCreation()
+    {
+        return teleportPlayerToIslandUponIslandCreation;
+    }
+
+
+    /**
+     * Method Settings#setTeleportPlayerToIslandUponIslandCreation sets new value for the teleportPlayerToIslandUponIslandCreation of this object.
+     * @param teleportPlayerToIslandUponIslandCreation new value for this object.
+     *
+     */
+    public void setTeleportPlayerToIslandUponIslandCreation(boolean teleportPlayerToIslandUponIslandCreation)
+    {
+        this.teleportPlayerToIslandUponIslandCreation = teleportPlayerToIslandUponIslandCreation;
+    }
+
+
+    /**
+     * Method Settings#isPasteMissingIslands returns the pasteMissingIslands of this object.
+     *
+     * @return the pasteMissingIslands (type boolean) of this object.
+     */
+    @Override
+    public boolean isPasteMissingIslands()
+    {
+        return pasteMissingIslands;
+    }
+
+
+    /**
+     * Method Settings#setPasteMissingIslands sets new value for the pasteMissingIslands of this object.
+     * @param pasteMissingIslands new value for this object.
+     *
+     */
+    public void setPasteMissingIslands(boolean pasteMissingIslands)
+    {
+        this.pasteMissingIslands = pasteMissingIslands;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -1817,7 +1864,7 @@ public class Settings implements WorldSettings
     private int banLimit = -1;
 
     @ConfigComment("")
-    @ConfigComment("This is cave... no height... only depth. Max 256.")
+    @ConfigComment("This is cave.. no height... only depth. Max 256.")
     @ConfigComment("Should not be less then cave height.")
     @ConfigEntry(path = "world.world-depth", needsReset = true)
     private int worldDepth = 256;
@@ -1940,8 +1987,14 @@ public class Settings implements WorldSettings
     private Map<String, Boolean> worldFlags = new HashMap<>();
 
     @ConfigComment("These are the default protection settings for new caves.")
-    @ConfigComment("The value is the minimum cave rank required allowed to do the action")
-    @ConfigComment("Ranks are: Visitor = 0, Member = 900, Owner = 1000")
+    @ConfigComment("The value is the minimum cave rank required allowed to do the action.")
+    @ConfigComment("Ranks are the following:")
+    @ConfigComment("  VISITOR   = 0")
+    @ConfigComment("  COOP      = 200")
+    @ConfigComment("  TRUSTED   = 400")
+    @ConfigComment("  MEMBER    = 500")
+    @ConfigComment("  SUB-OWNER = 900")
+    @ConfigComment("  OWNER     = 1000")
     @ConfigEntry(path = "world.default-cave-flags")
     @Adapter(FlagSerializer.class)
     private Map<Flag, Integer> defaultIslandFlags = new HashMap<>();
@@ -1975,14 +2028,14 @@ public class Settings implements WorldSettings
 
     @ConfigComment("Default maximum number of homes a player can have. Min = 1")
     @ConfigComment("Accessed via /cave sethome <number> or /cave go <number>")
-    @ConfigEntry(path = "cave..max-homes")
+    @ConfigEntry(path = "cave.max-homes")
     private int maxHomes = 5;
 
     // Reset
     @ConfigComment("How many resets a player is allowed (override with /cbadmin clearresets <player>)")
     @ConfigComment("Value of -1 means unlimited, 0 means hardcore - no resets.")
     @ConfigComment("Example, 2 resets means they get 2 resets or 3 caves lifetime")
-    @ConfigEntry(path = "cave..reset.reset-limit")
+    @ConfigEntry(path = "cave.reset.reset-limit")
     private int resetLimit = -1;
 
     @ConfigComment("Kicked or leaving players lose resets")
@@ -1990,70 +2043,70 @@ public class Settings implements WorldSettings
     @ConfigComment("If a player has zero resets left and leaves a team, they cannot make a new")
     @ConfigComment("cave by themselves and can only join a team.")
     @ConfigComment("Leave this true to avoid players exploiting free caves")
-    @ConfigEntry(path = "cave..reset.leavers-lose-reset")
+    @ConfigEntry(path = "cave.reset.leavers-lose-reset")
     private boolean leaversLoseReset = false;
 
     @ConfigComment("Allow kicked players to keep their inventory.")
     @ConfigComment("Overrides the on-leave inventory reset for kicked players.")
-    @ConfigEntry(path = "cave..reset.kicked-keep-inventory")
+    @ConfigEntry(path = "cave.reset.kicked-keep-inventory")
     private boolean kickedKeepInventory = false;
 
     @ConfigComment("What the plugin should reset when the player joins or creates a cave")
     @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
     @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
     @ConfigComment("make sure your economy handles multi-worlds too.")
-    @ConfigEntry(path = "cave..reset.on-join.money")
+    @ConfigEntry(path = "cave.reset.on-join.money")
     private boolean onJoinResetMoney = false;
 
     @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
     @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
     @ConfigComment("plugin may still reset the inventory when the world changes.")
-    @ConfigEntry(path = "cave..reset.on-join.inventory")
+    @ConfigEntry(path = "cave.reset.on-join.inventory")
     private boolean onJoinResetInventory = false;
 
     @ConfigComment("Reset health - if true, the player's health will be reset.")
-    @ConfigEntry(path = "cave..reset.on-join.health")
+    @ConfigEntry(path = "cave.reset.on-join.health")
     private boolean onJoinResetHealth = true;
 
     @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
-    @ConfigEntry(path = "cave..reset.on-join.hunger")
+    @ConfigEntry(path = "cave.reset.on-join.hunger")
     private boolean onJoinResetHunger = true;
 
     @ConfigComment("Reset experience points - if true, the player's experience will be reset.")
-    @ConfigEntry(path = "cave..reset.on-join.exp")
+    @ConfigEntry(path = "cave.reset.on-join.exp")
     private boolean onJoinResetXP = false;
 
     @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
-    @ConfigEntry(path = "cave..reset.on-join.ender-chest")
+    @ConfigEntry(path = "cave.reset.on-join.ender-chest")
     private boolean onJoinResetEnderChest = false;
 
     @ConfigComment("What the plugin should reset when the player leaves or is kicked from a cave")
     @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
     @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
     @ConfigComment("make sure your economy handles multi-worlds too.")
-    @ConfigEntry(path = "cave..reset.on-leave.money")
+    @ConfigEntry(path = "cave.reset.on-leave.money")
     private boolean onLeaveResetMoney = false;
 
     @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
     @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
     @ConfigComment("plugin may still reset the inventory when the world changes.")
-    @ConfigEntry(path = "cave..reset.on-leave.inventory")
+    @ConfigEntry(path = "cave.reset.on-leave.inventory")
     private boolean onLeaveResetInventory = false;
 
     @ConfigComment("Reset health - if true, the player's health will be reset.")
-    @ConfigEntry(path = "cave..reset.on-leave.health")
+    @ConfigEntry(path = "cave.reset.on-leave.health")
     private boolean onLeaveResetHealth = false;
 
     @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
-    @ConfigEntry(path = "cave..reset.on-leave.hunger")
+    @ConfigEntry(path = "cave.reset.on-leave.hunger")
     private boolean onLeaveResetHunger = false;
 
     @ConfigComment("Reset experience - if true, the player's experience will be reset.")
-    @ConfigEntry(path = "cave..reset.on-leave.exp")
+    @ConfigEntry(path = "cave.reset.on-leave.exp")
     private boolean onLeaveResetXP = false;
 
     @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
-    @ConfigEntry(path = "cave..reset.on-leave.ender-chest")
+    @ConfigEntry(path = "cave.reset.on-leave.ender-chest")
     private boolean onLeaveResetEnderChest = false;
 
     @ConfigComment("Toggles the automatic cave creation upon the player's first login on your server.")
@@ -2071,13 +2124,13 @@ public class Settings implements WorldSettings
     @ConfigComment("  * Cave creation can be resource-intensive, please consider the options below to help mitigate")
     @ConfigComment("    the potential issues, especially if you expect a lot of players to connect to your server")
     @ConfigComment("    in a limited period of time.")
-    @ConfigEntry(path = "cave..create-cave-on-first-login.enable")
+    @ConfigEntry(path = "cave.create-cave-on-first-login.enable")
     private boolean createIslandOnFirstLoginEnabled;
 
     @ConfigComment("Time in seconds after the player logged in, before his cave gets created.")
     @ConfigComment("If set to 0 or less, the cave will be created directly upon the player's login.")
     @ConfigComment("It is recommended to keep this value under a minute's time.")
-    @ConfigEntry(path = "cave..create-cave-on-first-login.delay")
+    @ConfigEntry(path = "cave.create-cave-on-first-login.delay")
     private int createIslandOnFirstLoginDelay = 5;
 
     @ConfigComment("Toggles whether the cave creation should be aborted if the player logged off while the")
@@ -2090,46 +2143,58 @@ public class Settings implements WorldSettings
     @ConfigComment("  * If the cave creation started before the player logged off, it will continue.")
     @ConfigComment("If set to false, the player's cave will be created even if he went offline in the meantime.")
     @ConfigComment("Note this option has no effect if the delay (see the option above) is set to 0 or less.")
-    @ConfigEntry(path = "cave..create-cave-on-first-login.abort-on-logout")
+    @ConfigEntry(path = "cave.create-cave-on-first-login.abort-on-logout")
     private boolean createIslandOnFirstLoginAbortOnLogout = true;
+
+    @ConfigComment("Toggles whether the player should be teleported automatically to his cave when it is created.")
+    @ConfigComment("If set to false, the player will be told his cave is ready but will have to teleport to his cave using the command.")
+    @ConfigEntry(path = "cave.teleport-player-to-cave-when-created", since = "1.10.0")
+    private boolean teleportPlayerToIslandUponIslandCreation = true;
+
+    @ConfigComment("Create Nether or End cave if they are missing when a player goes through a portal.")
+    @ConfigComment("Nether and End cave are usually pasted when a player makes their cave, but if they are")
+    @ConfigComment("missing for some reason, you can switch this on.")
+    @ConfigComment("Note that bedrock removal glitches can exploit this option.")
+    @ConfigEntry(path = "cave.create-missing-nether-end-caves", since = "1.10.0")
+    private boolean pasteMissingIslands = false;
 
     // Commands
     @ConfigComment("List of commands to run when a player joins.")
-    @ConfigEntry(path = "cave..commands.on-join")
+    @ConfigEntry(path = "cave.commands.on-join")
     private List<String> onJoinCommands = new ArrayList<>();
 
     @ConfigComment("list of commands to run when a player leaves.")
-    @ConfigEntry(path = "cave..commands.on-leave")
+    @ConfigEntry(path = "cave.commands.on-leave")
     private List<String> onLeaveCommands = new ArrayList<>();
 
     // Sethome
-    @ConfigEntry(path = "cave..sethome.nether.allow")
+    @ConfigEntry(path = "cave.sethome.nether.allow")
     private boolean allowSetHomeInNether = true;
 
-    @ConfigEntry(path = "cave..sethome.nether.require-confirmation")
+    @ConfigEntry(path = "cave.sethome.nether.require-confirmation")
     private boolean requireConfirmationToSetHomeInNether = true;
 
-    @ConfigEntry(path = "cave..sethome.the-end.allow")
+    @ConfigEntry(path = "cave.sethome.the-end.allow")
     private boolean allowSetHomeInTheEnd = true;
 
-    @ConfigEntry(path = "cave..sethome.the-end.require-confirmation")
+    @ConfigEntry(path = "cave.sethome.the-end.require-confirmation")
     private boolean requireConfirmationToSetHomeInTheEnd = true;
 
     // Deaths
     @ConfigComment("Whether deaths are counted or not.")
-    @ConfigEntry(path = "cave..deaths.counted")
+    @ConfigEntry(path = "cave.deaths.counted")
     private boolean deathsCounted = true;
 
     @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
-    @ConfigEntry(path = "cave..deaths.max")
+    @ConfigEntry(path = "cave.deaths.max")
     private int deathsMax = 10;
 
     @ConfigComment("Reset player death count when they start a new cave or reset a cave")
-    @ConfigEntry(path = "cave..deaths.reset-on-new")
+    @ConfigEntry(path = "cave.deaths.reset-on-new")
     private boolean deathsResetOnNewIsland = true;
 
     @ConfigComment("When a player joins a team, reset their death count")
-    @ConfigEntry(path = "cave..deaths.team-join-reset")
+    @ConfigEntry(path = "cave.deaths.team-join-reset")
     private boolean teamJoinDeathReset = true;
 
     // ---------------------------------------------

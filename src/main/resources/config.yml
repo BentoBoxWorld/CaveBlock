@@ -364,6 +364,14 @@ cave:
     # If set to false, the player's cave will be created even if he went offline in the meantime.
     # Note this option has no effect if the delay (see the option above) is set to 0 or less.
     abort-on-logout: true
+  # Toggles whether the player should be teleported automatically to his cave when it is created.
+  # If set to false, the player will be told his cave is ready but will have to teleport to his cave using the command.
+  teleport-player-to-cave-when-created: true
+  # Create Nether or End cave if they are missing when a player goes through a portal.
+  # Nether and End cave are usually pasted when a player makes their cave, but if they are
+  # missing for some reason, you can switch this on.
+  # Note that bedrock removal glitches can exploit this option.
+  create-missing-nether-end-caves: false
   commands:
     # List of commands to run when a player joins.
     on-join: []
