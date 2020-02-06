@@ -4,6 +4,7 @@ caveblock:
     line0: "＆c方块洞穴"
     line1: 欢迎！
     line3: 开始挖掘！ ＆c <3
+    line2: "[name]"
   informational:
     to-nether: 真倒霉到地狱了。
     to-the-end: 您已经到了末地。
@@ -72,3 +73,4 @@ protection:
   flags:
     SKY_WALKER_FLAG:
       hint: 允许在洞穴顶上行走。
+      name: 天空行者
