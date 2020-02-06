@@ -1,0 +1,74 @@
+---
+caveblock:
+  sign:
+    line0: "＆c方块洞穴"
+    line1: 欢迎！
+    line3: 开始挖掘！ ＆c <3
+  informational:
+    to-nether: 真倒霉到地狱了。
+    to-the-end: 您已经到了末地。
+    to-normal: 回到你的洞穴。
+  general:
+    errors:
+      no-island: "＆c您没有洞穴！"
+      player-has-island: "＆c玩家已经有一个山洞了！"
+      player-has-no-island: "＆c该玩家没有洞穴！"
+      already-have-island: "＆c您已经有一个山洞！"
+      no-safe-location-found: "＆c在山洞找不到传送您的安全地点。"
+      not-owner: "＆c您不是洞穴的所有者！"
+  commands:
+    admin:
+      team:
+        add:
+          name-has-island: "＆c [name]有一个山洞。首先注销或删除它们！"
+          success: "＆b [name]＆a已添加到＆b [owner]＆a的洞穴中。"
+        kick:
+          success: "＆b [name]＆ahas被踢出了＆b [owner]＆a的山洞。"
+        setowner:
+          description: 将洞穴所有权转移给玩家
+          already-owner: "＆c [name]已经是该洞穴的所有者！"
+          success: "＆b [name]＆a现在是这个洞穴的所有者。"
+      range:
+        description: 管理员洞穴范围命令
+        display:
+          description: 显示/隐藏洞穴范围指示器
+          hint: |-
+            ＆c红色屏障图标＆f显示当前的洞穴保护范围限制。
+            ＆7灰色粒子＆f显示最大洞穴极限。
+            ＆a绿色粒子＆f如果洞穴保护范围不同于默认保护范围，则显示默认保护范围。
+        set:
+          description: 设置洞穴保护范围
+          success: "＆a将洞穴保护范围设置为＆b [number]＆a。"
+        reset:
+          description: 将洞穴保护范围重置为世界默认值
+          success: "＆a将洞穴保护范围重置为＆b [number]＆a。"
+      register:
+        description: 注册玩家到您所在的无人洞
+        registered-island: "＆a注册玩家到[xyz]洞穴。"
+        already-owned: "＆c洞穴已被另一位玩家拥有！"
+        no-island-here: "＆c这里没有洞穴。确认做一个。"
+        in-deletion: "＆c该洞穴空间当前正在被删除。等会再试。"
+        cannot-make-island: "＆c抱歉，不能在此处放置洞穴。请参阅控制台以获取可能的错误。"
+      unregister:
+        description: 从山洞中注销所有者，但保留山洞块
+        unregistered-island: "＆a来自[xyz]洞穴的未注册玩家。"
+      info:
+        description: 获取有关您所在位置或玩家洞穴的信息
+        no-island: "＆c您现在不在山洞里..."
+        title: "==========洞穴信息============"
+        islands-in-trash: "＆d玩家在垃圾桶中有洞穴。"
+        is-spawn: 岛是出生点
+      switchto:
+        description: 将玩家的洞穴切换到垃圾桶中的第一洞
+        out-of-range: "＆c数字必须介于1到[number]之间。使用＆l [label]垃圾[player]＆r＆c查看洞穴编号"
+      trash:
+        no-unowned-in-trash: "＆c垃圾桶中没有无人认领的洞穴"
+        no-islands-in-trash: "＆c玩家没有洞穴在垃圾桶中"
+        description: 在垃圾桶中显示无人洞穴或玩家的洞穴
+        title: "＆d ============垃圾洞==========="
+        count: "&l&d洞穴 [number]:"
+        use-switch: "＆a使用＆l [label]切换到<player> <number>＆r＆a将玩家洞穴切换到垃圾桶"
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      hint: 允许在洞穴顶上行走。
