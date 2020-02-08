@@ -71,6 +71,9 @@ permissions:
   caveblock.mod.bypasscooldowns:
     description: Allow moderator to bypass cooldowns
     default: op
+  caveblock.mod.bypassdelays:
+    description: Allow moderator to bypass delays
+    default: op
   caveblock.mod.bypassprotect:
     description: Allow moderator to bypass cave protection
     default: op
