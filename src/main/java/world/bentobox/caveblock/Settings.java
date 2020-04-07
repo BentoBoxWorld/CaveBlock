@@ -36,6 +36,21 @@ public class Settings implements WorldSettings
     // Section: Getters
     // ---------------------------------------------------------------------
 
+    /**
+     * @return the maxCoopSize
+     */
+    @Override
+    public int getMaxCoopSize() {
+        return maxCoopSize;
+    }
+
+    /**
+     * @return the maxTrustSize
+     */
+    @Override
+    public int getMaxTrustSize() {
+        return maxTrustSize;
+    }
 
     /**
      * This method returns the friendlyName object.
@@ -819,6 +834,19 @@ public class Settings implements WorldSettings
     // Section: Setters
     // ---------------------------------------------------------------------
 
+    /**
+     * @param maxCoopSize the maxCoopSize to set
+     */
+    public void setMaxCoopSize(int maxCoopSize) {
+        this.maxCoopSize = maxCoopSize;
+    }
+
+    /**
+     * @param maxTrustSize the maxTrustSize to set
+     */
+    public void setMaxTrustSize(int maxTrustSize) {
+        this.maxTrustSize = maxTrustSize;
+    }
 
     /**
      * This method sets the friendlyName object value.
@@ -2025,6 +2053,18 @@ public class Settings implements WorldSettings
     @ConfigComment("Permission size cannot be less than the default below. ")
     @ConfigEntry(path = "cave.max-team-size")
     private int maxTeamSize = 4;
+
+    @ConfigComment("Default maximum number of coop rank members per island")
+    @ConfigComment("Players can have the caveblock.coop.maxsize.<number> permission to be bigger but")
+    @ConfigComment("permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "island.max-coop-size", since = "1.13.0")
+    private int maxCoopSize = 4;
+    
+    @ConfigComment("Default maximum number of trusted rank members per island")
+    @ConfigComment("Players can have the caveblock.trust.maxsize.<number> permission to be bigger but")
+    @ConfigComment("permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "island.max-trusted-size", since = "1.13.0")
+    private int maxTrustSize = 4;
 
     @ConfigComment("Default maximum number of homes a player can have. Min = 1")
     @ConfigComment("Accessed via /cave sethome <number> or /cave go <number>")
