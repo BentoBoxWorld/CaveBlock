@@ -1,6 +1,7 @@
 name: CaveBlock
 main: world.bentobox.caveblock.CaveBlock
 version: ${version}${build.number}
+api-version: 1.13.0
 metrics: true
 repository: "BentoBoxWorld/CaveBlock"
 icon: "STONE_PICKAXE"
@@ -16,6 +17,9 @@ permissions:
     default: true
   caveblock.island.home:
     description: Allow teleporting to player cave
+    default: true
+  caveblock.island.sethome:
+    description: Let the player use the sethome command
     default: true
   caveblock.island.info:
     description: Let the player check other players info
@@ -48,7 +52,25 @@ permissions:
     description: Player can use the cave reset or restart command
     default: true
   caveblock.island.team:
-    description: Let a player use team commands
+    description: Let a player use team command
+    default: true
+  caveblock.island.team.setowner:
+    description: Let a player change the team owner
+    default: true
+  caveblock.island.team.invite:
+    description: Let a player invite others
+    default: true
+  caveblock.island.team.reject:
+    description: Let a player reject invites
+    default: true
+  caveblock.island.team.leave:
+    description: Let a player leave the team
+    default: true
+  caveblock.island.team.kick:
+    description: Let a player kick team members
+    default: true
+  caveblock.island.team.accept:
+    description: Let a player accept invitations
     default: true
   caveblock.island.team.trust:
     description: Let a player use team trust commands
@@ -70,6 +92,9 @@ permissions:
     default: false
   caveblock.mod.bypasscooldowns:
     description: Allow moderator to bypass cooldowns
+    default: op
+  caveblock.mod.bypassdelays:
+    description: Allow moderator to bypass delays
     default: op
   caveblock.mod.bypassprotect:
     description: Allow moderator to bypass cave protection
@@ -113,6 +138,9 @@ permissions:
   caveblock.admin.setspawn:
     description: Allows use of spawn tools
     default: op
+  caveblock.admin.setspawnpoint:
+    description: Allows to set spawn point of cave
+    default: op
   caveblock.admin.setrange:
     description: Allows setting of cave protection range
     default: op
@@ -127,4 +155,10 @@ permissions:
     default: op
   caveblock.admin.setlanguage:
     description: Resets all player languages and sets the default language
+    default: op
+  caveblock.admin.getrank:
+    description: Get a player's rank
+    default: op
+  caveblock.admin.setrank:
+    description: Set a player's rank
     default: op

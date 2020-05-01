@@ -1,4 +1,4 @@
-# CaveBlock Configuration ${version}
+# CaveBlock Configuration 1.13.0
 caveblock:
   command:
     # Cave Command. What command users will run to access their cave.
@@ -7,6 +7,16 @@ caveblock:
     # The Cave admin command.
     # To define alias, just separate commands with white space.
     admin: cbadmin cba
+    # The default action for new player command call.
+    # Sub-command of main player command that will be run on first player command call.
+    # By default it is sub-command 'create'.
+    # Added since 1.13.0.
+    new-player-action: create
+    # The default action for player command.
+    # Sub-command of main player command that will be run on each player command call.
+    # By default it is sub-command 'go'.
+    # Added since 1.13.0.
+    default-action: go
 world:
   # Friendly name for this world. Used in admin commands. Must be a single word
   friendly-name: CaveBlock
@@ -57,7 +67,7 @@ world:
   # -1 = unlimited
   ban-limit: -1
   #
-  # This is cave... no height... only depth. Max 256.
+  # This is cave.. no height... only depth. Max 256.
   # Should not be less then cave height.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
   world-depth: 256
@@ -176,10 +186,10 @@ world:
       - MATERIAL:CHORUS_PLANT:1:3
   # Mob white list - these mobs will NOT be removed when logging in or doing /cave
   remove-mobs-whitelist:
-    - ZOMBIE_VILLAGER
     - WITHER
     - ENDERMAN
     - PIG_ZOMBIE
+    - ZOMBIE_VILLAGER
   # World flags. These are boolean settings for various flags for this world
   flags:
     CREEPER_DAMAGE: true
@@ -191,6 +201,7 @@ world:
     CLEAN_SUPER_FLAT: false
     CHEST_DAMAGE: false
     PREVENT_TELEPORT_WHEN_FALLING: false
+    NATURAL_SPAWNING_OUTSIDE_RANGE: true
     ENTER_EXIT_MESSAGES: true
     ENDERMAN_DEATH_DROP: true
     OFFLINE_REDSTONE: true
@@ -198,8 +209,14 @@ world:
     ENDER_CHEST: false
     ITEM_FRAME_DAMAGE: false
   # These are the default protection settings for new caves.
-  # The value is the minimum cave rank required allowed to do the action
-  # Ranks are: Visitor = 0, Member = 900, Owner = 1000
+  # The value is the minimum cave rank required allowed to do the action.
+  # Ranks are the following:
+  #   VISITOR   = 0
+  #   COOP      = 200
+  #   TRUSTED   = 400
+  #   MEMBER    = 500
+  #   SUB-OWNER = 900
+  #   OWNER     = 1000
   default-cave-flags:
     HURT_ANIMALS: 500
     REDSTONE: 500
@@ -213,21 +230,21 @@ world:
     END_PORTAL: 500
     BREEDING: 500
     HURT_VILLAGERS: 500
-    FROST_WALKER: 500
     TURTLE_EGGS: 500
+    FROST_WALKER: 500
     COLLECT_LAVA: 500
     LEVER: 500
     RIDING: 500
     HURT_MONSTERS: 0
-    NAME_TAG: 500
     ARMOR_STAND: 500
+    NAME_TAG: 500
     TRADING: 0
     EGGS: 500
     ITEM_DROP: 0
     NOTE_BLOCK: 0
     NETHER_PORTAL: 500
-    ITEM_PICKUP: 0
     CROP_TRAMPLE: 500
+    ITEM_PICKUP: 0
     DROPPER: 500
     BREWING: 500
     COLLECT_WATER: 500
@@ -239,10 +256,10 @@ world:
     PLACE_BLOCKS: 500
     ITEM_FRAME: 500
     CRAFTING: 0
-    ENCHANTING: 0
     SHEARING: 500
-    SPAWN_EGGS: 500
+    ENCHANTING: 0
     BED: 500
+    SPAWN_EGGS: 500
     MILKING: 0
     DISPENSER: 500
     GATE: 0
@@ -279,6 +296,16 @@ cave:
   # Default max team size
   # Permission size cannot be less than the default below.
   max-team-size: 4
+  # Default maximum number of coop rank members per cave
+  # Players can have the caveblock.coop.maxsize.<number> permission to be bigger but
+  # permission size cannot be less than the default below.
+  # Added since 1.13.0.
+  max-coop-size: 4
+  # Default maximum number of trusted rank members per cave
+  # Players can have the caveblock.trust.maxsize.<number> permission to be bigger but
+  # permission size cannot be less than the default below.
+  # Added since 1.13.0.
+  max-trusted-size: 4
   # Default maximum number of homes a player can have. Min = 1
   # Accessed via /cave sethome <number> or /cave go <number>
   max-homes: 1
@@ -297,7 +324,7 @@ cave:
     # Overrides the on-leave inventory reset for kicked players.
     kicked-keep-inventory: false
     on-join:
-      # What the addon should reset when the player joins or creates a cave
+      # What the plugin should reset when the player joins or creates a cave
       # Reset Money - if this is true, will reset the player's money to the starting money
       # Recommendation is that this is set to true, but if you run multi-worlds
       # make sure your economy handles multi-worlds too.
@@ -335,7 +362,7 @@ cave:
   create-cave-on-first-login:
     # Toggles the automatic cave creation upon the player's first login on your server.
     # If set to true,
-    #   * Upon connecting to your server for the first time, the player will be told that
+    #    * Upon connecting to your server for the first time, the player will be told that
     #     a cave will be created for him.
     #   * Make sure you have a Blueprint Bundle called "default": this is the one that will
     #     be used to create the cave.
@@ -366,16 +393,18 @@ cave:
     abort-on-logout: true
   # Toggles whether the player should be teleported automatically to his cave when it is created.
   # If set to false, the player will be told his cave is ready but will have to teleport to his cave using the command.
+  # Added since 1.10.0.
   teleport-player-to-cave-when-created: true
   # Create Nether or End cave if they are missing when a player goes through a portal.
   # Nether and End cave are usually pasted when a player makes their cave, but if they are
   # missing for some reason, you can switch this on.
   # Note that bedrock removal glitches can exploit this option.
+  # Added since 1.10.0.
   create-missing-nether-end-caves: false
   commands:
     # List of commands to run when a player joins.
     on-join: []
-    # List of commands to run when a player leaves.
+    # list of commands to run when a player leaves.
     on-leave: []
   sethome:
     nether:
@@ -400,6 +429,10 @@ protection:
     - GHAST
     - BAT
     - BLAZE
+  # CaveBlock blocked mobs.
+  # List of mobs that should not spawn in the CaveBlock.
+  # Added since 1.13.0.
+  block-mobs: []
   # Invincible visitors. List of damages that will not affect visitors.
   # Make list blank if visitors should receive all damages
   invincible-visitors:

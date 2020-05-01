@@ -9,11 +9,12 @@ import org.bukkit.generator.ChunkGenerator;
 import org.eclipse.jdt.annotation.NonNull;
 
 import world.bentobox.bentobox.api.addons.GameModeAddon;
+import world.bentobox.bentobox.api.commands.admin.DefaultAdminCommand;
+import world.bentobox.bentobox.api.commands.island.DefaultPlayerCommand;
 import world.bentobox.bentobox.api.configuration.Config;
 import world.bentobox.bentobox.api.configuration.WorldSettings;
 import world.bentobox.bentobox.api.flags.Flag;
-import world.bentobox.caveblock.commands.AdminCommand;
-import world.bentobox.caveblock.commands.IslandCommand;
+import world.bentobox.caveblock.commands.IslandAboutCommand;
 import world.bentobox.caveblock.generators.ChunkGeneratorWorld;
 import world.bentobox.caveblock.listeners.CustomHeightLimitations;
 
@@ -35,9 +36,19 @@ public class CaveBlock extends GameModeAddon
 
         this.chunkGenerator = new ChunkGeneratorWorld(this);
 
-        this.playerCommand = new IslandCommand(this);
-        this.adminCommand = new AdminCommand(this);
+        // Player Command
+        this.playerCommand = new DefaultPlayerCommand(this)
+            {
+                @Override
+                public void setup()
+                {
+                    super.setup();
+                    new IslandAboutCommand(this);
+                }
+            };
 
+        // Admin command.
+        this.adminCommand = new DefaultAdminCommand(this) {};
     }
 
 

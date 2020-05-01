@@ -1,0 +1,296 @@
+###########################################################################################
+# This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
+# the one at http://yaml-online-parser.appspot.com                                        #
+#                                                                                         #
+# Translation by: CZghost                                                                 #
+###########################################################################################
+
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+    line1: "Vítej!"
+    line2: "[name]"
+    line3: "Začni kopat! &c<3"
+
+  informational:
+    to-nether: "Taková smůla, propadnout se do netheru."
+    to-the-end: "Dosáhl jsi Endu."
+    to-normal: "Zpět do své jeskyně."
+  # Override BentoBox default command strings
+  # General strings
+  general:
+    errors:
+      no-island: "&cNemáš jeskyni!"
+      player-has-island: "&cHráč již má jeskyni!"
+      player-has-no-island: "&cTento hráč nemá jeskyni!"
+      already-have-island: "&cJiž máš svou jeskyni!"
+      no-safe-location-found: "&cNelze najít bezpečné místo pro teleportaci do tvé jeskyně."
+      not-owner: "&cNejsi vlastník této jeskyně!"
+  commands:
+    # Parameters in <> are required, parameters in [] are optional
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] má jeskyni. Nejdříve ji odregistruj nebo smaž!"
+          success: "&b[name]&a byl přidán do jeskyně &b[owner]&a."
+        kick:
+           success: "&b[name] &abyl vykopnut z jeskyně &b[owner]&a."
+        setowner:
+          description: "přepíše vlastnictví jeskyně na hráče"
+          already-owner: "&c[name] již je vlastníkem této jeskyně!"
+          success: "&b[name]&a je nyní vlastník této jeskyně."
+      range:
+        description: "Administrátorský příkaz vzdálenosti jeskyně"
+        display:
+          description: "ukázat/schovat indikátory vzdálenosti jeskyně"
+          hint: |-
+            &cIkony červené bariéry &fukazují nynější limit chráněné oblasti jeskyně.
+            &7Šedé partikly &ukazují maximální limit jeskyně.
+            &aZelené partikly &fuzkazují výchozí chráněnou oblast jeskyně, pokud se nynější od ní odlišuje.
+        set:
+          description: "nastavuje chráněnou oblast jeskyně"
+          success: "&aChráněná oblast jeskyně nastavena na &b[number]&a."
+        reset:
+          description: "obnoví chráněnou oblast jeskyně na výchozí hodnotu světa"
+          success: "&aChráněná oblast jeskyně obnovena na &b[number]&a."
+      register:
+        description: "registrovat hráče do nevlastněné jeskyně, ve které jsi"
+        registered-island: "&aHráč registrován do jeskyně na [xyz]."
+        already-owned: "&cJeskyně je již vlastněna jiným hráčem!"
+        no-island-here: "&cZde není jeskyně. Potvrď její vytvoření."
+        in-deletion: "&cTato jeskyně bude smazána. Opakuj později."
+        cannot-make-island: "&c Pardon, sem nelze umístit jeskyni. Podívej se do konzole pro přípdné chyby."
+      unregister:
+        description: "odregistrovat vlastníka z jeskyně, ale zachovat bloky jeskyně"
+        unregistered-island: "&aHráč odregistrován z jeskyně na [xyz]."
+      info:
+        description: "získat info, kde se nacházíš ty nebo hráčova jeskyně"
+        no-island: "&cPrávě nejsi v žádné jeskyni..."
+        title: "========== Info o jeskyni ============"
+        islands-in-trash: "&dHráčova jeskyně je v koši."
+        is-spawn: "Jeskyně je spawn"
+      switchto:
+        description: "nastavit jeskyni hráče na pořadí v koši"
+        out-of-range: "&cČíslo musí být mezi 1 a [number]. Použij &l[label] trash [player] &r&cpro zobrazení čísel"
+      trash:
+        no-unowned-in-trash: "&cV koši nejsou žádné nevlastněné jeskyně"
+        no-islands-in-trash: "&cHráč nemá žádné jeskyně v koši"
+        description: "ukázat nevlastněné nebo hráčské jeskyně v koši"
+        title: "&d=========== Jeskyně v koši ==========="
+        count: "&l&dJeskyně [number]:"
+        use-switch: "&aPoužij &l[label] switchto <player> <number>&r&ak nastavení pořadí v koši"
+      emptytrash:
+        description: "Vysypat koš hráče, nebo všech nevlastněných jeskyní"
+      setrange:
+        description: "nastavit oblast jeskyně hráče"
+        range-updated: "Oblast jeskyně nastavena na [number]"
+      tp:
+        description: "teleportovat se do jeskyně hráče"
+      getrank:
+        description: "získat hodnost hráče v jejich jeskyni"
+        rank-is: "&aHodnost je [rank] v jejich jeskyni."
+      setrank:
+        description: "nastavit hodnot hráče v jejich jeskyni"
+      setspawn:
+        description: "nastavit jeskyni jako spawn pro tento svět"
+        already-spawn: "&cTato jeskyně již je spawn!"
+        no-island-here: "&cZde není jeskyně."
+        confirmation: "&cJsi si jistý, že chceš tuto jeskyni nastavit jako spawn pro tento svět?"
+      resetflags:
+        description: "Obnov vlaječky všech jeskyní na výchozí nastavení v souboru config.yml"
+      delete:
+        description: "odstraní jeskyni hráče"
+        cannot-delete-owner: "&cVšichni členové jeskyně musí být vykopnuti z jeskyně, než jej bude možné smazat."
+        deleted-island: "&aJeskyně na &e[xyz] &a byla úspěšně smazána."
+    island:
+      go:
+        description: "teleportuje tě do tvé jeskyně"
+        teleport: "&aTeleportuji tě do tvé jeskyně."
+      help:
+        description: "Hlavní příkaz jeskyně"
+      create:
+        description: "vytvořit jeskyni, s použitím volitelné předlohy (vyžaduje oprávnění)"
+        too-many-islands: "&cJe zde příliš mnoho jeskyní v tomto světě: není zde dostatek místa k vytvoření té tvé."
+        unable-create-island: "&cTvoji jeskyni se nepovedlo vygenerovat, prosím, kontaktuj administrátora."
+        creating-island: "&aVytvářím tvou jeskyni, počkej, prosím, chvíli..."
+        pick: "&aZvol si jeskyni"
+      info:
+        description: "ukázat info o tvé jeskyni nebo jeskyni hráče"
+      near:
+        description: "ukázat jména sousedících jeskyní okolo tebe"
+        the-following-islands: "&aNásledující jeskyně jsou poblíž:"
+        no-neighbors: "&cNemáš bezprostřední sousední jeskyně!"
+      reset:
+        description: "restartuj svou jeskyni a smaž svou předchozí"
+        must-remove-members: "&cMusíš odebrat všechny členy ze své jeskyně, než ji budeš moci restartovat (/island team kick <player>)."
+      sethome:
+        must-be-on-your-island: "&cMusíš být ve své jeskyni k nastavení domova!"
+        home-set: "&6Domov tvé jeskyně byl nastaven na tvou nynější pozici."
+      setname:
+        description: "nastavit jméno tvé jeskyně"
+      resetname:
+        description: "obnovit jméno tvé jeskyně"
+      team:
+        coop:
+          description: "učinit hráče pomocníkem ve tvé jeskyni"
+        uncoop:
+          you-are-no-longer-a-coop-member: "&cNadále již nejsi pomocníkem v jeskyni [name]"
+          all-members-logged-off: "&cVšichni členové jeskyně se odhlásili, takže již nadále nejsi pomocníkem v jeskyni [name]"
+        trust:
+          description: "dát hráči hodnost důvěryhodného ve tvé jeskyni"
+        invite:
+          description: "pozvi hráče jako člena tvé jeskyně"
+          name-has-invited-you: "&a[name] tě pozval jako člena jeho jeskyně."
+          you-will-lose-your-island: "&cVAROVÁNÍ! Ztatíš svou jeskyni, když žádost přijmeš!"
+          errors:
+            island-is-full: "&cTvá jeskyně je plná, nemůžeš pozvat nikoho dalšího."
+          accept:
+            you-joined-island: "&aPřipojil ses do jeskyně! Použij /[label] team info pro zobrazení ostatních členů."
+            name-joined-your-island: "&a[name] se připojil do tvé jeskyně!"
+            confirmation: |-
+              &cJsi si jistý, že chceš přijmout tuto pozvánku?
+              &c&l&nZTRATÍŠ&r&c&l svou dosavadní jeskyni!
+          reject:
+            you-rejected-invite: "&aOdmítnul jsi pozvánku do týmu jeskyně."
+            name-rejected-your-invite: "&c[name] odmítnul tvou pozvánku!"
+          cancel:
+            description: "zrušit čekající pozvánku do tvé jeskyně"
+        leave:
+          description: "opustit svou jeskyni"
+          left-your-island: "&c[name] &copustil tvou jeskyni"
+        kick:
+          description: "odstranit člena tvé jeskyně"
+          owner-kicked: "&cVlastník tě vykopnul ze své jeskyně!"
+          success: "&b[name] &abyl vykopnut z tvé jeskyně."
+        demote:
+          description: "degradovat hráče ve tvé jeskyni"
+        promote:
+          description: "povýšit hráče ve tvé jeskyni"
+        setowner:
+          description: "přenést vlastnictví své jeskyně na člena"
+          errors:
+            target-is-not-member: "&cTento hráč není členem týmu ve tvé jeskyni!"
+          name-is-the-owner: "&a[name] je nyní vlastník jeskyně!"
+          you-are-the-owner: "&aNyní jsi vlastníkem jeskyně!"
+      ban:
+        description: "zakázat hráči přístup do tvé jeskyně"
+        cannot-ban-more-players: "&cDosáhl jsi limitu zákazů, nemůžeš zakázat přístup do tvé jeskyně dalším hráčům."
+        player-banned: "&b[name]&c má nyní přístup do tvé jeskyně zakázán."
+        owner-banned-you: "&b[name]&c ti zakázal přístup do své jeskyně!"
+        you-are-banned: "&bPřístup do této jeskyně ti byl zakázán!"
+      unban:
+        description: povolit hráči přístup do tvé jeskyně"
+        player-unbanned: "&b[name]&a má nyní přístup do tvé jeskyně povolen."
+        you-are-unbanned: "&b[name]&a ti povolil přístup do své jeskyně!"
+      banlist:
+        noone: "&aNikdo nemá zakázaný přístup do této jeskyně."
+      settings:
+        description: "ukázat nastavení jeskyně"
+      expel:
+        description: "vykázat hráče z tvé jeskyně"
+        not-on-island: "&cTento hráč není ve tvé jeskyni!"
+        player-expelled-you: "&b[name]&c tě vykázal ze své jeskyně!"
+
+  ranks:
+    owner: "Král Trpaslíků"
+    sub-owner: "Rytíř Trpaslíků"
+    member: "Trpaslík"
+    trusted: "Důvěryhodný"
+    coop: "Pomocník"
+    visitor: "Člověk"
+    banned: "Skřet"
+
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aEndermeni mohou odstraňovat
+          &abloky z jeskyně
+        name: "Griefing endermanů"
+      ENTER_EXIT_MESSAGES:
+        island: "Jeskyně [name]"
+      GEO_LIMIT_MOBS:
+        description: |-
+          &aOdstranit moby, které
+          &ase zapletou mimo chráněný
+          &aprostor jeskyně
+        name: "&eOmezit moby do jeskyně"
+      ISLAND_RESPAWN:
+        description: |-
+          &aHráči se respawnují
+          &av jejich jeskyni
+        name: "Respawn v jeskyni"
+      LIQUIDS_FLOWING_OUT:
+        name: "Přetékání kapalin mimo jeskyni"
+        description: |-
+          &aPřepíná, zda mohou kapaliny přetékat
+          &amimo chráněné prostředí jeskyně.
+      LOCK:
+        description: "Přepnout zámek"
+        name: "Zamknout jeskyni"
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: "Přirozené spawnování tvorů mimo prostor jeskyně"
+        description: |-
+          &aPřepnout, zda se mohou tvorové (zvířata
+          &aa příšery) přirozeně spawnovat mimo
+          &achráněný prostor jeskyně.
+
+          &cMěj na paměti, že to nezabrání spawnování
+          &ctvorů pomocí spawneru nebo spawnovacích
+          &cvajíček.
+      OFFLINE_GROWTH:
+        description: |-
+          &aJe-li zakázáno, rostliny
+          &anebudou růst v jeskyních, jejichž
+          &ačlenové jsou všichni offline.
+          &aMůže pomoci snížit lagy.
+        name: "Offline růst"
+      OFFLINE_REDSTONE:
+        description: |-
+          &a&a Je-li zakázáno, rudit
+          &anebude funkční v jeskyních, jejichž
+          &ačlenové jsou všichni offline.
+          &aMůže pomoci snížit lagy.
+        name: "Offline Rudit"
+      PISTON_PUSH:
+        description: |-
+          &aPovolit pístům vytlačit
+          &ablok mimo jeskyni
+        name: "Vytlačení pístem"
+      REMOVE_MOBS:
+        description: |-
+          &aOdstranit příšery při
+          &ateleportu do jeskyně
+        name: "Odstranit příšery"
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: "Růst stromů mimo prostor jeskyně"
+        description: |-
+          &aPřepíná, zda mohou stromy růst mimo
+          &achráněný prostor jeskyně nebo ne.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: "Zabránit teleportu při padání"
+        description: |-
+          &aZabránit hráčům v teleportaci zpět
+          &ado jejich jeskyně použitím příkazu,
+          &apokud padají.
+        hint: "&cNemůžeš se teleportovat zpět do své jeskyně, když padáš."
+    locked: "&cTato jeskyně je zamčená!"
+    protected: "&cJeskyně chráněna: [description]"
+    spawn-protected: "&cSpawn chráněn: [description]"
+
+    panel:
+      PROTECTION:
+        description: |-
+          &aNastavení protekce
+          &atéto jeskyně
+      SETTING:
+        description: |-
+          &aObecné nastavení
+          &atéto jeskyně
+
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: "&5&oToto umožní zapnout/vypnout\n&5&omožnost chodit\n&5&opo vrchu světa jeskyní\n&5&obez extra oprávnění."
+      name: "Nebeský chodec"
+      hint: "Umožňuje chodit pozastřešení jeskyň."

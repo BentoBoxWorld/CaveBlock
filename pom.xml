@@ -45,12 +45,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!-- More visible way how to change dependency versions -->
-        <spigot.version>1.15.1-R0.1-SNAPSHOT</spigot.version>
-        <bentobox.version>1.11.0</bentobox.version>
+        <spigot.version>1.15.2-R0.1-SNAPSHOT</spigot.version>
+        <bentobox.version>1.13.0</bentobox.version>
         <!-- Revision variable removes warning about dynamic version -->
         <revision>${build.version}-SNAPSHOT</revision>
         <!-- This allows to change between versions and snapshots. -->
-        <build.version>1.11.0</build.version>
+        <build.version>1.13.0</build.version>
         <build.number>-LOCAL</build.number>
     </properties>
 

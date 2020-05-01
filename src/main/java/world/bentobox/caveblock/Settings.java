@@ -36,6 +36,21 @@ public class Settings implements WorldSettings
     // Section: Getters
     // ---------------------------------------------------------------------
 
+    /**
+     * @return the maxCoopSize
+     */
+    @Override
+    public int getMaxCoopSize() {
+        return maxCoopSize;
+    }
+
+    /**
+     * @return the maxTrustSize
+     */
+    @Override
+    public int getMaxTrustSize() {
+        return maxTrustSize;
+    }
 
     /**
      * This method returns the friendlyName object.
@@ -796,22 +811,50 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the islandCommand value.
-     * @return the value of islandCommand.
+     * {@inheritDoc}
      */
-    public String getIslandCommand()
+    @Override
+    public List<String> getMobLimitSettings()
     {
-        return islandCommand;
+        return mobLimitSettings;
     }
 
 
     /**
-     * This method returns the adminCommand value.
-     * @return the value of adminCommand.
+     * {@inheritDoc}
      */
-    public String getAdminCommand()
+    public String getPlayerCommandAliases()
     {
-        return adminCommand;
+        return playerCommandAliases;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getAdminCommandAliases()
+    {
+        return adminCommandAliases;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDefaultPlayerAction()
+    {
+        return defaultPlayerAction;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDefaultNewPlayerAction()
+    {
+        return defaultNewPlayerAction;
     }
 
 
@@ -819,6 +862,19 @@ public class Settings implements WorldSettings
     // Section: Setters
     // ---------------------------------------------------------------------
 
+    /**
+     * @param maxCoopSize the maxCoopSize to set
+     */
+    public void setMaxCoopSize(int maxCoopSize) {
+        this.maxCoopSize = maxCoopSize;
+    }
+
+    /**
+     * @param maxTrustSize the maxTrustSize to set
+     */
+    public void setMaxTrustSize(int maxTrustSize) {
+        this.maxTrustSize = maxTrustSize;
+    }
 
     /**
      * This method sets the friendlyName object value.
@@ -1573,24 +1629,24 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method sets the islandCommand value.
-     * @param islandCommand the islandCommand new value.
+     * This method sets the playerCommandAliases value.
+     * @param playerCommandAliases the playerCommandAliases new value.
      *
      */
-    public void setIslandCommand(String islandCommand)
+    public void setPlayerCommandAliases(String playerCommandAliases)
     {
-        this.islandCommand = islandCommand;
+        this.playerCommandAliases = playerCommandAliases;
     }
 
 
     /**
-     * This method sets the adminCommand value.
-     * @param adminCommand the adminCommand new value.
+     * This method sets the adminCommandAliases value.
+     * @param adminCommandAliases the adminCommandAliases new value.
      *
      */
-    public void setAdminCommand(String adminCommand)
+    public void setAdminCommandAliases(String adminCommandAliases)
     {
-        this.adminCommand = adminCommand;
+        this.adminCommandAliases = adminCommandAliases;
     }
 
     /**
@@ -1774,6 +1830,36 @@ public class Settings implements WorldSettings
     }
 
 
+    /**
+     * Method Settings#setDefaultPlayerAction sets new value for the defaultPlayerAction of this object.
+     * @param defaultPlayerAction new value for this object.
+     */
+    public void setDefaultPlayerAction(String defaultPlayerAction)
+    {
+        this.defaultPlayerAction = defaultPlayerAction;
+    }
+
+
+    /**
+     * Method Settings#setDefaultNewPlayerAction sets new value for the defaultNewPlayerAction of this object.
+     * @param defaultNewPlayerAction new value for this object.
+     */
+    public void setDefaultNewPlayerAction(String defaultNewPlayerAction)
+    {
+        this.defaultNewPlayerAction = defaultNewPlayerAction;
+    }
+
+
+    /**
+     * Method Settings#setMobLimitSettings sets new value for the mobLimitSettings of this object.
+     * @param mobLimitSettings new value for this object.
+     */
+    public void setMobLimitSettings(List<String> mobLimitSettings)
+    {
+        this.mobLimitSettings = mobLimitSettings;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -1782,12 +1868,24 @@ public class Settings implements WorldSettings
     @ConfigComment("Cave Command. What command users will run to access their cave.")
     @ConfigComment("To define alias, just separate commands with white space.")
     @ConfigEntry(path = "caveblock.command.cave")
-    private String islandCommand = "cave cb";
+    private String playerCommandAliases = "cave cb";
 
     @ConfigComment("The Cave admin command.")
     @ConfigComment("To define alias, just separate commands with white space.")
     @ConfigEntry(path = "caveblock.command.admin")
-    private String adminCommand = "cbadmin cba";
+    private String adminCommandAliases = "cbadmin cba";
+
+    @ConfigComment("The default action for new player command call.")
+    @ConfigComment("Sub-command of main player command that will be run on first player command call.")
+    @ConfigComment("By default it is sub-command 'create'.")
+    @ConfigEntry(path = "caveblock.command.new-player-action", since = "1.13.0")
+    private String defaultNewPlayerAction = "create";
+
+    @ConfigComment("The default action for player command.")
+    @ConfigComment("Sub-command of main player command that will be run on each player command call.")
+    @ConfigComment("By default it is sub-command 'go'.")
+    @ConfigEntry(path = "caveblock.command.default-action", since = "1.13.0")
+    private String defaultPlayerAction = "go";
 
     /*      WORLD       */
     @ConfigComment("Friendly name for this world. Used in admin commands. Must be a single word")
@@ -2026,6 +2124,18 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "cave.max-team-size")
     private int maxTeamSize = 4;
 
+    @ConfigComment("Default maximum number of coop rank members per cave")
+    @ConfigComment("Players can have the caveblock.coop.maxsize.<number> permission to be bigger but")
+    @ConfigComment("permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "cave.max-coop-size", since = "1.13.0")
+    private int maxCoopSize = 4;
+    
+    @ConfigComment("Default maximum number of trusted rank members per cave")
+    @ConfigComment("Players can have the caveblock.trust.maxsize.<number> permission to be bigger but")
+    @ConfigComment("permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "cave.max-trusted-size", since = "1.13.0")
+    private int maxTrustSize = 4;
+
     @ConfigComment("Default maximum number of homes a player can have. Min = 1")
     @ConfigComment("Accessed via /cave sethome <number> or /cave go <number>")
     @ConfigEntry(path = "cave.max-homes")
@@ -2204,6 +2314,11 @@ public class Settings implements WorldSettings
     @ConfigComment("Mobs that exit the cave space where they were spawned will be removed.")
     @ConfigEntry(path = "protection.geo-limit-settings")
     private List<String> geoLimitSettings = new ArrayList<>();
+
+    @ConfigComment("CaveBlock blocked mobs.")
+    @ConfigComment("List of mobs that should not spawn in the CaveBlock.")
+    @ConfigEntry(path = "protection.block-mobs", since = "1.13.0")
+    private List<String> mobLimitSettings = new ArrayList<>();
 
     // Invincible visitor settings
     @ConfigComment("Invincible visitors. List of damages that will not affect visitors.")
