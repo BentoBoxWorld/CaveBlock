@@ -78,15 +78,15 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         // Populate chunk with necessary information
         if (world.getEnvironment().equals(World.Environment.NETHER))
         {
-            this.populateNetherChunk(result);
+            this.populateNetherChunk(world, result, biomeGrid);
         }
         else if (world.getEnvironment().equals(World.Environment.THE_END))
         {
-            this.populateTheEndChunk(result);
+            this.populateTheEndChunk(world, result, biomeGrid);
         }
         else
         {
-            this.populateOverWorldChunk(result, biomeGrid);
+            this.populateOverWorldChunk(world, result, biomeGrid);
         }
 
         return result;
@@ -95,9 +95,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 
     /**
      * This method populates The End world chunk data.
+     * @param world world where chunks are generated.
      * @param chunkData ChunkData that must be populated.
+     * @param biomeGrid BiomeGrid for this chunk.
      */
-    private void populateTheEndChunk(ChunkData chunkData)
+    private void populateTheEndChunk(World world, ChunkData chunkData, BiomeGrid biomeGrid)
     {
         // because everything starts at 0 and ends at 255
         final int worldHeight = this.settings.getWorldDepth();
@@ -114,14 +116,28 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         chunkData.setRegion(0, worldHeight - 1, 0,
                 16, worldHeight, 16,
                 this.settings.isEndRoof() ? Material.BEDROCK : this.settings.getEndMainBlock());
+
+        // Set biome
+        for (int x = 0; x < 16; x += 4)
+        {
+            for (int y = 0; y < world.getMaxHeight(); y += 4)
+            {
+                for (int z = 0; z < 16; z += 4)
+                {
+                    biomeGrid.setBiome(x, y, z, this.settings.getDefaultNetherBiome());
+                }
+            }
+        }
     }
 
 
     /**
      * This method populates nether world chunk data.
+     * @param world world where chunks are generated.
      * @param chunkData ChunkData that must be populated.
+     * @param biomeGrid BiomeGrid for this chunk.
      */
-    private void populateNetherChunk(ChunkData chunkData)
+    private void populateNetherChunk(World world, ChunkData chunkData, BiomeGrid biomeGrid)
     {
         // because everything starts at 0 and ends at 255
         final int worldHeight = this.settings.getWorldDepth();
@@ -138,15 +154,28 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         chunkData.setRegion(0, worldHeight - 1, 0,
                 16, worldHeight, 16,
                 this.settings.isNetherRoof() ? Material.BEDROCK : this.settings.getNetherMainBlock());
+
+        // Set biome
+        for (int x = 0; x < 16; x += 4)
+        {
+            for (int y = 0; y < world.getMaxHeight(); y += 4)
+            {
+                for (int z = 0; z < 16; z += 4)
+                {
+                    biomeGrid.setBiome(x, y, z, this.settings.getDefaultNetherBiome());
+                }
+            }
+        }
     }
 
 
     /**
      * This method populates Over world chunk data.
+     * @param world world where chunks are generated.
      * @param chunkData ChunkData that must be populated.
      * @param biomeGrid BiomeGrid for this chunk.
      */
-    private void populateOverWorldChunk(ChunkData chunkData, BiomeGrid biomeGrid)
+    private void populateOverWorldChunk(World world, ChunkData chunkData, BiomeGrid biomeGrid)
     {
         // because everything starts at 0 and ends at 255
         final int worldHeight = this.settings.getWorldDepth();
@@ -165,11 +194,14 @@ public class ChunkGeneratorWorld extends ChunkGenerator
                 this.settings.isNormalRoof() ? Material.BEDROCK : this.settings.getNormalMainBlock());
 
         // Set biome
-        for (int x = 0; x < 16; x++)
+        for (int x = 0; x < 16; x += 4)
         {
-            for (int z = 0; z < 16; z++)
+            for (int y = 0; y < world.getMaxHeight(); y += 4)
             {
-                biomeGrid.setBiome(x, z, this.settings.getDefaultBiome());
+                for (int z = 0; z < 16; z += 4)
+                {
+                    biomeGrid.setBiome(x, y, z, this.settings.getDefaultBiome());
+                }
             }
         }
     }
