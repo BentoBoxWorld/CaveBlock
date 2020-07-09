@@ -1,4 +1,4 @@
-# CaveBlock Configuration 1.13.0
+# CaveBlock Configuration 1.14.0-SNAPSHOT-LOCAL
 caveblock:
   command:
     # Cave Command. What command users will run to access their cave.
@@ -120,6 +120,9 @@ world:
     # Caves in Nether. Change to false for standard vanilla nether.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     caves: true
+    # The default biome for the nether world (this may affect what mobs can spawn)
+    # Added since 1.14.0.
+    biome: NETHER_WASTES
     # Nether spawn protection radius - this is the distance around the nether spawn
     # that will be protected from player interaction (breaking blocks, pouring lava etc.)
     # Minimum is 0 (not recommended), maximum is 100. Default is 25.
@@ -159,6 +162,9 @@ world:
     generate: true
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     caves: true
+    # The default biome for the end world (this may affect what mobs can spawn)
+    # Added since 1.14.0.
+    biome: THE_END
     # /!\ This feature is experimental and might not work as expected or might not work at all.
     dragon-spawn: false
     # Make over world roof of bedrock, if false, it will be made from stone
@@ -188,7 +194,6 @@ world:
   remove-mobs-whitelist:
     - WITHER
     - ENDERMAN
-    - PIG_ZOMBIE
     - ZOMBIE_VILLAGER
   # World flags. These are boolean settings for various flags for this world
   flags:

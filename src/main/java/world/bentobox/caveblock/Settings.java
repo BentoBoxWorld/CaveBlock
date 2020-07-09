@@ -1,6 +1,7 @@
 package world.bentobox.caveblock;
 
 
+import com.google.common.base.Enums;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1860,6 +1861,50 @@ public class Settings implements WorldSettings
     }
 
 
+    /**
+     * Method Settings#getDefaultNetherBiome returns the defaultNetherBiome of this object.
+     *
+     * @return the defaultNetherBiome (type Biome) of this object.
+     */
+    public Biome getDefaultNetherBiome()
+    {
+        return defaultNetherBiome;
+    }
+
+
+    /**
+     * Method Settings#setDefaultNetherBiome sets new value for the defaultNetherBiome of this object.
+     * @param defaultNetherBiome new value for this object.
+     *
+     */
+    public void setDefaultNetherBiome(Biome defaultNetherBiome)
+    {
+        this.defaultNetherBiome = defaultNetherBiome;
+    }
+
+
+    /**
+     * Method Settings#getDefaultTheEndBiome returns the defaultTheEndBiome of this object.
+     *
+     * @return the defaultTheEndBiome (type Biome) of this object.
+     */
+    public Biome getDefaultTheEndBiome()
+    {
+        return defaultTheEndBiome;
+    }
+
+
+    /**
+     * Method Settings#setDefaultTheEndBiome sets new value for the defaultTheEndBiome of this object.
+     * @param defaultTheEndBiome new value for this object.
+     *
+     */
+    public void setDefaultTheEndBiome(Biome defaultTheEndBiome)
+    {
+        this.defaultTheEndBiome = defaultTheEndBiome;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -2009,6 +2054,10 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.nether.caves", needsReset = true)
     private boolean netherIslands = true;
 
+    @ConfigComment("The default biome for the nether world (this may affect what mobs can spawn)")
+    @ConfigEntry(path = "world.nether.biome", since = "1.14.0")
+    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER").or(Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.BADLANDS));
+
     @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
     @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
     @ConfigComment("Minimum is 0 (not recommended), maximum is 100. Default is 25.")
@@ -2026,7 +2075,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("Main block of which world will be generated.")
     @ConfigEntry(path = "world.nether.main-block", needsReset = true)
-    private Material netherMainBlock = Material.STONE;
+    private Material netherMainBlock = Material.NETHERRACK;
 
     @ConfigComment("Blocks that will occasionally replace main block by random chance.")
     @ConfigComment("Blocks will replace only main-block and will try to create packs that")
@@ -2047,6 +2096,10 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.end.caves", needsReset = true)
     private boolean endIslands = true;
 
+    @ConfigComment("The default biome for the end world (this may affect what mobs can spawn)")
+    @ConfigEntry(path = "world.end.biome", since = "1.14.0")
+    private Biome defaultTheEndBiome = Biome.THE_END;
+
     @ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
     private boolean dragonSpawn = false;
 
@@ -2060,7 +2113,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("Main block of which world will be generated.")
     @ConfigEntry(path = "world.end.main-block", needsReset = true)
-    private Material endMainBlock = Material.STONE;
+    private Material endMainBlock = Material.END_STONE;
 
     @ConfigComment("Blocks that will occasionally replace main block by random chance.")
     @ConfigComment("Blocks will replace only main-block and will try to create packs that")
