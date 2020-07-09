@@ -194,7 +194,6 @@ world:
   remove-mobs-whitelist:
     - WITHER
     - ENDERMAN
-    - ZOMBIFIED_PIGLIN
     - ZOMBIE_VILLAGER
   # World flags. These are boolean settings for various flags for this world
   flags:

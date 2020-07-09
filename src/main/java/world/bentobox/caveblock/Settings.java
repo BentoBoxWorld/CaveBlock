@@ -1,6 +1,7 @@
 package world.bentobox.caveblock;
 
 
+import com.google.common.base.Enums;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -2055,7 +2056,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the nether world (this may affect what mobs can spawn)")
     @ConfigEntry(path = "world.nether.biome", since = "1.14.0")
-    private Biome defaultNetherBiome = Biome.NETHER_WASTES;
+    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER").or(Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.BADLANDS));
 
     @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
     @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
