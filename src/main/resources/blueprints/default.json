@@ -7,9 +7,9 @@
   ],
   "requirePermission": false,
   "blueprints": {
-    "NORMAL": "the cave",
-    "NETHER": "the nether cave",
-    "THE_END": "the end cave"
+    "NORMAL": "cave",
+    "NETHER": "nether-cave",
+    "THE_END": "end-cave"
   },
   "slot": 0
 }
