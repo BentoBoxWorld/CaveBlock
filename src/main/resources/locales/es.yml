@@ -1,0 +1,300 @@
+---
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+    line1: "¡Bienvenido!"
+    line2: "[name]"
+    line3: "¡Cava! &c<3"
+  informational:
+    to-nether: Tan desafortunado en caer al infierno.
+    to-the-end: Haz alcanzado el fin.
+    to-normal: Volver a tu cueva.
+  general:
+    errors:
+      no-island: "&c¡No tienes una cueva!"
+      player-has-island: "&c¡Ese jugador ya tiene una cueva!"
+      player-has-no-island: "&c¡Ese jugador no tiene una cueva!"
+      already-have-island: "&c¡Ya tienes una cueva!"
+      no-safe-location-found: "&cNo encontramos un lugar seguro para teletransportarte
+        a la cueva."
+      not-owner: "&c¡No eres el propietario de la cueva!"
+  commands:
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] tiene una cueva. ¡Deshazte de ella primero!"
+          success: "&b[name]&a ha sido agregado a la cueva de &b[owner]&a."
+        kick:
+          success: "&b[name] &aha sido expulsado de la cueva de &b[owner]&a."
+        setowner:
+          description: transfiere la propiedad de la cueva al jugador
+          already-owner: "&c¡[name] ya es el propietario de esta cueva!"
+          success: "&b[name]&a es ahora el propietario de esta cueva."
+      range:
+        description: Comando de cuevas para administradores
+        display:
+          description: muestra/oculta los indicadores del rango de la cueva
+          hint: |-
+            &fLos &ciconos de barrera roja &fmuestran el límite de protección de la cueva.
+            &fLas &7partículas grises &fmuestran el limite máximo de la cueva.
+            &fLas &aparticulas verdes &fmuestran el rango predeterminado de protección si el actual es diferente.
+        set:
+          description: establece el rango de protección de la cueva
+          success: "&aHaz establecido el rango de protección de la cueva a &b[number]&a."
+        reset:
+          description: restablece el rango de protección de la cueva al predeterminado
+            del mundo
+          success: "&aHaz restablecido el rango de protección de la cueva a &b[number]&a."
+      register:
+        description: registra a un jugador a la cueva sin propietario en la que estás
+        registered-island: "&aJugador registrado en la cueva de [xyz]."
+        already-owned: "&c¡Esta cueva ya tiene propietario!"
+        no-island-here: "&cNo hay una cueva aquí. Confirmar para crear una."
+        in-deletion: "&cEsta cueva se está eliminando actualmente. Intenta más tarde."
+        cannot-make-island: "&c No se puede colocar una cueva aquí, lo sentimos. Revisa
+          la consola para posibles errores."
+      unregister:
+        description: elimina el propietario de la cueva, pero mantiene los bloques
+        unregistered-island: "&aEliminado el jugador de la cueva de [xyz]."
+      info:
+        description: obtener info. sobre donde estás o de la cueva
+        no-island: "&cNo estás en una cueva ahora mismo..."
+        title: "======== Info. de la cueva =========="
+        islands-in-trash: "&dEl jugador tiene cuevas en la basura."
+        is-spawn: La isla es una cueva de spawneo
+      switchto:
+        description: cambia la cueva del jugador a la numerada de la basura
+        out-of-range: "&cEl número debe estar entre 1 y [number]. Usa &l[label] trash
+          [player] &r&cpara ver el número de la cueva."
+      trash:
+        no-unowned-in-trash: "&cNo hay cuevas sin propietario en la basura."
+        no-islands-in-trash: "&cEl jugador no tiene cuevas en la basura"
+        description: muestra cuevas sin propietario o las cuevas del jugador en la
+          basura
+        title: "&d========== Cuevas en la basura =========="
+        count: "&l&dCueva [number]:"
+        use-switch: "&aUsa &l[label] switch <jugador> <número>&r&a para cambiar la
+          cueva del jugador a una de la basura."
+      emptytrash:
+        description: Limpiar la basura del jugador, o todas las cuevas sin propietario
+          en la basura
+      setrange:
+        description: establece el rango de la cueva del jugador
+        range-updated: Rango de cueva actualizado a [number]
+      tp:
+        description: teletransportarse a una cueva
+      getrank:
+        description: ver el rango de un jugador en su cueva
+        rank-is: "&aEl rango del jugador es [rank] en su cueva."
+      setrank:
+        description: establecer el rango del jugador en su cueva
+      setspawn:
+        description: establecer una cueva como spawn para este mundo
+        already-spawn: "&c¡Esta cueva ya es el spawn!"
+        no-island-here: "&cNo hay una cueva aquí."
+        confirmation: "&c¿Estás seguro que quieres establecer esta cueva como spawn
+          de este mundo?"
+      resetflags:
+        description: Restablecer todas las cuevas a los ajustes predeterminados en
+          config.yml
+      delete:
+        description: eliminar la cueva de un jugador
+        cannot-delete-owner: "&cTodos los miembros de la cueva deben ser expulsados
+          antes de eliminarla."
+        deleted-island: "&aCueva de &e[xyz] &aeliminada correctamente."
+    island:
+      go:
+        description: teletransportar a tu cueva
+        teleport: "&aTeletransportandote a tu cueva."
+      help:
+        description: El comando principal de las cuevas
+      create:
+        description: crear una cueva, usando un plano opcional (requiere permiso)
+        too-many-islands: "&cHay demasiadas cuevas en este mundo: no hay suficiente
+          espacio para crear una para ti."
+        unable-create-island: "&cTu cueva no pudo ser generada, por favor contacta
+          a un administrador."
+        creating-island: "&aCreando tu cueva, por favor espera un momento..."
+        pick: "&aElige una cueva"
+      info:
+        description: muestra info. de tu/otra cueva
+      near:
+        description: muestra el nombre de las cuevas vecinas
+        the-following-islands: "&aLas cuevas cercanas son:"
+        no-neighbors: "&c¡No hay cuevas vecinas!"
+      reset:
+        description: reinicia tu cueva y elimina la anterior
+        must-remove-members: "&cDebes eliminar a todos los miembros de tu cueva antes
+          de poder reiniciarla (/island team kick <jugador>)."
+      sethome:
+        must-be-on-your-island: "&c¡Debes estar en tu cueva para establecer el hogar!"
+        home-set: "&6El hogar de tu cueva ha sido establecido a tu posición actual."
+      setname:
+        description: establece un nombre a tu cueva
+      resetname:
+        description: reinicia el nombre de tu cueva
+      team:
+        coop:
+          description: dar rango coop. a un jugador en tu cueva
+        uncoop:
+          you-are-no-longer-a-coop-member: "&cYa no eres un miembro coop en la cueva
+            de [name]"
+          all-members-logged-off: "&cTodos los miembros de la cueva de [name] se desconectaron
+            así que ya no eres un miembro coop."
+        trust:
+          description: dar rango aliado a un jugador en tu cueva
+        invite:
+          description: invita a un jugador a tu cueva
+          name-has-invited-you: "&a[name] te ha invitado a su cueva."
+          you-will-lose-your-island: "&c¡ADVERTENCIA! ¡Perderás tu cueva si aceptas!"
+          errors:
+            island-is-full: "&cTu cueva está llena, no puedes invitar a nadie más."
+          accept:
+            you-joined-island: "&a¡Te uniste a una cueva! Usa /[label] team info para
+              ver a los otros miembros."
+            name-joined-your-island: "&a¡[name] se unió a tu cueva!"
+            confirmation: |-
+              &c¿Estás seguro que quieres aceptar la invitación?
+              &c&l¡&nPERDERAS&c&l tu cueva actual!
+          reject:
+            you-rejected-invite: "&aHaz rechazado la invitación."
+            name-rejected-your-invite: "&c¡[name] rechazo la invitación!"
+          cancel:
+            description: cancela invitaciones pendientes para unirse a tu cueva
+        leave:
+          description: salir de tu cueva
+          left-your-island: "&c[name] &csalió de la cueva"
+        kick:
+          description: elimina un miembro de tu cueva
+          owner-kicked: "&c¡El propietario te ha expulsado de la cueva!"
+          success: "&b[name] &aha sido expulsado de tu cueva."
+        demote:
+          description: desciende un rango a un jugador de tu cueva
+        promote:
+          description: asciende un rango a un jugador de tu cueva
+        setowner:
+          description: transfiere la propiedad de tu cueva a otro jugador
+          errors:
+            target-is-not-member: "&c¡Este jugador no pertenece a tu cueva!"
+          name-is-the-owner: "&a¡[name] ahora es el propietario de la cueva!"
+          you-are-the-owner: "&a¡No eres el propietario de la cueva!"
+      ban:
+        description: banear un jugador de tu cueva
+        cannot-ban-more-players: "&cHaz alcanzado el limite de baneos, no puedes banear
+          más jugadores de tu cueva."
+        player-banned: "&b[name]&c ahora está baneado de tu cueva."
+        owner-banned-you: "&c¡&b[name]&c te ha baneado de su cueva!"
+        you-are-banned: "&b¡Estás baneado de esta cueva!"
+      unban:
+        description: desbanear un jugador de tu cueva
+        player-unbanned: "&b[name]&a ha sido desbaneado de tu cueva."
+        you-are-unbanned: "&a¡&b[name]&a te ha desbaneado de su cueva!"
+      banlist:
+        noone: "&aNadie está baneado en esta cueva."
+      settings:
+        description: muestra los ajustes de la cueva
+      expel:
+        description: expulsa a un jugador de tu cueva
+        not-on-island: "&c¡Ese jugador no está en tu cueva!"
+        player-expelled-you: "&c¡&b[name]&c te expulsó de la cueva!"
+  ranks:
+    owner: Rey enano
+    sub-owner: Caballero enano
+    member: Enano
+    trusted: Aliado
+    coop: Coop
+    visitor: Humano
+    banned: Orco
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aLos Endermans pueden quitar
+          &abloques de las cuevas
+        name: Grifeo de Endermans
+      ENTER_EXIT_MESSAGES:
+        island: Cueva de [name]
+      GEO_LIMIT_MOBS:
+        description: |-
+          &aEliminar las criaturas que salgan
+          &adel espacio protegido de la cueva
+        name: "&eLimitar criaturas a la cueva"
+      ISLAND_RESPAWN:
+        description: |-
+          &aLos jugadores reaparecen
+          &aen sus cuevas
+        name: Reaparición en cuevas
+      LIQUIDS_FLOWING_OUT:
+        name: Flujo de líquidos por fuera
+        description: |-
+          &aAlternar si los líquidos pueden fluir por
+          &afuera del rango de protección de la cueva.
+      LOCK:
+        description: Alternar bloqueo
+        name: Bloquear cueva
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: Aparición natural de criaturas por fuera
+        description: |-
+          &aAlternar si las criaturas (animales y
+          &amonstruos) pueden aparecer naturalmente por fuera
+          &adel rango de protección de la cueva.
+
+          &cTen en cuenta que esto no previene la aparición
+          &cde criaturas mediante un spawner o huevo.
+      OFFLINE_GROWTH:
+        description: |-
+          &aAl desactivarse, las plantas no
+          &acrecerán en cuevas con todos
+          &asus miembros desconectados.
+          &aPuede ayudar a reducir el lag.
+        name: Crecimiento fuera de línea
+      OFFLINE_REDSTONE:
+        description: |-
+          &aAl desactivarse, la redstone no
+          &afuncionará en cuevas con todos
+          &asus miembros desconectados.
+          &aPuede ayudar a reducir el lag.
+        name: Redstone fuera de línea
+      PISTON_PUSH:
+        description: |-
+          &aPermitir que los pistones empujen
+          &abloques fuera de la cueva
+        name: Empuje de pistones
+      REMOVE_MOBS:
+        description: |-
+          &aEliminar monstruos cuando te
+          &ateletransportas a la cueva
+        name: Eliminar monstruos
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: Crecimiento de arboles por fuera
+        description: |-
+          &aAlternar si los arboles pueden crecer por fuera
+          &adel rango de protección de la cueva o no.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: Evitar el teletransporte al caer
+        description: |-
+          &aEvitar que los jugadores se teletransporten
+          &aa sus cuevas usando comandos
+          &amientras están cayendo.
+        hint: "&cNo puedes teletransportarte a tu cueva mientras estás cayendo."
+    locked: "&c¡Esta cueva está bloqueada!"
+    protected: "&cCueva protegida: [description]"
+    spawn-protected: "&cSpawn protegido: [description]"
+    panel:
+      PROTECTION:
+        description: |-
+          &aAjustes de protección
+          &apara esta cueva
+      SETTING:
+        description: |-
+          &aAjustes generales
+          &apara esta cueva
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: |-
+        &5&oEsto permite activar/desactivar
+        &5&ola habilidad para caminar en el
+        &5&otecho del mundo de cuevas
+        &5&osin permisos extra.
+      hint: Permite caminar en el techo de la cueva
