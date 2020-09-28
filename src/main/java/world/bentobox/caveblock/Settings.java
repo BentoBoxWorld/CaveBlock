@@ -1906,10 +1906,98 @@ public class Settings implements WorldSettings
         this.defaultTheEndBiome = defaultTheEndBiome;
     }
 
+    /**
+     * @return the spawnLimitMonsters
+     */
+    public int getSpawnLimitMonsters() {
+        return spawnLimitMonsters;
+    }
+
+    /**
+     * @param spawnLimitMonsters the spawnLimitMonsters to set
+     */
+    public void setSpawnLimitMonsters(int spawnLimitMonsters) {
+        this.spawnLimitMonsters = spawnLimitMonsters;
+    }
+
+    /**
+     * @return the spawnLimitAnimals
+     */
+    public int getSpawnLimitAnimals() {
+        return spawnLimitAnimals;
+    }
+
+    /**
+     * @param spawnLimitAnimals the spawnLimitAnimals to set
+     */
+    public void setSpawnLimitAnimals(int spawnLimitAnimals) {
+        this.spawnLimitAnimals = spawnLimitAnimals;
+    }
+
+    /**
+     * @return the spawnLimitWaterAnimals
+     */
+    public int getSpawnLimitWaterAnimals() {
+        return spawnLimitWaterAnimals;
+    }
+
+    /**
+     * @param spawnLimitWaterAnimals the spawnLimitWaterAnimals to set
+     */
+    public void setSpawnLimitWaterAnimals(int spawnLimitWaterAnimals) {
+        this.spawnLimitWaterAnimals = spawnLimitWaterAnimals;
+    }
+
+    /**
+     * @return the spawnLimitAmbient
+     */
+    public int getSpawnLimitAmbient() {
+        return spawnLimitAmbient;
+    }
+
+    /**
+     * @param spawnLimitAmbient the spawnLimitAmbient to set
+     */
+    public void setSpawnLimitAmbient(int spawnLimitAmbient) {
+        this.spawnLimitAmbient = spawnLimitAmbient;
+    }
+
+    /**
+     * @return the ticksPerAnimalSpawns
+     */
+    public int getTicksPerAnimalSpawns() {
+        return ticksPerAnimalSpawns;
+    }
+
+    /**
+     * @param ticksPerAnimalSpawns the ticksPerAnimalSpawns to set
+     */
+    public void setTicksPerAnimalSpawns(int ticksPerAnimalSpawns) {
+        this.ticksPerAnimalSpawns = ticksPerAnimalSpawns;
+    }
+
+    /**
+     * @return the ticksPerMonsterSpawns
+     */
+    public int getTicksPerMonsterSpawns() {
+        return ticksPerMonsterSpawns;
+    }
+
+    /**
+     * @param ticksPerMonsterSpawns the ticksPerMonsterSpawns to set
+     */
+    public void setTicksPerMonsterSpawns(int ticksPerMonsterSpawns) {
+        this.ticksPerMonsterSpawns = ticksPerMonsterSpawns;
+    }
+
+
 
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
+
+
+
 
     /* Commands */
     @ConfigComment("Cave Command. What command users will run to access their cave.")
@@ -1948,6 +2036,25 @@ public class Settings implements WorldSettings
     @ConfigComment("Other plugins may override this setting")
     @ConfigEntry(path = "world.difficulty")
     private Difficulty difficulty = Difficulty.HARD;
+
+    @ConfigComment("Spawn limits. These override the limits set in bukkit.yml")
+    @ConfigComment("If set to a negative number, the server defaults will be used")
+    @ConfigEntry(path = "world.spawn-limits.monsters", since = "1.15.1")
+    private int spawnLimitMonsters = -1;
+    @ConfigEntry(path = "world.spawn-limits.animals", since = "1.15.1")
+    private int spawnLimitAnimals = -1;
+    @ConfigEntry(path = "world.spawn-limits.water-animals", since = "1.15.1")
+    private int spawnLimitWaterAnimals = -1;
+    @ConfigEntry(path = "world.spawn-limits.ambient", since = "1.15.1")
+    private int spawnLimitAmbient = -1;
+    @ConfigComment("Setting to 0 will disable animal spawns, but this is not recommended. Minecraft default is 400.")
+    @ConfigComment("A negative value uses the server default")
+    @ConfigEntry(path = "world.spawn-limits.ticks-per-animal-spawns", since = "1.15.1")
+    private int ticksPerAnimalSpawns = -1;
+    @ConfigComment("Setting to 0 will disable monster spawns, but this is not recommended. Minecraft default is 400.")
+    @ConfigComment("A negative value uses the server default")
+    @ConfigEntry(path = "world.spawn-limits.ticks-per-monster-spawns", since = "1.15.1")
+    private int ticksPerMonsterSpawns = -1;
 
     @ConfigComment("Radius of cave in blocks. (So distance between caves is twice this)")
     @ConfigComment("Will be rounded up to the nearest 16 blocks.")

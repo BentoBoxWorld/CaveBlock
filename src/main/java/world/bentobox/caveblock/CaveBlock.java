@@ -38,14 +38,14 @@ public class CaveBlock extends GameModeAddon
 
         // Player Command
         this.playerCommand = new DefaultPlayerCommand(this)
+        {
+            @Override
+            public void setup()
             {
-                @Override
-                public void setup()
-                {
-                    super.setup();
-                    new IslandAboutCommand(this);
-                }
-            };
+                super.setup();
+                new IslandAboutCommand(this);
+            }
+        };
 
         // Admin command.
         this.adminCommand = new DefaultAdminCommand(this) {};
@@ -141,7 +141,8 @@ public class CaveBlock extends GameModeAddon
                 environment(World.Environment.NORMAL).
                 generator(this.chunkGenerator).
                 createWorld();
-
+        // Set spawn rates
+        setSpawnRates(islandWorld);
 
 
         // Make the nether if it does not exist
@@ -167,6 +168,7 @@ public class CaveBlock extends GameModeAddon
                         environment(World.Environment.NETHER).
                         createWorld();
             }
+            setSpawnRates(netherWorld);
         }
 
         // Make the end if it does not exist
@@ -191,7 +193,21 @@ public class CaveBlock extends GameModeAddon
                         environment(World.Environment.THE_END).
                         createWorld();
             }
+            setSpawnRates(endWorld);
         }
+    }
+
+
+    private void setSpawnRates(World w) {
+        if (w != null) {
+            w.setMonsterSpawnLimit(getSettings().getSpawnLimitMonsters());
+            w.setAmbientSpawnLimit(getSettings().getSpawnLimitAmbient());
+            w.setAnimalSpawnLimit(getSettings().getSpawnLimitAnimals());
+            w.setWaterAnimalSpawnLimit(getSettings().getSpawnLimitWaterAnimals());
+            w.setTicksPerAnimalSpawns(getSettings().getTicksPerAnimalSpawns());
+            w.setTicksPerMonsterSpawns(getSettings().getTicksPerMonsterSpawns());
+        }
+
     }
 
 
