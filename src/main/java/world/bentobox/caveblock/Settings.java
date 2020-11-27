@@ -824,6 +824,7 @@ public class Settings implements WorldSettings
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getPlayerCommandAliases()
     {
         return playerCommandAliases;
@@ -833,6 +834,7 @@ public class Settings implements WorldSettings
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAdminCommandAliases()
     {
         return adminCommandAliases;
@@ -1185,15 +1187,15 @@ public class Settings implements WorldSettings
     }
 
 
-	/**
-	 * This method sets the fallingBannedCommands object value.
-	 * @param fallingBannedCommands the fallingBannedCommands object new value.
-	 *
-	 */
-	public void setFallingBannedCommands(List<String> fallingBannedCommands)
-	{
-		this.fallingBannedCommands = fallingBannedCommands;
-	}
+    /**
+     * This method sets the fallingBannedCommands object value.
+     * @param fallingBannedCommands the fallingBannedCommands object new value.
+     *
+     */
+    public void setFallingBannedCommands(List<String> fallingBannedCommands)
+    {
+        this.fallingBannedCommands = fallingBannedCommands;
+    }
 
 
     /**
@@ -1317,36 +1319,36 @@ public class Settings implements WorldSettings
     }
 
 
-	/**
-	 * This method sets the createCaveOnFirstLoginEnabled object value.
-	 * @param createIslandOnFirstLoginEnabled the createCaveOnFirstLoginEnabled object new value.
-	 *
-	 */
-	public void setCreateIslandOnFirstLoginEnabled(boolean createIslandOnFirstLoginEnabled)
-	{
-		this.createIslandOnFirstLoginEnabled = createIslandOnFirstLoginEnabled;
-	}
+    /**
+     * This method sets the createCaveOnFirstLoginEnabled object value.
+     * @param createIslandOnFirstLoginEnabled the createCaveOnFirstLoginEnabled object new value.
+     *
+     */
+    public void setCreateIslandOnFirstLoginEnabled(boolean createIslandOnFirstLoginEnabled)
+    {
+        this.createIslandOnFirstLoginEnabled = createIslandOnFirstLoginEnabled;
+    }
 
-	/**
-	 * This method sets the createCaveOnFirstLoginDelay object value.
-	 * @param createIslandOnFirstLoginDelay the createCaveOnFirstLoginDelay object new value.
-	 *
-	 */
-	public void setCreateIslandOnFirstLoginDelay(int createIslandOnFirstLoginDelay)
-	{
-		this.createIslandOnFirstLoginDelay = createIslandOnFirstLoginDelay;
-	}
+    /**
+     * This method sets the createCaveOnFirstLoginDelay object value.
+     * @param createIslandOnFirstLoginDelay the createCaveOnFirstLoginDelay object new value.
+     *
+     */
+    public void setCreateIslandOnFirstLoginDelay(int createIslandOnFirstLoginDelay)
+    {
+        this.createIslandOnFirstLoginDelay = createIslandOnFirstLoginDelay;
+    }
 
 
-	/**
-	 * This method sets the createCaveOnFirstLoginDelay object value.
-	 * @param createIslandOnFirstLoginAbortOnLogout the createCaveOnFirstLoginDelay object new value.
-	 *
-	 */
-	public void setCreateIslandOnFirstLoginAbortOnLogout(boolean createIslandOnFirstLoginAbortOnLogout)
-	{
-		this.createIslandOnFirstLoginAbortOnLogout = createIslandOnFirstLoginAbortOnLogout;
-	}
+    /**
+     * This method sets the createCaveOnFirstLoginDelay object value.
+     * @param createIslandOnFirstLoginAbortOnLogout the createCaveOnFirstLoginDelay object new value.
+     *
+     */
+    public void setCreateIslandOnFirstLoginAbortOnLogout(boolean createIslandOnFirstLoginAbortOnLogout)
+    {
+        this.createIslandOnFirstLoginAbortOnLogout = createIslandOnFirstLoginAbortOnLogout;
+    }
 
 
     /**
@@ -1904,10 +1906,98 @@ public class Settings implements WorldSettings
         this.defaultTheEndBiome = defaultTheEndBiome;
     }
 
+    /**
+     * @return the spawnLimitMonsters
+     */
+    public int getSpawnLimitMonsters() {
+        return spawnLimitMonsters;
+    }
+
+    /**
+     * @param spawnLimitMonsters the spawnLimitMonsters to set
+     */
+    public void setSpawnLimitMonsters(int spawnLimitMonsters) {
+        this.spawnLimitMonsters = spawnLimitMonsters;
+    }
+
+    /**
+     * @return the spawnLimitAnimals
+     */
+    public int getSpawnLimitAnimals() {
+        return spawnLimitAnimals;
+    }
+
+    /**
+     * @param spawnLimitAnimals the spawnLimitAnimals to set
+     */
+    public void setSpawnLimitAnimals(int spawnLimitAnimals) {
+        this.spawnLimitAnimals = spawnLimitAnimals;
+    }
+
+    /**
+     * @return the spawnLimitWaterAnimals
+     */
+    public int getSpawnLimitWaterAnimals() {
+        return spawnLimitWaterAnimals;
+    }
+
+    /**
+     * @param spawnLimitWaterAnimals the spawnLimitWaterAnimals to set
+     */
+    public void setSpawnLimitWaterAnimals(int spawnLimitWaterAnimals) {
+        this.spawnLimitWaterAnimals = spawnLimitWaterAnimals;
+    }
+
+    /**
+     * @return the spawnLimitAmbient
+     */
+    public int getSpawnLimitAmbient() {
+        return spawnLimitAmbient;
+    }
+
+    /**
+     * @param spawnLimitAmbient the spawnLimitAmbient to set
+     */
+    public void setSpawnLimitAmbient(int spawnLimitAmbient) {
+        this.spawnLimitAmbient = spawnLimitAmbient;
+    }
+
+    /**
+     * @return the ticksPerAnimalSpawns
+     */
+    public int getTicksPerAnimalSpawns() {
+        return ticksPerAnimalSpawns;
+    }
+
+    /**
+     * @param ticksPerAnimalSpawns the ticksPerAnimalSpawns to set
+     */
+    public void setTicksPerAnimalSpawns(int ticksPerAnimalSpawns) {
+        this.ticksPerAnimalSpawns = ticksPerAnimalSpawns;
+    }
+
+    /**
+     * @return the ticksPerMonsterSpawns
+     */
+    public int getTicksPerMonsterSpawns() {
+        return ticksPerMonsterSpawns;
+    }
+
+    /**
+     * @param ticksPerMonsterSpawns the ticksPerMonsterSpawns to set
+     */
+    public void setTicksPerMonsterSpawns(int ticksPerMonsterSpawns) {
+        this.ticksPerMonsterSpawns = ticksPerMonsterSpawns;
+    }
+
+
 
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
+
+
+
 
     /* Commands */
     @ConfigComment("Cave Command. What command users will run to access their cave.")
@@ -1946,6 +2036,25 @@ public class Settings implements WorldSettings
     @ConfigComment("Other plugins may override this setting")
     @ConfigEntry(path = "world.difficulty")
     private Difficulty difficulty = Difficulty.HARD;
+
+    @ConfigComment("Spawn limits. These override the limits set in bukkit.yml")
+    @ConfigComment("If set to a negative number, the server defaults will be used")
+    @ConfigEntry(path = "world.spawn-limits.monsters", since = "1.15.1")
+    private int spawnLimitMonsters = -1;
+    @ConfigEntry(path = "world.spawn-limits.animals", since = "1.15.1")
+    private int spawnLimitAnimals = -1;
+    @ConfigEntry(path = "world.spawn-limits.water-animals", since = "1.15.1")
+    private int spawnLimitWaterAnimals = -1;
+    @ConfigEntry(path = "world.spawn-limits.ambient", since = "1.15.1")
+    private int spawnLimitAmbient = -1;
+    @ConfigComment("Setting to 0 will disable animal spawns, but this is not recommended. Minecraft default is 400.")
+    @ConfigComment("A negative value uses the server default")
+    @ConfigEntry(path = "world.spawn-limits.ticks-per-animal-spawns", since = "1.15.1")
+    private int ticksPerAnimalSpawns = -1;
+    @ConfigComment("Setting to 0 will disable monster spawns, but this is not recommended. Minecraft default is 400.")
+    @ConfigComment("A negative value uses the server default")
+    @ConfigEntry(path = "world.spawn-limits.ticks-per-monster-spawns", since = "1.15.1")
+    private int ticksPerMonsterSpawns = -1;
 
     @ConfigComment("Radius of cave in blocks. (So distance between caves is twice this)")
     @ConfigComment("Will be rounded up to the nearest 16 blocks.")
@@ -2182,7 +2291,7 @@ public class Settings implements WorldSettings
     @ConfigComment("permission size cannot be less than the default below. ")
     @ConfigEntry(path = "cave.max-coop-size", since = "1.13.0")
     private int maxCoopSize = 4;
-    
+
     @ConfigComment("Default maximum number of trusted rank members per cave")
     @ConfigComment("Players can have the caveblock.trust.maxsize.<number> permission to be bigger but")
     @ConfigComment("permission size cannot be less than the default below. ")
@@ -2331,12 +2440,14 @@ public class Settings implements WorldSettings
     private List<String> onLeaveCommands = new ArrayList<>();
 
     // Sethome
+    @ConfigComment("Allow setting home in the nether. Only available on nether islands, not vanilla nether.")
     @ConfigEntry(path = "cave.sethome.nether.allow")
     private boolean allowSetHomeInNether = true;
 
     @ConfigEntry(path = "cave.sethome.nether.require-confirmation")
     private boolean requireConfirmationToSetHomeInNether = true;
 
+    @ConfigComment("Allow setting home in the end. Only available on end islands, not vanilla end.")
     @ConfigEntry(path = "cave.sethome.the-end.allow")
     private boolean allowSetHomeInTheEnd = true;
 

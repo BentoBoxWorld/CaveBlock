@@ -38,14 +38,14 @@ public class CaveBlock extends GameModeAddon
 
         // Player Command
         this.playerCommand = new DefaultPlayerCommand(this)
+        {
+            @Override
+            public void setup()
             {
-                @Override
-                public void setup()
-                {
-                    super.setup();
-                    new IslandAboutCommand(this);
-                }
-            };
+                super.setup();
+                new IslandAboutCommand(this);
+            }
+        };
 
         // Admin command.
         this.adminCommand = new DefaultAdminCommand(this) {};
@@ -141,7 +141,8 @@ public class CaveBlock extends GameModeAddon
                 environment(World.Environment.NORMAL).
                 generator(this.chunkGenerator).
                 createWorld();
-
+        // Set spawn rates
+        setSpawnRates(islandWorld);
 
 
         // Make the nether if it does not exist
@@ -167,6 +168,7 @@ public class CaveBlock extends GameModeAddon
                         environment(World.Environment.NETHER).
                         createWorld();
             }
+            setSpawnRates(netherWorld);
         }
 
         // Make the end if it does not exist
@@ -191,7 +193,33 @@ public class CaveBlock extends GameModeAddon
                         environment(World.Environment.THE_END).
                         createWorld();
             }
+            setSpawnRates(endWorld);
         }
+    }
+
+
+    private void setSpawnRates(World w) {
+        if (w != null) {
+            if (getSettings().getSpawnLimitMonsters() > 0) {
+                w.setMonsterSpawnLimit(getSettings().getSpawnLimitMonsters());
+            }
+            if (getSettings().getSpawnLimitAmbient() > 0) {
+                w.setAmbientSpawnLimit(getSettings().getSpawnLimitAmbient());
+            }
+            if (getSettings().getSpawnLimitAnimals() > 0) {
+                w.setAnimalSpawnLimit(getSettings().getSpawnLimitAnimals());
+            }
+            if (getSettings().getSpawnLimitWaterAnimals() > 0) {
+                w.setWaterAnimalSpawnLimit(getSettings().getSpawnLimitWaterAnimals());
+            }
+            if (getSettings().getTicksPerAnimalSpawns() > 0) {
+                w.setTicksPerAnimalSpawns(getSettings().getTicksPerAnimalSpawns());
+            }
+            if (getSettings().getTicksPerMonsterSpawns() > 0) {
+                w.setTicksPerMonsterSpawns(getSettings().getTicksPerMonsterSpawns());
+            }
+        }
+
     }
 
 

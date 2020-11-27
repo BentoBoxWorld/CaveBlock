@@ -1,0 +1,310 @@
+---
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+    line1: Herzlich willkommen!
+    line2: "[name]"
+    line3: Fang an zu graben! & c <3
+  informational:
+    to-nether: Unglücklicherweise in den Nether gefallen.
+    to-the-end: Du hast das Ende erreicht.
+    to-normal: Zurück zu deiner Höhle.
+  general:
+    errors:
+      no-island: "&cDu hast keine Höhle!"
+      player-has-island: "&cSpieler hat bereits eine Höhle!"
+      player-has-no-island: "&cDieser Spieler hat keine Höhle!"
+      already-have-island: "&cDu hast bereits eine Höhle!"
+      no-safe-location-found: "&cKann keinen sicheren Ort finden, an den du dich in
+        der Höhle teleportieren kannst."
+      not-owner: "&cDu bist nicht der Besitzer deiner Höhle!"
+  commands:
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] hat eine Höhle. Entferne ihn von seiner Höhle
+            oder lösche sie!"
+          success: "&b[name] &awurde zu &b[owner]&as Höhle hinzugefügt."
+        kick:
+          success: "&b[name] &awurde aus der Höhle von &b[owner] &ageworfen."
+        setowner:
+          description: überträgt den Höhlenbesitz auf den Spieler
+          already-owner: "&c[name] ist bereits der Besitzer dieser Höhle!"
+          success: "&b[name] &aist jetzt der Besitzer dieser Höhle."
+      range:
+        description: Admin Cave Range Befehl
+        display:
+          description: Höhlenreichweite anzeigen/ausblenden
+          hint: |-
+            &cRote Barrier-Symbole &fzeigen die aktuelle höhlengeschützte Bereichsgrenze an.
+            &7Graue Partikel &fzeigen das maximale Höhlenlimit an.
+            &aGrüne Partikel &fzeigen den standardmäßig geschützten Bereich an, wenn der Höhlenschutzbereich davon abweicht.
+        set:
+          description: Legt den höhlengeschützten Bereich fest
+          success: "&aSetze den Höhlenschutzbereich auf &b[number]&a."
+        reset:
+          description: Setzt den Höhlenschutzbereich auf die  Standardeinstellung
+            zurück
+          success: "&aHöhlenschutzbereich auf &b[number] &azurücksetzen."
+      register:
+        description: Registrieren Sie den Spieler für die Höhle, in der Sie sich befinden
+        registered-island: "&aSpieler zur Höhle bei [xyz] hinzugefügt."
+        already-owned: "&cHöhle gehört bereits einem anderen Spieler!"
+        no-island-here: "&cEs gibt hier keine Höhle. Bestätige, um eine zu erstellen."
+        in-deletion: "&cDieser Höhlenbereich wird derzeit gelöscht. Versuche es später."
+        cannot-make-island: "&cEine Höhle kann hier leider nicht platziert werden.
+          Gucke in die Console für mögliche Fehler."
+      unregister:
+        description: Besitzer von der Höhle abmelden, aber Höhlenblöcke behalten
+        unregistered-island: "&aSpieler aus der Höhle bei [xyz] entfernt."
+      info:
+        description: Erhalten Sie Informationen darüber, wo Sie sich befinden oder
+          in der Höhle des Spielers
+        no-island: "&cDu bist gerade nicht in einer Höhle..."
+        title: "========== Höhleninfo ============"
+        islands-in-trash: "&dPlayer hat Höhlen im Müll."
+        is-spawn: Insel ist eine Spawnhöhle
+      switchto:
+        description: Wechsle die Höhle des Spielers zu ersten im Müll
+        out-of-range: "&cNummer muss zwischen 1 und [number] liegen. Verwenden Sie
+          &l[label] trash [player] &c, um Höhlennummern anzuzeigen"
+      trash:
+        no-unowned-in-trash: "&cKeine nicht besessenen Höhlen im Müll"
+        no-islands-in-trash: "&cPlayer hat keine Höhlen im Müll"
+        description: Zeigen Sie nicht besessene Höhlen oder Spielerhöhlen im Müll
+        title: "&d=========== Höhlen im Müll ==========="
+        count: "&d&lCave [number]:"
+        use-switch: "& aVerwenden Sie & l [label] und wechseln Sie zu <player> <number>
+          & r & a, um den Spieler so zu wechseln, dass er in den Papierkorb fällt"
+      emptytrash:
+        description: Löschen Sie den Müll für den Spieler oder alle nicht besessenen
+          Höhlen im Müll
+      setrange:
+        description: Stellen Sie die Reichweite der Spielerhöhle ein
+        range-updated: Höhlenbereich auf [Nummer] aktualisiert
+      tp:
+        description: teleportiere zur Höhle eines Spielers
+      getrank:
+        description: Holen Sie sich den Rang eines Spielers in seiner Höhle
+        rank-is: "&aRang ist [rank] in ihrer Höhle."
+      setrank:
+        description: Setze den Rang eines Spielers auf seine Höhle
+      setspawn:
+        description: Setze eine Höhle als Brut für diese Welt
+        already-spawn: "&cDiese Höhle ist bereits ein Spawn!"
+        no-island-here: "&cEs gibt hier keine Höhle."
+        confirmation: "&cBist du sicher, dass du diese Höhle als Spawn für diese Welt
+          setzen willst?"
+      resetflags:
+        description: Setzen Sie alle Höhlen auf die Standard-Flag-Einstellungen in
+          config.yml zurück
+      delete:
+        description: löscht die Höhle eines Spielers
+        cannot-delete-owner: "&cAlle Höhlenmitglieder müssen vor dem Löschen aus der
+          Höhle geworfen werden."
+        deleted-island: "&aHöhle bei &e[xyz] &awurde erfolgreich gelöscht."
+    island:
+      go:
+        description: teleportiere dich zu deiner Höhle
+        teleport: "&aTeleportiere dich zu deiner Höhle."
+      help:
+        description: Der Haupthöhlenbefehl
+      create:
+        description: Erstellen Sie eine Höhle mit optionalem Entwurf (erfordert Erlaubnis)
+        too-many-islands: "&cEs gibt zu viele Höhlen auf dieser Welt: Es gibt nicht
+          genug Platz, um deine zu erschaffen."
+        unable-create-island: "&cIhre Höhle konnte nicht generiert werden. Bitte wenden
+          Sie sich an einen Administrator."
+        creating-island: "&aErstellen Sie Ihre Höhle, bitte warten Sie einen Moment..."
+        pick: "&aWähle eine Höhle aus"
+      info:
+        description: Zeige Informationen über deine Höhle oder die Höhle des Spielers
+          an
+      near:
+        description: Zeigen Sie den Namen der benachbarten Höhlen um Sie herum
+        the-following-islands: "&aDie folgenden Höhlen befinden sich in der Nähe:"
+        no-neighbors: "&cSie haben keine unmittelbaren Nachbarhöhlen!"
+      reset:
+        description: Starten Sie Ihre Höhle neu und entfernen Sie die alte
+        must-remove-members: "&cDu musst alle Mitglieder aus deiner Höhle entfernen,
+          bevor du sie neu starten erstellen (/island team kick <player>)."
+      sethome:
+        must-be-on-your-island: "&cSie müssen in Ihrer Höhle sein, um nach Hause zu
+          gehen!"
+        home-set: "&6Ihr Home wurde auf Ihren aktuellen Standort gesetzt."
+      setname:
+        description: Setze einen Namen für deine Höhle
+      resetname:
+        description: Setzen Sie Ihren Höhlennamen zurück
+      team:
+        coop:
+          description: Lass einen Spieler in deiner Höhle ranken
+        uncoop:
+          you-are-no-longer-a-coop-member: "&cSie sind kein Coop-Mitglied mehr in
+            der Höhle von [Name]"
+          all-members-logged-off: "& cAlle Höhlenmitglieder haben sich abgemeldet,
+            sodass Sie nicht länger ein Coop-Mitglied der Höhle von [Name] sind"
+        trust:
+          description: Gib einem Spieler einen vertrauenswürdigen Rang in deiner Höhle
+        invite:
+          description: Lade einen Spieler ein, sich deiner Höhle anzuschließen
+          name-has-invited-you: "& a [Name] hat dich eingeladen, dich ihrer Höhle
+            anzuschließen."
+          you-will-lose-your-island: "& WARNUNG! Sie werden Ihre Höhle verlieren,
+            wenn Sie akzeptieren!"
+          errors:
+            island-is-full: "& cIhre Höhle ist voll, Sie können niemanden einladen."
+          accept:
+            you-joined-island: "& aSie sind einer Höhle beigetreten! Verwenden Sie
+              / [label] team info, um die anderen Mitglieder anzuzeigen."
+            name-joined-your-island: "& ein [Name] hat sich deiner Höhle angeschlossen!"
+            confirmation: |-
+              & Sind Sie sicher, dass Sie diese Einladung annehmen möchten?
+              & c & lSie werden & r & c & Ihre aktuelle Höhle verlieren!
+          reject:
+            you-rejected-invite: "& aSie lehnten die Einladung ab, sich einer Höhle
+              anzuschließen."
+            name-rejected-your-invite: "& c [Name] hat deine Höhleneinladung abgelehnt!"
+          cancel:
+            description: storniere die ausstehende Einladung, dich deiner Höhle anzuschließen
+        leave:
+          description: Verlasse deine Höhle
+          left-your-island: "& c [Name] & spalte deine Höhle"
+        kick:
+          description: Entferne ein Mitglied aus deiner Höhle
+          owner-kicked: "& cDer Besitzer hat dich aus der Höhle geworfen!"
+          success: "& b [Name] & wurde aus deiner Höhle geworfen."
+        demote:
+          description: Herabstufen eines Spielers in Ihrer Höhle um einen Rang
+        promote:
+          description: Befördere einen Spieler in deiner Höhle um einen Rang
+        setowner:
+          description: Übertragen Sie Ihren Höhlenbesitz auf ein Mitglied
+          errors:
+            target-is-not-member: "& cDieser Spieler ist nicht Teil Ihres Höhlenteams!"
+          name-is-the-owner: "& a [Name] ist jetzt der Höhlenbesitzer!"
+          you-are-the-owner: "& aSie sind jetzt der Höhlenbesitzer!"
+      ban:
+        description: verbanne einen Spieler aus deiner Höhle
+        cannot-ban-more-players: "& cSie haben das Sperrlimit erreicht, können Sie
+          keine Spieler mehr aus Ihrer Höhle verbannen."
+        player-banned: "& b [Name] & c ist jetzt aus deiner Höhle verbannt."
+        owner-banned-you: "& b [Name] & c hat dich aus ihrer Höhle verbannt!"
+        you-are-banned: "& bSie sind aus dieser Höhle verbannt!"
+      unban:
+        description: Entbinde einen Spieler aus deiner Höhle
+        player-unbanned: "& b [Name] & a ist jetzt nicht mehr in deiner Höhle verboten."
+        you-are-unbanned: "& b [Name] & a verbannt dich aus ihrer Höhle!"
+      banlist:
+        noone: "& aKeine Höhle ist in dieser Höhle verboten."
+      settings:
+        description: Höhleneinstellungen anzeigen
+      expel:
+        description: Vertreibe einen Spieler aus deiner Höhle
+        not-on-island: "& cDieser Spieler ist nicht in deiner Höhle!"
+        player-expelled-you: "& b [Name] & c hat dich aus der Höhle vertrieben!"
+  ranks:
+    owner: Zwergenkönig
+    sub-owner: Zwergenritter
+    member: Zwerg
+    trusted: Vertrauenswürdige
+    coop: Coop
+    visitor: Mensch
+    banned: Ork
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        description: |-
+          & aEndermen können entfernen
+          & Ablocks aus Höhlen
+        name: Enderman trauert
+      ENTER_EXIT_MESSAGES:
+        island: "[Name] Höhle"
+      GEO_LIMIT_MOBS:
+        description: |-
+          & aEntferne Mobs, die gehen
+          & aoutside geschützt
+          & Acave Raum
+        name: "& eLimit Mobs zur Höhle"
+      ISLAND_RESPAWN:
+        description: |-
+          & aPlayers respawn
+          & ain ihrer Höhle
+        name: Höhlen-Respawn
+      LIQUIDS_FLOWING_OUT:
+        name: Flüssigkeiten fließen außerhalb von Höhlen
+        description: |-
+          & aStellen Sie fest, ob Flüssigkeiten nach außen fließen können
+          & a der Schutzreichweite der Höhle.
+      LOCK:
+        description: Schloss umschalten
+        name: Höhle verschließen
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: Natürliche Kreatur, die außerhalb der Reichweite laicht
+        description: |-
+          & aToggle ob Kreaturen (Tiere und
+          & Amonster) können natürlich draußen laichen
+          & aa Höhlenschutzbereich.
+
+          & cBeachten Sie, dass es Kreaturen nicht verhindert
+          & cto Spawn über einen Mob Spawner oder einen Spawn
+          & cegg.
+      OFFLINE_GROWTH:
+        description: |-
+          & aWenn behindert, Pflanzen
+          & werde nicht in Höhlen wachsen
+          & wenn alle Mitglieder offline sind.
+          & aKann helfen, Verzögerungen zu reduzieren.
+        name: Offline-Wachstum
+      OFFLINE_REDSTONE:
+        description: |-
+          & aWenn deaktiviert, Redstone
+          Ich werde nicht in Höhlen arbeiten
+          & wo alle Mitglieder offline sind.
+          & aKann helfen, Verzögerungen zu reduzieren.
+        name: Offline Redstone
+      PISTON_PUSH:
+        description: |-
+          & aKolben schieben lassen
+          & Ablocks außerhalb der Höhle
+        name: Kolben drücken
+      REMOVE_MOBS:
+        description: |-
+          & aEntferne Monster, wenn
+          & ateleporting zur Höhle
+        name: Entferne Monster
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: Bäume wachsen außerhalb der Reichweite
+        description: |-
+          & aToggle, ob Bäume außerhalb eines wachsen können
+          & acaves Schutzbereich oder nicht.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: Verhindern Sie Teleport beim Fallen
+        description: |-
+          & aVermeide das Teleportieren von Spielern
+          & mit Befehlen in ihre Höhle staunen
+          & aif sie fallen.
+        hint: "& cSie können sich nicht in Ihre Höhle zurück teleportieren, während
+          Sie fallen."
+    locked: "& cDiese Höhle ist verschlossen!"
+    protected: "& cCave protected: [Beschreibung]"
+    spawn-protected: "& cSpawn protected: [Beschreibung]"
+    panel:
+      PROTECTION:
+        description: |-
+          & aSchutzeinstellungen
+          & vor dieser Höhle
+      SETTING:
+        description: |-
+          & aAllgemeine Einstellungen
+          & vor dieser Höhle
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: |-
+        & 5 & oDies ermöglicht das Aktivieren / Deaktivieren
+        & 5 & Fähigkeit, auf dem zu gehen
+        & 5 & otop der Höhlenwelt
+        & 5 & ohne zusätzliche Berechtigungen.
+      name: Sky Walker
+      hint: Ermöglicht das Gehen auf der Höhlendecke.
