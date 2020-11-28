@@ -103,7 +103,7 @@ world:
     floor: true
     # Main block of which world will be generated.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-    main-block: GLASS
+    main-block: STONE
     # Blocks that will occasionally replace main block by random chance.
     # Blocks will replace only main-block and will try to create packs that
     # are set in their strings. Chance of spawning also is required.
