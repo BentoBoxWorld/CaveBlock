@@ -124,7 +124,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator
             {
                 for (int z = 0; z < 16; z += 4)
                 {
-                    biomeGrid.setBiome(x, y, z, this.settings.getDefaultNetherBiome());
+                    biomeGrid.setBiome(x, y, z, this.settings.getDefaultTheEndBiome());
                 }
             }
         }
