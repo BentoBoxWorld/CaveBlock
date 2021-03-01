@@ -1,7 +1,6 @@
 package world.bentobox.caveblock;
 
 
-import com.google.common.base.Enums;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +13,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
+
+import com.google.common.base.Enums;
 
 import world.bentobox.bentobox.api.configuration.ConfigComment;
 import world.bentobox.bentobox.api.configuration.ConfigEntry;
@@ -1990,6 +1991,14 @@ public class Settings implements WorldSettings
         this.ticksPerMonsterSpawns = ticksPerMonsterSpawns;
     }
 
+    /* (non-Javadoc)
+     * @see world.bentobox.bentobox.api.configuration.WorldSettings#isCheckForBlocks()
+     */
+    @Override
+    public boolean isCheckForBlocks() {
+        // Do not check for blocks when looking for new island spots
+        return false;
+    }
 
 
     // ---------------------------------------------------------------------
