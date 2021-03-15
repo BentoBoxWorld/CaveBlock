@@ -862,6 +862,26 @@ public class Settings implements WorldSettings
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isMakeNetherPortals()
+    {
+        return this.makeNetherPortals;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isMakeEndPortals()
+    {
+        return this.makeEndPortals;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Setters
     // ---------------------------------------------------------------------
@@ -2001,6 +2021,28 @@ public class Settings implements WorldSettings
     }
 
 
+    /**
+     * Sets make nether portals.
+     *
+     * @param makeNetherPortals the make nether portals
+     */
+    public void setMakeNetherPortals(boolean makeNetherPortals)
+    {
+        this.makeNetherPortals = makeNetherPortals;
+    }
+
+
+    /**
+     * Sets make end portals.
+     *
+     * @param makeEndPortals the make end portals
+     */
+    public void setMakeEndPortals(boolean makeEndPortals)
+    {
+        this.makeEndPortals = makeEndPortals;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -2207,6 +2249,12 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.nether.blocks", needsReset = true)
     private List<String> netherBlocks = new ArrayList<>();
 
+    @ConfigComment("This option indicates if nether portals should be linked via dimensions.")
+    @ConfigComment("Option will simulate vanilla portal mechanics that links portals together")
+    @ConfigComment("or creates a new portal, if there is not a portal in that dimension.")
+    @ConfigEntry(path = "world.nether.create-and-link-portals")
+    private boolean makeNetherPortals = false;
+
     // End
     @ConfigEntry(path = "world.end.generate")
     private boolean endGenerate = true;
@@ -2244,6 +2292,11 @@ public class Settings implements WorldSettings
     @ConfigComment("where max amount in pack are 5 per each subchunk!")
     @ConfigEntry(path = "world.end.blocks", needsReset = true)
     private List<String> endBlocks = new ArrayList<>();
+
+    @ConfigComment("This option indicates if obsidian platform in the end should be generated")
+    @ConfigComment("when player enters the end world.")
+    @ConfigEntry(path = "world.end.create-obsidian-platform")
+    private boolean makeEndPortals = false;
 
     // Other staff.
 

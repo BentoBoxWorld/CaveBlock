@@ -181,6 +181,9 @@ world:
     - ENTITY:GHAST:0.1:1
     - ENTITY:WITHER_SKELETON:0.1:1
     - MATERIAL:FIRE:10:1
+    # This option indicates if nether portals should be linked via dimensions.
+    # Option will simulate vanilla portal mechanics that links portals together or creates a new portal, if there is not a portal in other dimension.
+    create-and-link-portals: false
   end:
     generate: true
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
@@ -213,6 +216,8 @@ world:
     - ENTITY:SHULKER:0.2:1
     - MATERIAL:OBSIDIAN:1:1
     - MATERIAL:CHORUS_PLANT:1:3
+    # This option indicates if obsidian platform in the end should be generated when player enters the end world.
+    create-obsidian-platform: false
   # Mob white list - these mobs will NOT be removed when logging in or doing /cave
   remove-mobs-whitelist:
   - WITHER
