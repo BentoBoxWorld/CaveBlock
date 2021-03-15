@@ -2545,7 +2545,7 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "cave.commands.on-leave", since = "1.8.0")
     private List<String> onLeaveCommands = new ArrayList<>();
 
-    @ConfigComment("Returns a list of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.")
+    @ConfigComment("List of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.")
     @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
     @ConfigComment("in which case they are executed by the player.")
     @ConfigComment("")
