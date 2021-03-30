@@ -181,6 +181,9 @@ world:
     - ENTITY:GHAST:0.1:1
     - ENTITY:WITHER_SKELETON:0.1:1
     - MATERIAL:FIRE:10:1
+    # This option indicates if nether portals should be linked via dimensions.
+    # Option will simulate vanilla portal mechanics that links portals together or creates a new portal, if there is not a portal in other dimension.
+    create-and-link-portals: false
   end:
     generate: true
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
@@ -213,6 +216,8 @@ world:
     - ENTITY:SHULKER:0.2:1
     - MATERIAL:OBSIDIAN:1:1
     - MATERIAL:CHORUS_PLANT:1:3
+    # This option indicates if obsidian platform in the end should be generated when player enters the end world.
+    create-obsidian-platform: false
   # Mob white list - these mobs will NOT be removed when logging in or doing /cave
   remove-mobs-whitelist:
   - WITHER
@@ -454,10 +459,12 @@ cave:
   # Added since 1.10.0.
   create-missing-nether-end-caves: false
   commands:
-    # List of commands to run when a player joins.
+    # List of commands to run when a player joins an cave or creates one.
     on-join: []
-    # list of commands to run when a player leaves.
+    # List of commands to run when a player leaves a cave, resets his cave or gets kicked from it.
     on-leave: []
+    # Returns a list of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.
+    on-respawn: []
   sethome:
     nether:
       # Allow setting home in the nether. Only available on nether islands, not vanilla nether.

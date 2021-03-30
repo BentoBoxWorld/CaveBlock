@@ -13,6 +13,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
+import org.eclipse.jdt.annotation.NonNull;
 
 import com.google.common.base.Enums;
 
@@ -859,6 +860,36 @@ public class Settings implements WorldSettings
     public String getDefaultNewPlayerAction()
     {
         return defaultNewPlayerAction;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isMakeNetherPortals()
+    {
+        return this.makeNetherPortals;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isMakeEndPortals()
+    {
+        return this.makeEndPortals;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NonNull List<String> getOnRespawnCommands()
+    {
+        return this.onRespawnCommands;
     }
 
 
@@ -2001,6 +2032,39 @@ public class Settings implements WorldSettings
     }
 
 
+    /**
+     * Sets make nether portals.
+     *
+     * @param makeNetherPortals the make nether portals
+     */
+    public void setMakeNetherPortals(boolean makeNetherPortals)
+    {
+        this.makeNetherPortals = makeNetherPortals;
+    }
+
+
+    /**
+     * Sets make end portals.
+     *
+     * @param makeEndPortals the make end portals
+     */
+    public void setMakeEndPortals(boolean makeEndPortals)
+    {
+        this.makeEndPortals = makeEndPortals;
+    }
+
+
+    /**
+     * Sets on respawn commands.
+     *
+     * @param onRespawnCommands the on respawn commands
+     */
+    public void setOnRespawnCommands(List<String> onRespawnCommands)
+    {
+        this.onRespawnCommands = onRespawnCommands;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -2207,6 +2271,12 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.nether.blocks", needsReset = true)
     private List<String> netherBlocks = new ArrayList<>();
 
+    @ConfigComment("This option indicates if nether portals should be linked via dimensions.")
+    @ConfigComment("Option will simulate vanilla portal mechanics that links portals together")
+    @ConfigComment("or creates a new portal, if there is not a portal in that dimension.")
+    @ConfigEntry(path = "world.nether.create-and-link-portals")
+    private boolean makeNetherPortals = false;
+
     // End
     @ConfigEntry(path = "world.end.generate")
     private boolean endGenerate = true;
@@ -2244,6 +2314,11 @@ public class Settings implements WorldSettings
     @ConfigComment("where max amount in pack are 5 per each subchunk!")
     @ConfigEntry(path = "world.end.blocks", needsReset = true)
     private List<String> endBlocks = new ArrayList<>();
+
+    @ConfigComment("This option indicates if obsidian platform in the end should be generated")
+    @ConfigComment("when player enters the end world.")
+    @ConfigEntry(path = "world.end.create-obsidian-platform")
+    private boolean makeEndPortals = false;
 
     // Other staff.
 
@@ -2440,13 +2515,50 @@ public class Settings implements WorldSettings
     private boolean pasteMissingIslands = false;
 
     // Commands
-    @ConfigComment("List of commands to run when a player joins.")
-    @ConfigEntry(path = "cave.commands.on-join")
+    @ConfigComment("List of commands to run when a player joins an cave or creates one.")
+    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
+    @ConfigComment("in which case they are executed by the player.")
+    @ConfigComment("")
+    @ConfigComment("Available placeholders for the commands are the following:")
+    @ConfigComment("   * [name]: name of the player")
+    @ConfigComment("")
+    @ConfigComment("Here are some examples of valid commands to execute:")
+    @ConfigComment("   * '[SUDO] bbox version'")
+    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
+    @ConfigComment("")
+    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
+    @ConfigEntry(path = "cave.commands.on-join", since = "1.8.0")
     private List<String> onJoinCommands = new ArrayList<>();
 
-    @ConfigComment("list of commands to run when a player leaves.")
-    @ConfigEntry(path = "cave.commands.on-leave")
+    @ConfigComment("List of commands to run when a player leaves a cave, resets his cave or gets kicked from it.")
+    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
+    @ConfigComment("in which case they are executed by the player.")
+    @ConfigComment("")
+    @ConfigComment("Available placeholders for the commands are the following:")
+    @ConfigComment("   * [name]: name of the player")
+    @ConfigComment("")
+    @ConfigComment("Here are some examples of valid commands to execute:")
+    @ConfigComment("   * '[SUDO] bbox version'")
+    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
+    @ConfigComment("")
+    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
+    @ConfigEntry(path = "cave.commands.on-leave", since = "1.8.0")
     private List<String> onLeaveCommands = new ArrayList<>();
+
+    @ConfigComment("List of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.")
+    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
+    @ConfigComment("in which case they are executed by the player.")
+    @ConfigComment("")
+    @ConfigComment("Available placeholders for the commands are the following:")
+    @ConfigComment("   * [name]: name of the player")
+    @ConfigComment("")
+    @ConfigComment("Here are some examples of valid commands to execute:")
+    @ConfigComment("   * '[SUDO] bbox version'")
+    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
+    @ConfigComment("")
+    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
+    @ConfigEntry(path = "cave.commands.on-respawn", since = "1.14.0")
+    private List<String> onRespawnCommands = new ArrayList<>();
 
     // Sethome
     @ConfigComment("Allow setting home in the nether. Only available on nether islands, not vanilla nether.")
