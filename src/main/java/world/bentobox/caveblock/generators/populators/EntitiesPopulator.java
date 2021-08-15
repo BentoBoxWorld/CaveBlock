@@ -134,9 +134,10 @@ public class EntitiesPopulator extends BlockPopulator
             }
             // Make space for entity based on the entity's size
             BoundingBox bb = e.getBoundingBox();
-            for (int x = (int) bb.getMinX(); x < bb.getMaxX(); x++) {
-                for (int z = (int) bb.getMinZ(); z < bb.getMaxZ(); z++) {
-                    int y = (int) bb.getMinY();
+
+            for (int x = (int) Math.floor(bb.getMinX()); x < bb.getMaxX(); x++) {
+                for (int z = (int) Math.floor(bb.getMinZ()); z < bb.getMaxZ(); z++) {
+                    int y = (int) Math.floor(bb.getMinY());
                     Block b = world.getBlockAt(x, y, z);
                     for (; y < bb.getMaxY(); y++) {
                         if (addon.getSettings().isDebug()) {
@@ -148,7 +149,7 @@ public class EntitiesPopulator extends BlockPopulator
                             e.remove();
                             return;
                         }
-                        b.setType(WATER_ENTITIES.contains(entity) ? Material.WATER : Material.CAVE_AIR);
+                        b.setType(WATER_ENTITIES.contains(entity) ? Material.WATER : Material.AIR);
                     }
                     // Add air block on top for all water entities (required for dolphin, okay for others)
                     if (WATER_ENTITIES.contains(entity) && b.getRelative(BlockFace.UP).getType().equals(originalMaterial)) {
