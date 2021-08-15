@@ -76,7 +76,6 @@ public class CaveBlock extends GameModeAddon
     {
         super.onReload();
         this.loadSettings();
-        this.chunkGenerator.reload();
     }
 
 
@@ -137,7 +136,6 @@ public class CaveBlock extends GameModeAddon
 
         // Create the world if it does not exist
         this.islandWorld = WorldCreator.name(worldName).
-                type(WorldType.FLAT).
                 environment(World.Environment.NORMAL).
                 generator(this.chunkGenerator).
                 createWorld();
