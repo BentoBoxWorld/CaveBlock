@@ -13,6 +13,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 
+import world.bentobox.bentobox.BentoBox;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
 
@@ -44,19 +45,20 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         super();
         this.addon = addon;
         this.settings = addon.getSettings();
-
-        ores.add(new Ore(0, 16, Material.TUFF,2));
-        ores.add(new Ore(0, 79, Material.GRANITE,10));
-        ores.add(new Ore(0, 79, Material.ANDESITE,10));
-        ores.add(new Ore(0, 79, Material.DIORITE,10));
-        ores.add(new Ore(95, 136, Material.COAL_ORE, 5));
-        ores.add(new Ore(0, 96, Material.COPPER_ORE, 3));
-        ores.add(new Ore(-64, 64, Material.LAPIS_ORE, 2));
-        ores.add(new Ore(-64, 320, Material.IRON_ORE, 3));
-        ores.add(new Ore(-64, 30, Material.GOLD_ORE, 3));
-        ores.add(new Ore(-64, 16, Material.REDSTONE_ORE, 2));
-        ores.add(new Ore(-64, 16, Material.DIAMOND_ORE, 1));
-        ores.add(new Ore(32, 320, Material.EMERALD_ORE, 2));
+        // Source https://minecraft.fandom.com/wiki/Blob
+        ores.add(new Ore(-64, 16, Material.DIAMOND_ORE, 1, 10, true));
+        ores.add(new Ore(-64, 64, Material.LAPIS_ORE, 1, 7, true));
+        ores.add(new Ore(-64, 30, Material.GOLD_ORE, 2, 9, true));
+        ores.add(new Ore(0, 16, Material.TUFF, 2, 33, false));
+        ores.add(new Ore(-64, 16, Material.REDSTONE_ORE, 8, 8, true));
+        ores.add(new Ore(0, 16, Material.GRAVEL, 8 , 33, false));
+        ores.add(new Ore(0, 79, Material.GRANITE, 5, 33, false));
+        ores.add(new Ore(0, 79, Material.ANDESITE,5, 33, false));
+        ores.add(new Ore(0, 79, Material.DIORITE,5, 33, false));
+        ores.add(new Ore(32, 320, Material.EMERALD_ORE, 11, 1, true));
+        ores.add(new Ore(95, 136, Material.COAL_ORE, 20, 17, false));
+        ores.add(new Ore(0, 96, Material.COPPER_ORE, 20, 9, true));
+        ores.add(new Ore(-64, 320, Material.IRON_ORE, 20, 9, true));
     }
 
 
@@ -72,20 +74,37 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     }
     @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
-        //BentoBox.getInstance().logDebug("Generate Noise " + x + " " + z + " " + chunkData);
         chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, worldInfo.getMaxHeight(), 16, Material.STONE);
         chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, 7, 16, Material.DEEPSLATE);
+        chunkData.setRegion(0, worldInfo.getMaxHeight() - 1, 0, 16, worldInfo.getMaxHeight(), 16, Material.BEDROCK);
         // Generate ores
         for (int y = worldInfo.getMinHeight(); y < worldInfo.getMaxHeight(); y++) {
             for (Ore o: ores) {
-                if (o.minY() < y && o.maxY() > y && r.nextInt(30) < o.chance()) {
-                    chunkData.setBlock(r.nextInt(16), y, r.nextInt(16), o.material());
-                    break;
+                if (o.minY() < y && o.maxY() > y && r.nextInt(100) <= o.chance()) {
+                    pasteBlob(chunkData, y, o);
+                    if (o.cont()) {
+                        break;
+                    }
                 }
             }
 
         }
     }
+
+    private void pasteBlob(ChunkData chunkData, int y, Ore o) {
+        int blobSize = (int) (((double)r.nextInt(o.blob()) / 3) + 1);
+        for (int x = 8 - blobSize; x < 8 + blobSize; x++) {
+            for (int z = 8 - blobSize; z < 8 + blobSize; z++) {
+                for (int yy = y - blobSize; yy < y + blobSize; yy++) {
+                    if (r.nextBoolean()) {
+                        chunkData.setBlock(x, yy, z, o.material());
+                    }
+                }
+            }
+        }
+
+    }
+
 
     @Override
     public void generateSurface(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
