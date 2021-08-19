@@ -1,0 +1,8 @@
+name: Pladdon
+main: world.bentobox.caveblock.CaveBlockPladdon
+version: ${version}
+api-version: 1.17
+description: A CaveBlock Plugin
+author: tastybento
+depend:
+  - BentoBox
