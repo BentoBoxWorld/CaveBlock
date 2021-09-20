@@ -1,0 +1,294 @@
+###########################################################################################
+# This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
+# the one at http://yaml-online-parser.appspot.com                                        #
+###########################################################################################
+
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+    line1: "Chào mừng!"
+    line2: "[name]"
+    line3: "Bắt đầu đào bới nào! &c<3"
+
+  informational:
+    to-nether: "Bạn đã xui xẻo tới mức rơi xuống địa ngục."
+    to-the-end: "Bạn đã đặt chân tới The End."
+    to-normal: "Trở về hang của bạn."
+  # Override BentoBox default command strings
+  # General strings
+  general:
+    errors:
+      no-island: "&cBạn chưa có hang!"
+      player-has-island: "&cNgười chơi đã có sẵn hang!"
+      player-has-no-island: "&cNgười chơi đó không có hang!"
+      already-have-island: "&cBạn đã có hang rồi mà, ngốc!"
+      no-safe-location-found: "&cKhông thế tìm một địa điểm an toàn để dịch chuyển bạn vào hang."
+      not-owner: "&cBạn không phải là chủ của hang này!"
+  commands:
+    # Phần trong <> là bắt buộc, còn trong [] thì không
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] đã có hang sẵn. Hãy xoá hoặc huỷ đăng kí hang của họ!"
+          success: "&b[name]&a đã được thêm vào hang của &b[owner]&a's."
+        kick:
+           success: "&b[name] &ađã bị đá khỏi hang của &b[owner]&a's."
+        setowner:
+          description: "chuyển quyền chủ hang tới người chơi"
+          already-owner: "&c[name] đã là chủ hang này!"
+          success: "&b[name]&a đã trở thành chủ hang này."
+      range:
+        description: "Admin cave range command"
+        display:
+          description: "show/hide cave range indicators"
+          hint: |-
+            &cRed Barrier icons &fshow the current cave protected range limit.
+            &7Gray Particles &fshow the max cave limit.
+            &aGreen Particles &fshow the default protected range if the cave protection range differs from it.
+        set:
+          description: "sets the cave protected range"
+          success: "&aSet cave protection range to &b[number]&a."
+        reset:
+          description: "resets the cave protected range to the world default"
+          success: "&aReset cave protection range to &b[number]&a."
+      register:
+        description: "register player to unowned cave you are on"
+        registered-island: "&aRegistered player to cave at [xyz]."
+        already-owned: "&cCave is already owned by another player!"
+        no-island-here: "&cThere is no cave here. Confirm to make one."
+        in-deletion: "&cThis cave space is currently being deleted. Try later."
+        cannot-make-island: "&c A cave cannot be placed here, sorry. See console for possible errors."
+      unregister:
+        description: "unregister owner from cave, but keep cave blocks"
+        unregistered-island: "&aUnregistered player from cave at [xyz]."
+      info:
+        description: "get info on where you are or player's cave"
+        no-island: "&cYou are not in a cave right now..."
+        title: "========== Cave Info ============"
+        islands-in-trash: "&dPlayer has caves in trash."
+        is-spawn: "Island is a spawn cave"
+      switchto:
+        description: "switch player's cave to the numbered one in trash"
+        out-of-range: "&cNumber must be between 1 and [number]. Use &l[label] trash [player] &r&cto see cave numbers"
+      trash:
+        no-unowned-in-trash: "&cNo unowned caves in trash"
+        no-islands-in-trash: "&cPlayer has no caves in trash"
+        description: "show unowned caves or player's caves in trash"
+        title: "&d=========== Caves in Trash ==========="
+        count: "&l&dCave [number]:"
+        use-switch: "&aUse &l[label] switchto <player> <number>&r&a to switch player to cave in trash"
+      emptytrash:
+        description: "Clear trash for player, or all unowned caves in trash"
+      setrange:
+        description: "set the range of player's cave"
+        range-updated: "Cave range updated to [number]"
+      tp:
+        description: "teleport to a player's cave"
+      getrank:
+        description: "get a player's rank on their cave"
+        rank-is: "&aRank is [rank] on their cave."
+      setrank:
+        description: "set a player's rank on their cave"
+      setspawn:
+        description: "set a cave as spawn for this world"
+        already-spawn: "&cThis cave is already a spawn!"
+        no-island-here: "&cThere is no cave here."
+        confirmation: "&cAre you sure you want to set this cave as the spawn for this world?"
+      resetflags:
+        description: "Reset all caves to default flag settings in config.yml"
+      delete:
+        description: "deletes a player's cave"
+        cannot-delete-owner: "&cAll cave members have to be kicked from the cave before deleting it."
+        deleted-island: "&aIsland at &e[xyz] &ahas been successfully deleted."
+    island:
+      go:
+        description: "teleport you to your cave"
+        teleport: "&aTeleporting you to your cave."
+      help:
+        description: "The main cave command"
+      create:
+        description: "create a cave, using optional blueprint (requires permission)"
+        too-many-islands: "&cThere are too many caves in this world: there isn't enough room for yours to be created."
+        unable-create-island: "&cYour cave could not be generated, please contact an administrator."
+        creating-island: "&aCreating your cave, please wait a moment..."
+        pick: "&aPick a cave"
+      info:
+        description: "display info about your cave or the player's cave"
+      near:
+        description: "show the name of neighboring caves around you"
+        the-following-islands: "&aThe following caves are nearby:"
+        no-neighbors: "&cYou have no immediate neighboring caves!"
+      reset:
+        description: "restart your cave and remove the old one"
+        must-remove-members: "&cYou must remove all members from your cave before you can restart it (/island team kick <player>)."
+      sethome:
+        must-be-on-your-island: "&cYou must be on your cave to set home!"
+        home-set: "&6Your cave home has been set to your current location."
+      setname:
+        description: "set a name for your cave"
+      resetname:
+        description: "reset your cave name"
+      team:
+        coop:
+          description: "make a player coop rank on your cave"
+        uncoop:
+          you-are-no-longer-a-coop-member: "&cYou are no longer a coop member of [name]'s cave"
+          all-members-logged-off: "&cAll cave members logged off so you are no longer a coop member of [name]'s cave"
+        trust:
+          description: "give a player trusted rank on your cave"
+        invite:
+          description: "invite a player to join your cave"
+          name-has-invited-you: "&a[name] has invited you to join their cave."
+          you-will-lose-your-island: "&cWARNING! You will lose your cave if you accept!"
+          errors:
+            island-is-full: "&cYour cave is full, you can't invite anyone else."
+          accept:
+            you-joined-island: "&aYou joined a cave! Use /[label] team info to see the other members."
+            name-joined-your-island: "&a[name] joined your cave!"
+            confirmation: |-
+              &cAre you sure you want to accept this invite?
+              &c&lYou will &nLOSE&r &c&lyour current cave!
+          reject:
+            you-rejected-invite: "&aYou rejected the invitation to join a cave."
+            name-rejected-your-invite: "&c[name] rejected your cave invite!"
+          cancel:
+            description: "cancel the pending invite to join your cave"
+        leave:
+          description: "leave your cave"
+          left-your-island: "&c[name] &cleft your cave"
+        kick:
+          description: "remove a member from your cave"
+          owner-kicked: "&cThe owner kicked you from the cave!"
+          success: "&b[name] &ahas been kicked from your cave."
+        demote:
+          description: "demote a player on your cave down a rank"
+        promote:
+          description: "promote a player on your cave up a rank"
+        setowner:
+          description: "transfer your cave ownership to a member"
+          errors:
+            target-is-not-member: "&cThat player is not part of your cave team!"
+          name-is-the-owner: "&a[name] is now the cave owner!"
+          you-are-the-owner: "&aYou are now the cave owner!"
+      ban:
+        description: "ban a player from your cave"
+        cannot-ban-more-players: "&cYou reached the ban limit, you cannot ban any more players from your cave."
+        player-banned: "&b[name]&c is now banned from your cave."
+        owner-banned-you: "&b[name]&c banned you from their cave!"
+        you-are-banned: "&bYou are banned from this cave!"
+      unban:
+        description: "unban a player from your cave"
+        player-unbanned: "&b[name]&a is now unbanned from your cave."
+        you-are-unbanned: "&b[name]&a unbanned you from their cave!"
+      banlist:
+        noone: "&aNo one is banned on this cave."
+      settings:
+        description: "display cave settings"
+      expel:
+        description: "expel a player from your cave"
+        not-on-island: "&cThat player is not on your cave!"
+        player-expelled-you: "&b[name]&c expelled you from the cave!"
+
+  ranks:
+    owner: "Dwarf King"
+    sub-owner: "Dwarf Knight"
+    member: "Dwarf"
+    trusted: "Trusted"
+    coop: "Coop"
+    visitor: "Human"
+    banned: "Orc"
+
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aEndermen can remove
+          &ablocks from caves
+        name: "Enderman griefing"
+      ENTER_EXIT_MESSAGES:
+        island: "[name]'s cave"
+      GEO_LIMIT_MOBS:
+        description: |-
+          &aRemove mobs that go
+          &aoutside protected
+          &acave space
+        name: "&eLimit mobs to cave"
+      ISLAND_RESPAWN:
+        description: |-
+          &aPlayers respawn
+          &ain their cave
+        name: "Cave respawn"
+      LIQUIDS_FLOWING_OUT:
+        name: "Liquids flowing outside caves"
+        description: |-
+          &aToggle whether liquids can flow outside
+          &aof the cave's protection range.
+      LOCK:
+        description: "Toggle lock"
+        name: "Lock cave"
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: "Natural creature spawning outside range"
+        description: |-
+          &aToggle whether creatures (animals and
+          &amonsters) can spawn naturally outside
+          &aa cave's protection range.
+
+          &cNote that it doesn't prevent creatures
+          &cto spawn via a mob spawner or a spawn
+          &cegg.
+      OFFLINE_GROWTH:
+        description: |-
+          &aWhen disabled, plants
+          &awill not grow in caves
+          &awhen all members are offline.
+          &aMay help reduce lag.
+        name: "Offline Growth"
+      OFFLINE_REDSTONE:
+        description: |-
+          &aWhen disabled, redstone
+          &awill not operate in caves
+          &awhere all members are offline.
+          &aMay help reduce lag.
+        name: "Offline Redstone"
+      PISTON_PUSH:
+        description: |-
+          &aAllow pistons to push
+          &ablocks outside cave
+        name: "Piston Push"
+      REMOVE_MOBS:
+        description: |-
+          &aRemove monsters when
+          &ateleporting to cave
+        name: "Remove monsters"
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: "Trees growing outside range"
+        description: |-
+          &aToggle whether trees can grow outside an
+          &acave's protection range or not.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: "Prevent teleport when falling"
+        description: |-
+          &aPrevent players from teleporting
+          &aback to their cave using commands
+          &aif they are falling.
+        hint: "&cYou cannot teleport back to your cave while you are falling."
+    locked: "&cThis cave is locked!"
+    protected: "&cCave protected: [description]"
+    spawn-protected: "&cSpawn protected: [description]"
+
+    panel:
+      PROTECTION:
+        description: |-
+          &aProtection settings
+          &afor this cave
+      SETTING:
+        description: |-
+          &aGeneral settings
+          &afor this cave
+
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: "&5&oThis allows to enable/disable\n&5&oability to walk on the\n&5&otop of the cave world\n&5&owithout extra permissions."
+      name: "Sky Walker"
+      hint: "Allows to walk on cave ceiling."
