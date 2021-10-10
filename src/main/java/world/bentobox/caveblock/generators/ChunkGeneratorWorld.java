@@ -10,6 +10,7 @@ import java.util.Random;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 
@@ -98,11 +99,6 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     // ---------------------------------------------------------------------
 
     @Override
-    public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome) {
-        //BentoBox.getInstance().logDebug("Generate Chunk Data " + x + " " + z);
-        return createChunkData(world);
-    }
-    @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
         switch(worldInfo.getEnvironment()) {
         default:
@@ -124,7 +120,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         // Generate ores
         for (int y = worldInfo.getMinHeight(); y < worldInfo.getMaxHeight(); y++) {
             for (Ore o: ores.get(worldInfo.getEnvironment())) {
-                if (o.minY() < y && o.maxY() > y && r.nextInt(100) <= o.chance()) {
+                if (y > o.minY() && y < o.maxY() && r.nextInt(100) <= o.chance()) {
                     pasteBlob(chunkData, y, o);
                     if (o.cont()) {
                         break;
@@ -136,20 +132,22 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     }
 
     private void pasteBlob(ChunkData chunkData, int y, Ore o) {
-        int blobSize = (int) (((double)r.nextInt(o.blob()) / 3) + 1);
-        for (int x = 8 - blobSize; x < 8 + blobSize; x++) {
-            for (int z = 8 - blobSize; z < 8 + blobSize; z++) {
-                for (int yy = y - blobSize; yy < y + blobSize; yy++) {
-                    if (r.nextBoolean()) {
+        //int blobSize = (int) (((double)r.nextInt(o.blob()) / 3) + 1);
+        int blobSize = 1;
+        int offset = r.nextInt(16);
+        for (int x = Math.max(0, offset - blobSize); x < Math.min(16, offset + blobSize); x++) {
+            for (int z = Math.max(0, offset - blobSize); z < Math.min(16, offset + blobSize); z++) {
+                for (int yy = Math.max(chunkData.getMinHeight(), y - blobSize); yy < Math.min(chunkData.getMaxHeight(),y + blobSize); yy++) {
+                    BlockData bd = chunkData.getBlockData(x, yy, z);
+                    if (bd.getMaterial().isSolid() && r.nextBoolean()) {
                         chunkData.setBlock(x, yy, z, o.material());
                     }
                 }
             }
         }
-
     }
 
-
+    /*
     @Override
     public void generateSurface(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
         //BentoBox.getInstance().logDebug("generateSurface " + x + " " + z + " " + chunkData);
@@ -163,6 +161,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     public void generateCaves(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
         //BentoBox.getInstance().logDebug("generateCaves " + x + " " + z + " " + chunkData);
     }
+     */
     /**
      * This method sets if given coordinates can be set as spawn location
      */
