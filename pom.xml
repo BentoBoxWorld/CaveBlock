@@ -43,14 +43,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>16</java.version>
         <!-- More visible way how to change dependency versions -->
-        <spigot.version>1.16.4-R0.1-SNAPSHOT</spigot.version>
-        <bentobox.version>1.16.0</bentobox.version>
+        <spigot.version>1.17.1-R0.1-SNAPSHOT</spigot.version>
+        <bentobox.version>1.18.0-SNAPSHOT</bentobox.version>
         <!-- Revision variable removes warning about dynamic version -->
         <revision>${build.version}-SNAPSHOT</revision>
         <!-- This allows to change between versions and snapshots. -->
-        <build.version>1.14.5</build.version>
+        <build.version>1.15.0</build.version>
         <build.number>-LOCAL</build.number>
         <sonar.organization>bentobox-world</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -170,8 +170,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
             <plugin>
