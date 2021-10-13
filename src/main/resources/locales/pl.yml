@@ -83,6 +83,7 @@ caveblock:
         description: teleportuj się do jaskini gracza
       getrank:
         description: zdobądź rangę gracza w swojej jaskini
+        rank-is: "&aRank to [range] w ich jaskini."
       setrank:
         description: ustaw rangę gracza w jego jaskini
       setspawn:
@@ -120,6 +121,8 @@ caveblock:
         no-neighbors: "&cNie masz bezpośrednio sąsiadujących jaskiń!"
       reset:
         description: uruchom ponownie jaskinię i usuń starą
+        must-remove-members: "&cMusisz usunąć wszystkich członków ze swojej jaskini,
+          zanim będziesz mógł ją ponownie uruchomić (/island team kick <gracz>)."
       sethome:
         must-be-on-your-island: "&cMusisz być w swojej jaskini, aby wrócić do domu!"
         home-set: "&6Twój dom w jaskini został ustawiony na bieżącą lokalizację."
@@ -207,7 +210,8 @@ caveblock:
           &aEndermen może usunąć
           &blokady z jaskiń
         name: Rozpacz Endermana
-      ENTER_EXIT_MESSAGES: {}
+      ENTER_EXIT_MESSAGES:
+        island: Jaskinia [name]
       GEO_LIMIT_MOBS:
         description: |-
           &aUsuń moby, które idą
@@ -274,6 +278,8 @@ caveblock:
           i jeśli spadają.
         hint: "&cNie możesz teleportować się z powrotem do swojej jaskini, gdy spadasz."
     locked: "&cTa jaskinia jest zamknięta!"
+    protected: "&cJaskinia chroniona: [description]"
+    spawn-protected: "&cSpawn chroniony: [description]"
     panel:
       PROTECTION:
         description: |-
