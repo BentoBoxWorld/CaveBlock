@@ -83,7 +83,7 @@ public class NewMaterialPopulator extends BlockPopulator {
                 for (int yy = Math.max(world.getMinHeight(), y - blobSize); yy < Math.min(world.getMaxHeight(), y + blobSize); yy++) {
                     Block bd = chunk.getBlock(x, yy, z);
                     if (bd.getType().isSolid() && random.nextBoolean()) {
-                        bd.setType(o.material());
+                        bd.setType(o.material(), false);
                     }
                 }
             }
