@@ -812,6 +812,15 @@ public class Settings implements WorldSettings
         return numberOfBlockGenerationTries;
     }
 
+    /**
+     * This method returns the newMaterialGenerator value.
+     * @return the value of newMaterialGenerator.
+     */
+    public boolean isNewMaterialGenerator()
+    {
+        return newMaterialGenerator;
+    }
+
 
     /**
      * {@inheritDoc}
@@ -1648,6 +1657,17 @@ public class Settings implements WorldSettings
 
 
     /**
+     * This method sets the newMaterialGenerator value.
+     * @param newMaterialGenerator the numberOfBlockGenerationTries new value.
+     *
+     */
+    public void setNewMaterialGenerator(boolean newMaterialGenerator)
+    {
+        this.newMaterialGenerator = newMaterialGenerator;
+    }
+
+
+    /**
      * @return the debug
      */
     public boolean isDebug() {
@@ -2197,6 +2217,12 @@ public class Settings implements WorldSettings
     @ConfigComment("This indicate how many times block should be tried to generate.")
     @ConfigEntry(path = "world.generation-tries", needsReset = true)
     private int numberOfBlockGenerationTries = 1;
+
+    @ConfigComment("Should we use the new material generator ?")
+    @ConfigComment("This will generate ores and blocks similar to how vanilla does,")
+    @ConfigComment("but it will override the blocks settings of each world.")
+    @ConfigEntry(path = "world.use-new-material-generator", needsReset = true)
+    private boolean newMaterialGenerator = false;
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")

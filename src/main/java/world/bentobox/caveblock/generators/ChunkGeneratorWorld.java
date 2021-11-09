@@ -1,23 +1,21 @@
 package world.bentobox.caveblock.generators;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
-
 import org.bukkit.generator.WorldInfo;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
 import world.bentobox.caveblock.generators.populators.EntitiesPopulator;
 import world.bentobox.caveblock.generators.populators.FlatBiomeProvider;
 import world.bentobox.caveblock.generators.populators.MaterialPopulator;
+import world.bentobox.caveblock.generators.populators.NewMaterialPopulator;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Class ChunkGeneratorWorld ...
@@ -118,7 +116,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     public void reload() {
         this.blockPopulators.clear();
 
-        this.blockPopulators.add(new MaterialPopulator(this.addon));
+        if (this.settings.isNewMaterialGenerator()) {
+            this.blockPopulators.add(new NewMaterialPopulator());
+        } else {
+            this.blockPopulators.add(new MaterialPopulator(this.addon));
+        }
         this.blockPopulators.add(new EntitiesPopulator(this.addon));
 
         this.biomeProvider = new FlatBiomeProvider(this.addon);

@@ -93,6 +93,10 @@ world:
   # This indicate how many times block should be tried to generate.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
   generation-tries: 2
+  # Should we use the new material generator ?
+  # This will generate ores and blocks similar to how vanilla does,
+  # but it will override the blocks settings of each world.
+  use-new-material-generator: false
   normal:
     # 
     # Make over world roof of bedrock, if false, it will be made from stone
