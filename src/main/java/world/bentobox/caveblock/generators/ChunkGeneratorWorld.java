@@ -110,6 +110,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         return true;
     }
 
+    @Override
+    public boolean shouldGenerateCaves() {
+        return this.settings.isNewMaterialGenerator();
+    }
+
     /**
      * Called when config is reloaded
      */
