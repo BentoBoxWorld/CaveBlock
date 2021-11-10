@@ -67,22 +67,24 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 
     @Override
     public void generateBedrock(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
+        final int minHeight = worldInfo.getMinHeight();
         Material material = getGroundCeilMaterial(worldInfo.getEnvironment());
-        chunkData.setRegion(0, 0, 0, 16, 1, 16, material);
+        chunkData.setRegion(0, minHeight, 0, 16, minHeight + 1, 16, material);
     }
 
     @Override
     public void generateSurface(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
-        final int worldHeight = this.settings.getWorldDepth();
+        final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.settings.getWorldDepth());
         Material material = getGroundCeilMaterial(worldInfo.getEnvironment());
         chunkData.setRegion(0, worldHeight - 1, 0, 16, worldHeight, 16, material);
     }
 
     @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
-        final int worldHeight = this.settings.getWorldDepth();
+        final int minHeight = worldInfo.getMinHeight();
+        final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.settings.getWorldDepth());
         Material material = getBaseMaterial(worldInfo.getEnvironment());
-        chunkData.setRegion(0, 1, 0, 16, worldHeight - 1, 16, material);
+        chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, material);
     }
 
     @Override
@@ -93,11 +95,6 @@ public class ChunkGeneratorWorld extends ChunkGenerator
     @Override
     public BiomeProvider getDefaultBiomeProvider(WorldInfo worldInfo) {
         return biomeProvider;
-    }
-
-    @Override
-    public boolean shouldGenerateNoise() {
-        return true;
     }
 
     @Override
