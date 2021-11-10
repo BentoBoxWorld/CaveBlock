@@ -23,8 +23,7 @@ import java.util.Random;
  * @author BONNe
  * Created on 27.01.2019
  */
-public class ChunkGeneratorWorld extends ChunkGenerator
-{
+public class ChunkGeneratorWorld extends ChunkGenerator {
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
