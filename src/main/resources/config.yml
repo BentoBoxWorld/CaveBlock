@@ -96,6 +96,7 @@ world:
   # Should we use the new material generator ?
   # This will generate ores and blocks similar to how vanilla does,
   # but it will override the blocks settings of each world.
+  # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
   use-new-material-generator: false
   normal:
     # 
