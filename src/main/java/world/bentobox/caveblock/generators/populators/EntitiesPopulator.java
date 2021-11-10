@@ -67,14 +67,17 @@ public class EntitiesPopulator extends BlockPopulator
     @Override
     public void populate(World world, Random random, Chunk chunk)
     {
+        int minHeight = world.getMinHeight();
+        int height = Math.min(world.getMaxHeight() - 1, worldHeight);
+
         for (Map.Entry<EntityType, Pair<Double, Integer>> entry : chances.get(world.getEnvironment()).entityChanceMap.entrySet())
         {
-            for (int subY = 0; subY < worldHeight; subY += 16)
+            for (int subY = minHeight; subY < height; subY += 16)
             {
                 // Use double so chance can be < 1
                 if (random.nextDouble() * 100 < entry.getValue().x)
                 {
-                    int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
+                    int y = Math.min(height - 2, subY + random.nextInt(15));
                     // Spawn only in middle of chunk because bounding box will grow out from here
                     this.tryToPlaceEntity(world, chunk.getBlock(7, y, 7), entry.getKey(), chances.get(world.getEnvironment()).mainMaterial);
                 }

@@ -62,11 +62,13 @@ public class MaterialPopulator extends BlockPopulator
     @Override
     public void populate(World world, Random random, Chunk chunk)
     {
+        int minHeight = world.getMinHeight();
+        int height = Math.min(world.getMaxHeight() - 1, worldHeight);
         Chances chances = this.chances.get(world.getEnvironment());
 
         for (Map.Entry<Material, Pair<Double, Integer>> entry : chances.materialChanceMap.entrySet())
         {
-            for (int subY = 1; subY < worldHeight; subY += 16)
+            for (int subY = minHeight + 1; subY < height; subY += 16)
             {
                 if (random.nextDouble() * 100 < entry.getValue().x)
                 {
@@ -74,7 +76,7 @@ public class MaterialPopulator extends BlockPopulator
                     // Blocks must be 1 away from edge to avoid adjacent chunk loading
                     int x = random.nextInt(13) + 1;
                     int z =  random.nextInt(13) + 1;
-                    int y = Math.min(worldHeight - 2, subY + random.nextInt(15));
+                    int y = Math.min(height - 2, subY + random.nextInt(15));
                     /*
                      * TODO: remove
                     if (addon.getSettings().isDebug()) {
@@ -105,7 +107,7 @@ public class MaterialPopulator extends BlockPopulator
                                 x = Math.min(15, x + 1);
                                 break;
                             case 1:
-                                y = Math.min(worldHeight - 2, y + 1);
+                                y = Math.min(height - 2, y + 1);
                                 break;
                             case 2:
                                 z = Math.min(15, z + 1);
