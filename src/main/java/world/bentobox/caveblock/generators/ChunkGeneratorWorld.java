@@ -25,6 +25,10 @@ import java.util.Random;
  */
 public class ChunkGeneratorWorld extends ChunkGenerator
 {
+    // ---------------------------------------------------------------------
+    // Section: Variables
+    // ---------------------------------------------------------------------
+
     private final CaveBlock addon;
     private final Settings settings;
     private final List<BlockPopulator> blockPopulators;

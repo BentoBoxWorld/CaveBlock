@@ -20,6 +20,10 @@ import java.util.Random;
  */
 public class MaterialPopulator extends BlockPopulator {
 
+    // ---------------------------------------------------------------------
+    // Section: Variables
+    // ---------------------------------------------------------------------
+
     /**
      * CaveBlock addon.
      */
@@ -33,6 +37,10 @@ public class MaterialPopulator extends BlockPopulator {
      */
     private int worldHeight;
 
+    // ---------------------------------------------------------------------
+    // Section: Constructor
+    // ---------------------------------------------------------------------
+
     /**
      * This is default constructor
      *
@@ -44,9 +52,8 @@ public class MaterialPopulator extends BlockPopulator {
         this.loadSettings();
     }
 
-
     // ---------------------------------------------------------------------
-    // Section: Private Classes
+    // Section: Methods
     // ---------------------------------------------------------------------
 
     /**
@@ -64,11 +71,6 @@ public class MaterialPopulator extends BlockPopulator {
         // Other settings
         worldHeight = addon.getSettings().getWorldDepth();
     }
-
-
-    // ---------------------------------------------------------------------
-    // Section: Variables
-    // ---------------------------------------------------------------------
 
     /**
      * This method populates chunk with blocks.
@@ -159,6 +161,10 @@ public class MaterialPopulator extends BlockPopulator {
 
         return materialMap;
     }
+
+    // ---------------------------------------------------------------------
+    // Section: Private Classes
+    // ---------------------------------------------------------------------
 
     /**
      * Chances class to store chances for environments and main material

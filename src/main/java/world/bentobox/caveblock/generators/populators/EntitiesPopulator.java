@@ -24,6 +24,10 @@ import java.util.stream.Collectors;
  */
 public class EntitiesPopulator extends BlockPopulator {
 
+    // ---------------------------------------------------------------------
+    // Section: Variables
+    // ---------------------------------------------------------------------
+
     /**
      * Water entities
      */
@@ -48,6 +52,10 @@ public class EntitiesPopulator extends BlockPopulator {
      */
     private int worldHeight;
 
+    // ---------------------------------------------------------------------
+    // Section: Constructor
+    // ---------------------------------------------------------------------
+
     /**
      * This is default constructor
      *
@@ -58,9 +66,8 @@ public class EntitiesPopulator extends BlockPopulator {
         this.loadSettings();
     }
 
-
     // ---------------------------------------------------------------------
-    // Section: Private Classes
+    // Section: Methods
     // ---------------------------------------------------------------------
 
     /**
@@ -78,11 +85,6 @@ public class EntitiesPopulator extends BlockPopulator {
         // Other settings
         worldHeight = addon.getSettings().getWorldDepth();
     }
-
-
-    // ---------------------------------------------------------------------
-    // Section: Variables
-    // ---------------------------------------------------------------------
 
     /**
      * This method populates chunk with entities.
@@ -182,6 +184,10 @@ public class EntitiesPopulator extends BlockPopulator {
             }
         }
     }
+
+    // ---------------------------------------------------------------------
+    // Section: Private Classes
+    // ---------------------------------------------------------------------
 
     /**
      * Chances class to store chances for environments and main material
