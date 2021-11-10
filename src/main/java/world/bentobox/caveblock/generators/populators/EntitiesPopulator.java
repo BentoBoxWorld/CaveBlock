@@ -54,7 +54,7 @@ public class EntitiesPopulator extends BlockPopulator
         // End
         chances.put(Environment.THE_END, new Chances(this.getEntityMap(addon.getSettings().getEndBlocks()), addon.getSettings().getEndMainBlock()));
         // Other settings
-        worldHeight = addon.getSettings().getWorldDepth() - 1;
+        worldHeight = addon.getSettings().getWorldDepth();
     }
 
 
@@ -68,7 +68,7 @@ public class EntitiesPopulator extends BlockPopulator
     public void populate(World world, Random random, Chunk chunk)
     {
         int minHeight = world.getMinHeight();
-        int height = Math.min(world.getMaxHeight() - 1, worldHeight);
+        int height = Math.min(world.getMaxHeight(), worldHeight) - 1;
 
         for (Map.Entry<EntityType, Pair<Double, Integer>> entry : chances.get(world.getEnvironment()).entityChanceMap.entrySet())
         {

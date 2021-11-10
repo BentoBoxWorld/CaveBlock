@@ -49,7 +49,7 @@ public class MaterialPopulator extends BlockPopulator
         // End
         chances.put(Environment.THE_END, new Chances(this.getMaterialMap(addon.getSettings().getEndBlocks()), addon.getSettings().getEndMainBlock()));
         // Other settings
-        worldHeight = addon.getSettings().getWorldDepth() - 1;
+        worldHeight = addon.getSettings().getWorldDepth();
     }
 
 
@@ -63,7 +63,7 @@ public class MaterialPopulator extends BlockPopulator
     public void populate(World world, Random random, Chunk chunk)
     {
         int minHeight = world.getMinHeight();
-        int height = Math.min(world.getMaxHeight() - 1, worldHeight);
+        int height = Math.min(world.getMaxHeight(), worldHeight) - 1;
         Chances chances = this.chances.get(world.getEnvironment());
 
         for (Map.Entry<Material, Pair<Double, Integer>> entry : chances.materialChanceMap.entrySet())
