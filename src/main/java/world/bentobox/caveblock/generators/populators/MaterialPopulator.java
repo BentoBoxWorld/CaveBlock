@@ -16,7 +16,7 @@ import java.util.Random;
 
 
 /**
- * This class allows to fill given chunk with necessary blocks.
+ * This class allows filling given chunk with necessary blocks.
  */
 public class MaterialPopulator extends BlockPopulator {
 

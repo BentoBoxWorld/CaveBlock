@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * This class populates generated chunk with entites by random chance.
+ * This class populates generated chunk with entities by random chance.
  */
 public class EntitiesPopulator extends BlockPopulator {
 
