@@ -99,15 +99,18 @@ public class EntitiesPopulator extends BlockPopulator {
         int minHeight = worldInfo.getMinHeight();
         int height = Math.min(worldInfo.getMaxHeight(), worldHeight) - 1;
 
-        for (Map.Entry<EntityType, Pair<Double, Integer>> entry : chances.get(worldInfo.getEnvironment()).entityChanceMap.entrySet()) {
+        for (Map.Entry<EntityType, Pair<Pair<Double, Integer>, Boolean>> entry : chances.get(worldInfo.getEnvironment()).entityChanceMap.entrySet()) {
+            Pair<Double, Integer> value = entry.getValue().x;
+            boolean hasAI = entry.getValue().z;
             for (int subY = minHeight; subY < height; subY += 16) {
                 // Use double so chance can be < 1
-                if (random.nextDouble() * 100 < entry.getValue().x) {
+                if (random.nextDouble() * 100 < value.x) {
                     int y = Math.min(height - 2, subY + random.nextInt(15));
                     // Spawn only in middle of chunk because bounding box will grow out from here
                     this.tryToPlaceEntity(
-                            worldInfo, Utils.getLocationFromChunkLocation(7, y, 7, chunkX, chunkZ),
-                            limitedRegion, entry.getKey(), chances.get(worldInfo.getEnvironment()).mainMaterial
+                            worldInfo, Utils.getLocationFromChunkLocation(7, y, 7, chunkX, chunkZ), limitedRegion,
+                            entry.getKey(), hasAI,
+                            chances.get(worldInfo.getEnvironment()).mainMaterial
                     );
                 }
             }
@@ -120,8 +123,8 @@ public class EntitiesPopulator extends BlockPopulator {
      * @param objectList List with objects that contains data.
      * @return Map that contains entity, its rarity and pack size.
      */
-    private Map<EntityType, Pair<Double, Integer>> getEntityMap(List<String> objectList) {
-        Map<EntityType, Pair<Double, Integer>> entityMap = new EnumMap<>(EntityType.class);
+    private Map<EntityType, Pair<Pair<Double, Integer>, Boolean>> getEntityMap(List<String> objectList) {
+        Map<EntityType, Pair<Pair<Double, Integer>, Boolean>> entityMap = new EnumMap<>(EntityType.class);
 
         Map<String, EntityType> entityTypeMap = Arrays.stream(EntityType.values()).
                 collect(Collectors.toMap(Enum::name,
@@ -133,13 +136,18 @@ public class EntitiesPopulator extends BlockPopulator {
         objectList.stream().
                 filter(object -> object.startsWith("ENTITY")).
                 map(object -> object.split(":")).
-                filter(splitString -> splitString.length == 4).
+                filter(splitString -> splitString.length >= 4).
                 forEach(splitString -> {
                     EntityType entity = entityTypeMap.getOrDefault(splitString[1], null);
+                    boolean hasAI = splitString.length <= 4 || Boolean.parseBoolean(splitString[4]);
 
                     if (entity != null) {
                         entityMap.put(entity,
-                                new Pair<>(Double.parseDouble(splitString[2]), Integer.parseInt(splitString[3])));
+                                new Pair<>(
+                                        new Pair<>(Double.parseDouble(splitString[2]), Integer.parseInt(splitString[3])),
+                                        hasAI
+                                )
+                        );
                     }
                 });
 
@@ -153,14 +161,18 @@ public class EntitiesPopulator extends BlockPopulator {
      * @param location         - Location that was chosen by random.
      * @param limitedRegion    - Region where entity must be spawned.
      * @param entityType       - Entity that must be spawned.
+     * @param hasAI            - If entity has AI.
      * @param originalMaterial - replacement material.
      */
-    private void tryToPlaceEntity(WorldInfo worldInfo, Location location, LimitedRegion limitedRegion, EntityType entityType, Material originalMaterial) {
+    private void tryToPlaceEntity(WorldInfo worldInfo, Location location, LimitedRegion limitedRegion, EntityType entityType, boolean hasAI, Material originalMaterial) {
         if (!limitedRegion.isInRegion(location)) return;
         if (!limitedRegion.getType(location).equals(originalMaterial)) return;
 
         Entity entity = limitedRegion.spawnEntity(location, entityType);
-        if (entity instanceof LivingEntity livingEntity) livingEntity.setRemoveWhenFarAway(false);
+        if (entity instanceof LivingEntity livingEntity) {
+            livingEntity.setAI(hasAI);
+            livingEntity.setRemoveWhenFarAway(false);
+        }
 
         BoundingBox bb = entity.getBoundingBox();
         for (int x = (int) Math.floor(bb.getMinX()); x < bb.getMaxX(); x++) {
@@ -198,9 +210,10 @@ public class EntitiesPopulator extends BlockPopulator {
     /**
      * Chances class to store chances for environments and main material
      *
-     * @param entityChanceMap - contains chances for each entity.
+     * @param entityChanceMap - contains chances for each entity, and the boolean indicates that entity should have AI.
      * @param mainMaterial    - material on which entity can replace.
      */
-    private record Chances(Map<EntityType, Pair<Double, Integer>> entityChanceMap, Material mainMaterial) {
+    private record Chances(Map<EntityType, Pair<Pair<Double, Integer>, Boolean>> entityChanceMap,
+                           Material mainMaterial) {
     }
 }
