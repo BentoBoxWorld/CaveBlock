@@ -1,13 +1,14 @@
 package world.bentobox.caveblock.generators.populators;
 
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.World.Environment;
-import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
+import org.bukkit.generator.LimitedRegion;
+import org.bukkit.generator.WorldInfo;
 import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
+import world.bentobox.caveblock.Utils;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -75,59 +76,64 @@ public class MaterialPopulator extends BlockPopulator {
     /**
      * This method populates chunk with blocks.
      *
-     * @param world  World where population must be.
+     * @param worldInfo  World where population must be.
      * @param random Randomness
-     * @param chunk  Chunk were populator operates.
+     * @param chunkX X coordinate of chunk
+     * @param chunkZ Z coordinate of chunk
+     * @param limitedRegion  Region were populator operates.
      */
     @Override
-    public void populate(World world, Random random, Chunk chunk) {
-        int minHeight = world.getMinHeight();
-        int height = Math.min(world.getMaxHeight(), worldHeight) - 1;
-        Chances envChances = this.chances.get(world.getEnvironment());
-
+    public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {
+        int minHeight = worldInfo.getMinHeight();
+        int height = Math.min(worldInfo.getMaxHeight(), worldHeight) - 1;
+        Chances envChances = this.chances.get(worldInfo.getEnvironment());
         for (Map.Entry<Material, Pair<Double, Integer>> entry : envChances.materialChanceMap.entrySet()) {
             for (int subY = minHeight + 1; subY < height; subY += 16) {
-                if (random.nextDouble() * 100 < entry.getValue().x) {
+                if (random.nextDouble() * 100 >= entry.getValue().x) {
+                    continue;
+                }
 
-                    // Blocks must be 1 away from edge to avoid adjacent chunk loading
-                    int x = random.nextInt(13) + 1;
-                    int z = random.nextInt(13) + 1;
-                    int y = Math.min(height - 2, subY + random.nextInt(15));
-                    /*
-                     * TODO: remove
-                    if (addon.getSettings().isDebug()) {
-                        addon.log("DEBUG: Material: " + world.getName() + " " + x + " " + y + " " + z + " " + entry.getKey());
+                // Blocks must be 1 away from edge to avoid adjacent chunk loading
+                Location location = Utils.getLocationFromChunkLocation(
+                        random.nextInt(13) + 1,
+                        Math.min(height - 2, subY + random.nextInt(15)),
+                        random.nextInt(13) + 1,
+                        chunkX, chunkZ);
+
+                if (!limitedRegion.isInRegion(location)) {
+                    continue;
+                }
+
+                Material material = limitedRegion.getType(location);
+                if (!material.equals(envChances.mainMaterial)) {
+                    continue;
+                }
+
+                int packSize = random.nextInt(entry.getValue().z);
+                boolean continuePlacing = true;
+                while (continuePlacing) {
+                    if (!material.equals(entry.getKey())) {
+                        limitedRegion.setType(location, entry.getKey());
+                        packSize--;
                     }
-                     */
-                    Block block = chunk.getBlock(x, y, z);
 
-                    if (block.getType().equals(envChances.mainMaterial)) {
-                        int packSize = random.nextInt(entry.getValue().z);
-
-                        boolean continuePlacing = true;
-
-                        while (continuePlacing) {
-                            if (!block.getType().equals(entry.getKey())) {
-                                // Set type without physics is required otherwise server goes into an infinite loop
-                                block.setType(entry.getKey(), false);
-                                packSize--;
-                            }
-
-                            // The direction chooser
-                            switch (random.nextInt(6)) {
-                                case 0 -> x = Math.min(15, x + 1);
-                                case 1 -> y = Math.min(height - 2, y + 1);
-                                case 2 -> z = Math.min(15, z + 1);
-                                case 3 -> x = Math.max(0, x - 1);
-                                case 4 -> y = Math.max(1, y - 1);
-                                case 5 -> z = Math.max(0, z - 1);
-                            }
-
-                            block = chunk.getBlock(x, y, z);
-
-                            continuePlacing = packSize > 0 && (block.getType().equals(envChances.mainMaterial) ||
-                                    block.getType().equals(entry.getKey()));
+                    switch (random.nextInt(6)) {
+                        case 0 -> location.setX(location.getX() + 1);
+                        case 1 -> location.setY(location.getY() + 1);
+                        case 2 -> location.setZ(location.getZ() + 1);
+                        case 3 -> location.setX(location.getX() - 1);
+                        case 4 -> location.setY(location.getY() - 1);
+                        case 5 -> location.setZ(location.getZ() - 1);
+                        default -> {
+                            continuePlacing = false;
+                            continue;
                         }
+                    }
+
+                    continuePlacing = packSize > 0 && limitedRegion.isInRegion(location) && location.getY() > minHeight;
+                    if (continuePlacing) {
+                        material = limitedRegion.getType(location);
+                        continuePlacing = material.equals(envChances.mainMaterial) || material.equals(entry.getKey());
                     }
                 }
             }
