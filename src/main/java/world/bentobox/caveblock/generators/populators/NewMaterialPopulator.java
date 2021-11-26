@@ -1,10 +1,12 @@
 package world.bentobox.caveblock.generators.populators;
 
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
+import org.bukkit.generator.LimitedRegion;
+import org.bukkit.generator.WorldInfo;
+import world.bentobox.caveblock.Utils;
 import world.bentobox.caveblock.generators.Ore;
 
 import java.util.*;
@@ -60,11 +62,11 @@ public class NewMaterialPopulator extends BlockPopulator {
     }
 
     @Override
-    public void populate(World world, Random random, Chunk source) {
-        for (int y = world.getMinHeight(); y < world.getMaxHeight(); y++) {
-            for (Ore o : ores.get(world.getEnvironment())) {
+    public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {
+        for (int y = worldInfo.getMinHeight(); y < worldInfo.getMaxHeight(); y++) {
+            for (Ore o : ores.get(worldInfo.getEnvironment())) {
                 if (y > o.minY() && y < o.maxY() && random.nextInt(100) <= o.chance()) {
-                    pasteBlob(source, random, y, o);
+                    pasteBlob(worldInfo, random, chunkX, chunkZ, limitedRegion, y, o);
                     if (o.cont()) {
                         break;
                     }
@@ -73,17 +75,19 @@ public class NewMaterialPopulator extends BlockPopulator {
         }
     }
 
-    private void pasteBlob(Chunk chunk, Random random, int y, Ore o) {
+    private void pasteBlob(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion, int y, Ore o) {
         //int blobSize = (int) (((double)random.nextInt(o.blob()) / 3) + 1);
         int blobSize = 1;
-        World world = chunk.getWorld();
         int offset = random.nextInt(16);
         for (int x = Math.max(0, offset - blobSize); x < Math.min(16, offset + blobSize); x++) {
             for (int z = Math.max(0, offset - blobSize); z < Math.min(16, offset + blobSize); z++) {
-                for (int yy = Math.max(world.getMinHeight(), y - blobSize); yy < Math.min(world.getMaxHeight(), y + blobSize); yy++) {
-                    Block bd = chunk.getBlock(x, yy, z);
-                    if (bd.getType().isSolid() && random.nextBoolean()) {
-                        bd.setType(o.material(), false);
+                for (int yy = Math.max(worldInfo.getMinHeight(), y - blobSize); yy < Math.min(worldInfo.getMaxHeight(), y + blobSize); yy++) {
+                    Location location = Utils.getLocationFromChunkLocation(x, yy, z, chunkX, chunkZ);
+                    if (!limitedRegion.isInRegion(location)) {
+                        continue;
+                    }
+                    if (limitedRegion.getType(location).isSolid() && random.nextBoolean()) {
+                        limitedRegion.setType(location, o.material());
                     }
                 }
             }
