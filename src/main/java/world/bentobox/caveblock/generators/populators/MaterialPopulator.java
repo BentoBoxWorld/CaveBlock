@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 /**
  * This class allows filling given chunk with necessary blocks.
  */
@@ -76,11 +75,11 @@ public class MaterialPopulator extends BlockPopulator {
     /**
      * This method populates chunk with blocks.
      *
-     * @param worldInfo  World where population must be.
-     * @param random Randomness
-     * @param chunkX X coordinate of chunk
-     * @param chunkZ Z coordinate of chunk
-     * @param limitedRegion  Region were populator operates.
+     * @param worldInfo     World where population must be.
+     * @param random        Randomness
+     * @param chunkX        X coordinate of chunk
+     * @param chunkZ        Z coordinate of chunk
+     * @param limitedRegion Region were populator operates.
      */
     @Override
     public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {

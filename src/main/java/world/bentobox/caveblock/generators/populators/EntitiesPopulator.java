@@ -1,23 +1,22 @@
 package world.bentobox.caveblock.generators.populators;
 
 
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.World.Environment;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.generator.BlockPopulator;
+import org.bukkit.generator.LimitedRegion;
+import org.bukkit.generator.WorldInfo;
 import org.bukkit.util.BoundingBox;
 import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
+import world.bentobox.caveblock.Utils;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 /**
  * This class populates generated chunk with entities by random chance.
@@ -89,22 +88,27 @@ public class EntitiesPopulator extends BlockPopulator {
     /**
      * This method populates chunk with entities.
      *
-     * @param world  World where population must be.
-     * @param random Randomness
-     * @param chunk  Chunk were populator operates.
+     * @param worldInfo     World where population must be.
+     * @param random        Randomness
+     * @param chunkX        X coordinate of chunk
+     * @param chunkZ        Z coordinate of chunk
+     * @param limitedRegion Region where population operates.
      */
     @Override
-    public void populate(World world, Random random, Chunk chunk) {
-        int minHeight = world.getMinHeight();
-        int height = Math.min(world.getMaxHeight(), worldHeight) - 1;
+    public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {
+        int minHeight = worldInfo.getMinHeight();
+        int height = Math.min(worldInfo.getMaxHeight(), worldHeight) - 1;
 
-        for (Map.Entry<EntityType, Pair<Double, Integer>> entry : chances.get(world.getEnvironment()).entityChanceMap.entrySet()) {
+        for (Map.Entry<EntityType, Pair<Double, Integer>> entry : chances.get(worldInfo.getEnvironment()).entityChanceMap.entrySet()) {
             for (int subY = minHeight; subY < height; subY += 16) {
                 // Use double so chance can be < 1
                 if (random.nextDouble() * 100 < entry.getValue().x) {
                     int y = Math.min(height - 2, subY + random.nextInt(15));
                     // Spawn only in middle of chunk because bounding box will grow out from here
-                    this.tryToPlaceEntity(world, chunk.getBlock(7, y, 7), entry.getKey(), chances.get(world.getEnvironment()).mainMaterial);
+                    this.tryToPlaceEntity(
+                            worldInfo, Utils.getLocationFromChunkLocation(7, y, 7, chunkX, chunkZ),
+                            limitedRegion, entry.getKey(), chances.get(worldInfo.getEnvironment()).mainMaterial
+                    );
                 }
             }
         }
@@ -145,41 +149,43 @@ public class EntitiesPopulator extends BlockPopulator {
     /**
      * Places entities if there is room for them.
      *
-     * @param world            - World were mob must be spawned.
-     * @param block            - Block that was chosen by random.
-     * @param entity           - Entity that must be spawned.
+     * @param worldInfo        - World were mob must be spawned.
+     * @param location         - Location that was chosen by random.
+     * @param limitedRegion    - Region where entity must be spawned.
+     * @param entityType       - Entity that must be spawned.
      * @param originalMaterial - replacement material.
      */
-    private void tryToPlaceEntity(World world, Block block, EntityType entity, Material originalMaterial) {
-        if (!block.getType().equals(originalMaterial)) {
-            return;
-        }
-        // Spawn entity
-        Entity e = world.spawnEntity(block.getLocation().add(0.5, 0, 0.5), entity);
-        // Do not despawn
-        if (e instanceof LivingEntity livingEntity) livingEntity.setRemoveWhenFarAway(false);
+    private void tryToPlaceEntity(WorldInfo worldInfo, Location location, LimitedRegion limitedRegion, EntityType entityType, Material originalMaterial) {
+        if (!limitedRegion.isInRegion(location)) return;
+        if (!limitedRegion.getType(location).equals(originalMaterial)) return;
 
-        // Make space for entity based on the entity's size
-        BoundingBox bb = e.getBoundingBox();
+        Entity entity = limitedRegion.spawnEntity(location, entityType);
+        if (entity instanceof LivingEntity livingEntity) livingEntity.setRemoveWhenFarAway(false);
+
+        BoundingBox bb = entity.getBoundingBox();
         for (int x = (int) Math.floor(bb.getMinX()); x < bb.getMaxX(); x++) {
             for (int z = (int) Math.floor(bb.getMinZ()); z < bb.getMaxZ(); z++) {
                 int y = (int) Math.floor(bb.getMinY());
-                Block b = world.getBlockAt(x, y, z);
-                for (; y < bb.getMaxY(); y++) {
+                if (!limitedRegion.isInRegion(x, y, z)) {
+                    entity.remove();
+                    return;
+                }
+
+                for (; y <= bb.getMaxY(); y++) {
                     if (addon.getSettings().isDebug()) {
-                        addon.log("DEBUG: Entity spawn: " + world.getName() + " " + x + " " + y + " " + z + " " + e.getType());
+                        addon.log("DEBUG: Entity spawn: " + worldInfo.getName() + " " + x + " " + y + " " + z + " " + entity.getType());
                     }
-                    b = world.getBlockAt(x, y, z);
-                    if (!b.getType().equals(originalMaterial)) {
+
+                    if (!limitedRegion.isInRegion(x, y, z) || !limitedRegion.getType(x, y, z).equals(originalMaterial)) {
                         // Cannot place entity
-                        e.remove();
+                        entity.remove();
                         return;
                     }
-                    b.setType(WATER_ENTITIES.contains(entity) ? Material.WATER : Material.AIR);
+                    limitedRegion.setType(x, y, z, WATER_ENTITIES.contains(entityType) ? Material.WATER : Material.AIR);
                 }
                 // Add air block on top for all water entities (required for dolphin, okay for others)
-                if (WATER_ENTITIES.contains(entity) && b.getRelative(BlockFace.UP).getType().equals(originalMaterial)) {
-                    b.getRelative(BlockFace.UP).setType(Material.CAVE_AIR);
+                if (WATER_ENTITIES.contains(entityType) && limitedRegion.isInRegion(x, y, z) && limitedRegion.getType(x, y, z).equals(originalMaterial)) {
+                    limitedRegion.setType(x, y, z, Material.CAVE_AIR);
                 }
             }
         }
