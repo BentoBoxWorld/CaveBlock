@@ -1,6 +1,5 @@
 package world.bentobox.caveblock.generators;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -14,15 +13,17 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Class ChunkGeneratorWorld ...
  *
- * @author BONNe
- * Created on 27.01.2019
+ * @author tastybento
  */
 public class ChunkGeneratorWorld extends ChunkGenerator {
-
+  
     private static final int BLOB_SIZE = 1;
     private static final Map<Environment, List<Ore>> ORES;
     static {

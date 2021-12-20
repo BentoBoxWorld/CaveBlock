@@ -1,286 +1,282 @@
----
 caveblock:
   sign:
-    line0: "＆c方块洞穴"
-    line1: 欢迎！
-    line3: 开始挖掘！ ＆c <3
+    line0: "&c洞穴生存"
+    line1: "欢迎!"
     line2: "[name]"
+    line3: "开始挖掘吧! &c<3"
+
   informational:
-    to-nether: 真倒霉到地狱了。
-    to-the-end: 您已经到了末地。
-    to-normal: 回到你的洞穴。
+    to-nether: "太不走运了! 掉进了下界."
+    to-the-end: "您到达了末地."
+    to-normal: "回到您的洞穴."
   general:
     errors:
-      no-island: "＆c您没有洞穴！"
-      player-has-island: "＆c玩家已经有一个山洞了！"
-      player-has-no-island: "＆c该玩家没有洞穴！"
-      already-have-island: "＆c您已经有一个山洞！"
-      no-safe-location-found: "＆c在山洞找不到传送您的安全地点。"
-      not-owner: "＆c您不是洞穴的所有者！"
+      no-island: "&c您还没有洞穴!"
+      player-has-island: "&c玩家已有洞穴!"
+      player-has-no-island: "&c玩家还没有洞穴!"
+      already-have-island: "&c您已经拥有洞穴!"
+      no-safe-location-found: "&c无法将您传送到洞穴中, 因为没有找到安全的位置."
+      not-owner: "&c您不是您洞穴的主人!"
   commands:
     admin:
       team:
         add:
-          name-has-island: "＆c [name]有一个山洞。首先注销或删除它们！"
-          success: "＆b [name]＆a已添加到＆b [owner]＆a的洞穴中。"
+          name-has-island: "&c[name] 已有洞穴. 请先反注册或删除它们!"
+          success: "&b[name]&a 已被添加到 &b[owner]&a 的洞穴."
         kick:
-          success: "＆b [name]＆ahas被踢出了＆b [owner]＆a的山洞。"
+           success: "&b[name] &a已被 &b[owner]&a 的洞穴移出."
         setowner:
-          description: 将洞穴所有权转移给玩家
-          already-owner: "＆c [name]已经是该洞穴的所有者！"
-          success: "＆b [name]＆a现在是这个洞穴的所有者。"
+          description: "将洞穴的所有权转让给玩家"
+          already-owner: "&c[name] 玩家已经是此洞穴的主人了!"
+          success: "&b[name]&a 现在是此洞穴的主人."
       range:
-        description: 管理员洞穴范围命令
+        description: "管理员洞穴边界命令"
         display:
-          description: 显示/隐藏洞穴范围指示器
+          description: "显示/隐藏洞穴边界"
           hint: |-
-            ＆c红色屏障图标＆f显示当前的洞穴保护范围限制。
-            ＆7灰色粒子＆f显示最大洞穴极限。
-            ＆a绿色粒子＆f如果洞穴保护范围不同于默认保护范围，则显示默认保护范围。
+            &c 红色屏障图标 &f 显示洞穴现在被保护的范围.
+            &7 灰色粒子 &f 显示最大边界范围.
+            &a 绿色粒子 &f 显示默认被保护的边界, 如果现在的边界不与其重合的话.
         set:
-          description: 设置洞穴保护范围
-          success: "＆a将洞穴保护范围设置为＆b [number]＆a。"
+          description: "设置洞穴被保护的边界范围"
+          success: "&a洞穴被保护的范围更新至 &b[number]&a."
         reset:
-          description: 将洞穴保护范围重置为世界默认值
-          success: "＆a将洞穴保护范围重置为＆b [number]＆a。"
+          description: "重置洞穴被保护的范围到当前世界的默认值"
+          success: "&a重置洞穴被保护的范围至 &b[number]&a."
       register:
-        description: 注册玩家到您所在的无人洞
-        registered-island: "＆a注册玩家到[xyz]洞穴。"
-        already-owned: "＆c洞穴已被另一位玩家拥有！"
-        no-island-here: "＆c这里没有洞穴。确认做一个。"
-        in-deletion: "＆c该洞穴空间当前正在被删除。等会再试。"
-        cannot-make-island: "＆c抱歉，不能在此处放置洞穴。请参阅控制台以获取可能的错误。"
+        description: "将玩家注册到您所在的未被拥有的洞穴中"
+        registered-island: "&a在 [xyz] 将玩家注册到洞穴中."
+        already-owned: "&c此洞穴已被其他玩家所有!"
+        no-island-here: "&c这里还没有 box. 确认以创建一个."
+        in-deletion: "&c此区域正在重新生成. 请稍后重试."
+        cannot-make-island: "&c抱歉, 无法在此处生成洞穴. 从后台查看可能的错误."
       unregister:
-        description: 从山洞中注销所有者，但保留山洞块
-        unregistered-island: "＆a来自[xyz]洞穴的未注册玩家。"
+        description: "反注册洞穴的主人, 同时保留洞穴中的方块"
+        unregistered-island: "&a在 [xyz] 将玩家从洞穴中反注册."
       info:
-        description: 获取有关您所在位置或玩家洞穴的信息
-        no-island: "＆c您现在不在山洞里..."
-        title: "==========洞穴信息============"
-        islands-in-trash: "＆d玩家在垃圾桶中有洞穴。"
-        is-spawn: 岛是出生点
+        description: "获取您所在区域或相应玩家洞穴的信息"
+        no-island: "&c您未在一个洞穴中......"
+        title: "========== 洞穴信息 ============"
+        islands-in-trash: "&d玩家拥有废弃的洞穴."
+        is-spawn: "该区域是主城"
       switchto:
-        description: 将玩家的洞穴切换到垃圾桶中的第一洞
-        out-of-range: "＆c数字必须介于1到[number]之间。使用＆l [label]垃圾[player]＆r＆c查看洞穴编号"
+        description: "将玩家的洞穴切换到废弃的洞穴中的第一位"
+        out-of-range: "&c数字必须从 1 到 [number]. 输入 &l[label] trash [player] &r&c来查看洞穴数量"
       trash:
-        no-unowned-in-trash: "＆c垃圾桶中没有无人认领的洞穴"
-        no-islands-in-trash: "＆c玩家没有洞穴在垃圾桶中"
-        description: 在垃圾桶中显示无人洞穴或玩家的洞穴
-        title: "＆d ============垃圾洞==========="
+        no-unowned-in-trash: "&c废弃的洞穴中没有无主人的洞穴"
+        no-islands-in-trash: "&c玩家没有废弃的洞穴"
+        description: "在废弃的洞穴中显示无主人的洞穴或玩家的洞穴"
+        title: "&d=========== 废弃的洞穴 ==========="
         count: "&l&d洞穴 [number]:"
-        use-switch: "＆a使用＆l [label]切换到<player> <number>＆r＆a将玩家洞穴切换到垃圾桶"
+        use-switch: "&a输入 &l[label] switchto <player> <number>&r&a 将玩家切换到废弃的洞穴中"
       emptytrash:
-        description: 清除玩家的垃圾桶，或垃圾桶中所有未拥有的洞穴
+        description: "给玩家清除废弃的洞穴, 或清除所有无主人的废弃的洞穴"
       setrange:
-        description: 设定玩家洞穴的范围
-        range-updated: 洞穴范围更新为[数字]
+        description: "设置玩家洞穴的范围"
+        range-updated: "洞穴范围更新至 [number]"
       tp:
-        description: 传送到玩家的洞穴
+        description: "传送到玩家的洞穴"
       getrank:
-        description: 在他们的洞穴中获得玩家的排名
-        rank-is: "＆aRank在他们的洞穴中[排名]。"
+        description: "查看玩家在其洞穴中的地位"
+        rank-is: "&a玩家在其洞穴中的地位是 [rank]."
       setrank:
-        description: 设定玩家在洞穴中的等级
+        description: "设置玩家在其洞穴中的地位"
       setspawn:
-        description: 为这个世界设置一个洞穴
-        already-spawn: "＆c这个洞穴已经是产卵了！"
-        no-island-here: "＆c这里没有洞穴。"
-        confirmation: "＆c您确定要将此洞穴设置为这个世界的生成物吗？"
+        description: "将洞穴设置为当前世界的主城"
+        already-spawn: "&c此洞穴已经是主城了!"
+        no-island-here: "&c这里还没有洞穴."
+        confirmation: "&c确认要将将洞穴设置为当前世界的主城吗?"
       resetflags:
-        description: 将所有洞穴重置为config.yml中的默认标志设置
+        description: "重置所有洞穴的 flag 值成 config.yml 中的默认值"
       delete:
-        description: 删除玩家的洞穴
-        cannot-delete-owner: "＆c删除所有洞穴成员之前，必须将其踢出洞穴。"
-        deleted-island: "＆e [xyz]＆ahas中的＆aIsland已成功删除。"
+        description: "删除一名玩家的洞穴"
+        cannot-delete-owner: "&c在删除此洞穴之前, 必须移出此洞穴中的所有成员."
+        deleted-island: "&a成功删除位于 &e[xyz] &a处的洞穴."
     island:
       go:
-        description: 传送你到你的洞穴
-        teleport: "＆a将您传送到山洞。"
+        description: "传送到您的洞穴"
+        teleport: "&a正在传送到您的洞穴."
       help:
-        description: 主要洞穴命令
+        description: "洞穴主命令"
       create:
-        description: 使用可选的蓝图创建一个洞穴（需要许可）
-        too-many-islands: "＆c这个世界上有太多的洞穴：没有足够的空间来创建您的洞穴。"
-        unable-create-island: "＆c您的洞穴无法生成，请与管理员联系。"
-        creating-island: "＆a创建您的洞穴，请稍等..."
-        pick: "＆a选择一个山洞"
+        description: "使用模板创建一个新的洞穴 (需要权限)"
+        too-many-islands: "&c世界中含有太多洞穴了: 没有空间创建您的洞穴."
+        unable-create-island: "&c生成洞穴失败, 请联系管理员."
+        creating-island: "&a生成洞穴中, 请稍后..."
+        pick: "&a选择一个洞穴"
       info:
-        description: 显示有关您的洞穴或玩家洞穴的信息
+        description: "显示您或相应玩家的洞穴信息"
       near:
-        description: 显示您周围的洞穴名称
-        the-following-islands: "＆a附近有以下洞穴："
-        no-neighbors: "＆c您没有紧邻的洞穴！"
+        description: "显示周围洞穴的名称"
+        the-following-islands: "&a周围的洞穴有:"
+        no-neighbors: "&c您的周围没有其它洞穴!"
       reset:
-        description: 重新启动您的洞穴并删除旧的
-        must-remove-members: "＆c您必须先从洞穴中删除所有成员，然后才能重新启动洞穴（/岛国队踢&lt;player&gt;）。"
+        description: "删除现有的洞穴并重新开始"
+        must-remove-members: "&c在您重新开始之前, 您必须移出洞穴中的所有成员 (/island team kick <player>)."
       sethome:
-        must-be-on-your-island: "＆c您必须在洞穴里才能回家！"
-        home-set: "＆6您的洞穴之家已设置为您当前的位置。"
+        must-be-on-your-island: "&c必须在洞穴中才能设置家的位置!"
+        home-set: "&6洞穴家的位置已设置到您当前位置."
       setname:
-        description: 为你的洞穴命名
+        description: "设置您洞穴的名称"
       resetname:
-        description: 重设您的洞穴名称
+        description: "重置您洞穴的名称"
       team:
         coop:
-          description: 让玩家在你的洞穴中进行排名
+          description: "将玩家设置为您洞穴的副 OP"
         uncoop:
-          you-are-no-longer-a-coop-member: "＆c您不再是[name]的洞穴的鸡舍成员"
-          all-members-logged-off: "＆c所有洞穴成员都已注销，因此您不再是[name]洞穴的合作伙伴"
+          you-are-no-longer-a-coop-member: "&c您不再是 [name] 的洞穴的副 OP 了"
+          all-members-logged-off: "&c洞穴的所有玩家都离线了, 因此您不再是 [name] 的洞穴的副 OP 了"
         trust:
-          description: 给玩家一个值得信赖的等级
+          description: "将玩家设置为您洞穴的信任者"
         invite:
-          description: 邀请玩家加入你的洞穴
-          name-has-invited-you: "＆a [name]邀请您加入他们的洞穴。"
-          you-will-lose-your-island: "＆c警告！如果您接受，您将迷路！"
+          description: "邀请一名玩家到您的洞穴中"
+          name-has-invited-you: "&a[name] 邀请您加入他(她)的洞穴."
+          you-will-lose-your-island: "&c注意! 如果接受邀请, 您将失去现有的洞穴!"
           errors:
-            island-is-full: "＆c您的洞穴已满，您不能邀请其他任何人。"
+            island-is-full: "&c您的洞穴已满, 无法再邀请更多的玩家."
           accept:
-            you-joined-island: "＆a您加入了一个山洞！使用/ [标签]小组信息来查看其他成员。"
-            name-joined-your-island: "＆a [name]加入了您的洞穴！"
+            you-joined-island: "&a您加入了一个洞穴! 输入 /[label] team info 来查看其他成员."
+            name-joined-your-island: "&a[name] 加入了您的洞穴!"
             confirmation: |-
-              ＆c确定要接受此邀请吗？
-              ＆c＆l您会＆nLOSE＆r＆c＆ly您当前的洞穴！
+              &c确认要接收此邀请?
+              &c&l您将 &n失去&r &c&l现有的洞穴!
           reject:
-            you-rejected-invite: "＆a您拒绝了加入洞穴的邀请。"
-            name-rejected-your-invite: "＆c [name]拒绝了您的洞穴邀请！"
+            you-rejected-invite: "&a您拒绝了加入洞穴的邀请."
+            name-rejected-your-invite: "&c[name] 拒绝了您加入洞穴的邀请!"
           cancel:
-            description: 取消待处理的邀请，加入你的洞穴
+            description: "取消待接受/拒绝的洞穴加入邀请"
         leave:
-          description: 离开你的洞穴
-          left-your-island: "＆c [name]＆cleft your cave"
+          description: "退出您的洞穴"
+          left-your-island: "&c[name] &c退出了您的洞穴"
         kick:
-          description: 从您的洞穴中删除一个成员
-          owner-kicked: "＆c主人将您踢出山洞！"
-          success: "＆b [name]＆ahas被踢出您的山洞。"
+          description: "从您的洞穴中移出一名玩家"
+          owner-kicked: "&c洞穴的主人移出了您!"
+          success: "&b[name] &a从您的洞穴中被移出."
         demote:
-          description: 将您的玩家降级
+          description: "降低洞穴中一名玩家的地位"
         promote:
-          description: 提升您的玩家排名
+          description: "提升洞穴中一名玩家的地位"
         setowner:
-          description: 将您的洞穴所有权转让给成员
+          description: "将洞穴转让给一名成员"
           errors:
-            target-is-not-member: 该球员不属于您的洞穴团队！
-          name-is-the-owner: "＆a [name]现在是洞穴所有者！"
-          you-are-the-owner: "＆a您现在是洞穴主人！"
+            target-is-not-member: "&c玩家不在您洞穴的队伍中!"
+          name-is-the-owner: "&a[name] 现在是洞穴的主人!"
+          you-are-the-owner: "&a您成为了洞穴的主人!"
       ban:
-        description: 禁止玩家进入您的洞穴
-        cannot-ban-more-players: "＆c您已达到禁令限制，您不能再从您的洞穴禁赛。"
-        player-banned: "＆b [name]＆c现在被禁止进入您的洞穴。"
-        owner-banned-you: "＆b [name]＆c禁止您进入他们的洞穴！"
-        you-are-banned: "＆b您被禁止进入这个洞穴！"
+        description: "从洞穴中禁止一名玩家"
+        cannot-ban-more-players: "&c达到最大禁止玩家的数量, 无法再禁止更多的玩家."
+        player-banned: "&b[name]&c 被您的洞穴禁止."
+        owner-banned-you: "&b[name]&c 的洞穴禁止了您!"
+        you-are-banned: "&b您已被此洞穴禁止!"
       unban:
-        description: 禁止玩家进入您的洞穴
-        player-unbanned: "＆b [name]＆a现在不受您的洞穴限制。"
-        you-are-unbanned: "＆b [name]＆a禁止您进入他们的洞穴！"
+        description: "从洞穴中解封一名玩家"
+        player-unbanned: "&b[name]&a 被您的洞穴解封."
+        you-are-unbanned: "&b[name]&a 的洞穴解封了您!"
       banlist:
-        noone: "＆a没有人被禁止进入这个洞穴。"
+        noone: "&a没有玩家被此洞穴禁止."
       settings:
-        description: 显示洞穴设置
+        description: "显示洞穴设置"
       expel:
-        description: 将玩家驱逐出您的洞穴
-        not-on-island: "＆c那个玩家不在你的洞穴里！"
-        player-expelled-you: "＆b [name]＆c将您赶出了山洞！"
+        description: "从洞穴中请出一名玩家"
+        not-on-island: "&c该玩家不在您洞穴中!"
+        player-expelled-you: "&c您被 &b[name]&c 的洞穴请出!"
+
   ranks:
-    owner: 矮人王
-    sub-owner: 矮人骑士
-    member: 侏儒
-    trusted: 值得信赖
-    coop: 鸡舍
-    visitor: 人的
-    banned: 兽人
+    owner: "矮人王"
+    sub-owner: "矮人骑士"
+    member: "小矮人"
+    trusted: "信任者"
+    coop: "副 OP"
+    visitor: "人类"
+    banned: "被禁止玩家"
+
   protection:
     flags:
       ENDERMAN_GRIEFING:
         description: |-
-          ＆aEndermen可以删除
-          ＆a洞穴
-        name: 恩德曼悲痛
+          &a末影人可以
+          &a移动洞穴中的方块
+        name: "末影人破坏"
       ENTER_EXIT_MESSAGES:
-        island: "[名字]的洞穴"
+        island: "[name] 的洞穴"
       GEO_LIMIT_MOBS:
         description: |-
-          ＆a删除小怪
-          ＆外部保护
-          ＆占用空间
-        name: "＆e限制小怪进入山洞"
+          &a移除在洞穴保护
+          &a范围外的生物
+        name: "&e将生物限制在洞穴内"
       ISLAND_RESPAWN:
         description: |-
-          ＆a玩家重生
-          和他们的洞穴
-        name: 洞穴重生
+          &a玩家在他们的
+          &a洞穴中重生
+        name: "洞穴中重生"
       LIQUIDS_FLOWING_OUT:
-        name: 液体在洞穴外流动
+        name: "流体流出洞穴"
         description: |-
-          ＆a切换液体是否可以流出
-          ＆a洞穴的保护范围。
+          &a切换流体是否能
+          &a流出洞穴保护范围.
       LOCK:
-        description: 拨动锁
-        name: 锁洞
+        description: "切换是否禁止访客访问"
+        name: "锁定洞穴"
       NATURAL_SPAWNING_OUTSIDE_RANGE:
-        name: 自然生物产生范围外
+        name: "常规生物在保护范围外生成"
         description: |-
-          ＆a切换是否生物（动物和
-          ＆amonsters）可以在外面自然产卵
-          ＆aa洞穴的保护范围。
+          &a切换常规生物 (动物和
+          &a怪物) 是否能在洞穴保护
+          &a范围外生成.
 
-          ＆c请注意，这不会阻止生物
-          ＆cto通过暴民生成器或生成器生成
-          ＆cegg。
+          &c注意, 此操作不能防止
+          &c洞穴保护范围外的
+          &c刷怪笼或刷怪蛋生成生物.
       OFFLINE_GROWTH:
         description: |-
-          ＆a禁用时，植物
-          ＆a不会在洞穴中生长
-          ＆awhen所有成员均处于离线状态。
-          ＆a可以帮助减少延迟。
-        name: 离线增长
+          &a如果禁用, 当洞穴中的所有成员
+          &a都离线时, 植物将停止生长.
+          &a或许能减少服务器卡顿.
+        name: "离线生长"
       OFFLINE_REDSTONE:
         description: |-
-          ＆a禁用时，红石
-          ＆a不会在山洞中运作
-          ＆a所有成员均处于离线状态。
-          ＆a可以帮助减少延迟。
-        name: 离线红石
+          &a如果禁用, 当洞穴中的所有成员
+          &a都离线时, 红石将停止运作.
+          &a或许能减少服务器卡顿.
+        name: "离线红石"
       PISTON_PUSH:
         description: |-
-          ＆a允许活塞推动
-          ＆在洞穴外面
-        name: 活塞推
+          &a允许活塞推动
+          &a洞穴外的方块
+        name: "活塞推动"
       REMOVE_MOBS:
         description: |-
-          ＆a移除怪物
-          ＆前往洞穴
-        name: 移除怪物
+          &a传送到洞穴中时,
+          &a移除洞穴中的所有怪物
+        name: "Remove monsters"
       TREES_GROWING_OUTSIDE_RANGE:
-        name: 树木生长范围外
+        name: "树木在洞穴保护范围外生长"
         description: |-
-          ＆a切换树木是否可以在
-          是否使用＆acave的保护范围。
+          &a切换树木是否能长到
+          &a洞穴保护范围之外.
       PREVENT_TELEPORT_WHEN_FALLING:
-        name: 跌倒时防止传送
+        name: "掉落时禁止传送"
         description: |-
-          ＆a防止玩家被传送
-          使用命令返回他们的洞穴
-          ＆aif他们跌倒了。
-        hint: "＆c跌倒时无法传送回洞穴。"
-    locked: "＆c这个洞穴被锁了！"
-    protected: "＆cCave保护：[说明]"
-    spawn-protected: "＆cSpawn受保护：[描述]"
+          &a当玩家正在掉落时
+          &a禁止他们通过指令进行传送.
+        hint: "&c在掉落时不能传送."
+    locked: "&c该洞穴已禁止访客访问!"
+    protected: "&c没有权限: [description]"
+    spawn-protected: "&c没有权限: [description]"
+
     panel:
       PROTECTION:
         description: |-
-          ＆a保护设置
-          ＆a这个洞
+          &a洞穴的
+          &a保护设置
       SETTING:
         description: |-
-          ＆a常规设置
-          ＆a这个洞
+          &a洞穴的
+          &a一般设置
+
 protection:
   flags:
     SKY_WALKER_FLAG:
-      hint: 允许在洞穴顶上行走。
-      name: 天空行者
-      description: |-
-        ＆5＆o这允许启用/禁用
-        ＆5＆o能力继续前进
-        ＆5＆otop洞穴世界
-        ＆5＆o没有额外的权限。
+      description: "&5&o这将允许/禁止\n&5&o没有额外权限的玩家\n&5&o在洞穴世界的顶部\n&5&o行走."
+      name: "天空行者"
+      hint: "允许在洞穴的天花板上行走."

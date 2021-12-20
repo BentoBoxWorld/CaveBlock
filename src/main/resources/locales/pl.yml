@@ -1,0 +1,301 @@
+---
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+    line1: Witaj!
+    line2: "[name]"
+    line3: Zacznij kopać! &c<3
+  informational:
+    to-nether: Uuu... Pech, wpadłes do Netheru.
+    to-the-end: To już jest koniec.
+    to-normal: Powrót do jaskini.
+  general:
+    errors:
+      no-island: "&cNie masz jaskini!"
+      player-has-island: "&cGracz już posiada jaskinie!"
+      player-has-no-island: "&cTen gracz nie posiada jaskini!"
+      already-have-island: "&cJuż masz jaskinie!"
+      no-safe-location-found: "&cNie można znaleźć bezpiecznego miejsca dla teleportu
+        do jaskini."
+      not-owner: "&cTo nie twoja jaskinia!"
+  commands:
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] posiada jaskinie. Pierw wyrejestruj lub usuń!"
+          success: "&b[name]&a został dodany do jaskini gracza &b[owner]."
+        kick:
+          success: "&b[name] &azostał wyrzucony z jaskini gracza &b[owner]."
+        setowner:
+          description: przenosi własności jaskini do gracza
+          already-owner: "&c[name] jest już właścicielem tej jaskini!"
+          success: "&b name]&a jest teraz właścicielem tej jaskini."
+      range:
+        description: Zasięg komendy Jaskinii Admina
+        display:
+          description: pokaż/ukryj wskaźniki zasięgu jaskiń
+          hint: |-
+            &cCzerwone ikony bariery &fpokazują aktualny limit zasięgu chronionego jaskini.
+            &7Szare cząsteczki &fpokazują maksymalny limit jaskini.
+            &aZielone cząsteczki &fpokazują domyślny zasięg ochrony, jeśli zasięg ochrony jaskini różni się od niego.
+        set:
+          description: ustawia zasięg ochrony jaskini
+          success: "&aUstaw zasięg ochrony jaskini na &b[liczba]&a."
+        reset:
+          description: resetuje zasięg chroniony jaskini do wartości domyślnych świata
+          success: "&aZresetuj zasięg ochrony jaskini na &b[numer]&a."
+      register:
+        description: zarejestruj gracza w niezarejestrowanej jaskini, w której się
+          znajdujesz
+        registered-island: "&aZarejestrowano gracza do jaskini w [xyz]."
+        already-owned: "&cJaskinia jest już własnością innego gracza!"
+        no-island-here: "&cTutaj nie ma jaskini. Potwierdź, aby utworzyć."
+        in-deletion: "&cTo miejsce jaskini jest obecnie usuwane. Spróbuj później."
+        cannot-make-island: "&cPrzepraszamy, nie można tu umieścić jaskini. Zobacz
+          konsolę, aby poznać możliwe błędy."
+      unregister:
+        description: wyrejestruj właściciela z jaskini, ale zachowaj bloki jaskiniowe
+        unregistered-island: "&aNiezarejestrowany gracz z jaskini w [xyz]."
+      info:
+        description: uzyskaj informacje o tym, gdzie jesteś lub o jaskini gracza
+        no-island: "&cNie jesteś teraz w jaskini ..."
+        title: "======== Informacje o jaskini ========"
+        islands-in-trash: "&dGracz ma jaskinie w koszu."
+        is-spawn: Wyspa jest jaskinią spawnu
+      switchto:
+        description: zmień jaskinię gracza na ponumerowaną znajdującą się w koszu
+        out-of-range: "&cNumer musi mieścić się w przedziale od 1 do [number]. Użyj
+          &l[label] trash [player], &r&caby zobaczyć numery jaskiń"
+      trash:
+        no-unowned-in-trash: "&cŻadnych bezpańskich jaskiń w śmieciach"
+        no-islands-in-trash: "&cGracz nie ma jaskiń w koszu"
+        description: pokaż bezpańskie jaskinie lub jaskinie graczy w śmieciach
+        title: "&d=========== Jaskinie w koszu ==========="
+        count: "&l&dJaskinia [number]:"
+        use-switch: "&aUżyj &l[label] switchto <player> <number>&r&a aby przełączyć
+          gracza do jaskini w koszu"
+      emptytrash:
+        description: Usuń śmieci dla gracza lub wszystkie bezpańskie jaskinie w koszu
+      setrange:
+        description: ustaw zasięg jaskini gracza
+        range-updated: Zasięg jaskiń został zaktualizowany do [number]
+      tp:
+        description: teleportuj się do jaskini gracza
+      getrank:
+        description: zdobądź rangę gracza w swojej jaskini
+        rank-is: "&aRank to [range] w ich jaskini."
+      setrank:
+        description: ustaw rangę gracza w jego jaskini
+      setspawn:
+        description: ustaw jaskinię jako spawn dla tego świata
+        already-spawn: "&cTa jaskinia już się odradza!"
+        no-island-here: "&cNie ma tu jaskini."
+        confirmation: "&cCzy na pewno chcesz ustawić tę jaskinię jako miejsce odrodzenia
+          tego świata?"
+      resetflags:
+        description: Zresetuj wszystkie jaskinie do domyślnych ustawień flag w config.yml
+      delete:
+        description: usuwa jaskinię gracza
+        cannot-delete-owner: "&cWszyscy członkowie jaskini muszą zostać wyrzuceni
+          z jaskini przed jej usunięciem."
+        deleted-island: "&aWyspa w &e[xyz] &azostała pomyślnie usunięta."
+    island:
+      go:
+        description: teleportować cię do swojej jaskini
+        teleport: "&aTeleportuję Cię do Twojej jaskini."
+      help:
+        description: Główne dowództwo jaskini
+      create:
+        description: stwórz jaskinię, korzystając z opcjonalnego planu (wymaga pozwolenia)
+        too-many-islands: "&cNa tym świecie jest zbyt wiele jaskiń: nie ma wystarczająco
+          dużo miejsca, aby stworzyć twoją."
+        unable-create-island: "&cTwoja jaskinia nie może zostać wygenerowana, skontaktuj
+          się z administratorem."
+        creating-island: "&aTworzenie jaskini, proszę chwilę poczekać..."
+        pick: "&aWybierz jaskinię"
+      info:
+        description: wyświetlaj informacje o swojej jaskini lub jaskini gracza
+      near:
+        description: pokaż nazwy sąsiednich jaskiń wokół ciebie
+        the-following-islands: "&aW pobliżu znajdują się następujące jaskinie:"
+        no-neighbors: "&cNie masz bezpośrednio sąsiadujących jaskiń!"
+      reset:
+        description: uruchom ponownie jaskinię i usuń starą
+        must-remove-members: "&cMusisz usunąć wszystkich członków ze swojej jaskini,
+          zanim będziesz mógł ją ponownie uruchomić (/island team kick <gracz>)."
+      sethome:
+        must-be-on-your-island: "&cMusisz być w swojej jaskini, aby wrócić do domu!"
+        home-set: "&6Twój dom w jaskini został ustawiony na bieżącą lokalizację."
+      setname:
+        description: ustaw nazwę dla swojej jaskini
+      resetname:
+        description: zresetuj nazwę jaskini
+      team:
+        coop:
+          description: zrób ranking kooperacyjny gracza w swojej jaskini
+        uncoop:
+          you-are-no-longer-a-coop-member: "&cNie jesteś już członkiem współpracy
+            w jaskini [name]"
+          all-members-logged-off: "&cWszyscy członkowie jaskini wylogowali się, więc
+            nie jesteś już członkiem kooperacji w jaskini [name]"
+        trust:
+          description: dać graczowi zaufaną rangę w swojej jaskini
+        invite:
+          description: zaproś gracza do swojej jaskini
+          name-has-invited-you: "&a[name] zaprasza Cię do swojej jaskini."
+          you-will-lose-your-island: "&cOSTRZEŻENIE! Stracisz swoją jaskinię, jeśli
+            się zgodzisz!"
+          errors:
+            island-is-full: "&cTwoja jaskinia jest pełna, nie możesz nikogo zaprosić."
+          accept:
+            you-joined-island: "&aDołączyłeś do jaskini! Użyj /[etykieta] informacji
+              o zespole, aby zobaczyć innych członków."
+            name-joined-your-island: "&a[name] dołączył do Twojej jaskini!"
+            confirmation: |-
+              &cCzy na pewno chcesz przyjąć to zaproszenie?
+              &c&lZgubisz&n&r &c&lyswoją obecną jaskinię!
+          reject:
+            you-rejected-invite: "&aOdrzuciłeś zaproszenie do jaskini."
+            name-rejected-your-invite: "&c[name] odrzucił Twoje zaproszenie do jaskini!"
+          cancel:
+            description: anuluj oczekujące zaproszenie do swojej jaskini
+        leave:
+          description: opuść swoją jaskinię
+          left-your-island: "&c[name] &rozszczep swoją jaskinię"
+        kick:
+          description: usuń członka ze swojej jaskini
+          owner-kicked: "&cWłaściciel wykopał cię z jaskini!"
+          success: "&b[name] &został wyrzucony z Twojej jaskini."
+        demote:
+          description: zdegraduj gracza w swojej jaskini w dół o rangę
+        promote:
+          description: awansować gracza w swojej jaskini na wyższą rangę
+        setowner:
+          description: przenieść własność jaskini na członka
+          errors:
+            target-is-not-member: "&cTen gracz nie jest częścią twojej drużyny jaskiniowej!"
+          name-is-the-owner: "&a[name] jest teraz właścicielem jaskini!"
+          you-are-the-owner: "&aJesteś teraz właścicielem jaskini!"
+      ban:
+        description: zbanuj gracza ze swojej jaskini
+        cannot-ban-more-players: "&c Osiągnąłeś limit banów, nie możesz zbanować więcej
+          graczy ze swojej jaskini."
+        player-banned: "&b[name]&c jest teraz zablokowany w Twojej jaskini."
+        owner-banned-you: "&b[name]&c zabronił Ci wstępu do swojej jaskini!"
+        you-are-banned: "&bNie masz dostępu do tej jaskini!"
+      unban:
+        description: odbanuj gracza z twojej jaskini
+        player-unbanned: "&b[name]&a jest teraz odblokowany w Twojej jaskini."
+        you-are-unbanned: "&b[name]&a odblokował cię w swojej jaskini!"
+      banlist:
+        noone: "&aNikt nie jest zabroniony w tej jaskini."
+      settings:
+        description: wyświetl ustawienia jaskini
+      expel:
+        description: wyrzuć gracza ze swojej jaskini
+        not-on-island: "&cTego gracza nie ma w twojej jaskini!"
+        player-expelled-you: "&b[name]&c wyrzucił cię z jaskini!"
+  ranks:
+    owner: Król krasnoludów
+    sub-owner: Krasnoludzki Rycerz
+    member: Krasnolud
+    trusted: Zaufane
+    coop: Kooperacja
+    visitor: Człowiek
+    banned: Ork
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aEndermen może usunąć
+          &blokady z jaskiń
+        name: Rozpacz Endermana
+      ENTER_EXIT_MESSAGES:
+        island: Jaskinia [name]
+      GEO_LIMIT_MOBS:
+        description: |-
+          &aUsuń moby, które idą
+          &poza chronionym
+          &ostań w przestrzeni
+        name: "&eOgranicz moby do jaskini"
+      ISLAND_RESPAWN:
+        description: |-
+          &aGracze odradzają się
+          &w ich jaskini
+        name: Odrodzenie w jaskini
+      LIQUIDS_FLOWING_OUT:
+        name: Płyny wypływające poza jaskinie
+        description: |-
+          &aPrzełącz, czy płyny mogą wypływać na zewnątrz
+          &a zasięgu ochrony jaskini.
+      LOCK:
+        description: Przełącz blokadę
+        name: Zablokuj jaskinię
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: Naturalne stworzenie odradzające się poza zasięgiem
+        description: |-
+          &aPrzełącz czy stworzenia (zwierzęta i
+          i potwory) mogą naturalnie odradzać się na zewnątrz
+          &aa zasięg ochrony jaskini.
+
+          &cPamiętaj, że nie zapobiega to stworzeniom
+          &cby odradzać się za pomocą generatora mobów lub spawnu
+          &ceg.
+      OFFLINE_GROWTH:
+        description: |-
+          &aPo wyłączeniu rośliny
+          &nie będzie rosnąć w jaskiniach
+          &kiedy wszyscy członkowie są offline.
+          &aMoże pomóc zmniejszyć opóźnienia.
+        name: Rozwój offline
+      OFFLINE_REDSTONE:
+        description: |-
+          &aKiedy wyłączone, czerwony kamień
+          &nie będzie działać w jaskiniach
+          &gdzie wszyscy członkowie są offline.
+          &aMoże pomóc zmniejszyć opóźnienia.
+        name: Offline Redstone
+      PISTON_PUSH:
+        description: |-
+          &aZezwalaj tłokom na pchanie
+          &blokuje na zewnątrz jaskini
+        name: Popychanie tłoka
+      REMOVE_MOBS:
+        description: |-
+          &aUsuń potwory, gdy
+          &ateleport do jaskini
+        name: Usuń potwory
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: Drzewa rosnące poza zasięgiem
+        description: |-
+          &aPrzełącz, czy drzewa mogą rosnąć na zewnątrz i
+          zakres ochrony &acave, czy nie.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: Zapobiegaj teleportacji podczas upadku
+        description: |-
+          &aZapobiegaj teleportacji graczy
+          &z powrotem do swojej jaskini za pomocą poleceń
+          i jeśli spadają.
+        hint: "&cNie możesz teleportować się z powrotem do swojej jaskini, gdy spadasz."
+    locked: "&cTa jaskinia jest zamknięta!"
+    protected: "&cJaskinia chroniona: [description]"
+    spawn-protected: "&cSpawn chroniony: [description]"
+    panel:
+      PROTECTION:
+        description: |-
+          &aUstawienia ochrony
+          &dla tej jaskini
+      SETTING:
+        description: |-
+          &aUstawienia ogólne
+          &dla tej jaskini
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: |-
+        &5&oPozwala to włączyć/wyłączyć
+        &5&możliwość chodzenia po
+        &5&otop świata jaskiń
+        &5&obez dodatkowych uprawnień.
+      name: Sky Walker
+      hint: Pozwala chodzić po suficie jaskini.

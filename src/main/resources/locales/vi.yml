@@ -1,0 +1,292 @@
+###########################################################################################
+# This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
+# the one at http://yaml-online-parser.appspot.com                                        #
+###########################################################################################
+
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+    line1: "Chào mừng!"
+    line2: "[name]"
+    line3: "Đào đi! &c<3"
+
+  informational:
+    to-nether: "Rất tệ khi vào địa ngục."
+    to-the-end: "Kết thúc rồi."
+    to-normal: "Về hang của bạn."
+  # Override BentoBox default command strings
+  # General strings
+  general:
+    errors:
+      no-island: "&cBạn không có hang!"
+      player-has-island: "&cNgười chơi đã có hang!"
+      player-has-no-island: "&cNgười chơi không có hang!"
+      already-have-island: "&cBạn đã có hang!"
+      no-safe-location-found: "&cKhông thể tìm thấy vị trí an toàn trong hang."
+      not-owner: "&cBạn không phải chủ hang!"
+  commands:
+    # Parameters in <> are required, parameters in [] are optional
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] đã có hang. Huỷ hoặc xoá nó trước!"
+          success: "&b[name]&a đã được thêm vào hang của &b[owner]&a."
+        kick:
+           success: "&b[name] &ađã bị đuổi từ hang của &b[owner]&a."
+        setowner:
+          description: "chuyển quyền chủ hang cho người chơi"
+          already-owner: "&c[name] đã là chủ hang!"
+          success: "&b[name]&a giờ là chủ hang."
+      range:
+        description: "lệnh độ rộng hang của Admin"
+        display:
+          description: "hiện/ẩn đánh dấu độ rộng hang"
+          hint: |-
+            &cKí tự Rào chặn đỏ &fthể hiện độ rộng vùng bảo vệ của hang.
+            &7Hạt Xám &fthể hiện giới hạn của hang.
+            &aHạt Xanh &fthể hiện vùng bảo vệ mặc định nếu vùng bảo vệ của hang khác mặc định.
+        set:
+          description: "chỉnh vùng bảo vệ hang"
+          success: "&aĐã chỉnh vùng bảo vệ hang thành &b[number]&a."
+        reset:
+          description: "chỉnh vùng bảo vệ hang về mặc định"
+          success: "&aĐã chỉnh vùng bảo vệ hang thành &b[number]&a."
+      register:
+        description: "đăng kí người chơi vào hang không chủ ở vị trí của bạn"
+        registered-island: "&aĐã đăng kí người chơi ở hang [xyz]."
+        already-owned: "&cHang đã có chủ!"
+        no-island-here: "&cKhông có hang ở đây. Xác nhận để tạo."
+        in-deletion: "&cHang đang được xoá. Thử lại sau."
+        cannot-make-island: "&c Hang không thể đặt ở đây. Xem lỗi trên bảng điều khiển."
+      unregister:
+        description: "huỷ quyền chủ hang, nhưng giữ lại các khối trong hang"
+        unregistered-island: "&aĐã huỷ đăng kí người chơi ở hang [xyz]."
+      info:
+        description: "lấy thông về nơi bạn ở hoặc hang của người chơi"
+        no-island: "&cBạn không ở một hang..."
+        title: "========== Thông tin Hang ============"
+        islands-in-trash: "&dNgười chơi có hang trong thùng rác."
+        is-spawn: "Đảo là hang triệu hồi"
+      switchto:
+        description: "chuyển hang của người chơi thành một số trong thùng rác"
+        out-of-range: "&cSố phải từ 1 đến [number]. Dùng &l[label] trash [player] &r&cđể xem số hang"
+      trash:
+        no-unowned-in-trash: "&cKhông có hang không chủ trong thùng rác"
+        no-islands-in-trash: "&cNgười chơi không có hang trong thùng rác"
+        description: "xem hang không chủ hoặc của người chơi trong thùng rác"
+        title: "&d=========== Hang trong Thùng Rác ==========="
+        count: "&l&dHang [number]:"
+        use-switch: "&aDùng &l[label] switchto <player> <number>&r&a để chuyển người chơi vào hang trong thùng rác"
+      emptytrash:
+        description: "Dọn rác cho người chơi, hoặc toàn bộ hang không chủ trong thùng rác"
+      setrange:
+        description: "chỉnh độ rộng hang của người chơi"
+        range-updated: "Đã chỉnh độ rộng của hang thành [number]"
+      tp:
+        description: "dịch chuyển đến hang của người chơi"
+      getrank:
+        description: "xem cấp độ của người chơi trong hang"
+        rank-is: "&aCấp độ là [rank] ở hang của họ."
+      setrank:
+        description: "chỉnh cấp độ của người chơi ở hang của họ"
+      setspawn:
+        description: "chỉnh một hang thành nơi bắt đầu ở thế giới này"
+        already-spawn: "&cHang này đã là nơi bắt đầu!"
+        no-island-here: "&cKhông có hang ở đây."
+        confirmation: "&cBạn có chắc là chọn hang này làm nơi bắt đầu ở thế giới này?"
+      resetflags:
+        description: "Đặt lại cờ của các hang về mặc định trong config.yml"
+      delete:
+        description: "xoá hang của người chơi"
+        cannot-delete-owner: "&cThành viên của hang phải bị đuổi trước khi xoá."
+        deleted-island: "&aĐảo &e[xyz] &ađã được xoá thành công."
+    island:
+      go:
+        description: "dịch chuyển đến hang của bạn"
+        teleport: "&aĐang dịch chuyển đến hang của bạn."
+      help:
+        description: "Lệnh hang chính"
+      create:
+        description: "tạo hang, dùng bản vẽ nếu có (cần quyền)"
+        too-many-islands: "&cQuá nhiều hang ở thế giới này: không đủ khoảng trống cho khu của bạn."
+        unable-create-island: "&cHang của bạn không được tạo, hãy liên hệ quản trị viên."
+        creating-island: "&aĐang tạo hang, chờ một chút..."
+        pick: "&aChọn hang"
+      info:
+        description: "xem thông tin hang của bạn hoặc của người chơi"
+      near:
+        description: "xem tên của hang kế bên bạn"
+        the-following-islands: "&aHang kế bên bạn:"
+        no-neighbors: "&cKhông có hang kế bên bạn!"
+      reset:
+        description: "tạo lại hang và xoá hang cũ"
+        must-remove-members: "&cBạn phải xoá thành viên khỏi hang trước khi xoá (/[label] team kick <player>)."
+      sethome:
+        must-be-on-your-island: "&cBạn phải ở hang của bạn để đặt nhà!"
+        home-set: "&6Nhà của hang đã đặt ở vị trí của bạn."
+      setname:
+        description: "đặt tên cho hang"
+      resetname:
+        description: "đặt lại tên của hang"
+      team:
+        coop:
+          description: "cho người chơi cấp chơi cùng với hang của bạn"
+        uncoop:
+          you-are-no-longer-a-coop-member: '&cBạn không còn chơi cùng với hang của [name].'
+          all-members-logged-off: '&c Người chơi ở hang đã thoát hết nên bạn không còn chơi cùng với hang của [name].'
+        trust:
+          description: "cho người chơi cấp tin tưởng với hang bạn"
+        invite:
+          description: "mời người chơi vào hang của bạn"
+          name-has-invited-you: "&a[name] đã mời bạn vào hang của họ."
+          you-will-lose-your-island: "&cCHÚ Ý! Bạn sẽ mất hang của bạn nếu chấp nhận lời mời"
+          errors:
+            island-is-full: "&cHang đã đầy, bạn không thể mời thêm."
+          accept:
+            you-joined-island: "&aBạn đã vào hang! Dùng /[label] team info để xem thành viên khác."
+            name-joined-your-island: "&a[name] đã vào hang của bạn!"
+            confirmation: |-
+              &cBạn có chắc muón chấp nhận lời mời này?
+              &c&lBạn sẽ &nMẤT&r &c&lhang hiện tại của bạn!
+          reject:
+            you-rejected-invite: "&aBạn đã từ chối lời mời vào hang."
+            name-rejected-your-invite: "&c[name] đã từ chối lời mời của bạn!"
+          cancel:
+            description: "huỷ lời mời đang chờ vào hang của bạn"
+        leave:
+          description: "rời hang của bạn"
+          left-your-island: "&c[name] &cđã rời hang của bạn"
+        kick:
+          description: "xoá thành viên khỏi hang của bạn"
+          owner-kicked: "&cChủ hang đã đuổi bạn!"
+          success: "&b[name] &ađã bị đuổi khỏi hang của bạn."
+        demote:
+          description: "hạ cấp của người chơi trong hang"
+        promote:
+          description: "nâng cấp của người chơi trong hang"
+        setowner:
+          description: "chuyển quyền chủ hang cho người chơi"
+          errors:
+            target-is-not-member: "&cNgười chơi đó không ở trong đội của bạn!"
+          name-is-the-owner: "&a[name] giờ là chủ hang!"
+          you-are-the-owner: "&aBạn giờ là chủ hang!"
+      ban:
+        description: "cấm người chơi khỏi hang của bạn"
+        cannot-ban-more-players: "&cĐã đạt giới hạn cấm, bạn không thể cấm thêm người."
+        player-banned: "&b[name]&c đã bị cấm khỏi hang của bạn."
+        owner-banned-you: "&b[name]&c đã cấm bạn khỏi hang của họ!"
+        you-are-banned: "&bBạn đã bị cấm ở hang này!"
+      unban:
+        description: "bỏ cấm người chơi khỏi hang của bạn"
+        player-unbanned: "&b[name]&a không còn bị cấm khỏi hang của bạn."
+        you-are-unbanned: "&b[name]&a huỷ cấm bạn khỏi hang của họ!"
+      banlist:
+        noone: "&aKhông ai bị cấm ở hang này."
+      settings:
+        description: "xem tuỳ chọn hang"
+      expel:
+        description: "trục xuất người chơi khỏi hang của bạn"
+        not-on-island: "&cNgười chơi đó không ở hang của bạn!"
+        player-expelled-you: "&b[name]&c đã trục xuất bạn khỏi hang của họ!"
+
+  ranks:
+    owner: "Vua Người Lùn"
+    sub-owner: "Hiệp Sĩ Người Lùn"
+    member: "Người Lùn"
+    trusted: "Tin Tưởng"
+    coop: "Chơi Cùng"
+    visitor: "Con Người"
+    banned: "Orc"
+
+  protection:
+    flags:
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aNgười Ender có thể cướp
+          &akhối khỏi hang
+        name: "Trộm bởi Người Ender"
+      ENTER_EXIT_MESSAGES:
+        island: "hang của [name]"
+      GEO_LIMIT_MOBS:
+        description: |-
+          &a Xóa các quái đã rời khỏi
+          &a khu vực bảo vệ trong hang
+        name: "&eGiới hạn quái trong đảo"
+      ISLAND_RESPAWN:
+        description: |-
+          &aNgười chơi hồi sinh
+          &aở hang của họ
+        name: "Hồi sinh tại hang"
+      LIQUIDS_FLOWING_OUT:
+        name: "Chất lỏng tràn ra khỏi hang"
+        description: |-
+          &aBật/Tắt việc chất lỏng có thể
+          &atràn ra khỏi khu vực bảo vệ của hang.
+      LOCK:
+        description: "Bật/Tắt khóa"
+        name: "Khoá đảo"
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: "Sinh quái tự nhiên ngoài hang"
+        description: |-
+          &aBật/Tắt cho phép con vật (động vật và
+          &aquái vật) có thể sinh tự nhiên ngoài
+          &akhu vực bảo vệ của hang.
+
+          &cLưu ý là nó không chặn việc sinh quái
+          &cbằng lồng triệu hồi hoặc trứng.
+      OFFLINE_GROWTH:
+        description: |-
+          &aKhi tắt, cây trồng
+          &asẽ không mọc lớn trong hang
+          &anếu tất cả thành viên đều ngoại tuyến.
+          &aCó thể giúp giảm lag.
+        name: "Mọc cây khi ngoại tuyến"
+      OFFLINE_REDSTONE:
+        description: |-
+          &aKhi tắt, đá đỏ
+          &asẽ không hoạt động trong hang
+          &anếu tất cả thành viên đều ngoại tuyến.
+          &aCó thể giúp giảm lag.
+          &aKhông ảnh hưởng đảo triệu hồi.
+        name: "Đá đỏ khi ngoại tuyến"
+      PISTON_PUSH:
+        description: |-
+          &aCho phép pít tông đẩy
+          &akhối ra khỏi hang
+        name: "Pít tông đẩy khối"
+      REMOVE_MOBS:
+        description: |-
+          &aXoá quái khi dịch
+          &achuyển đến đảo
+        name: "Xoá quái"
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: "Cây mọc ngoài đảo"
+        description: |-
+          &aBật/Tắt việc cây có thể mọc ngoài
+          &akhu vực bảo vệ trong hang.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        name: "Chặn dịch chuyển khi đang rời"
+        description: |-
+          &aChặn người chơi khỏi việc dịch chuyển
+          &avề đảo của họ bằng lệnh khi đang rơi.
+        hint: '&cBạn không thể làm điều đó khi đang rơi.'
+    locked: "&cHang đã bị khoá!"
+    protected: "&cĐã bảo vệ hang: [description]"
+    spawn-protected: "&cĐã bảo vệ nơi bắt đầu: [description]"
+
+    panel:
+      PROTECTION:
+        description: |-
+          &aTuỳ chỉnh bảo vệ
+          &acho hang này
+      SETTING:
+        description: |-
+          &aTuỳ chỉnh tổng quan
+          &acho hang này
+
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: "&5&oCho phép bật/tắt\n&5&oquyền để đi trên\n&5&ođỉnh của thế giới hang\n&5&omà không cần thêm quyền."
+      name: "Bước Trên Trời Cao"
+      hint: "Cho phép đi trên đỉnh hang."
