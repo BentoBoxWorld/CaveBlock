@@ -2,21 +2,17 @@ package world.bentobox.caveblock.generators;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
-
-import world.bentobox.bentobox.BentoBox;
-import world.bentobox.caveblock.CaveBlock;
-import world.bentobox.caveblock.Settings;
 
 
 /**
@@ -25,27 +21,12 @@ import world.bentobox.caveblock.Settings;
  * @author BONNe
  * Created on 27.01.2019
  */
-public class ChunkGeneratorWorld extends ChunkGenerator
-{
-    private CaveBlock addon;
-    private Settings settings;
-    private Map<Environment, ChunkData> map = new EnumMap<>(Environment.class);
-    private final Random r = new Random();
-    private Map<Environment, List<Ore>> ores = new EnumMap<>(Environment.class);
+public class ChunkGeneratorWorld extends ChunkGenerator {
 
-    // ---------------------------------------------------------------------
-    // Section: Constructor
-    // ---------------------------------------------------------------------
-
-
-    /**
-     * @param addon - CaveBlock object
-     */
-    public ChunkGeneratorWorld(CaveBlock addon)
-    {
-        super();
-        this.addon = addon;
-        this.settings = addon.getSettings();
+    private static final int BLOB_SIZE = 1;
+    private static final Map<Environment, List<Ore>> ORES;
+    static {
+        Map<Environment, List<Ore>> ores = new EnumMap<>(Environment.class);
         // Source https://minecraft.fandom.com/wiki/Blob
         List<Ore> worldOres = new ArrayList<>();
         worldOres.add(new Ore(-64, 16, Material.DIAMOND_ORE, 1, 10, true));
@@ -90,16 +71,15 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         endOres.add(new Ore(95, 136, Material.OBSIDIAN, 20, 17, false));
         endOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8 , 33, false));
         ores.put(Environment.THE_END, endOres);
-
+        ORES = Collections.unmodifiableMap(ores);
     }
-
 
     // ---------------------------------------------------------------------
     // Section: Methods
     // ---------------------------------------------------------------------
 
     @Override
-    public void generateNoise(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
+    public void generateNoise(WorldInfo worldInfo, Random r, int x, int z, ChunkData chunkData) {
         switch(worldInfo.getEnvironment()) {
         default:
             chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, worldInfo.getMaxHeight(), 16, Material.STONE);
@@ -119,9 +99,9 @@ public class ChunkGeneratorWorld extends ChunkGenerator
 
         // Generate ores
         for (int y = worldInfo.getMinHeight(); y < worldInfo.getMaxHeight(); y++) {
-            for (Ore o: ores.get(worldInfo.getEnvironment())) {
+            for (Ore o: ORES.get(worldInfo.getEnvironment())) {
                 if (y > o.minY() && y < o.maxY() && r.nextInt(100) <= o.chance()) {
-                    pasteBlob(chunkData, y, o);
+                    pasteBlob(chunkData, y, o, r);
                     if (o.cont()) {
                         break;
                     }
@@ -131,13 +111,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         }
     }
 
-    private void pasteBlob(ChunkData chunkData, int y, Ore o) {
-        //int blobSize = (int) (((double)r.nextInt(o.blob()) / 3) + 1);
-        int blobSize = 1;
+    private void pasteBlob(ChunkData chunkData, int y, Ore o, Random r) {
         int offset = r.nextInt(16);
-        for (int x = Math.max(0, offset - blobSize); x < Math.min(16, offset + blobSize); x++) {
-            for (int z = Math.max(0, offset - blobSize); z < Math.min(16, offset + blobSize); z++) {
-                for (int yy = Math.max(chunkData.getMinHeight(), y - blobSize); yy < Math.min(chunkData.getMaxHeight(),y + blobSize); yy++) {
+        for (int x = Math.max(0, offset - BLOB_SIZE); x < Math.min(16, offset + BLOB_SIZE); x++) {
+            for (int z = Math.max(0, offset - BLOB_SIZE); z < Math.min(16, offset + BLOB_SIZE); z++) {
+                for (int yy = Math.max(chunkData.getMinHeight(), y - BLOB_SIZE); yy < Math.min(chunkData.getMaxHeight(),y + BLOB_SIZE); yy++) {
                     BlockData bd = chunkData.getBlockData(x, yy, z);
                     if (bd.getMaterial().isSolid() && r.nextBoolean()) {
                         chunkData.setBlock(x, yy, z, o.material());
@@ -147,38 +125,9 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         }
     }
 
-    /*
-    @Override
-    public void generateSurface(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
-        //BentoBox.getInstance().logDebug("generateSurface " + x + " " + z + " " + chunkData);
-    }
-
-    @Override
-    public void generateBedrock(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
-        //BentoBox.getInstance().logDebug("generateBedrock " + x + " " + z + " " + chunkData);
-    }
-    @Override
-    public void generateCaves(WorldInfo worldInfo, Random random, int x, int z, ChunkData chunkData) {
-        //BentoBox.getInstance().logDebug("generateCaves " + x + " " + z + " " + chunkData);
-    }
-     */
-    /**
-     * This method sets if given coordinates can be set as spawn location
-     */
-    @Override
-    public boolean canSpawn(World world, int x, int z)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean shouldGenerateNoise() {
-        return false;
-    }
-
     @Override
     public boolean shouldGenerateSurface() {
-        return true;
+        return false;
     }
 
     @Override
@@ -191,6 +140,9 @@ public class ChunkGeneratorWorld extends ChunkGenerator
         return true;
     }
 
-
+    @Override
+    public boolean shouldGenerateDecorations() {
+        return true;
+    }
 
 }

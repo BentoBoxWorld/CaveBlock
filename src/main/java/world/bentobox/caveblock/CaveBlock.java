@@ -34,7 +34,7 @@ public class CaveBlock extends GameModeAddon
         this.saveDefaultConfig();
         this.loadSettings();
 
-        this.chunkGenerator = new ChunkGeneratorWorld(this);
+        this.chunkGenerator = new ChunkGeneratorWorld();
 
         // Player Command
         this.playerCommand = new DefaultPlayerCommand(this)
