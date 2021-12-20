@@ -1,17 +1,17 @@
 package world.bentobox.caveblock.generators;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.generator.BiomeProvider;
-import org.bukkit.generator.BlockPopulator;
+import org.bukkit.World.Environment;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
-import world.bentobox.caveblock.CaveBlock;
-import world.bentobox.caveblock.Settings;
-import world.bentobox.caveblock.generators.populators.EntitiesPopulator;
-import world.bentobox.caveblock.generators.populators.FlatBiomeProvider;
-import world.bentobox.caveblock.generators.populators.MaterialPopulator;
-import world.bentobox.caveblock.generators.populators.NewMaterialPopulator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,89 +20,115 @@ import java.util.Random;
 /**
  * Class ChunkGeneratorWorld ...
  *
- * @author BONNe
- * Created on 27.01.2019
+ * @author tastybento
  */
 public class ChunkGeneratorWorld extends ChunkGenerator {
-    // ---------------------------------------------------------------------
-    // Section: Variables
-    // ---------------------------------------------------------------------
-
-    private final CaveBlock addon;
-    private final Settings settings;
-    private final List<BlockPopulator> blockPopulators;
-    private BiomeProvider biomeProvider;
-
-    // ---------------------------------------------------------------------
-    // Section: Constructor
-    // ---------------------------------------------------------------------
-
-    /**
-     * @param addon - CaveBlock object
-     */
-    public ChunkGeneratorWorld(CaveBlock addon) {
-        this.addon = addon;
-        this.settings = addon.getSettings();
-        this.blockPopulators = new ArrayList<>(2);
-
-        reload();
+  
+    private static final int BLOB_SIZE = 1;
+    private static final Map<Environment, List<Ore>> ORES;
+    static {
+        Map<Environment, List<Ore>> ores = new EnumMap<>(Environment.class);
+        // Source https://minecraft.fandom.com/wiki/Blob
+        List<Ore> worldOres = new ArrayList<>();
+        worldOres.add(new Ore(-64, 16, Material.DIAMOND_ORE, 1, 10, true));
+        worldOres.add(new Ore(-64, 64, Material.LAPIS_ORE, 1, 7, true));
+        worldOres.add(new Ore(-64, 30, Material.GOLD_ORE, 2, 9, true));
+        worldOres.add(new Ore(0, 16, Material.TUFF, 2, 33, false));
+        worldOres.add(new Ore(-64, 16, Material.REDSTONE_ORE, 8, 8, true));
+        worldOres.add(new Ore(0, 16, Material.GRAVEL, 8 , 33, false));
+        worldOres.add(new Ore(0, 79, Material.GRANITE, 5, 33, false));
+        worldOres.add(new Ore(0, 79, Material.ANDESITE,5, 33, false));
+        worldOres.add(new Ore(0, 79, Material.DIORITE,5, 33, false));
+        worldOres.add(new Ore(32, 320, Material.EMERALD_ORE, 11, 1, true));
+        worldOres.add(new Ore(95, 136, Material.COAL_ORE, 20, 17, false));
+        worldOres.add(new Ore(0, 96, Material.COPPER_ORE, 20, 9, true));
+        worldOres.add(new Ore(-64, 320, Material.IRON_ORE, 20, 9, true));
+        worldOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8 , 33, false));
+        ores.put(Environment.NORMAL, worldOres);
+        List<Ore> netherOres = new ArrayList<>();
+        netherOres.add(new Ore(1, 22, Material.ANCIENT_DEBRIS, 1, 5, true));
+        netherOres.add(new Ore(-64, 30, Material.NETHER_GOLD_ORE, 2, 9, true));
+        netherOres.add(new Ore(0, 16, Material.GRAVEL, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.BASALT, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.BLACKSTONE, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.FIRE, 8 , 33, false));
+        netherOres.add(new Ore(200, 320, Material.GLOWSTONE, 8 , 33, false));
+        netherOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8 , 33, false));
+        netherOres.add(new Ore(-64, 320, Material.LAVA, 8 , 33, false));
+        netherOres.add(new Ore(0, 16, Material.MAGMA_BLOCK, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.CRIMSON_FUNGUS, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.WARPED_FUNGUS, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.CRIMSON_NYLIUM, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.WARPED_NYLIUM, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.SHROOMLIGHT, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.CRIMSON_STEM, 8 , 33, false));
+        netherOres.add(new Ore(0, 320, Material.WARPED_STEM, 8 , 33, false));
+        netherOres.add(new Ore(-64, 34, Material.SOUL_SOIL, 20, 17, false));
+        netherOres.add(new Ore(0, 96, Material.NETHER_QUARTZ_ORE, 20, 9, true));
+        netherOres.add(new Ore(-64, 320, Material.BONE_BLOCK, 20, 9, true));
+        ores.put(Environment.NETHER, netherOres);
+        List<Ore> endOres = new ArrayList<>();
+        endOres.add(new Ore(32, 320, Material.PURPUR_BLOCK, 11, 1, true));
+        endOres.add(new Ore(95, 136, Material.OBSIDIAN, 20, 17, false));
+        endOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8 , 33, false));
+        ores.put(Environment.THE_END, endOres);
+        ORES = Collections.unmodifiableMap(ores);
     }
 
     // ---------------------------------------------------------------------
     // Section: Methods
     // ---------------------------------------------------------------------
 
-    private Material getGroundCeilMaterial(World.Environment environment) {
-        return switch (environment) {
-            case NETHER -> this.settings.isNetherRoof() ? Material.BEDROCK : this.settings.getNetherMainBlock();
-            case THE_END -> this.settings.isEndFloor() ? Material.BEDROCK : this.settings.getEndMainBlock();
-            default -> this.settings.isNormalFloor() ? Material.BEDROCK : this.settings.getNormalMainBlock();
-        };
-    }
-
-    private Material getBaseMaterial(World.Environment environment) {
-        return switch (environment) {
-            case NETHER -> this.settings.getNetherMainBlock();
-            case THE_END -> this.settings.getEndMainBlock();
-            default -> this.settings.getNormalMainBlock();
-        };
-    }
-
     @Override
-    public void generateBedrock(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
-        final int minHeight = worldInfo.getMinHeight();
-        Material material = getGroundCeilMaterial(worldInfo.getEnvironment());
-        chunkData.setRegion(0, minHeight, 0, 16, minHeight + 1, 16, material);
+    public void generateNoise(WorldInfo worldInfo, Random r, int x, int z, ChunkData chunkData) {
+        switch(worldInfo.getEnvironment()) {
+        default:
+            chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, worldInfo.getMaxHeight(), 16, Material.STONE);
+            chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, 7, 16, Material.DEEPSLATE);
+            chunkData.setRegion(0, worldInfo.getMaxHeight() - 1, 0, 16, worldInfo.getMaxHeight(), 16, Material.BEDROCK);
+            break;
+        case NETHER:
+            chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, worldInfo.getMaxHeight(), 16, Material.NETHERRACK);
+            chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, 34, 16, Material.SOUL_SAND);
+            chunkData.setRegion(0, worldInfo.getMaxHeight() - 1, 0, 16, worldInfo.getMaxHeight(), 16, Material.BEDROCK);
+            break;
+        case THE_END:
+            chunkData.setRegion(0, worldInfo.getMinHeight(), 0, 16, worldInfo.getMaxHeight(), 16, Material.END_STONE);
+            chunkData.setRegion(0, worldInfo.getMaxHeight() - 1, 0, 16, worldInfo.getMaxHeight(), 16, Material.BEDROCK);
+            break;
+        }
+
+        // Generate ores
+        for (int y = worldInfo.getMinHeight(); y < worldInfo.getMaxHeight(); y++) {
+            for (Ore o: ORES.get(worldInfo.getEnvironment())) {
+                if (y > o.minY() && y < o.maxY() && r.nextInt(100) <= o.chance()) {
+                    pasteBlob(chunkData, y, o, r);
+                    if (o.cont()) {
+                        break;
+                    }
+                }
+            }
+
+        }
     }
 
-    @Override
-    public void generateSurface(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
-        final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.settings.getWorldDepth());
-        Material material = getGroundCeilMaterial(worldInfo.getEnvironment());
-        chunkData.setRegion(0, worldHeight - 1, 0, 16, worldHeight, 16, material);
-    }
-
-    @Override
-    public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
-        final int minHeight = worldInfo.getMinHeight();
-        final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.settings.getWorldDepth());
-        Material material = getBaseMaterial(worldInfo.getEnvironment());
-        chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, material);
-    }
-
-    @Override
-    public List<BlockPopulator> getDefaultPopulators(final World world) {
-        return this.blockPopulators;
-    }
-
-    @Override
-    public BiomeProvider getDefaultBiomeProvider(WorldInfo worldInfo) {
-        return biomeProvider;
+    private void pasteBlob(ChunkData chunkData, int y, Ore o, Random r) {
+        int offset = r.nextInt(16);
+        for (int x = Math.max(0, offset - BLOB_SIZE); x < Math.min(16, offset + BLOB_SIZE); x++) {
+            for (int z = Math.max(0, offset - BLOB_SIZE); z < Math.min(16, offset + BLOB_SIZE); z++) {
+                for (int yy = Math.max(chunkData.getMinHeight(), y - BLOB_SIZE); yy < Math.min(chunkData.getMaxHeight(),y + BLOB_SIZE); yy++) {
+                    BlockData bd = chunkData.getBlockData(x, yy, z);
+                    if (bd.getMaterial().isSolid() && r.nextBoolean()) {
+                        chunkData.setBlock(x, yy, z, o.material());
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public boolean shouldGenerateSurface() {
-        return true;
+        return false;
     }
 
     @Override
@@ -112,22 +138,12 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
 
     @Override
     public boolean shouldGenerateCaves() {
-        return this.settings.isNewMaterialGenerator();
+        return true;
     }
 
-    /**
-     * Called when config is reloaded
-     */
-    public void reload() {
-        this.blockPopulators.clear();
-
-        if (this.settings.isNewMaterialGenerator()) {
-            this.blockPopulators.add(new NewMaterialPopulator());
-        } else {
-            this.blockPopulators.add(new MaterialPopulator(this.addon));
-        }
-        this.blockPopulators.add(new EntitiesPopulator(this.addon));
-
-        this.biomeProvider = new FlatBiomeProvider(this.addon);
+    @Override
+    public boolean shouldGenerateDecorations() {
+        return true;
     }
+
 }
