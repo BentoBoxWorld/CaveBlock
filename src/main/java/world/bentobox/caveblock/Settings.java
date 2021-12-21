@@ -1697,6 +1697,7 @@ public class Settings implements WorldSettings
     /**
      * @return the onJoinCommands
      */
+    @NonNull
     @Override
     public List<String> getOnJoinCommands() {
         return onJoinCommands;
@@ -1714,6 +1715,7 @@ public class Settings implements WorldSettings
     /**
      * @return the onLeaveCommands
      */
+    @NonNull
     @Override
     public List<String> getOnLeaveCommands() {
         return onLeaveCommands;
