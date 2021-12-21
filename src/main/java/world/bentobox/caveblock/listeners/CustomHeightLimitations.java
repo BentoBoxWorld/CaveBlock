@@ -16,14 +16,14 @@ import world.bentobox.caveblock.CaveBlock;
 
 
 /**
- * This listener checks player movement. If enabled, players will be deny to get over world depth limit and
+ * This listener checks player movement. If enabled, players will be denied to get over world depth limit and
  * if alternative teleports is enabled, then falling in void also will be processed.
  */
 public class CustomHeightLimitations implements Listener
 {
 	/**
 	 * Simple constructor
-	 * @param addon
+	 * @param addon Addon
 	 */
 	public CustomHeightLimitations(CaveBlock addon)
 	{
@@ -86,7 +86,7 @@ public class CustomHeightLimitations implements Listener
 
 
 	/**
-	 * This method checks and returns if current player movement from location to to location should be
+	 * This method checks and returns if current player movement from location to location should be
 	 * managed by current addon.
 	 * @param nextY NextY location for player.
  	 * @param player Player who makes movement
@@ -120,10 +120,10 @@ public class CustomHeightLimitations implements Listener
 	/**
 	 * CaveBlock addon
 	 */
-	private CaveBlock addon;
+	private final CaveBlock addon;
 
 	/**
 	 * This variable store world height.
 	 */
-	private int worldHeight;
+	private final int worldHeight;
 }

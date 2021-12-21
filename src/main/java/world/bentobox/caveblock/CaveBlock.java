@@ -24,7 +24,7 @@ public class CaveBlock extends GameModeAddon
 
     /**
      * Executes code when loading the addon. This is called before {@link #onEnable()}. This should preferably
-     * be used to setup configuration and worlds.
+     * be used to set up configuration and worlds.
      */
     @Override
     public void onLoad()
@@ -121,8 +121,8 @@ public class CaveBlock extends GameModeAddon
 
     /**
      * Make the worlds for this GameMode in this method. BentoBox will call it after onLoad() and before
-     * onEnable(). {@link #islandWorld} must be created and assigned, {@link #netherWorld} and {@link
-     * #endWorld} are optional and may be null.
+     * onEnable(). {@code islandWorld} must be created and assigned, {@code netherWorld} and {@code
+     * endWorld} are optional and may be null.
      */
     @Override
     public void createWorlds()
