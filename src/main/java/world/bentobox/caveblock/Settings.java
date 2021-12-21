@@ -166,13 +166,13 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the useOwnGenerator object.
-     * @return the useOwnGenerator object.
+     * This is not an option in Caveblock
+     * @return false
      */
     @Override
     public boolean isUseOwnGenerator()
     {
-        return useOwnGenerator;
+        return false;
     }
 
 
@@ -1030,16 +1030,6 @@ public class Settings implements WorldSettings
         this.islandHeight = islandHeight;
     }
 
-
-    /**
-     * This method sets the useOwnGenerator object value.
-     * @param useOwnGenerator the useOwnGenerator object new value.
-     *
-     */
-    public void setUseOwnGenerator(boolean useOwnGenerator)
-    {
-        this.useOwnGenerator = useOwnGenerator;
-    }
 
     /**
      * This method sets the maxIslands object value.
@@ -2182,11 +2172,6 @@ public class Settings implements WorldSettings
     @ConfigComment("It is the y coordinate of the bedrock block in the schem.")
     @ConfigEntry(path = "world.cave-height")
     private int islandHeight = 60;
-
-    @ConfigComment("Use your own world generator for this world.")
-    @ConfigComment("In this case, the plugin will not generate anything.")
-    @ConfigEntry(path = "world.use-own-generator", experimental = true)
-    private boolean useOwnGenerator = true;
 
     @ConfigComment("Maximum number of caves in the world. Set to -1 or 0 for unlimited.")
     @ConfigComment("If the number of caves is greater than this number, it will stop players from creating caves.")

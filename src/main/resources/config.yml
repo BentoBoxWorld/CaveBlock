@@ -69,10 +69,6 @@ world:
   # Cave height - Lowest is 5.
   # It is the y coordinate of the bedrock block in the schem.
   cave-height: 60
-  # Use your own world generator for this world.
-  # In this case, the plugin will not generate anything.
-  # /!\ This feature is experimental and might not work as expected or might not work at all.
-  use-own-generator: true
   # Maximum number of caves in the world. Set to -1 or 0 for unlimited.
   # If the number of caves is greater than this number, it will stop players from creating caves.
   max-caves: 0
