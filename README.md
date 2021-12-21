@@ -7,8 +7,8 @@ CaveBlock is an addon for BentoBox, so to run CaveBlock, you must have BentoBox 
 
 ## Translation
 
-As most of BentoBox projects, CaveBlock Addon is translatable in any language. Everyone can contribute, and translate some parts of the addon in their language via [GitLocalize](https://gitlocalize.com/repo/2968).
-If your language is not in the list, please contact to developers via Discord and it will be added there.
+Like most BentoBox projects, the CaveBlock Addon is translatable into any language. Everyone can contribute, and translate some parts of the addon into their language via [GitLocalize](https://gitlocalize.com/repo/2968).
+If your language is not in the list, please contact the developers via Discord, and it will be added.
 
 ## Installation
 
@@ -16,7 +16,7 @@ If your language is not in the list, please contact to developers via Discord an
 1. Place this jar in the addons folder of the BentoBox plugin.
 2. Restart the server.
 3. The addon will create worlds and a data folder and inside the folder will be a config.yml.
-4. Stop the server .
+4. Stop the server.
 5. Edit the config.yml how you want.
 6. Delete any worlds that were created by default if you made changes that would affect them.
 7. Restart the server.
@@ -24,10 +24,7 @@ If your language is not in the list, please contact to developers via Discord an
 ## Config.yml
 
 The config.yml is similar to BSkyblock and AcidIsalnd but *not the same*. It has some additional or changed parameters, like,
-instead of wrold-height it has world-depth.
-It also has option to choose main block for each world, and blocks that will be occasionally replace main block, f.e. diamond ore or shulker.
-It also allows to specifiy if roof and floor for each world must be generated from bedrock.
-
+instead of world-height it has world-depth.
 
 ### Other Add-ons
 

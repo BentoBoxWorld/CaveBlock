@@ -289,6 +289,6 @@ caveblock:
 protection:
   flags:
     SKY_WALKER_FLAG:
-      description: "&5&oThis allows to enable/disable\n&5&oability to walk on the\n&5&otop of the cave world\n&5&owithout extra permissions."
+      description: "&5&oEnable/disable\n&5&o the ability to walk on\n&5&o the top of the cave world\n&5&o without extra permissions."
       name: "Sky Walker"
-      hint: "Allows to walk on cave ceiling."
+      hint: "Allows to walk on the cave roof."
