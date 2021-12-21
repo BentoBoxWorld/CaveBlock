@@ -11,10 +11,15 @@ import world.bentobox.caveblock.generators.Ore;
 
 import java.util.*;
 
+/**
+ * @author tastybento
+ */
 public class NewMaterialPopulator extends BlockPopulator {
-    private final Map<World.Environment, List<Ore>> ores = new EnumMap<>(World.Environment.class);
+    private static final int BLOB_SIZE = 1;
+    private static final Map<World.Environment, List<Ore>> ORES;
 
-    public NewMaterialPopulator() {
+    static {
+        Map<World.Environment, List<Ore>> ores = new EnumMap<>(World.Environment.class);
         // Source https://minecraft.fandom.com/wiki/Blob
         List<Ore> worldOres = new ArrayList<>();
         worldOres.add(new Ore(-64, 16, Material.DIAMOND_ORE, 1, 10, true));
@@ -59,12 +64,20 @@ public class NewMaterialPopulator extends BlockPopulator {
         endOres.add(new Ore(95, 136, Material.OBSIDIAN, 20, 17, false));
         endOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8, 33, false));
         ores.put(World.Environment.THE_END, endOres);
+        ORES = Collections.unmodifiableMap(ores);
+    }
+
+    private final int worldDepth;
+
+    public NewMaterialPopulator(int worldDepth) {
+        this.worldDepth = worldDepth;
     }
 
     @Override
     public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {
-        for (int y = worldInfo.getMinHeight(); y < worldInfo.getMaxHeight(); y++) {
-            for (Ore o : ores.get(worldInfo.getEnvironment())) {
+        final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.worldDepth);
+        for (int y = worldInfo.getMinHeight(); y < worldHeight - 1; y++) {
+            for (Ore o : ORES.get(worldInfo.getEnvironment())) {
                 if (y > o.minY() && y < o.maxY() && random.nextInt(100) <= o.chance()) {
                     pasteBlob(worldInfo, random, chunkX, chunkZ, limitedRegion, y, o);
                     if (o.cont()) {
@@ -76,12 +89,10 @@ public class NewMaterialPopulator extends BlockPopulator {
     }
 
     private void pasteBlob(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion, int y, Ore o) {
-        //int blobSize = (int) (((double)random.nextInt(o.blob()) / 3) + 1);
-        int blobSize = 1;
         int offset = random.nextInt(16);
-        for (int x = Math.max(0, offset - blobSize); x < Math.min(16, offset + blobSize); x++) {
-            for (int z = Math.max(0, offset - blobSize); z < Math.min(16, offset + blobSize); z++) {
-                for (int yy = Math.max(worldInfo.getMinHeight(), y - blobSize); yy < Math.min(worldInfo.getMaxHeight(), y + blobSize); yy++) {
+        for (int x = Math.max(0, offset - BLOB_SIZE); x < Math.min(16, offset + BLOB_SIZE); x++) {
+            for (int z = Math.max(0, offset - BLOB_SIZE); z < Math.min(16, offset + BLOB_SIZE); z++) {
+                for (int yy = Math.max(worldInfo.getMinHeight(), y - BLOB_SIZE); yy < Math.min(worldInfo.getMaxHeight(), y + BLOB_SIZE); yy++) {
                     Location location = Utils.getLocationFromChunkLocation(x, yy, z, chunkX, chunkZ);
                     if (!limitedRegion.isInRegion(location)) {
                         continue;
