@@ -76,7 +76,7 @@ world:
   # a new cave for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR
   default-game-mode: SURVIVAL
   # The default biome for the overworld
-  default-biome: MOUNTAINS
+  default-biome: PLAINS
   # The maximum number of players a player can ban at any one time in this game mode.
   # The permission caveblock.ban.maxlimit.X where X is a number can also be used per player
   # -1 = unlimited

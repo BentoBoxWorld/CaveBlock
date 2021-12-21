@@ -2185,7 +2185,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the overworld")
     @ConfigEntry(path = "world.default-biome")
-    private Biome defaultBiome = Biome.MOUNTAINS;
+    private Biome defaultBiome = Biome.PLAINS;
 
     @ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
     @ConfigComment("The permission caveblock.ban.maxlimit.X where X is a number can also be used per player")
