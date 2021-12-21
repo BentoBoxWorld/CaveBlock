@@ -11,6 +11,9 @@ import world.bentobox.caveblock.generators.Ore;
 
 import java.util.*;
 
+/**
+ * @author tastybento
+ */
 public class NewMaterialPopulator extends BlockPopulator {
     private static final int BLOB_SIZE = 1;
     private static final Map<World.Environment, List<Ore>> ORES;
