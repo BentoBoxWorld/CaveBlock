@@ -24,6 +24,7 @@ caveblock:
       already-have-island: "&cYou already have a cave!"
       no-safe-location-found: "&cCould not find a safe spot to teleport you to on the cave."
       not-owner: "&cYou are not the owner of your cave!"
+      cave-limit-reached: "&c You have reached the top of your cave. You cannot get higher!"
   commands:
     # Parameters in <> are required, parameters in [] are optional
     admin:
@@ -289,6 +290,6 @@ caveblock:
 protection:
   flags:
     SKY_WALKER_FLAG:
-      description: "&5&oThis allows to enable/disable\n&5&oability to walk on the\n&5&otop of the cave world\n&5&owithout extra permissions."
+      description: "&5&oEnable/disable\n&5&o the ability to walk on\n&5&o the top of the cave world\n&5&o without extra permissions."
       name: "Sky Walker"
-      hint: "Allows to walk on cave ceiling."
+      hint: "Allows to walk on the cave roof."

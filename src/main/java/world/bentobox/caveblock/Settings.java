@@ -166,13 +166,13 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the useOwnGenerator object.
-     * @return the useOwnGenerator object.
+     * This is not an option in Caveblock
+     * @return false
      */
     @Override
     public boolean isUseOwnGenerator()
     {
-        return useOwnGenerator;
+        return false;
     }
 
 
@@ -812,6 +812,15 @@ public class Settings implements WorldSettings
         return numberOfBlockGenerationTries;
     }
 
+    /**
+     * This method returns the newMaterialGenerator value.
+     * @return the value of newMaterialGenerator.
+     */
+    public boolean isNewMaterialGenerator()
+    {
+        return newMaterialGenerator;
+    }
+
 
     /**
      * {@inheritDoc}
@@ -1021,16 +1030,6 @@ public class Settings implements WorldSettings
         this.islandHeight = islandHeight;
     }
 
-
-    /**
-     * This method sets the useOwnGenerator object value.
-     * @param useOwnGenerator the useOwnGenerator object new value.
-     *
-     */
-    public void setUseOwnGenerator(boolean useOwnGenerator)
-    {
-        this.useOwnGenerator = useOwnGenerator;
-    }
 
     /**
      * This method sets the maxIslands object value.
@@ -1648,6 +1647,17 @@ public class Settings implements WorldSettings
 
 
     /**
+     * This method sets the newMaterialGenerator value.
+     * @param newMaterialGenerator the numberOfBlockGenerationTries new value.
+     *
+     */
+    public void setNewMaterialGenerator(boolean newMaterialGenerator)
+    {
+        this.newMaterialGenerator = newMaterialGenerator;
+    }
+
+
+    /**
      * @return the debug
      */
     public boolean isDebug() {
@@ -1687,6 +1697,7 @@ public class Settings implements WorldSettings
     /**
      * @return the onJoinCommands
      */
+    @NonNull
     @Override
     public List<String> getOnJoinCommands() {
         return onJoinCommands;
@@ -1704,6 +1715,7 @@ public class Settings implements WorldSettings
     /**
      * @return the onLeaveCommands
      */
+    @NonNull
     @Override
     public List<String> getOnLeaveCommands() {
         return onLeaveCommands;
@@ -2163,11 +2175,6 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.cave-height")
     private int islandHeight = 60;
 
-    @ConfigComment("Use your own world generator for this world.")
-    @ConfigComment("In this case, the plugin will not generate anything.")
-    @ConfigEntry(path = "world.use-own-generator", experimental = true)
-    private boolean useOwnGenerator = true;
-
     @ConfigComment("Maximum number of caves in the world. Set to -1 or 0 for unlimited.")
     @ConfigComment("If the number of caves is greater than this number, it will stop players from creating caves.")
     @ConfigEntry(path = "world.max-caves")
@@ -2180,7 +2187,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the overworld")
     @ConfigEntry(path = "world.default-biome")
-    private Biome defaultBiome = Biome.MOUNTAINS;
+    private Biome defaultBiome = Enums.getIfPresent(Biome.class, "DRIPSTONE_CAVES").or(Biome.THE_VOID);
 
     @ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
     @ConfigComment("The permission caveblock.ban.maxlimit.X where X is a number can also be used per player")
@@ -2197,6 +2204,12 @@ public class Settings implements WorldSettings
     @ConfigComment("This indicate how many times block should be tried to generate.")
     @ConfigEntry(path = "world.generation-tries", needsReset = true)
     private int numberOfBlockGenerationTries = 1;
+
+    @ConfigComment("Should we use the new material generator ?")
+    @ConfigComment("This will generate ores and blocks similar to how vanilla does,")
+    @ConfigComment("but it will override the blocks settings of each world.")
+    @ConfigEntry(path = "world.use-new-material-generator", needsReset = true)
+    private boolean newMaterialGenerator = false;
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
@@ -2238,7 +2251,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the nether world (this may affect what mobs can spawn)")
     @ConfigEntry(path = "world.nether.biome", since = "1.14.0")
-    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER").or(Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.BADLANDS));
+    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.THE_VOID);
 
     @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
     @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
@@ -2286,7 +2299,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the end world (this may affect what mobs can spawn)")
     @ConfigEntry(path = "world.end.biome", since = "1.14.0")
-    private Biome defaultTheEndBiome = Biome.THE_END;
+    private Biome defaultTheEndBiome = Enums.getIfPresent(Biome.class, "THE_END").or(Biome.THE_VOID);
 
     @ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
     private boolean dragonSpawn = false;
