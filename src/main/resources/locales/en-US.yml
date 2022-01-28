@@ -24,6 +24,7 @@ caveblock:
       already-have-island: "&cYou already have a cave!"
       no-safe-location-found: "&cCould not find a safe spot to teleport you to on the cave."
       not-owner: "&cYou are not the owner of your cave!"
+      cave-limit-reached: "&c You have reached the top of your cave. You cannot get higher!"
   commands:
     # Parameters in <> are required, parameters in [] are optional
     admin:
