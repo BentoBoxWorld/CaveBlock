@@ -314,6 +314,4 @@ public class CaveBlock extends GameModeAddon
      * String for the end world.
      */
     private static final String THE_END = "_the_end";
-
-
 }

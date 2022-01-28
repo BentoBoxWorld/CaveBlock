@@ -2187,7 +2187,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the overworld")
     @ConfigEntry(path = "world.default-biome")
-    private Biome defaultBiome = Biome.PLAINS;
+    private Biome defaultBiome = Enums.getIfPresent(Biome.class, "DRIPSTONE_CAVES").or(Biome.THE_VOID);
 
     @ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
     @ConfigComment("The permission caveblock.ban.maxlimit.X where X is a number can also be used per player")
@@ -2251,7 +2251,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the nether world (this may affect what mobs can spawn)")
     @ConfigEntry(path = "world.nether.biome", since = "1.14.0")
-    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER").or(Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.BADLANDS));
+    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.THE_VOID);
 
     @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
     @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
@@ -2299,7 +2299,7 @@ public class Settings implements WorldSettings
 
     @ConfigComment("The default biome for the end world (this may affect what mobs can spawn)")
     @ConfigEntry(path = "world.end.biome", since = "1.14.0")
-    private Biome defaultTheEndBiome = Biome.THE_END;
+    private Biome defaultTheEndBiome = Enums.getIfPresent(Biome.class, "THE_END").or(Biome.THE_VOID);
 
     @ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
     private boolean dragonSpawn = false;
