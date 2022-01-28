@@ -53,7 +53,7 @@ public class CustomHeightLimitations implements Listener
 		// Prevent to get over world height
 		if (nextY >= this.worldHeight)
 		{
-			User.getInstance(player).sendMessage("caveblock.cave-limit-reached");
+			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
 			event.setCancelled(true);
 		}
 	}
