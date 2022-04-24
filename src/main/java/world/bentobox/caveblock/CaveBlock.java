@@ -34,7 +34,9 @@ public class CaveBlock extends GameModeAddon
         this.saveDefaultConfig();
         this.loadSettings();
 
-        this.chunkGenerator = new ChunkGeneratorWorld(this);
+        this.chunkNormalGenerator = new ChunkGeneratorWorld(this, World.Environment.NORMAL);
+        this.chunkNetherGenerator = new ChunkGeneratorWorld(this, World.Environment.NETHER);
+        this.chunkEndGenerator = new ChunkGeneratorWorld(this, World.Environment.THE_END);
 
         // Player Command
         this.playerCommand = new DefaultPlayerCommand(this)
@@ -137,7 +139,7 @@ public class CaveBlock extends GameModeAddon
         // Create the world if it does not exist
         this.islandWorld = WorldCreator.name(worldName).
                 environment(World.Environment.NORMAL).
-                generator(this.chunkGenerator).
+                generator(this.chunkNormalGenerator).
                 createWorld();
         // Set spawn rates
         setSpawnRates(islandWorld);
@@ -162,7 +164,7 @@ public class CaveBlock extends GameModeAddon
             {
                 this.netherWorld = WorldCreator.name(worldName + NETHER).
                         type(WorldType.FLAT).
-                        generator(this.chunkGenerator).
+                        generator(this.chunkNetherGenerator).
                         environment(World.Environment.NETHER).
                         createWorld();
             }
@@ -187,7 +189,7 @@ public class CaveBlock extends GameModeAddon
             {
                 this.endWorld = WorldCreator.name(worldName + THE_END).
                         type(WorldType.FLAT).
-                        generator(this.chunkGenerator).
+                        generator(this.chunkEndGenerator).
                         environment(World.Environment.THE_END).
                         createWorld();
             }
@@ -232,7 +234,18 @@ public class CaveBlock extends GameModeAddon
     @Override
     public @NonNull ChunkGenerator getDefaultWorldGenerator(String worldName, String id)
     {
-        return this.chunkGenerator;
+        if (worldName.endsWith("_nether"))
+        {
+            return this.chunkNetherGenerator;
+        }
+        else if (worldName.endsWith("_the_end"))
+        {
+            return this.chunkEndGenerator;
+        }
+        else
+        {
+            return this.chunkNormalGenerator;
+        }
     }
 
     // ---------------------------------------------------------------------
@@ -284,9 +297,19 @@ public class CaveBlock extends GameModeAddon
     private Settings settings;
 
     /**
-     * This stores CaveBlock addon WorldGenerator.
+     * This stores CaveBlock addon WorldGenerator for overworld.
      */
-    private ChunkGeneratorWorld chunkGenerator;
+    private ChunkGeneratorWorld chunkNormalGenerator;
+
+    /**
+     * This stores CaveBlock addon WorldGenerator for the nether.
+     */
+    private ChunkGeneratorWorld chunkNetherGenerator;
+
+    /**
+     * This stores CaveBlock addon WorldGenerator for the end.
+     */
+    private ChunkGeneratorWorld chunkEndGenerator;
 
 
     // ---------------------------------------------------------------------
