@@ -2077,6 +2077,72 @@ public class Settings implements WorldSettings
     }
 
 
+    /**
+     * Is generate caves boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isGenerateCaves()
+    {
+        return generateCaves;
+    }
+
+
+    /**
+     * Sets generate caves.
+     *
+     * @param generateCaves the generate caves
+     */
+    public void setGenerateCaves(boolean generateCaves)
+    {
+        this.generateCaves = generateCaves;
+    }
+
+
+    /**
+     * Is generate natural bedrock boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isGenerateNaturalBedrock()
+    {
+        return generateNaturalBedrock;
+    }
+
+
+    /**
+     * Sets generate natural bedrock.
+     *
+     * @param generateNaturalBedrock the generate natural bedrock
+     */
+    public void setGenerateNaturalBedrock(boolean generateNaturalBedrock)
+    {
+        this.generateNaturalBedrock = generateNaturalBedrock;
+    }
+
+
+    /**
+     * Is generate natural surface boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isGenerateNaturalSurface()
+    {
+        return generateNaturalSurface;
+    }
+
+
+    /**
+     * Sets generate natural surface.
+     *
+     * @param generateNaturalSurface the generate natural surface
+     */
+    public void setGenerateNaturalSurface(boolean generateNaturalSurface)
+    {
+        this.generateNaturalSurface = generateNaturalSurface;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -2196,8 +2262,8 @@ public class Settings implements WorldSettings
     private int banLimit = -1;
 
     @ConfigComment("")
-    @ConfigComment("This is cave.. no height... only depth. Max 256.")
-    @ConfigComment("Should not be less then cave height.")
+    @ConfigComment("This is cave.. no height... only depth. If depth is set smaller than maximal world height, then area above will be empty.")
+    @ConfigComment("Should not be less than cave height.")
     @ConfigEntry(path = "world.world-depth", needsReset = true)
     private int worldDepth = 256;
 
@@ -2212,13 +2278,33 @@ public class Settings implements WorldSettings
     private boolean newMaterialGenerator = false;
 
     @ConfigComment("")
-    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
+    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone.")
     @ConfigEntry(path = "world.normal.roof", needsReset = true)
     private boolean normalRoof = true;
 
-    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
+    @ConfigComment("")
+    @ConfigComment("Option allows to toggle if world generator should generate natural(-ish) looking surface with dirt and grass blocks.")
+    @ConfigComment("Enabling this option will ignore roof setting.")
+    @ConfigComment("Default value is false.")
+    @ConfigEntry(path = "world.normal.natural-surface", needsReset = true, experimental = true)
+    private boolean generateNaturalSurface = false;
+
+    @ConfigComment("")
+    @ConfigComment("Option allows to toggle if world generator should generate natural looking caves.")
+    @ConfigComment("Default value is false.")
+    @ConfigEntry(path = "world.normal.natural-caves", needsReset = true)
+    private boolean generateCaves = false;
+
+    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone.")
     @ConfigEntry(path = "world.normal.floor", needsReset = true)
     private boolean normalFloor = true;
+
+    @ConfigComment("")
+    @ConfigComment("Option allows to toggle if world generator should generate natural looking bedrock block patterns.")
+    @ConfigComment("Enabling this option will ignore floor setting.")
+    @ConfigComment("Default value is false.")
+    @ConfigEntry(path = "world.normal.natural-bedrock", needsReset = true)
+    private boolean generateNaturalBedrock = false;
 
     @ConfigComment("Main block of which world will be generated.")
     @ConfigEntry(path = "world.normal.main-block", needsReset = true)
