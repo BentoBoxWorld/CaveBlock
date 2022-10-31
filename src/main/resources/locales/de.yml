@@ -18,6 +18,8 @@ caveblock:
       no-safe-location-found: "&cKann keinen sicheren Ort finden, an den du dich in
         der Höhle teleportieren kannst."
       not-owner: "&cDu bist nicht der Besitzer deiner Höhle!"
+      cave-limit-reached: "&c Du hast die Spitze deiner Höhle erreicht. Höher geht
+        nicht!"
   commands:
     admin:
       team:
@@ -81,7 +83,7 @@ caveblock:
           Höhlen im Müll
       setrange:
         description: Stellen Sie die Reichweite der Spielerhöhle ein
-        range-updated: Höhlenbereich auf [Nummer] aktualisiert
+        range-updated: Höhlenbereich auf [number] aktualisiert
       tp:
         description: teleportiere zur Höhle eines Spielers
       getrank:
@@ -141,15 +143,15 @@ caveblock:
           description: Lass einen Spieler in deiner Höhle ranken
         uncoop:
           you-are-no-longer-a-coop-member: "&cSie sind kein Coop-Mitglied mehr in
-            der Höhle von [Name]"
+            der Höhle von [name]"
           all-members-logged-off: "& cAlle Höhlenmitglieder haben sich abgemeldet,
-            sodass Sie nicht länger ein Coop-Mitglied der Höhle von [Name] sind"
+            sodass Sie nicht länger ein Coop-Mitglied der Höhle von [name] sind "
         trust:
           description: Gib einem Spieler einen vertrauenswürdigen Rang in deiner Höhle
         invite:
           description: Lade einen Spieler ein, sich deiner Höhle anzuschließen
-          name-has-invited-you: "& a [Name] hat dich eingeladen, dich ihrer Höhle
-            anzuschließen."
+          name-has-invited-you: "& a [name] hat dich eingeladen, dich ihrer Höhle
+            anzuschließen. "
           you-will-lose-your-island: "& WARNUNG! Sie werden Ihre Höhle verlieren,
             wenn Sie akzeptieren!"
           errors:
@@ -164,16 +166,16 @@ caveblock:
           reject:
             you-rejected-invite: "& aSie lehnten die Einladung ab, sich einer Höhle
               anzuschließen."
-            name-rejected-your-invite: "& c [Name] hat deine Höhleneinladung abgelehnt!"
+            name-rejected-your-invite: "& c [name] hat deine Höhleneinladung abgelehnt!"
           cancel:
             description: storniere die ausstehende Einladung, dich deiner Höhle anzuschließen
         leave:
           description: Verlasse deine Höhle
-          left-your-island: "& c [Name] & spalte deine Höhle"
+          left-your-island: "& c [name] & spalte deine Höhle"
         kick:
           description: Entferne ein Mitglied aus deiner Höhle
           owner-kicked: "& cDer Besitzer hat dich aus der Höhle geworfen!"
-          success: "& b [Name] & wurde aus deiner Höhle geworfen."
+          success: "& b [name] & wurde aus deiner Höhle geworfen."
         demote:
           description: Herabstufen eines Spielers in Ihrer Höhle um einen Rang
         promote:
@@ -182,19 +184,19 @@ caveblock:
           description: Übertragen Sie Ihren Höhlenbesitz auf ein Mitglied
           errors:
             target-is-not-member: "& cDieser Spieler ist nicht Teil Ihres Höhlenteams!"
-          name-is-the-owner: "& a [Name] ist jetzt der Höhlenbesitzer!"
+          name-is-the-owner: "& a [name] ist jetzt der Höhlenbesitzer!"
           you-are-the-owner: "& aSie sind jetzt der Höhlenbesitzer!"
       ban:
         description: verbanne einen Spieler aus deiner Höhle
         cannot-ban-more-players: "& cSie haben das Sperrlimit erreicht, können Sie
           keine Spieler mehr aus Ihrer Höhle verbannen."
-        player-banned: "& b [Name] & c ist jetzt aus deiner Höhle verbannt."
-        owner-banned-you: "& b [Name] & c hat dich aus ihrer Höhle verbannt!"
+        player-banned: "& b [name] & c ist jetzt aus deiner Höhle verbannt."
+        owner-banned-you: "& b [name] & c hat dich aus ihrer Höhle verbannt!"
         you-are-banned: "& bSie sind aus dieser Höhle verbannt!"
       unban:
         description: Entbinde einen Spieler aus deiner Höhle
-        player-unbanned: "& b [Name] & a ist jetzt nicht mehr in deiner Höhle verboten."
-        you-are-unbanned: "& b [Name] & a verbannt dich aus ihrer Höhle!"
+        player-unbanned: "& b [name] & a ist jetzt nicht mehr in deiner Höhle verboten."
+        you-are-unbanned: "& b [name] & a verbannt dich aus ihrer Höhle!"
       banlist:
         noone: "& aKeine Höhle ist in dieser Höhle verboten."
       settings:
@@ -202,7 +204,7 @@ caveblock:
       expel:
         description: Vertreibe einen Spieler aus deiner Höhle
         not-on-island: "& cDieser Spieler ist nicht in deiner Höhle!"
-        player-expelled-you: "& b [Name] & c hat dich aus der Höhle vertrieben!"
+        player-expelled-you: "& b [name] & c hat dich aus der Höhle vertrieben!"
   ranks:
     owner: Zwergenkönig
     sub-owner: Zwergenritter
@@ -219,7 +221,7 @@ caveblock:
           & Ablocks aus Höhlen
         name: Enderman trauert
       ENTER_EXIT_MESSAGES:
-        island: "[Name] Höhle"
+        island: "[name] Höhle"
       GEO_LIMIT_MOBS:
         description: |-
           & aEntferne Mobs, die gehen
@@ -287,8 +289,8 @@ caveblock:
         hint: "& cSie können sich nicht in Ihre Höhle zurück teleportieren, während
           Sie fallen."
     locked: "& cDiese Höhle ist verschlossen!"
-    protected: "& cCave protected: [Beschreibung]"
-    spawn-protected: "& cSpawn protected: [Beschreibung]"
+    protected: "& cCave protected: [description]"
+    spawn-protected: "& cSpawn protected: [description]"
     panel:
       PROTECTION:
         description: |-
