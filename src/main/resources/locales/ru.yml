@@ -18,6 +18,8 @@ caveblock:
       no-safe-location-found: "&cНе удалось найти безопасное место для телепортации
         в пещеру."
       not-owner: "&cВы не владелец этой пещеры!"
+      cave-limit-reached: "&c Вы достигли вершины своей пещеры. Вы не можете стать
+        выше!"
   commands:
     admin:
       team:
