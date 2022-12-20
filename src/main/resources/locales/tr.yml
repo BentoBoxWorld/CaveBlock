@@ -2,6 +2,7 @@
 caveblock:
   sign:
     line0: "&cCaveBlock"
+    line1: Hoş geldin!
   informational:
     to-nether: Şansızca nethere düştün.
     to-normal: Mağarana geri dön
@@ -19,7 +20,9 @@ caveblock:
         add:
           name-has-island: "&c[name] bir mağaraya sahip, tekrar kayıt olmalı ya da
             silmeli!"
-        kick: {}
+          success: "&b[name]&a Başarıyla &b[owner]&a'nın mağarasına katıldı."
+        kick:
+          success: "&b[name] , &b[owner]&a'nın mağarasından atıldı."
         setowner:
           description: Mağara sahipliğini oyuncuya verir
           already-owner: "&c[name] zaten bu mağaranın sahibi!"
@@ -52,6 +55,7 @@ caveblock:
       info:
         description: nerde olduğunuz veya oyuncunun mağarası hakkında bilgi al
         no-island: "&cŞu anda bir mağarada değilsiniz..."
+        is-spawn: Başlangıç mağarasıdır.
       switchto: {}
       trash:
         count: "&l&dMağara [number]:"
@@ -62,7 +66,8 @@ caveblock:
       setrank: {}
       setspawn: {}
       resetflags: {}
-      delete: {}
+      delete:
+        deleted-island: "&e[xyz] &akoordinatlı mağara başarıyla silindi."
     island:
       go:
         description: Mağarana ışınlan
