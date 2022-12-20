@@ -1,0 +1,140 @@
+---
+caveblock:
+  sign:
+    line0: "&cCaveBlock"
+  informational:
+    to-nether: Şansızca nethere düştün.
+    to-normal: Mağarana geri dön
+  general:
+    errors:
+      no-island: "&cMağaraya sahip değilsin!"
+      player-has-island: "&cOyuncu bir mağaraya sahip!"
+      player-has-no-island: "&cBu oyuncunun mağarası yok!"
+      already-have-island: "&cZaten bir mağaraya sahipsin!"
+      no-safe-location-found: "&cMağarada sizi ışınlayacak güvenli bir yer bulunamadı."
+      not-owner: "&cMağaranın sahibi sen değilsin!"
+  commands:
+    admin:
+      team:
+        add:
+          name-has-island: "&c[name] bir mağaraya sahip, tekrar kayıt olmalı ya da
+            silmeli!"
+        kick: {}
+        setowner:
+          description: Mağara sahipliğini oyuncuya verir
+          already-owner: "&c[name] zaten bu mağaranın sahibi!"
+          success: "&b[name]&a artık mağaranın sahibi."
+      range:
+        description: Yönetici mağara Alanı komutu
+        display:
+          description: mağara alanı göstergeleri  show/hide
+          hint: |-
+            &cKırmızı Bariyer simgeleri &fmevcut mağara korumalı menzil sınırını gösterir.
+            &7Gri Parçacıklar &fmaksimum mağara sınırını gösterir.
+            &aYeşil Parçacıklar &fmağara koruma aralığı bundan farklıysa, varsayılan korumalı aralığı gösterir.
+        set:
+          description: mağara korumalı alanı ayarlar
+          success: "&aMağara koruma aralığını &b[number]'a ayarla."
+        reset:
+          description: mağara korumalı aralığı dünya varsayılanına sıfırlar
+          success: "&aMağara koruma aralığını &b[number]'a sıfırla."
+      register:
+        description: Oyuncuyu bulunduğunuz sahipsiz mağaraya kaydedin
+        registered-island: "&aKayıtlı oyuncu [xyz]'de mağaraya kayıt oldu"
+        already-owned: "&cMağara zaten başka bir oyuncuya ait!"
+        no-island-here: "&cBurada mağara yok. Bir tane yapmayı onaylayın."
+        in-deletion: "&cBu mağara alanı şu anda siliniyor. Daha sonra tekrar deneyin."
+        cannot-make-island: "&c Buraya bir mağara yerleştirilemez, üzgünüm. Olası
+          hatalar için konsola bakın."
+      unregister:
+        description: sahibinin kaydını mağaradan sil, ancak mağara bloklarını sakla
+        unregistered-island: "&a[xyz]'deki mağaradan kayıtlı olmayan oyuncu."
+      info:
+        description: nerde olduğunuz veya oyuncunun mağarası hakkında bilgi al
+        no-island: "&cŞu anda bir mağarada değilsiniz..."
+      switchto: {}
+      trash:
+        count: "&l&dMağara [number]:"
+      emptytrash: {}
+      setrange: {}
+      tp: {}
+      getrank: {}
+      setrank: {}
+      setspawn: {}
+      resetflags: {}
+      delete: {}
+    island:
+      go:
+        description: Mağarana ışınlan
+      help: {}
+      create:
+        description: Bir mağara oluştur, isteğe bağlı blueprint kullanımı (izin gerekli)
+      info: {}
+      near:
+        description: Çevredeki mağaraları göster
+      reset: {}
+      sethome: {}
+      setname:
+        description: Mağaran için isim belirle
+      resetname: {}
+      team:
+        coop:
+          description: Bir oyuncuyu mağaranda işçi yap
+        uncoop: {}
+        trust: {}
+        invite:
+          errors: {}
+          accept:
+            name-joined-your-island: "&a[name] Mağarana katıldı!"
+          reject: {}
+          cancel: {}
+        leave:
+          left-your-island: "&c[name] &cMağarandan ayrıldı"
+        kick:
+          success: "&b[name] &aMağaradan atıldı."
+        demote: {}
+        promote: {}
+        setowner:
+          errors: {}
+      ban:
+        owner-banned-you: "&b[name]&c Mağarasından banlandın!"
+      unban: {}
+      banlist: {}
+      settings: {}
+      expel:
+        not-on-island: "&cOyuncu mağaranızda değil!"
+  ranks:
+    visitor: İnsan
+    banned: Orc
+  protection:
+    flags:
+      ENDERMAN_GRIEFING: {}
+      ENTER_EXIT_MESSAGES: {}
+      GEO_LIMIT_MOBS: {}
+      ISLAND_RESPAWN:
+        description: |-
+          &aOyuncular mağarada
+          &atekrar doğar.
+      LIQUIDS_FLOWING_OUT: {}
+      LOCK:
+        name: Mağarayı kilitle
+      NATURAL_SPAWNING_OUTSIDE_RANGE: {}
+      OFFLINE_GROWTH: {}
+      OFFLINE_REDSTONE:
+        name: Kapalı Kızıltaş
+      PISTON_PUSH: {}
+      REMOVE_MOBS: {}
+      TREES_GROWING_OUTSIDE_RANGE:
+        name: Menzil dışında büyüyen ağaçlar
+        description: |-
+          &aAğaçların bir alanın dışında büyüyüp büyüyemeyeceğini değiştir
+          &aMağaranın koruma menzili içinde olup olmadığı.
+      PREVENT_TELEPORT_WHEN_FALLING:
+        hint: "&cDüştüğün için mağaraya ışınlanamazsın."
+    locked: "&cBu mağara kilitli!"
+    panel:
+      PROTECTION: {}
+      SETTING: {}
+protection:
+  flags:
+    SKY_WALKER_FLAG: {}
