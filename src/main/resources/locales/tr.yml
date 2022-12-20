@@ -3,8 +3,11 @@ caveblock:
   sign:
     line0: "&cCaveBlock"
     line1: Hoş geldin!
+    line2: "[isim]"
+    line3: Kazmaya başlayın! &c<3
   informational:
     to-nether: Şansızca nethere düştün.
+    to-the-end: Sona ulaştınız.
     to-normal: Mağarana geri dön
   general:
     errors:
@@ -14,6 +17,7 @@ caveblock:
       already-have-island: "&cZaten bir mağaraya sahipsin!"
       no-safe-location-found: "&cMağarada sizi ışınlayacak güvenli bir yer bulunamadı."
       not-owner: "&cMağaranın sahibi sen değilsin!"
+      cave-limit-reached: "&c Mağaranızın tepesine ulaştınız. Daha yükseğe çıkamazsın!"
   commands:
     admin:
       team:
@@ -55,91 +59,244 @@ caveblock:
       info:
         description: nerde olduğunuz veya oyuncunun mağarası hakkında bilgi al
         no-island: "&cŞu anda bir mağarada değilsiniz..."
+        title: "========== Mağara Bilgisi ============"
+        islands-in-trash: "&dPlayer'ın çöp kutusunda mağaraları var."
         is-spawn: Başlangıç mağarasıdır.
-      switchto: {}
+      switchto:
+        description: oyuncunun mağarasını çöp kutusundaki bir numaraya değiştir
+        out-of-range: "&cSayı 1 ile [sayı] arasında olmalıdır. Mağara numaralarını
+          görmek için &l[label] çöp kutusu [player] &r&kullanın"
       trash:
+        no-unowned-in-trash: "&cÇöp kutusunda sahipsiz mağara yok"
+        no-islands-in-trash: "&cPlayer'ın çöp kutusunda mağarası yok"
+        description: sahipsiz mağaraları veya oyuncunun mağaralarını çöp kutusunda
+          göster
+        title: "&d=========== Çöpteki Mağaralar ==========="
         count: "&l&dMağara [number]:"
-      emptytrash: {}
-      setrange: {}
-      tp: {}
-      getrank: {}
-      setrank: {}
-      setspawn: {}
-      resetflags: {}
+        use-switch: "&aOyuncuyu çöp kutusunda mağaraya geçirmek için &l[label] switchto
+          <player> <number>&r&a kullanın"
+      emptytrash:
+        description: Oyuncu için çöp kutusunu veya sahip olunmayan tüm mağaraları
+          çöp kutusundan temizleyin
+      setrange:
+        description: oyuncunun mağara aralığını ayarla
+        range-updated: Mağara aralığı [sayı] olarak güncellendi
+      tp:
+        description: oyuncunun mağarasına ışınlanma
+      getrank:
+        description: bir oyuncunun rütbesini mağarasında almak
+        rank-is: "&aRank onların mağarasında [rütbe]."
+      setrank:
+        description: bir oyuncunun sıralamasını mağarasında belirle
+      setspawn:
+        description: bu dünya için bir mağara belirle
+        already-spawn: "&cBu mağara zaten bir oluşum!"
+        no-island-here: "&cBurada mağara yok."
+        confirmation: "&cBu mağarayı bu dünyanın doğuşu olarak ayarlamak istediğinizden
+          emin misiniz?"
+      resetflags:
+        description: config.yml'deki tüm mağaraları varsayılan bayrak ayarlarına sıfırlayın
       delete:
+        description: bir oyuncunun mağarasını siler
+        cannot-delete-owner: "&cMağara silinmeden önce tüm mağara üyelerinin mağaradan
+          atılması gerekir."
         deleted-island: "&e[xyz] &akoordinatlı mağara başarıyla silindi."
     island:
       go:
         description: Mağarana ışınlan
-      help: {}
+        teleport: "&aSizi mağaranıza ışınlıyorum."
+      help:
+        description: Ana mağara komutu
       create:
         description: Bir mağara oluştur, isteğe bağlı blueprint kullanımı (izin gerekli)
-      info: {}
+        too-many-islands: "&cBu dünyada çok fazla mağara var: seninkinin yaratılması
+          için yeterli yer yok."
+        unable-create-island: "&cMağaranız oluşturulamadı, lütfen bir yönetici ile
+          iletişime geçin."
+        creating-island: "&aMağaranız oluşturuluyor, lütfen biraz bekleyin..."
+        pick: "&aBir mağara seçin"
+      info:
+        description: mağaranız veya oyuncunun mağarası hakkında bilgi görüntüleyin
       near:
         description: Çevredeki mağaraları göster
-      reset: {}
-      sethome: {}
+        the-following-islands: "&aAşağıdaki mağaralar yakındadır:"
+        no-neighbors: "&cYakın komşu mağaranız yok!"
+      reset:
+        description: mağaranızı yeniden başlatın ve eskisini kaldırın
+        must-remove-members: "&cMağaranızı yeniden başlatmadan önce tüm üyeleri çıkarmalısınız
+          (/island team kick <player>)."
+      sethome:
+        must-be-on-your-island: "&cEve gitmek için mağaranızda olmalısınız!"
+        home-set: "&6Mağara eviniz mevcut konumunuza ayarlandı."
       setname:
         description: Mağaran için isim belirle
-      resetname: {}
+      resetname:
+        description: mağara adını sıfırla
       team:
         coop:
           description: Bir oyuncuyu mağaranda işçi yap
-        uncoop: {}
-        trust: {}
+        uncoop:
+          you-are-no-longer-a-coop-member: "&cArtık [isim] adlı kişinin mağarasının
+            kooperatif üyesi değilsin"
+          all-members-logged-off: "&cTüm mağara üyeleri oturumu kapattı, böylece artık
+            [ad] adlı kişinin mağarasının bir kooperatif üyesi değilsiniz"
+        trust:
+          description: mağaranızda bir oyuncuya güvenilir rütbe verin
         invite:
-          errors: {}
+          description: bir oyuncuyu mağaranıza katılmaya davet edin
+          name-has-invited-you: "&a[name] sizi mağarasına davet etti."
+          you-will-lose-your-island: "&cUYARI! Kabul edersen mağaranı kaybedersin!"
+          errors:
+            island-is-full: "&cMağaranız dolu, başkasını davet edemezsiniz."
           accept:
+            you-joined-island: "&aBir mağaraya katıldınız! Diğer üyeleri görmek için
+              /[label] takım bilgisini kullanın."
             name-joined-your-island: "&a[name] Mağarana katıldı!"
-          reject: {}
-          cancel: {}
+            confirmation: |-
+              &cBu daveti kabul etmek istediğinizden emin misiniz?
+              &c&lMevcut mağaranızı &n&c&l&nkaybedeceksiniz!
+          reject:
+            you-rejected-invite: "&aBir mağaraya katılma davetini reddettiniz."
+            name-rejected-your-invite: "&c[isim] mağara davetinizi reddetti!"
+          cancel:
+            description: mağaranıza katılmak için bekleyen daveti iptal edin
         leave:
+          description: mağaranı terk et
           left-your-island: "&c[name] &cMağarandan ayrıldı"
         kick:
+          description: mağaranızdan bir üyeyi çıkarın
+          owner-kicked: "&cSahibi seni mağaradan attı!"
           success: "&b[name] &aMağaradan atıldı."
-        demote: {}
-        promote: {}
+        demote:
+          description: Mağaranızdaki bir oyuncuyu bir rütbe aşağı indirin
+        promote:
+          description: mağaranızdaki bir oyuncuyu bir üst rütbeye terfi ettirin
         setowner:
-          errors: {}
+          description: mağara sahipliğini bir üyeye devret
+          errors:
+            target-is-not-member: "&cBu oyuncu mağara ekibinizin bir parçası değil!"
+          name-is-the-owner: "&a[isim] artık mağaranın sahibi!"
+          you-are-the-owner: "&aArtık mağara sahibi sizsiniz!"
       ban:
+        description: mağaranızdan bir oyuncuyu yasaklayın
+        cannot-ban-more-players: "&cYasak sınırına ulaştınız, mağaranızdan daha fazla
+          oyuncu yasaklayamazsınız."
+        player-banned: "&b[name]&c artık mağaranıza girmesi yasaklandı."
         owner-banned-you: "&b[name]&c Mağarasından banlandın!"
-      unban: {}
-      banlist: {}
-      settings: {}
+        you-are-banned: "&bBu mağaraya girmeniz yasaklandı!"
+      unban:
+        description: mağaranızdaki bir oyuncunun yasağını kaldırın
+        player-unbanned: "&b[name]&a artık mağaranızdan çıkar."
+        you-are-unbanned: "&b[name] sizi mağaralarından çıkardı!"
+      banlist:
+        noone: "&aKimse bu mağarada yasaklı değil."
+      settings:
+        description: mağara ayarlarını göster
       expel:
+        description: bir oyuncuyu mağarandan kov
         not-on-island: "&cOyuncu mağaranızda değil!"
+        player-expelled-you: "&b[name]&c seni mağaradan kovdu!"
   ranks:
+    owner: Cüce Kral
+    sub-owner: Cüce Şövalye
+    member: Cüce
+    trusted: güvenilir
+    coop: Kümes
     visitor: İnsan
     banned: Orc
   protection:
     flags:
-      ENDERMAN_GRIEFING: {}
-      ENTER_EXIT_MESSAGES: {}
-      GEO_LIMIT_MOBS: {}
+      ENDERMAN_GRIEFING:
+        description: |-
+          &aEndermen kaldırabilir
+          &mağaralardan birkaç blok ötede
+        name: Enderman kederli
+      ENTER_EXIT_MESSAGES:
+        island: "[isim] mağarası"
+      GEO_LIMIT_MOBS:
+        description: |-
+          &aGidip gelen çeteleri kaldır
+          &dış korumalı
+          &akave alanı
+        name: "&eÇeteleri mağaraya sınırlayın"
       ISLAND_RESPAWN:
         description: |-
           &aOyuncular mağarada
           &atekrar doğar.
-      LIQUIDS_FLOWING_OUT: {}
+        name: Mağara yeniden doğuşu
+      LIQUIDS_FLOWING_OUT:
+        name: Mağaraların dışında akan sıvılar
+        description: |-
+          &aSıvıların dışarıya akıp akmayacağını değiştir
+          &a mağaranın koruma aralığında.
       LOCK:
+        description: Kilidi değiştir
         name: Mağarayı kilitle
-      NATURAL_SPAWNING_OUTSIDE_RANGE: {}
-      OFFLINE_GROWTH: {}
+      NATURAL_SPAWNING_OUTSIDE_RANGE:
+        name: Menzil dışında yumurtlayan doğal yaratık
+        description: |-
+          &aYaratıklar (hayvanlar ve
+          &amonsters) dışarıda doğal olarak ortaya çıkabilir
+          &aa mağarasının koruma alanı.
+
+          &cYaratıkları engellemediğini unutmayın
+          &cto bir mafya oluşturucu veya bir yumurtlama aracıyla yumurtlar
+          &cig.
+      OFFLINE_GROWTH:
+        description: |-
+          &aDevre dışı bırakıldığında bitkiler
+          &a mağaralarda büyümeyecek
+          &atüm üyeler çevrimdışı olduğunda.
+          &aGecikmeyi azaltmaya yardımcı olabilir.
+        name: Çevrimdışı Büyüme
       OFFLINE_REDSTONE:
+        description: |-
+          &aDevre dışı bırakıldığında, redstone
+          &a mağaralarda çalışmayacaktır
+          &tüm üyelerin çevrimdışı olduğu bir yer.
+          &aGecikmeyi azaltmaya yardımcı olabilir.
         name: Kapalı Kızıltaş
-      PISTON_PUSH: {}
-      REMOVE_MOBS: {}
+      PISTON_PUSH:
+        description: |-
+          &aPistonların itmesine izin ver
+          &mağaranın dışındaki bloklar
+        name: Piston itme
+      REMOVE_MOBS:
+        description: |-
+          &aCanavarları kaldır
+          &mağaraya ışınlanma
+        name: Canavarları kaldır
       TREES_GROWING_OUTSIDE_RANGE:
         name: Menzil dışında büyüyen ağaçlar
         description: |-
           &aAğaçların bir alanın dışında büyüyüp büyüyemeyeceğini değiştir
           &aMağaranın koruma menzili içinde olup olmadığı.
       PREVENT_TELEPORT_WHEN_FALLING:
+        name: Düşerken ışınlanmayı engelle
+        description: |-
+          &aOyuncuların ışınlanmasını engelle
+          &komutları kullanarak mağaralarına geri dönün
+          Düşüyorlarsa.
         hint: "&cDüştüğün için mağaraya ışınlanamazsın."
     locked: "&cBu mağara kilitli!"
+    protected: "&cCave korumalı: [açıklama]"
+    spawn-protected: "&cSpawn korumalı: [açıklama]"
     panel:
-      PROTECTION: {}
-      SETTING: {}
+      PROTECTION:
+        description: |-
+          &aKoruma ayarları
+          &bu mağara için
+      SETTING:
+        description: |-
+          &aGenel ayarlar
+          &bu mağara için
 protection:
   flags:
-    SKY_WALKER_FLAG: {}
+    SKY_WALKER_FLAG:
+      description: |-
+        &5&oEtkinleştir/devre dışı bırak
+        &5&o üzerinde yürüme yeteneği
+        &5&o mağara dünyasının zirvesi
+        Ekstra izinler olmadan &5&o.
+      name: Gökyüzü Yürüteç
+      hint: Mağara çatısında yürümeyi sağlar.
