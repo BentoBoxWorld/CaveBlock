@@ -11,6 +11,8 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.LimitedRegion;
 import org.bukkit.generator.WorldInfo;
 import org.bukkit.util.BoundingBox;
+import org.eclipse.jdt.annotation.NonNull;
+
 import world.bentobox.bentobox.util.Pair;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Utils;
@@ -95,7 +97,7 @@ public class EntitiesPopulator extends BlockPopulator {
      * @param limitedRegion Region where population operates.
      */
     @Override
-    public void populate(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion) {
+    public void populate(WorldInfo worldInfo, @NonNull Random random, int chunkX, int chunkZ, @NonNull LimitedRegion limitedRegion) {
         int minHeight = worldInfo.getMinHeight();
         int height = Math.min(worldInfo.getMaxHeight(), worldHeight) - 1;
 
@@ -168,29 +170,22 @@ public class EntitiesPopulator extends BlockPopulator {
         if (!limitedRegion.isInRegion(location)) return;
         if (!limitedRegion.getType(location).equals(originalMaterial)) return;
 
-        Entity entity = limitedRegion.spawnEntity(location, entityType);
-        if (entity instanceof LivingEntity livingEntity) {
-            livingEntity.setAI(hasAI);
-            livingEntity.setRemoveWhenFarAway(false);
-        }
+        BoundingBox bb = this.getEntityBoundingBox(entityType, location);
 
-        BoundingBox bb = entity.getBoundingBox();
         for (int x = (int) Math.floor(bb.getMinX()); x < bb.getMaxX(); x++) {
             for (int z = (int) Math.floor(bb.getMinZ()); z < bb.getMaxZ(); z++) {
                 int y = (int) Math.floor(bb.getMinY());
                 if (!limitedRegion.isInRegion(x, y, z)) {
-                    entity.remove();
                     return;
                 }
 
                 for (; y <= bb.getMaxY(); y++) {
                     if (addon.getSettings().isDebug()) {
-                        addon.log("DEBUG: Entity spawn: " + worldInfo.getName() + " " + x + " " + y + " " + z + " " + entity.getType());
+                        addon.log("DEBUG: Entity spawn: " + worldInfo.getName() + " " + x + " " + y + " " + z + " " + entityType);
                     }
 
                     if (!limitedRegion.isInRegion(x, y, z) || !limitedRegion.getType(x, y, z).equals(originalMaterial)) {
                         // Cannot place entity
-                        entity.remove();
                         return;
                     }
                     limitedRegion.setType(x, y, z, WATER_ENTITIES.contains(entityType) ? Material.WATER : Material.AIR);
@@ -201,7 +196,85 @@ public class EntitiesPopulator extends BlockPopulator {
                 }
             }
         }
+
+        Entity entity = limitedRegion.spawnEntity(location, entityType);
+
+        if (entity instanceof LivingEntity livingEntity)
+        {
+            livingEntity.setAI(hasAI);
+            livingEntity.setRemoveWhenFarAway(false);
+        }
     }
+
+
+    /**
+     * This is manual bounding box calculation base on entity type.
+     * @param entityType Entity type which bounding box should be created.
+     * @param location Location of the bounding box.
+     * @return Approximate bounding box of the entity type.
+     */
+    private BoundingBox getEntityBoundingBox(EntityType entityType, Location location)
+    {
+        BoundingBox boundingBox = new BoundingBox();
+        // Set bounding box to 1 for all entities
+        boundingBox.expand(1);
+        // Shift to correct location.
+        boundingBox.shift(location);
+
+        switch (entityType)
+        {
+            // Turtles base size is 1.1
+            case TURTLE -> boundingBox.expand(-0.05, 0, -0.05, 0.05, 0, 0.05);
+            // Panda base size is 1.3 and height is 1.25
+            case PANDA -> boundingBox.expand(-0.15, 0, -0.15, 0.15, 0.25, 0.15);
+            // Sheep height is 1.3
+            case SHEEP -> boundingBox.expand(0, 0, 0, 0, 0.3, 0);
+            // Cow height is 1.4
+            case COW, MUSHROOM_COW -> boundingBox.expand(0, 0, 0, 0, 0.4, 0);
+            // Polar Bear base size is 1.3 and height is 1.4
+            case POLAR_BEAR -> boundingBox.expand(-0.15, 0, -0.15, 0.15, 0.4, 0.15);
+            // Horse base size is 1.3964
+            case HORSE, ZOMBIE_HORSE, SKELETON_HORSE -> boundingBox.expand(-0.2, 0, -0.2, 0.2, 0.6, 0.2);
+            // Llama height is 1.875
+            case LLAMA -> boundingBox.expand(0, 0, 0, 0, 0.875, 0);
+            // Ravager base size is 1.95 and height is 2.2
+            case RAVAGER -> boundingBox.expand(-0.48, 0, -0.48, 0.48, 1.2, 0.48);
+            // Spider base size is 1.4
+            case SPIDER -> boundingBox.expand(-0.2, 0, -0.2, 0.2, 0, 0.2);
+            // Creeper height 1.7
+            case CREEPER -> boundingBox.expand(0, 0, 0, 0, 0.7, 0);
+            // Blaze height 1.8
+            case BLAZE -> boundingBox.expand(0, 0, 0, 0, 0.8, 0);
+            // Zombie, evoker, villager, husk, witch, vindicator, illusioner, drowned, pigman, villager and pillager height is 1.95
+            case ZOMBIE, EVOKER, VILLAGER, HUSK, WITCH, VINDICATOR, ILLUSIONER, DROWNED, PIGLIN, PIGLIN_BRUTE, ZOMBIFIED_PIGLIN, ZOMBIE_VILLAGER, PILLAGER, WANDERING_TRADER ->
+                boundingBox.expand(0, 0, 0, 0, 0.95, 0);
+            // Skeletons height is 1.99
+            case SKELETON, STRAY -> boundingBox.expand(0, 0, 0, 0, 0.99, 0);
+            // Elder Guardians base height is 2
+            case ELDER_GUARDIAN -> boundingBox.expand(-0.5, 0, -0.5, 0.5, 1, 0.5);
+            // Slimes are up to 2.04
+            case SLIME -> boundingBox.expand(-0.5, 0, -0.5, 0.5, 1, 0.5);
+            // Wither skeletons height is 2.4
+            case WITHER_SKELETON -> boundingBox.expand(0, 0, 0, 0, 1.4, 0);
+            // Wither height is 3.5
+            case WITHER -> boundingBox.expand(0, 0, 0, 0, 2.5, 0);
+            // Enderman height is 2.9
+            case ENDERMAN -> boundingBox.expand(0, 0, 0, 0, 1.9, 0);
+            // Ghast base size is 4
+            case GHAST -> boundingBox.expand(-2, 0, -2, 2, 3, 2);
+            // Iron Golem base size is 1.4 and height is 2.7
+            case IRON_GOLEM -> boundingBox.expand(-0.2, 0, -0.2, 0.2, 1.7, 0.2);
+            // Snowman height is 1.9
+            case SNOWMAN -> boundingBox.expand(0, 0, 0, 0, 0.9, 0);
+            // Hoglin base size is 1.4 and height is 1.3965
+            case HOGLIN, ZOGLIN -> boundingBox.expand(-0.2, 0, -0.2, 0.2, 0.4, 0.2);
+            // Warden height is 2.9
+            case WARDEN -> boundingBox.expand(0, 0, 0, 0, 1.9, 0);
+        }
+
+        return boundingBox;
+    }
+
 
     // ---------------------------------------------------------------------
     // Section: Private Classes
