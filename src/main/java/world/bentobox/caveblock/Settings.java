@@ -1,12 +1,7 @@
 package world.bentobox.caveblock;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
@@ -333,7 +328,7 @@ public class Settings implements WorldSettings
      * @return the defaultIslandFlags object.
      */
     @Override
-    public Map<Flag, Integer> getDefaultIslandFlags()
+    public Map<String, Integer> getDefaultIslandFlagNames()
     {
         return defaultIslandFlags;
     }
@@ -344,7 +339,7 @@ public class Settings implements WorldSettings
      * @return the defaultIslandSettings object.
      */
     @Override
-    public Map<Flag, Integer> getDefaultIslandSettings()
+    public Map<String, Integer> getDefaultIslandSettingNames()
     {
         return defaultIslandSettings;
     }
@@ -1179,7 +1174,7 @@ public class Settings implements WorldSettings
      * @param defaultIslandFlags the defaultIslandFlags object new value.
      *
      */
-    public void setDefaultIslandFlags(Map<Flag, Integer> defaultIslandFlags)
+    public void setDefaultIslandFlags(Map<String, Integer> defaultIslandFlags)
     {
         this.defaultIslandFlags = defaultIslandFlags;
     }
@@ -1190,7 +1185,7 @@ public class Settings implements WorldSettings
      * @param defaultIslandSettings the defaultIslandSettings object new value.
      *
      */
-    public void setDefaultIslandSettings(Map<Flag, Integer> defaultIslandSettings)
+    public void setDefaultIslandSettings(Map<String, Integer> defaultIslandSettings)
     {
         this.defaultIslandSettings = defaultIslandSettings;
     }
@@ -2143,6 +2138,20 @@ public class Settings implements WorldSettings
     }
 
 
+    @Override
+    public Map<Flag, Integer> getDefaultIslandFlags()
+    {
+        return Collections.emptyMap();
+    }
+
+
+    @Override
+    public Map<Flag, Integer> getDefaultIslandSettings()
+    {
+        return Collections.emptyMap();
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
@@ -2439,13 +2448,11 @@ public class Settings implements WorldSettings
     @ConfigComment("  SUB-OWNER = 900")
     @ConfigComment("  OWNER     = 1000")
     @ConfigEntry(path = "world.default-cave-flags")
-    @Adapter(FlagSerializer.class)
-    private Map<Flag, Integer> defaultIslandFlags = new HashMap<>();
+    private Map<String, Integer> defaultIslandFlags = new HashMap<>();
 
     @ConfigComment("These are the default settings for new caves")
     @ConfigEntry(path = "world.default-cave-settings")
-    @Adapter(FlagSerializer2.class)
-    private Map<Flag, Integer> defaultIslandSettings = new HashMap<>();
+    private Map<String, Integer> defaultIslandSettings = new HashMap<>();
 
     @ConfigComment("These settings/flags are hidden from users")
     @ConfigComment("Ops can toggle hiding in-game using SHIFT-LEFT-CLICK on flags in settings")
