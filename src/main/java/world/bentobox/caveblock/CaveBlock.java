@@ -282,6 +282,16 @@ public class CaveBlock extends GameModeAddon
     }
 
 
+    /**
+     * This addon uses the new chunk generation API for the sea bottom
+     */
+    @Override
+    public boolean isUsesNewChunkGeneration()
+    {
+        return true;
+    }
+
+
     // ---------------------------------------------------------------------
     // Section: Variables
     // ---------------------------------------------------------------------
