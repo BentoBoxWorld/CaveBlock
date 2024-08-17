@@ -1,4 +1,4 @@
-# CaveBlock Configuration 1.15.0-SNAPSHOT-LOCAL
+# CaveBlock Configuration ${version}
 caveblock:
   command:
     # Cave Command. What command users will run to access their cave.
@@ -72,6 +72,11 @@ world:
   # Maximum number of caves in the world. Set to -1 or 0 for unlimited.
   # If the number of caves is greater than this number, it will stop players from creating caves.
   max-caves: 0
+  # The number of concurrent caves a player can have
+  # A value of 0 will use the BentoBox config.yml default
+  concurrent-caves: 0
+  # Disallow team members from having their own caves.
+  disallow-team-member-caves: true
   # The default game mode for this world. Players will be set to this mode when they create
   # a new cave for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR
   default-game-mode: SURVIVAL
@@ -81,7 +86,7 @@ world:
   # The permission caveblock.ban.maxlimit.X where X is a number can also be used per player
   # -1 = unlimited
   ban-limit: -1
-  #
+  # 
   # This is cave.. no height... only depth. If depth is set smaller than maximal world height, then area above will be empty.
   # Should not be less than cave height.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
@@ -95,18 +100,18 @@ world:
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
   use-new-material-generator: false
   normal:
-    #
+    # 
     # Make over world roof of bedrock, if false, it will be made from stone.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     roof: true
-    #
+    # 
     # Option allows to toggle if world generator should generate natural(-ish) looking surface with dirt and grass blocks.
     # Enabling this option will ignore roof setting.
     # Default value is false.
     # /!\ This feature is experimental and might not work as expected or might not work at all.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     natural-surface: false
-    #
+    # 
     # Option allows to toggle if world generator should generate natural looking caves.
     # Default value is false.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
@@ -114,7 +119,7 @@ world:
     # Make over world floor of bedrock, if false, it will be made from stone.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     floor: true
-    #
+    # 
     # Option allows to toggle if world generator should generate natural looking bedrock block patterns.
     # Enabling this option will ignore floor setting.
     # Default value is false.
@@ -134,24 +139,24 @@ world:
     # where max amount in pack are 5 per each subchunk!
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     blocks:
-      - MATERIAL:DIAMOND_ORE:1:5
-      - MATERIAL:GOLD_ORE:1:4
-      - MATERIAL:IRON_ORE:5:4
-      - MATERIAL:COAL_ORE:10:6
-      - MATERIAL:EMERALD_ORE:1:1
-      - MATERIAL:CLAY:10:6
-      - MATERIAL:DIRT:20:10
-      - MATERIAL:GRAVEL:40:6
-      - MATERIAL:GRANITE:40:10
-      - MATERIAL:ANDESITE:20:10
-      - MATERIAL:DIORITE:30:8
-      - ENTITY:ZOMBIE:10:1
-      - ENTITY:ENDERMAN:10:1
-      - ENTITY:SKELETON:10:1
-      - ENTITY:CREEPER:1:1
-      - ENTITY:DOLPHIN:1:1
-      - ENTITY:BAT:10:1
-      - ENTITY:CAVE_SPIDER:10:1
+    - MATERIAL:DIAMOND_ORE:1:5
+    - MATERIAL:GOLD_ORE:1:4
+    - MATERIAL:IRON_ORE:5:4
+    - MATERIAL:COAL_ORE:10:6
+    - MATERIAL:EMERALD_ORE:1:1
+    - MATERIAL:CLAY:10:6
+    - MATERIAL:DIRT:20:10
+    - MATERIAL:GRAVEL:40:6
+    - MATERIAL:GRANITE:40:10
+    - MATERIAL:ANDESITE:20:10
+    - MATERIAL:DIORITE:30:8
+    - ENTITY:ZOMBIE:10:1
+    - ENTITY:ENDERMAN:10:1
+    - ENTITY:SKELETON:10:1
+    - ENTITY:CREEPER:1:1
+    - ENTITY:DOLPHIN:1:1
+    - ENTITY:BAT:10:1
+    - ENTITY:CAVE_SPIDER:10:1
   nether:
     # Generate Nether - if this is false, the nether world will not be made and access to
     # the nether will not occur. Other plugins may still enable portal usage.
@@ -190,16 +195,16 @@ world:
     # where max amount in pack are 5 per each subchunk!
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     blocks:
-      - MATERIAL:NETHER_QUARTZ_ORE:30:5
-      - MATERIAL:SOUL_SAND:40:10
-      - MATERIAL:MAGMA_BLOCK:10:3
-      - MATERIAL:GLOWSTONE:20:8
-      - MATERIAL:NETHER_BRICKS:10:5
-      - MATERIAL:LAVA:10:1
-      - ENTITY:MAGMA_CUBE:0.5:1
-      - ENTITY:GHAST:0.1:1
-      - ENTITY:WITHER_SKELETON:0.1:1
-      - MATERIAL:FIRE:10:1
+    - MATERIAL:NETHER_QUARTZ_ORE:30:5
+    - MATERIAL:SOUL_SAND:40:10
+    - MATERIAL:MAGMA_BLOCK:10:3
+    - MATERIAL:GLOWSTONE:20:8
+    - MATERIAL:NETHER_BRICKS:10:5
+    - MATERIAL:LAVA:10:1
+    - ENTITY:MAGMA_CUBE:0.5:1
+    - ENTITY:GHAST:0.1:1
+    - ENTITY:WITHER_SKELETON:0.1:1
+    - MATERIAL:FIRE:10:1
     # This option indicates if nether portals should be linked via dimensions.
     # Option will simulate vanilla portal mechanics that links portals together
     # or creates a new portal, if there is not a portal in that dimension.
@@ -233,17 +238,17 @@ world:
     # where max amount in pack are 5 per each subchunk!
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     blocks:
-      - ENTITY:SHULKER:0.2:1
-      - MATERIAL:OBSIDIAN:1:1
-      - MATERIAL:CHORUS_PLANT:1:3
+    - ENTITY:SHULKER:0.2:1
+    - MATERIAL:OBSIDIAN:1:1
+    - MATERIAL:CHORUS_PLANT:1:3
     # This option indicates if obsidian platform in the end should be generated
     # when player enters the end world.
     create-obsidian-platform: false
   # Mob white list - these mobs will NOT be removed when logging in or doing /cave
   remove-mobs-whitelist:
-    - ZOMBIE_VILLAGER
-    - WITHER
-    - ENDERMAN
+  - WITHER
+  - ENDERMAN
+  - ZOMBIE_VILLAGER
   # World flags. These are boolean settings for various flags for this world
   flags:
     CREEPER_DAMAGE: true
@@ -278,112 +283,33 @@ world:
   #   MEMBER    = 500
   #   SUB-OWNER = 900
   #   OWNER     = 1000
-  default-cave-flags:
-    HURT_ANIMALS: 500
-    DRAGON_EGG: 500
-    REDSTONE: 500
-    BUCKET: 500
-    LOCK: 0
-    ENDER_PEARL: 500
-    DOOR: 500
-    BREAK_HOPPERS: 500
-    FURNACE: 500
-    ANVIL: 500
-    MINECART: 500
-    FISH_SCOOPING: 500
-    END_PORTAL: 500
-    BREEDING: 500
-    HURT_VILLAGERS: 500
-    FROST_WALKER: 500
-    TURTLE_EGGS: 500
-    COLLECT_LAVA: 500
-    BREAK_SPAWNERS: 500
-    LEVER: 500
-    ELYTRA: 0
-    CAKE: 500
-    RIDING: 500
-    HURT_MONSTERS: 0
-    NAME_TAG: 500
-    ARMOR_STAND: 500
-    TRADING: 0
-    EGGS: 500
-    ITEM_DROP: 0
-    NOTE_BLOCK: 0
-    FLINT_AND_STEEL: 500
-    NETHER_PORTAL: 500
-    LECTERN: 500
-    CROP_TRAMPLE: 500
-    ITEM_PICKUP: 0
-    BREWING: 500
-    DROPPER: 500
-    TNT_PRIMING: 500
-    COLLECT_WATER: 500
-    BUTTON: 500
-    FIRE_EXTINGUISH: 500
-    COMMAND_RANKS: 500
-    BEACON: 500
-    TRAPDOOR: 500
-    PRESSURE_PLATE: 0
-    EXPERIENCE_BOTTLE_THROWING: 500
-    DYE: 500
-    ITEM_FRAME: 500
-    PLACE_BLOCKS: 500
-    CRAFTING: 0
-    SHEARING: 500
-    ENCHANTING: 0
-    BOAT: 500
-    SPAWN_EGGS: 500
-    BED: 500
-    MILKING: 0
-    DISPENSER: 500
-    GATE: 0
-    EXPERIENCE_PICKUP: 500
-    HOPPER: 500
-    LEASH: 500
-    MOUNT_INVENTORY: 500
-    BREAK_BLOCKS: 500
-    CHORUS_FRUIT: 500
-    CONTAINER: 500
-    JUKEBOX: 500
-    POTION_THROWING: 500
+  default-cave-flags: {}
   # These are the default settings for new caves
-  default-cave-settings:
-    PVP_END: false
-    PVP_NETHER: false
-    LEAF_DECAY: true
-    MONSTER_SPAWNERS_SPAWN: true
-    TNT_DAMAGE: true
-    ANIMAL_NATURAL_SPAWN: true
-    MONSTER_NATURAL_SPAWN: true
-    FIRE_IGNITE: true
-    FIRE_SPREAD: true
-    FIRE_BURNING: true
-    ANIMAL_SPAWNERS_SPAWN: true
-    PVP_OVERWORLD: false
+  default-cave-settings: {}
   # These settings/flags are hidden from users
   # Ops can toggle hiding in-game using SHIFT-LEFT-CLICK on flags in settings
   hidden-flags: []
   # Visitor banned commands - Visitors to caves cannot use these commands in this world
   visitor-banned-commands:
-    - spawner
-    - spawnmob
+  - spawner
+  - spawnmob
   # Falling banned commands - players cannot use these commands when falling
   # if the PREVENT_TELEPORT_WHEN_FALLING world setting flag is active
   falling-banned-commands:
-    - warp
-    - spawn
+  - warp
+  - spawn
 cave:
   # Default max team size
-  # Permission size cannot be less than the default below.
+  # Permission size cannot be less than the default below. 
   max-team-size: 4
   # Default maximum number of coop rank members per cave
   # Players can have the caveblock.coop.maxsize.<number> permission to be bigger but
-  # permission size cannot be less than the default below.
+  # permission size cannot be less than the default below. 
   # Added since 1.13.0.
   max-coop-size: 4
   # Default maximum number of trusted rank members per cave
   # Players can have the caveblock.trust.maxsize.<number> permission to be bigger but
-  # permission size cannot be less than the default below.
+  # permission size cannot be less than the default below. 
   # Added since 1.13.0.
   max-trusted-size: 4
   # Default maximum number of homes a player can have. Min = 1
@@ -485,42 +411,42 @@ cave:
     # List of commands to run when a player joins an cave or creates one.
     # These commands are run by the console, unless otherwise stated using the [SUDO] prefix,
     # in which case they are executed by the player.
-    #
+    # 
     # Available placeholders for the commands are the following:
     #    * [name]: name of the player
-    #
+    # 
     # Here are some examples of valid commands to execute:
     #    * '[SUDO] bbox version'
     #    * 'bsbadmin deaths set [player] 0'
-    #
+    # 
     # Note that player-executed commands might not work, as these commands can be run with said player being offline.
     # Added since 1.8.0.
     on-join: []
     # List of commands to run when a player leaves a cave, resets his cave or gets kicked from it.
     # These commands are run by the console, unless otherwise stated using the [SUDO] prefix,
     # in which case they are executed by the player.
-    #
+    # 
     # Available placeholders for the commands are the following:
     #    * [name]: name of the player
-    #
+    # 
     # Here are some examples of valid commands to execute:
     #    * '[SUDO] bbox version'
     #    * 'bsbadmin deaths set [player] 0'
-    #
+    # 
     # Note that player-executed commands might not work, as these commands can be run with said player being offline.
     # Added since 1.8.0.
     on-leave: []
     # List of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.
     # These commands are run by the console, unless otherwise stated using the [SUDO] prefix,
     # in which case they are executed by the player.
-    #
+    # 
     # Available placeholders for the commands are the following:
     #    * [name]: name of the player
-    #
+    # 
     # Here are some examples of valid commands to execute:
     #    * '[SUDO] bbox version'
     #    * 'bsbadmin deaths set [player] 0'
-    #
+    # 
     # Note that player-executed commands might not work, as these commands can be run with said player being offline.
     # Added since 1.14.0.
     on-respawn: []
@@ -546,9 +472,9 @@ protection:
   # Geo restrict mobs.
   # Mobs that exit the cave space where they were spawned will be removed.
   geo-limit-settings:
-    - GHAST
-    - BAT
-    - BLAZE
+  - GHAST
+  - BAT
+  - BLAZE
   # CaveBlock blocked mobs.
   # List of mobs that should not spawn in the CaveBlock.
   # Added since 1.13.0.
@@ -556,30 +482,30 @@ protection:
   # Invincible visitors. List of damages that will not affect visitors.
   # Make list blank if visitors should receive all damages
   invincible-visitors:
-    - BLOCK_EXPLOSION
-    - CONTACT
-    - CUSTOM
-    - DROWNING
-    - ENTITY_ATTACK
-    - ENTITY_EXPLOSION
-    - FALL
-    - FALLING_BLOCK
-    - FIRE
-    - FIRE_TICK
-    - LAVA
-    - LIGHTNING
-    - MAGIC
-    - POISON
-    - PROJECTILE
-    - STARVATION
-    - SUFFOCATION
-    - THORNS
-    - WITHER
-    - DRAGON_BREATH
-    - FLY_INTO_WALL
-    - HOT_FLOOR
-    - CRAMMING
-    - VOID
+  - BLOCK_EXPLOSION
+  - CONTACT
+  - CUSTOM
+  - DROWNING
+  - ENTITY_ATTACK
+  - ENTITY_EXPLOSION
+  - FALL
+  - FALLING_BLOCK
+  - FIRE
+  - FIRE_TICK
+  - LAVA
+  - LIGHTNING
+  - MAGIC
+  - POISON
+  - PROJECTILE
+  - STARVATION
+  - SUFFOCATION
+  - THORNS
+  - WITHER
+  - DRAGON_BREATH
+  - FLY_INTO_WALL
+  - HOT_FLOOR
+  - CRAMMING
+  - VOID
 do-not-edit-these-settings:
   # These settings should not be edited
   reset-epoch: 0
