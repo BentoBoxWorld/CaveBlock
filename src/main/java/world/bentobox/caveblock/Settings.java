@@ -1,7 +1,13 @@
 package world.bentobox.caveblock;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
@@ -12,14 +18,12 @@ import org.eclipse.jdt.annotation.NonNull;
 
 import com.google.common.base.Enums;
 
+import world.bentobox.bentobox.BentoBox;
 import world.bentobox.bentobox.api.configuration.ConfigComment;
 import world.bentobox.bentobox.api.configuration.ConfigEntry;
 import world.bentobox.bentobox.api.configuration.StoreAt;
 import world.bentobox.bentobox.api.configuration.WorldSettings;
 import world.bentobox.bentobox.api.flags.Flag;
-import world.bentobox.bentobox.database.objects.adapters.Adapter;
-import world.bentobox.bentobox.database.objects.adapters.FlagSerializer;
-import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
 
 
 /**
@@ -30,6 +34,580 @@ import world.bentobox.bentobox.database.objects.adapters.FlagSerializer2;
 @ConfigComment("CaveBlock Configuration [version]")
 public class Settings implements WorldSettings
 {
+
+    /* Commands */
+    @ConfigComment("Cave Command. What command users will run to access their cave.")
+    @ConfigComment("To define alias, just separate commands with white space.")
+    @ConfigEntry(path = "caveblock.command.cave")
+    private String playerCommandAliases = "cave cb";
+
+    @ConfigComment("The Cave admin command.")
+    @ConfigComment("To define alias, just separate commands with white space.")
+    @ConfigEntry(path = "caveblock.command.admin")
+    private String adminCommandAliases = "cbadmin cba";
+
+    @ConfigComment("The default action for new player command call.")
+    @ConfigComment("Sub-command of main player command that will be run on first player command call.")
+    @ConfigComment("By default it is sub-command 'create'.")
+    @ConfigEntry(path = "caveblock.command.new-player-action", since = "1.13.0")
+    private String defaultNewPlayerAction = "create";
+
+    @ConfigComment("The default action for player command.")
+    @ConfigComment("Sub-command of main player command that will be run on each player command call.")
+    @ConfigComment("By default it is sub-command 'go'.")
+    @ConfigEntry(path = "caveblock.command.default-action", since = "1.13.0")
+    private String defaultPlayerAction = "go";
+
+    /*      WORLD       */
+    @ConfigComment("Friendly name for this world. Used in admin commands. Must be a single word")
+    @ConfigEntry(path = "world.friendly-name")
+    private String friendlyName = "CaveBlock";
+
+    @ConfigComment("Name of the world - if it does not exist then it will be generated.")
+    @ConfigComment("It acts like a prefix for nether and end (e.g. CaveBlock-world, CaveBlock-world_nether, CaveBlock-world_end)")
+    @ConfigEntry(path = "world.world-name")
+    private String worldName = "caveblock-world";
+
+    @ConfigComment("World difficulty setting - PEACEFUL, EASY, NORMAL, HARD")
+    @ConfigComment("Other plugins may override this setting")
+    @ConfigEntry(path = "world.difficulty")
+    private Difficulty difficulty = Difficulty.HARD;
+
+    @ConfigComment("Spawn limits. These override the limits set in bukkit.yml")
+    @ConfigComment("If set to a negative number, the server defaults will be used")
+    @ConfigEntry(path = "world.spawn-limits.monsters", since = "1.15.1")
+    private int spawnLimitMonsters = -1;
+    @ConfigEntry(path = "world.spawn-limits.animals", since = "1.15.1")
+    private int spawnLimitAnimals = -1;
+    @ConfigEntry(path = "world.spawn-limits.water-animals", since = "1.15.1")
+    private int spawnLimitWaterAnimals = -1;
+    @ConfigEntry(path = "world.spawn-limits.ambient", since = "1.15.1")
+    private int spawnLimitAmbient = -1;
+    @ConfigComment("Setting to 0 will disable animal spawns, but this is not recommended. Minecraft default is 400.")
+    @ConfigComment("A negative value uses the server default")
+    @ConfigEntry(path = "world.spawn-limits.ticks-per-animal-spawns", since = "1.15.1")
+    private int ticksPerAnimalSpawns = -1;
+    @ConfigComment("Setting to 0 will disable monster spawns, but this is not recommended. Minecraft default is 400.")
+    @ConfigComment("A negative value uses the server default")
+    @ConfigEntry(path = "world.spawn-limits.ticks-per-monster-spawns", since = "1.15.1")
+    private int ticksPerMonsterSpawns = -1;
+
+    @ConfigComment("Radius of cave in blocks. (So distance between caves is twice this)")
+    @ConfigComment("Will be rounded up to the nearest 16 blocks.")
+    @ConfigComment("It is the same for every dimension : Overworld, Nether and End.")
+    @ConfigComment("This value cannot be changed mid-game and the plugin will not start if it is different.")
+    @ConfigEntry(path = "world.distance-between-caves", needsReset = true)
+    private int islandDistance = 100;
+
+    @ConfigComment("Default protection range radius in blocks. Cannot be larger than distance.")
+    @ConfigComment("Admins can change protection sizes for players individually using /cbadmin range set <player> <new range>")
+    @ConfigComment("or set this permission: caveblock.island.range.<number>")
+    @ConfigEntry(path = "world.protection-range")
+    private int islandProtectionRange = 50;
+
+    @ConfigComment("Start caves at these coordinates. This is where new caves will start in the")
+    @ConfigComment("world. These must be a factor of your cave distance, but the plugin will auto")
+    @ConfigComment("calculate the closest location on the grid. Caves develop around this location")
+    @ConfigComment("both positively and negatively in a square grid.")
+    @ConfigComment("If none of this makes sense, leave it at 0,0.")
+    @ConfigEntry(path = "world.start-x", needsReset = true)
+    private int islandStartX = 0;
+
+    @ConfigEntry(path = "world.start-z", needsReset = true)
+    private int islandStartZ = 0;
+
+    @ConfigEntry(path = "world.offset-x")
+    private int islandXOffset;
+    @ConfigEntry(path = "world.offset-z")
+    private int islandZOffset;
+
+    @ConfigComment("Cave height - Lowest is 5.")
+    @ConfigComment("It is the y coordinate of the bedrock block in the schem.")
+    @ConfigEntry(path = "world.cave-height")
+    private int islandHeight = 60;
+
+    @ConfigComment("Maximum number of caves in the world. Set to -1 or 0 for unlimited.")
+    @ConfigComment("If the number of caves is greater than this number, it will stop players from creating caves.")
+    @ConfigEntry(path = "world.max-caves")
+    private int maxIslands = -1;
+
+    @ConfigComment("The number of concurrent caves a player can have")
+    @ConfigComment("A value of 0 will use the BentoBox config.yml default")
+    @ConfigEntry(path = "world.concurrent-caves")
+    private int concurrentIslands = 0;
+
+    @ConfigComment("Disallow team members from having their own caves.")
+    @ConfigEntry(path = "world.disallow-team-member-caves")
+    private boolean disallowTeamMemberIslands = true;
+
+    @ConfigComment("The default game mode for this world. Players will be set to this mode when they create")
+    @ConfigComment("a new cave for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR")
+    @ConfigEntry(path = "world.default-game-mode")
+    private GameMode defaultGameMode = GameMode.SURVIVAL;
+
+    @ConfigComment("The default biome for the overworld")
+    @ConfigEntry(path = "world.default-biome")
+    private Biome defaultBiome = Enums.getIfPresent(Biome.class, "DRIPSTONE_CAVES").or(Biome.THE_VOID);
+
+    @ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
+    @ConfigComment("The permission caveblock.ban.maxlimit.X where X is a number can also be used per player")
+    @ConfigComment("-1 = unlimited")
+    @ConfigEntry(path = "world.ban-limit")
+    private int banLimit = -1;
+
+    @ConfigComment("")
+    @ConfigComment("This is cave.. no height... only depth. If depth is set smaller than maximal world height, then area above will be empty.")
+    @ConfigComment("Should not be less than cave height.")
+    @ConfigEntry(path = "world.world-depth", needsReset = true)
+    private int worldDepth = 256;
+
+    @ConfigComment("This indicate how many times block should be tried to generate.")
+    @ConfigEntry(path = "world.generation-tries", needsReset = true)
+    private int numberOfBlockGenerationTries = 1;
+
+    @ConfigComment("Should we use the new material generator ?")
+    @ConfigComment("This will generate ores and blocks similar to how vanilla does,")
+    @ConfigComment("but it will override the blocks settings of each world.")
+    @ConfigEntry(path = "world.use-new-material-generator", needsReset = true)
+    private boolean newMaterialGenerator = false;
+
+    @ConfigComment("")
+    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone.")
+    @ConfigEntry(path = "world.normal.roof", needsReset = true)
+    private boolean normalRoof = true;
+
+    @ConfigComment("")
+    @ConfigComment("Option allows to toggle if world generator should generate natural(-ish) looking surface with dirt and grass blocks.")
+    @ConfigComment("Enabling this option will ignore roof setting.")
+    @ConfigComment("Default value is false.")
+    @ConfigEntry(path = "world.normal.natural-surface", needsReset = true, experimental = true)
+    private boolean generateNaturalSurface = false;
+
+    @ConfigComment("")
+    @ConfigComment("Option allows to toggle if world generator should generate natural looking caves.")
+    @ConfigComment("Default value is false.")
+    @ConfigEntry(path = "world.normal.natural-caves", needsReset = true)
+    private boolean generateCaves = false;
+
+    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone.")
+    @ConfigEntry(path = "world.normal.floor", needsReset = true)
+    private boolean normalFloor = true;
+
+    @ConfigComment("")
+    @ConfigComment("Option allows to toggle if world generator should generate natural looking bedrock block patterns.")
+    @ConfigComment("Enabling this option will ignore floor setting.")
+    @ConfigComment("Default value is false.")
+    @ConfigEntry(path = "world.normal.natural-bedrock", needsReset = true)
+    private boolean generateNaturalBedrock = false;
+
+    @ConfigComment("Main block of which world will be generated.")
+    @ConfigEntry(path = "world.normal.main-block", needsReset = true)
+    private Material normalMainBlock = Material.STONE;
+
+    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
+    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
+    @ConfigComment("are set in their strings. Chance of spawning also is required.")
+    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
+    @ConfigComment("Entities spawned via generator are not protected from despawing.")
+    @ConfigComment("Working only with 2 high mobs currently.")
+    @ConfigComment("Example:")
+    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
+    @ConfigComment("where max amount in pack are 5 per each subchunk!")
+    @ConfigEntry(path = "world.normal.blocks", needsReset = true)
+    private List<String> normalBlocks = new ArrayList<>();
+
+    // Nether
+    @ConfigComment("Generate Nether - if this is false, the nether world will not be made and access to")
+    @ConfigComment("the nether will not occur. Other plugins may still enable portal usage.")
+    @ConfigComment("Note: Some default challenges will not be possible if there is no nether.")
+    @ConfigComment("Note that with a standard nether all players arrive at the same portal and entering a")
+    @ConfigComment("portal will return them back to their caves.")
+    @ConfigEntry(path = "world.nether.generate")
+    private boolean netherGenerate = true;
+
+    @ConfigComment("Caves in Nether. Change to false for standard vanilla nether.")
+    @ConfigEntry(path = "world.nether.caves", needsReset = true)
+    private boolean netherIslands = true;
+
+    @ConfigComment("The default biome for the nether world (this may affect what mobs can spawn)")
+    @ConfigEntry(path = "world.nether.biome", since = "1.14.0")
+    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.THE_VOID);
+
+    @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
+    @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
+    @ConfigComment("Minimum is 0 (not recommended), maximum is 100. Default is 25.")
+    @ConfigComment("Only applies to vanilla nether")
+    @ConfigEntry(path = "world.nether.spawn-radius")
+    private int netherSpawnRadius = 32;
+
+    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
+    @ConfigEntry(path = "world.nether.roof", needsReset = true)
+    private boolean netherRoof = true;
+
+    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
+    @ConfigEntry(path = "world.nether.floor", needsReset = true)
+    private boolean netherFloor = true;
+
+    @ConfigComment("Main block of which world will be generated.")
+    @ConfigEntry(path = "world.nether.main-block", needsReset = true)
+    private Material netherMainBlock = Material.NETHERRACK;
+
+    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
+    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
+    @ConfigComment("are set in their strings. Chance of spawning also is required.")
+    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
+    @ConfigComment("Entities spawned via generator are not protected from despawing.")
+    @ConfigComment("Working only with 2 high mobs currently.")
+    @ConfigComment("Example:")
+    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
+    @ConfigComment("where max amount in pack are 5 per each subchunk!")
+    @ConfigEntry(path = "world.nether.blocks", needsReset = true)
+    private List<String> netherBlocks = new ArrayList<>();
+
+    @ConfigComment("This option indicates if nether portals should be linked via dimensions.")
+    @ConfigComment("Option will simulate vanilla portal mechanics that links portals together")
+    @ConfigComment("or creates a new portal, if there is not a portal in that dimension.")
+    @ConfigEntry(path = "world.nether.create-and-link-portals")
+    private boolean makeNetherPortals = false;
+
+    // End
+    @ConfigEntry(path = "world.end.generate")
+    private boolean endGenerate = true;
+
+    @ConfigEntry(path = "world.end.caves", needsReset = true)
+    private boolean endIslands = true;
+
+    @ConfigComment("The default biome for the end world (this may affect what mobs can spawn)")
+    @ConfigEntry(path = "world.end.biome", since = "1.14.0")
+    private Biome defaultTheEndBiome = Enums.getIfPresent(Biome.class, "THE_END").or(Biome.THE_VOID);
+
+    @ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
+    private boolean dragonSpawn = false;
+
+    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
+    @ConfigEntry(path = "world.end.roof", needsReset = true)
+    private boolean endRoof = true;
+
+    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
+    @ConfigEntry(path = "world.end.floor", needsReset = true)
+    private boolean endFloor = true;
+
+    @ConfigComment("Main block of which world will be generated.")
+    @ConfigEntry(path = "world.end.main-block", needsReset = true)
+    private Material endMainBlock = Material.END_STONE;
+
+    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
+    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
+    @ConfigComment("are set in their strings. Chance of spawning also is required.")
+    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
+    @ConfigComment("Entities spawned via generator are not protected from despawing.")
+    @ConfigComment("Working only with 2 high mobs currently.")
+    @ConfigComment("Example:")
+    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
+    @ConfigComment("where max amount in pack are 5 per each subchunk!")
+    @ConfigEntry(path = "world.end.blocks", needsReset = true)
+    private List<String> endBlocks = new ArrayList<>();
+
+    @ConfigComment("This option indicates if obsidian platform in the end should be generated")
+    @ConfigComment("when player enters the end world.")
+    @ConfigEntry(path = "world.end.create-obsidian-platform")
+    private boolean makeEndPortals = false;
+
+    // Other staff.
+
+    @ConfigComment("Mob white list - these mobs will NOT be removed when logging in or doing /cave")
+    @ConfigEntry(path = "world.remove-mobs-whitelist")
+    private Set<EntityType> removeMobsWhitelist = new HashSet<>();
+
+    @ConfigComment("World flags. These are boolean settings for various flags for this world")
+    @ConfigEntry(path = "world.flags")
+    private Map<String, Boolean> worldFlags = new HashMap<>();
+
+    @ConfigComment("These are the default protection settings for new caves.")
+    @ConfigComment("The value is the minimum cave rank required allowed to do the action.")
+    @ConfigComment("Ranks are the following:")
+    @ConfigComment("  VISITOR   = 0")
+    @ConfigComment("  COOP      = 200")
+    @ConfigComment("  TRUSTED   = 400")
+    @ConfigComment("  MEMBER    = 500")
+    @ConfigComment("  SUB-OWNER = 900")
+    @ConfigComment("  OWNER     = 1000")
+    @ConfigEntry(path = "world.default-cave-flags")
+    private Map<String, Integer> defaultIslandFlags = new HashMap<>();
+
+    @ConfigComment("These are the default settings for new caves")
+    @ConfigEntry(path = "world.default-cave-settings")
+    private Map<String, Integer> defaultIslandSettings = new HashMap<>();
+
+    @ConfigComment("These settings/flags are hidden from users")
+    @ConfigComment("Ops can toggle hiding in-game using SHIFT-LEFT-CLICK on flags in settings")
+    @ConfigEntry(path = "world.hidden-flags")
+    private List<String> hiddenFlags = new ArrayList<>();
+
+    @ConfigComment("Visitor banned commands - Visitors to caves cannot use these commands in this world")
+    @ConfigEntry(path = "world.visitor-banned-commands")
+    private List<String> visitorBannedCommands = new ArrayList<>();
+
+    @ConfigComment("Falling banned commands - players cannot use these commands when falling")
+    @ConfigComment("if the PREVENT_TELEPORT_WHEN_FALLING world setting flag is active")
+    @ConfigEntry(path = "world.falling-banned-commands")
+    private List<String> fallingBannedCommands = new ArrayList<>();
+
+    // ---------------------------------------------
+
+    /*      Cave      */
+    @ConfigComment("Default max team size")
+    @ConfigComment("Permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "cave.max-team-size")
+    private int maxTeamSize = 4;
+
+    @ConfigComment("Default maximum number of coop rank members per cave")
+    @ConfigComment("Players can have the caveblock.coop.maxsize.<number> permission to be bigger but")
+    @ConfigComment("permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "cave.max-coop-size", since = "1.13.0")
+    private int maxCoopSize = 4;
+
+    @ConfigComment("Default maximum number of trusted rank members per cave")
+    @ConfigComment("Players can have the caveblock.trust.maxsize.<number> permission to be bigger but")
+    @ConfigComment("permission size cannot be less than the default below. ")
+    @ConfigEntry(path = "cave.max-trusted-size", since = "1.13.0")
+    private int maxTrustSize = 4;
+
+    @ConfigComment("Default maximum number of homes a player can have. Min = 1")
+    @ConfigComment("Accessed via /cave sethome <number> or /cave go <number>")
+    @ConfigEntry(path = "cave.max-homes")
+    private int maxHomes = 5;
+
+    // Reset
+    @ConfigComment("How many resets a player is allowed (override with /cbadmin clearresets <player>)")
+    @ConfigComment("Value of -1 means unlimited, 0 means hardcore - no resets.")
+    @ConfigComment("Example, 2 resets means they get 2 resets or 3 caves lifetime")
+    @ConfigEntry(path = "cave.reset.reset-limit")
+    private int resetLimit = -1;
+
+    @ConfigComment("Kicked or leaving players lose resets")
+    @ConfigComment("Players who leave a team will lose a cave reset chance")
+    @ConfigComment("If a player has zero resets left and leaves a team, they cannot make a new")
+    @ConfigComment("cave by themselves and can only join a team.")
+    @ConfigComment("Leave this true to avoid players exploiting free caves")
+    @ConfigEntry(path = "cave.reset.leavers-lose-reset")
+    private boolean leaversLoseReset = false;
+
+    @ConfigComment("Allow kicked players to keep their inventory.")
+    @ConfigComment("Overrides the on-leave inventory reset for kicked players.")
+    @ConfigEntry(path = "cave.reset.kicked-keep-inventory")
+    private boolean kickedKeepInventory = false;
+
+    @ConfigComment("What the plugin should reset when the player joins or creates a cave")
+    @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
+    @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
+    @ConfigComment("make sure your economy handles multi-worlds too.")
+    @ConfigEntry(path = "cave.reset.on-join.money")
+    private boolean onJoinResetMoney = false;
+
+    @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
+    @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
+    @ConfigComment("plugin may still reset the inventory when the world changes.")
+    @ConfigEntry(path = "cave.reset.on-join.inventory")
+    private boolean onJoinResetInventory = false;
+
+    @ConfigComment("Reset health - if true, the player's health will be reset.")
+    @ConfigEntry(path = "cave.reset.on-join.health")
+    private boolean onJoinResetHealth = true;
+
+    @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
+    @ConfigEntry(path = "cave.reset.on-join.hunger")
+    private boolean onJoinResetHunger = true;
+
+    @ConfigComment("Reset experience points - if true, the player's experience will be reset.")
+    @ConfigEntry(path = "cave.reset.on-join.exp")
+    private boolean onJoinResetXP = false;
+
+    @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
+    @ConfigEntry(path = "cave.reset.on-join.ender-chest")
+    private boolean onJoinResetEnderChest = false;
+
+    @ConfigComment("What the plugin should reset when the player leaves or is kicked from a cave")
+    @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
+    @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
+    @ConfigComment("make sure your economy handles multi-worlds too.")
+    @ConfigEntry(path = "cave.reset.on-leave.money")
+    private boolean onLeaveResetMoney = false;
+
+    @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
+    @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
+    @ConfigComment("plugin may still reset the inventory when the world changes.")
+    @ConfigEntry(path = "cave.reset.on-leave.inventory")
+    private boolean onLeaveResetInventory = false;
+
+    @ConfigComment("Reset health - if true, the player's health will be reset.")
+    @ConfigEntry(path = "cave.reset.on-leave.health")
+    private boolean onLeaveResetHealth = false;
+
+    @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
+    @ConfigEntry(path = "cave.reset.on-leave.hunger")
+    private boolean onLeaveResetHunger = false;
+
+    @ConfigComment("Reset experience - if true, the player's experience will be reset.")
+    @ConfigEntry(path = "cave.reset.on-leave.exp")
+    private boolean onLeaveResetXP = false;
+
+    @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
+    @ConfigEntry(path = "cave.reset.on-leave.ender-chest")
+    private boolean onLeaveResetEnderChest = false;
+
+    @ConfigComment("Toggles the automatic cave creation upon the player's first login on your server.")
+    @ConfigComment("If set to true,")
+    @ConfigComment("   * Upon connecting to your server for the first time, the player will be told that")
+    @ConfigComment("    a cave will be created for him.")
+    @ConfigComment("  * Make sure you have a Blueprint Bundle called \"default\": this is the one that will")
+    @ConfigComment("    be used to create the cave.")
+    @ConfigComment("  * A cave will be created for the player without needing him to run the create command.")
+    @ConfigComment("If set to false, this will disable this feature entirely.")
+    @ConfigComment("Warning:")
+    @ConfigComment("  * If you are running multiple gamemodes on your server, and all of them have")
+    @ConfigComment("    this feature enabled, a cave in all the gamemodes will be created simultaneously.")
+    @ConfigComment("    However, it is impossible to know on which cave the player will be teleported to afterwards.")
+    @ConfigComment("  * Cave creation can be resource-intensive, please consider the options below to help mitigate")
+    @ConfigComment("    the potential issues, especially if you expect a lot of players to connect to your server")
+    @ConfigComment("    in a limited period of time.")
+    @ConfigEntry(path = "cave.create-cave-on-first-login.enable")
+    private boolean createIslandOnFirstLoginEnabled;
+
+    @ConfigComment("Time in seconds after the player logged in, before his cave gets created.")
+    @ConfigComment("If set to 0 or less, the cave will be created directly upon the player's login.")
+    @ConfigComment("It is recommended to keep this value under a minute's time.")
+    @ConfigEntry(path = "cave.create-cave-on-first-login.delay")
+    private int createIslandOnFirstLoginDelay = 5;
+
+    @ConfigComment("Toggles whether the cave creation should be aborted if the player logged off while the")
+    @ConfigComment("delay (see the option above) has not worn off yet.")
+    @ConfigComment("If set to true,")
+    @ConfigComment("  * If the player has logged off the server while the delay (see the option above) has not")
+    @ConfigComment("    worn off yet, this will cancel the cave creation.")
+    @ConfigComment("  * If the player relogs afterward, since he will not be recognized as a new player, no cave")
+    @ConfigComment("    would be created for him.")
+    @ConfigComment("  * If the cave creation started before the player logged off, it will continue.")
+    @ConfigComment("If set to false, the player's cave will be created even if he went offline in the meantime.")
+    @ConfigComment("Note this option has no effect if the delay (see the option above) is set to 0 or less.")
+    @ConfigEntry(path = "cave.create-cave-on-first-login.abort-on-logout")
+    private boolean createIslandOnFirstLoginAbortOnLogout = true;
+
+    @ConfigComment("Toggles whether the player should be teleported automatically to his cave when it is created.")
+    @ConfigComment("If set to false, the player will be told his cave is ready but will have to teleport to his cave using the command.")
+    @ConfigEntry(path = "cave.teleport-player-to-cave-when-created", since = "1.10.0")
+    private boolean teleportPlayerToIslandUponIslandCreation = true;
+
+    @ConfigComment("Create Nether or End cave if they are missing when a player goes through a portal.")
+    @ConfigComment("Nether and End cave are usually pasted when a player makes their cave, but if they are")
+    @ConfigComment("missing for some reason, you can switch this on.")
+    @ConfigComment("Note that bedrock removal glitches can exploit this option.")
+    @ConfigEntry(path = "cave.create-missing-nether-end-caves", since = "1.10.0")
+    private boolean pasteMissingIslands = false;
+
+    // Commands
+    @ConfigComment("List of commands to run when a player joins an cave or creates one.")
+    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
+    @ConfigComment("in which case they are executed by the player.")
+    @ConfigComment("")
+    @ConfigComment("Available placeholders for the commands are the following:")
+    @ConfigComment("   * [name]: name of the player")
+    @ConfigComment("")
+    @ConfigComment("Here are some examples of valid commands to execute:")
+    @ConfigComment("   * '[SUDO] bbox version'")
+    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
+    @ConfigComment("")
+    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
+    @ConfigEntry(path = "cave.commands.on-join", since = "1.8.0")
+    private List<String> onJoinCommands = new ArrayList<>();
+
+    @ConfigComment("List of commands to run when a player leaves a cave, resets his cave or gets kicked from it.")
+    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
+    @ConfigComment("in which case they are executed by the player.")
+    @ConfigComment("")
+    @ConfigComment("Available placeholders for the commands are the following:")
+    @ConfigComment("   * [name]: name of the player")
+    @ConfigComment("")
+    @ConfigComment("Here are some examples of valid commands to execute:")
+    @ConfigComment("   * '[SUDO] bbox version'")
+    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
+    @ConfigComment("")
+    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
+    @ConfigEntry(path = "cave.commands.on-leave", since = "1.8.0")
+    private List<String> onLeaveCommands = new ArrayList<>();
+
+    @ConfigComment("List of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.")
+    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
+    @ConfigComment("in which case they are executed by the player.")
+    @ConfigComment("")
+    @ConfigComment("Available placeholders for the commands are the following:")
+    @ConfigComment("   * [name]: name of the player")
+    @ConfigComment("")
+    @ConfigComment("Here are some examples of valid commands to execute:")
+    @ConfigComment("   * '[SUDO] bbox version'")
+    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
+    @ConfigComment("")
+    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
+    @ConfigEntry(path = "cave.commands.on-respawn", since = "1.14.0")
+    private List<String> onRespawnCommands = new ArrayList<>();
+
+    // Sethome
+    @ConfigComment("Allow setting home in the nether. Only available on nether islands, not vanilla nether.")
+    @ConfigEntry(path = "cave.sethome.nether.allow")
+    private boolean allowSetHomeInNether = true;
+
+    @ConfigEntry(path = "cave.sethome.nether.require-confirmation")
+    private boolean requireConfirmationToSetHomeInNether = true;
+
+    @ConfigComment("Allow setting home in the end. Only available on end islands, not vanilla end.")
+    @ConfigEntry(path = "cave.sethome.the-end.allow")
+    private boolean allowSetHomeInTheEnd = true;
+
+    @ConfigEntry(path = "cave.sethome.the-end.require-confirmation")
+    private boolean requireConfirmationToSetHomeInTheEnd = true;
+
+    // Deaths
+    @ConfigComment("Whether deaths are counted or not.")
+    @ConfigEntry(path = "cave.deaths.counted")
+    private boolean deathsCounted = true;
+
+    @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
+    @ConfigEntry(path = "cave.deaths.max")
+    private int deathsMax = 10;
+
+    @ConfigComment("Reset player death count when they start a new cave or reset a cave")
+    @ConfigEntry(path = "cave.deaths.reset-on-new")
+    private boolean deathsResetOnNewIsland = true;
+
+    @ConfigComment("When a player joins a team, reset their death count")
+    @ConfigEntry(path = "cave.deaths.team-join-reset")
+    private boolean teamJoinDeathReset = true;
+
+    // ---------------------------------------------
+    /*      PROTECTION      */
+
+    @ConfigComment("Geo restrict mobs.")
+    @ConfigComment("Mobs that exit the cave space where they were spawned will be removed.")
+    @ConfigEntry(path = "protection.geo-limit-settings")
+    private List<String> geoLimitSettings = new ArrayList<>();
+
+    @ConfigComment("CaveBlock blocked mobs.")
+    @ConfigComment("List of mobs that should not spawn in the CaveBlock.")
+    @ConfigEntry(path = "protection.block-mobs", since = "1.13.0")
+    private List<String> mobLimitSettings = new ArrayList<>();
+
+    // Invincible visitor settings
+    @ConfigComment("Invincible visitors. List of damages that will not affect visitors.")
+    @ConfigComment("Make list blank if visitors should receive all damages")
+    @ConfigEntry(path = "protection.invincible-visitors")
+    private List<String> ivSettings = new ArrayList<>();
+
+    //---------------------------------------------------------------------------------------/
+    @ConfigComment("These settings should not be edited")
+    @ConfigEntry(path = "do-not-edit-these-settings.reset-epoch")
+    private long resetEpoch = 0;
+    private boolean debug;
+
     // ---------------------------------------------------------------------
     // Section: Getters
     // ---------------------------------------------------------------------
@@ -2151,575 +2729,36 @@ public class Settings implements WorldSettings
         return Collections.emptyMap();
     }
 
-
-    // ---------------------------------------------------------------------
-    // Section: Variables
-    // ---------------------------------------------------------------------
-
-
-
-
-    /* Commands */
-    @ConfigComment("Cave Command. What command users will run to access their cave.")
-    @ConfigComment("To define alias, just separate commands with white space.")
-    @ConfigEntry(path = "caveblock.command.cave")
-    private String playerCommandAliases = "cave cb";
-
-    @ConfigComment("The Cave admin command.")
-    @ConfigComment("To define alias, just separate commands with white space.")
-    @ConfigEntry(path = "caveblock.command.admin")
-    private String adminCommandAliases = "cbadmin cba";
-
-    @ConfigComment("The default action for new player command call.")
-    @ConfigComment("Sub-command of main player command that will be run on first player command call.")
-    @ConfigComment("By default it is sub-command 'create'.")
-    @ConfigEntry(path = "caveblock.command.new-player-action", since = "1.13.0")
-    private String defaultNewPlayerAction = "create";
-
-    @ConfigComment("The default action for player command.")
-    @ConfigComment("Sub-command of main player command that will be run on each player command call.")
-    @ConfigComment("By default it is sub-command 'go'.")
-    @ConfigEntry(path = "caveblock.command.default-action", since = "1.13.0")
-    private String defaultPlayerAction = "go";
-
-    /*      WORLD       */
-    @ConfigComment("Friendly name for this world. Used in admin commands. Must be a single word")
-    @ConfigEntry(path = "world.friendly-name")
-    private String friendlyName = "CaveBlock";
-
-    @ConfigComment("Name of the world - if it does not exist then it will be generated.")
-    @ConfigComment("It acts like a prefix for nether and end (e.g. CaveBlock-world, CaveBlock-world_nether, CaveBlock-world_end)")
-    @ConfigEntry(path = "world.world-name")
-    private String worldName = "caveblock-world";
-
-    @ConfigComment("World difficulty setting - PEACEFUL, EASY, NORMAL, HARD")
-    @ConfigComment("Other plugins may override this setting")
-    @ConfigEntry(path = "world.difficulty")
-    private Difficulty difficulty = Difficulty.HARD;
-
-    @ConfigComment("Spawn limits. These override the limits set in bukkit.yml")
-    @ConfigComment("If set to a negative number, the server defaults will be used")
-    @ConfigEntry(path = "world.spawn-limits.monsters", since = "1.15.1")
-    private int spawnLimitMonsters = -1;
-    @ConfigEntry(path = "world.spawn-limits.animals", since = "1.15.1")
-    private int spawnLimitAnimals = -1;
-    @ConfigEntry(path = "world.spawn-limits.water-animals", since = "1.15.1")
-    private int spawnLimitWaterAnimals = -1;
-    @ConfigEntry(path = "world.spawn-limits.ambient", since = "1.15.1")
-    private int spawnLimitAmbient = -1;
-    @ConfigComment("Setting to 0 will disable animal spawns, but this is not recommended. Minecraft default is 400.")
-    @ConfigComment("A negative value uses the server default")
-    @ConfigEntry(path = "world.spawn-limits.ticks-per-animal-spawns", since = "1.15.1")
-    private int ticksPerAnimalSpawns = -1;
-    @ConfigComment("Setting to 0 will disable monster spawns, but this is not recommended. Minecraft default is 400.")
-    @ConfigComment("A negative value uses the server default")
-    @ConfigEntry(path = "world.spawn-limits.ticks-per-monster-spawns", since = "1.15.1")
-    private int ticksPerMonsterSpawns = -1;
-
-    @ConfigComment("Radius of cave in blocks. (So distance between caves is twice this)")
-    @ConfigComment("Will be rounded up to the nearest 16 blocks.")
-    @ConfigComment("It is the same for every dimension : Overworld, Nether and End.")
-    @ConfigComment("This value cannot be changed mid-game and the plugin will not start if it is different.")
-    @ConfigEntry(path = "world.distance-between-caves", needsReset = true)
-    private int islandDistance = 100;
-
-    @ConfigComment("Default protection range radius in blocks. Cannot be larger than distance.")
-    @ConfigComment("Admins can change protection sizes for players individually using /cbadmin range set <player> <new range>")
-    @ConfigComment("or set this permission: caveblock.island.range.<number>")
-    @ConfigEntry(path = "world.protection-range")
-    private int islandProtectionRange = 50;
-
-    @ConfigComment("Start caves at these coordinates. This is where new caves will start in the")
-    @ConfigComment("world. These must be a factor of your cave distance, but the plugin will auto")
-    @ConfigComment("calculate the closest location on the grid. Caves develop around this location")
-    @ConfigComment("both positively and negatively in a square grid.")
-    @ConfigComment("If none of this makes sense, leave it at 0,0.")
-    @ConfigEntry(path = "world.start-x", needsReset = true)
-    private int islandStartX = 0;
-
-    @ConfigEntry(path = "world.start-z", needsReset = true)
-    private int islandStartZ = 0;
-
-    @ConfigEntry(path = "world.offset-x")
-    private int islandXOffset;
-    @ConfigEntry(path = "world.offset-z")
-    private int islandZOffset;
-
-    @ConfigComment("Cave height - Lowest is 5.")
-    @ConfigComment("It is the y coordinate of the bedrock block in the schem.")
-    @ConfigEntry(path = "world.cave-height")
-    private int islandHeight = 60;
-
-    @ConfigComment("Maximum number of caves in the world. Set to -1 or 0 for unlimited.")
-    @ConfigComment("If the number of caves is greater than this number, it will stop players from creating caves.")
-    @ConfigEntry(path = "world.max-caves")
-    private int maxIslands = -1;
-
-    @ConfigComment("The default game mode for this world. Players will be set to this mode when they create")
-    @ConfigComment("a new cave for example. Options are SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR")
-    @ConfigEntry(path = "world.default-game-mode")
-    private GameMode defaultGameMode = GameMode.SURVIVAL;
-
-    @ConfigComment("The default biome for the overworld")
-    @ConfigEntry(path = "world.default-biome")
-    private Biome defaultBiome = Enums.getIfPresent(Biome.class, "DRIPSTONE_CAVES").or(Biome.THE_VOID);
-
-    @ConfigComment("The maximum number of players a player can ban at any one time in this game mode.")
-    @ConfigComment("The permission caveblock.ban.maxlimit.X where X is a number can also be used per player")
-    @ConfigComment("-1 = unlimited")
-    @ConfigEntry(path = "world.ban-limit")
-    private int banLimit = -1;
-
-    @ConfigComment("")
-    @ConfigComment("This is cave.. no height... only depth. If depth is set smaller than maximal world height, then area above will be empty.")
-    @ConfigComment("Should not be less than cave height.")
-    @ConfigEntry(path = "world.world-depth", needsReset = true)
-    private int worldDepth = 256;
-
-    @ConfigComment("This indicate how many times block should be tried to generate.")
-    @ConfigEntry(path = "world.generation-tries", needsReset = true)
-    private int numberOfBlockGenerationTries = 1;
-
-    @ConfigComment("Should we use the new material generator ?")
-    @ConfigComment("This will generate ores and blocks similar to how vanilla does,")
-    @ConfigComment("but it will override the blocks settings of each world.")
-    @ConfigEntry(path = "world.use-new-material-generator", needsReset = true)
-    private boolean newMaterialGenerator = false;
-
-    @ConfigComment("")
-    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone.")
-    @ConfigEntry(path = "world.normal.roof", needsReset = true)
-    private boolean normalRoof = true;
-
-    @ConfigComment("")
-    @ConfigComment("Option allows to toggle if world generator should generate natural(-ish) looking surface with dirt and grass blocks.")
-    @ConfigComment("Enabling this option will ignore roof setting.")
-    @ConfigComment("Default value is false.")
-    @ConfigEntry(path = "world.normal.natural-surface", needsReset = true, experimental = true)
-    private boolean generateNaturalSurface = false;
-
-    @ConfigComment("")
-    @ConfigComment("Option allows to toggle if world generator should generate natural looking caves.")
-    @ConfigComment("Default value is false.")
-    @ConfigEntry(path = "world.normal.natural-caves", needsReset = true)
-    private boolean generateCaves = false;
-
-    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone.")
-    @ConfigEntry(path = "world.normal.floor", needsReset = true)
-    private boolean normalFloor = true;
-
-    @ConfigComment("")
-    @ConfigComment("Option allows to toggle if world generator should generate natural looking bedrock block patterns.")
-    @ConfigComment("Enabling this option will ignore floor setting.")
-    @ConfigComment("Default value is false.")
-    @ConfigEntry(path = "world.normal.natural-bedrock", needsReset = true)
-    private boolean generateNaturalBedrock = false;
-
-    @ConfigComment("Main block of which world will be generated.")
-    @ConfigEntry(path = "world.normal.main-block", needsReset = true)
-    private Material normalMainBlock = Material.STONE;
-
-    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
-    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
-    @ConfigComment("are set in their strings. Chance of spawning also is required.")
-    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
-    @ConfigComment("Entities spawned via generator are not protected from despawing.")
-    @ConfigComment("Working only with 2 high mobs currently.")
-    @ConfigComment("Example:")
-    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
-    @ConfigComment("where max amount in pack are 5 per each subchunk!")
-    @ConfigEntry(path = "world.normal.blocks", needsReset = true)
-    private List<String> normalBlocks = new ArrayList<>();
-
-    // Nether
-    @ConfigComment("Generate Nether - if this is false, the nether world will not be made and access to")
-    @ConfigComment("the nether will not occur. Other plugins may still enable portal usage.")
-    @ConfigComment("Note: Some default challenges will not be possible if there is no nether.")
-    @ConfigComment("Note that with a standard nether all players arrive at the same portal and entering a")
-    @ConfigComment("portal will return them back to their caves.")
-    @ConfigEntry(path = "world.nether.generate")
-    private boolean netherGenerate = true;
-
-    @ConfigComment("Caves in Nether. Change to false for standard vanilla nether.")
-    @ConfigEntry(path = "world.nether.caves", needsReset = true)
-    private boolean netherIslands = true;
-
-    @ConfigComment("The default biome for the nether world (this may affect what mobs can spawn)")
-    @ConfigEntry(path = "world.nether.biome", since = "1.14.0")
-    private Biome defaultNetherBiome = Enums.getIfPresent(Biome.class, "NETHER_WASTES").or(Biome.THE_VOID);
-
-    @ConfigComment("Nether spawn protection radius - this is the distance around the nether spawn")
-    @ConfigComment("that will be protected from player interaction (breaking blocks, pouring lava etc.)")
-    @ConfigComment("Minimum is 0 (not recommended), maximum is 100. Default is 25.")
-    @ConfigComment("Only applies to vanilla nether")
-    @ConfigEntry(path = "world.nether.spawn-radius")
-    private int netherSpawnRadius = 32;
-
-    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
-    @ConfigEntry(path = "world.nether.roof", needsReset = true)
-    private boolean netherRoof = true;
-
-    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
-    @ConfigEntry(path = "world.nether.floor", needsReset = true)
-    private boolean netherFloor = true;
-
-    @ConfigComment("Main block of which world will be generated.")
-    @ConfigEntry(path = "world.nether.main-block", needsReset = true)
-    private Material netherMainBlock = Material.NETHERRACK;
-
-    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
-    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
-    @ConfigComment("are set in their strings. Chance of spawning also is required.")
-    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
-    @ConfigComment("Entities spawned via generator are not protected from despawing.")
-    @ConfigComment("Working only with 2 high mobs currently.")
-    @ConfigComment("Example:")
-    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
-    @ConfigComment("where max amount in pack are 5 per each subchunk!")
-    @ConfigEntry(path = "world.nether.blocks", needsReset = true)
-    private List<String> netherBlocks = new ArrayList<>();
-
-    @ConfigComment("This option indicates if nether portals should be linked via dimensions.")
-    @ConfigComment("Option will simulate vanilla portal mechanics that links portals together")
-    @ConfigComment("or creates a new portal, if there is not a portal in that dimension.")
-    @ConfigEntry(path = "world.nether.create-and-link-portals")
-    private boolean makeNetherPortals = false;
-
-    // End
-    @ConfigEntry(path = "world.end.generate")
-    private boolean endGenerate = true;
-
-    @ConfigEntry(path = "world.end.caves", needsReset = true)
-    private boolean endIslands = true;
-
-    @ConfigComment("The default biome for the end world (this may affect what mobs can spawn)")
-    @ConfigEntry(path = "world.end.biome", since = "1.14.0")
-    private Biome defaultTheEndBiome = Enums.getIfPresent(Biome.class, "THE_END").or(Biome.THE_VOID);
-
-    @ConfigEntry(path = "world.end.dragon-spawn", experimental = true)
-    private boolean dragonSpawn = false;
-
-    @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone")
-    @ConfigEntry(path = "world.end.roof", needsReset = true)
-    private boolean endRoof = true;
-
-    @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone")
-    @ConfigEntry(path = "world.end.floor", needsReset = true)
-    private boolean endFloor = true;
-
-    @ConfigComment("Main block of which world will be generated.")
-    @ConfigEntry(path = "world.end.main-block", needsReset = true)
-    private Material endMainBlock = Material.END_STONE;
-
-    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
-    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
-    @ConfigComment("are set in their strings. Chance of spawning also is required.")
-    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
-    @ConfigComment("Entities spawned via generator are not protected from despawing.")
-    @ConfigComment("Working only with 2 high mobs currently.")
-    @ConfigComment("Example:")
-    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
-    @ConfigComment("where max amount in pack are 5 per each subchunk!")
-    @ConfigEntry(path = "world.end.blocks", needsReset = true)
-    private List<String> endBlocks = new ArrayList<>();
-
-    @ConfigComment("This option indicates if obsidian platform in the end should be generated")
-    @ConfigComment("when player enters the end world.")
-    @ConfigEntry(path = "world.end.create-obsidian-platform")
-    private boolean makeEndPortals = false;
-
-    // Other staff.
-
-    @ConfigComment("Mob white list - these mobs will NOT be removed when logging in or doing /cave")
-    @ConfigEntry(path = "world.remove-mobs-whitelist")
-    private Set<EntityType> removeMobsWhitelist = new HashSet<>();
-
-    @ConfigComment("World flags. These are boolean settings for various flags for this world")
-    @ConfigEntry(path = "world.flags")
-    private Map<String, Boolean> worldFlags = new HashMap<>();
-
-    @ConfigComment("These are the default protection settings for new caves.")
-    @ConfigComment("The value is the minimum cave rank required allowed to do the action.")
-    @ConfigComment("Ranks are the following:")
-    @ConfigComment("  VISITOR   = 0")
-    @ConfigComment("  COOP      = 200")
-    @ConfigComment("  TRUSTED   = 400")
-    @ConfigComment("  MEMBER    = 500")
-    @ConfigComment("  SUB-OWNER = 900")
-    @ConfigComment("  OWNER     = 1000")
-    @ConfigEntry(path = "world.default-cave-flags")
-    private Map<String, Integer> defaultIslandFlags = new HashMap<>();
-
-    @ConfigComment("These are the default settings for new caves")
-    @ConfigEntry(path = "world.default-cave-settings")
-    private Map<String, Integer> defaultIslandSettings = new HashMap<>();
-
-    @ConfigComment("These settings/flags are hidden from users")
-    @ConfigComment("Ops can toggle hiding in-game using SHIFT-LEFT-CLICK on flags in settings")
-    @ConfigEntry(path = "world.hidden-flags")
-    private List<String> hiddenFlags = new ArrayList<>();
-
-    @ConfigComment("Visitor banned commands - Visitors to caves cannot use these commands in this world")
-    @ConfigEntry(path = "world.visitor-banned-commands")
-    private List<String> visitorBannedCommands = new ArrayList<>();
-
-    @ConfigComment("Falling banned commands - players cannot use these commands when falling")
-    @ConfigComment("if the PREVENT_TELEPORT_WHEN_FALLING world setting flag is active")
-    @ConfigEntry(path = "world.falling-banned-commands")
-    private List<String> fallingBannedCommands = new ArrayList<>();
-
-    // ---------------------------------------------
-
-    /*      Cave      */
-    @ConfigComment("Default max team size")
-    @ConfigComment("Permission size cannot be less than the default below. ")
-    @ConfigEntry(path = "cave.max-team-size")
-    private int maxTeamSize = 4;
-
-    @ConfigComment("Default maximum number of coop rank members per cave")
-    @ConfigComment("Players can have the caveblock.coop.maxsize.<number> permission to be bigger but")
-    @ConfigComment("permission size cannot be less than the default below. ")
-    @ConfigEntry(path = "cave.max-coop-size", since = "1.13.0")
-    private int maxCoopSize = 4;
-
-    @ConfigComment("Default maximum number of trusted rank members per cave")
-    @ConfigComment("Players can have the caveblock.trust.maxsize.<number> permission to be bigger but")
-    @ConfigComment("permission size cannot be less than the default below. ")
-    @ConfigEntry(path = "cave.max-trusted-size", since = "1.13.0")
-    private int maxTrustSize = 4;
-
-    @ConfigComment("Default maximum number of homes a player can have. Min = 1")
-    @ConfigComment("Accessed via /cave sethome <number> or /cave go <number>")
-    @ConfigEntry(path = "cave.max-homes")
-    private int maxHomes = 5;
-
-    // Reset
-    @ConfigComment("How many resets a player is allowed (override with /cbadmin clearresets <player>)")
-    @ConfigComment("Value of -1 means unlimited, 0 means hardcore - no resets.")
-    @ConfigComment("Example, 2 resets means they get 2 resets or 3 caves lifetime")
-    @ConfigEntry(path = "cave.reset.reset-limit")
-    private int resetLimit = -1;
-
-    @ConfigComment("Kicked or leaving players lose resets")
-    @ConfigComment("Players who leave a team will lose a cave reset chance")
-    @ConfigComment("If a player has zero resets left and leaves a team, they cannot make a new")
-    @ConfigComment("cave by themselves and can only join a team.")
-    @ConfigComment("Leave this true to avoid players exploiting free caves")
-    @ConfigEntry(path = "cave.reset.leavers-lose-reset")
-    private boolean leaversLoseReset = false;
-
-    @ConfigComment("Allow kicked players to keep their inventory.")
-    @ConfigComment("Overrides the on-leave inventory reset for kicked players.")
-    @ConfigEntry(path = "cave.reset.kicked-keep-inventory")
-    private boolean kickedKeepInventory = false;
-
-    @ConfigComment("What the plugin should reset when the player joins or creates a cave")
-    @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
-    @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
-    @ConfigComment("make sure your economy handles multi-worlds too.")
-    @ConfigEntry(path = "cave.reset.on-join.money")
-    private boolean onJoinResetMoney = false;
-
-    @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
-    @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
-    @ConfigComment("plugin may still reset the inventory when the world changes.")
-    @ConfigEntry(path = "cave.reset.on-join.inventory")
-    private boolean onJoinResetInventory = false;
-
-    @ConfigComment("Reset health - if true, the player's health will be reset.")
-    @ConfigEntry(path = "cave.reset.on-join.health")
-    private boolean onJoinResetHealth = true;
-
-    @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
-    @ConfigEntry(path = "cave.reset.on-join.hunger")
-    private boolean onJoinResetHunger = true;
-
-    @ConfigComment("Reset experience points - if true, the player's experience will be reset.")
-    @ConfigEntry(path = "cave.reset.on-join.exp")
-    private boolean onJoinResetXP = false;
-
-    @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
-    @ConfigEntry(path = "cave.reset.on-join.ender-chest")
-    private boolean onJoinResetEnderChest = false;
-
-    @ConfigComment("What the plugin should reset when the player leaves or is kicked from a cave")
-    @ConfigComment("Reset Money - if this is true, will reset the player's money to the starting money")
-    @ConfigComment("Recommendation is that this is set to true, but if you run multi-worlds")
-    @ConfigComment("make sure your economy handles multi-worlds too.")
-    @ConfigEntry(path = "cave.reset.on-leave.money")
-    private boolean onLeaveResetMoney = false;
-
-    @ConfigComment("Reset inventory - if true, the player's inventory will be cleared.")
-    @ConfigComment("Note: if you have MultiInv running or a similar inventory control plugin, that")
-    @ConfigComment("plugin may still reset the inventory when the world changes.")
-    @ConfigEntry(path = "cave.reset.on-leave.inventory")
-    private boolean onLeaveResetInventory = false;
-
-    @ConfigComment("Reset health - if true, the player's health will be reset.")
-    @ConfigEntry(path = "cave.reset.on-leave.health")
-    private boolean onLeaveResetHealth = false;
-
-    @ConfigComment("Reset hunger - if true, the player's hunger will be reset.")
-    @ConfigEntry(path = "cave.reset.on-leave.hunger")
-    private boolean onLeaveResetHunger = false;
-
-    @ConfigComment("Reset experience - if true, the player's experience will be reset.")
-    @ConfigEntry(path = "cave.reset.on-leave.exp")
-    private boolean onLeaveResetXP = false;
-
-    @ConfigComment("Reset Ender Chest - if true, the player's Ender Chest will be cleared.")
-    @ConfigEntry(path = "cave.reset.on-leave.ender-chest")
-    private boolean onLeaveResetEnderChest = false;
-
-    @ConfigComment("Toggles the automatic cave creation upon the player's first login on your server.")
-    @ConfigComment("If set to true,")
-    @ConfigComment("   * Upon connecting to your server for the first time, the player will be told that")
-    @ConfigComment("    a cave will be created for him.")
-    @ConfigComment("  * Make sure you have a Blueprint Bundle called \"default\": this is the one that will")
-    @ConfigComment("    be used to create the cave.")
-    @ConfigComment("  * A cave will be created for the player without needing him to run the create command.")
-    @ConfigComment("If set to false, this will disable this feature entirely.")
-    @ConfigComment("Warning:")
-    @ConfigComment("  * If you are running multiple gamemodes on your server, and all of them have")
-    @ConfigComment("    this feature enabled, a cave in all the gamemodes will be created simultaneously.")
-    @ConfigComment("    However, it is impossible to know on which cave the player will be teleported to afterwards.")
-    @ConfigComment("  * Cave creation can be resource-intensive, please consider the options below to help mitigate")
-    @ConfigComment("    the potential issues, especially if you expect a lot of players to connect to your server")
-    @ConfigComment("    in a limited period of time.")
-    @ConfigEntry(path = "cave.create-cave-on-first-login.enable")
-    private boolean createIslandOnFirstLoginEnabled;
-
-    @ConfigComment("Time in seconds after the player logged in, before his cave gets created.")
-    @ConfigComment("If set to 0 or less, the cave will be created directly upon the player's login.")
-    @ConfigComment("It is recommended to keep this value under a minute's time.")
-    @ConfigEntry(path = "cave.create-cave-on-first-login.delay")
-    private int createIslandOnFirstLoginDelay = 5;
-
-    @ConfigComment("Toggles whether the cave creation should be aborted if the player logged off while the")
-    @ConfigComment("delay (see the option above) has not worn off yet.")
-    @ConfigComment("If set to true,")
-    @ConfigComment("  * If the player has logged off the server while the delay (see the option above) has not")
-    @ConfigComment("    worn off yet, this will cancel the cave creation.")
-    @ConfigComment("  * If the player relogs afterward, since he will not be recognized as a new player, no cave")
-    @ConfigComment("    would be created for him.")
-    @ConfigComment("  * If the cave creation started before the player logged off, it will continue.")
-    @ConfigComment("If set to false, the player's cave will be created even if he went offline in the meantime.")
-    @ConfigComment("Note this option has no effect if the delay (see the option above) is set to 0 or less.")
-    @ConfigEntry(path = "cave.create-cave-on-first-login.abort-on-logout")
-    private boolean createIslandOnFirstLoginAbortOnLogout = true;
-
-    @ConfigComment("Toggles whether the player should be teleported automatically to his cave when it is created.")
-    @ConfigComment("If set to false, the player will be told his cave is ready but will have to teleport to his cave using the command.")
-    @ConfigEntry(path = "cave.teleport-player-to-cave-when-created", since = "1.10.0")
-    private boolean teleportPlayerToIslandUponIslandCreation = true;
-
-    @ConfigComment("Create Nether or End cave if they are missing when a player goes through a portal.")
-    @ConfigComment("Nether and End cave are usually pasted when a player makes their cave, but if they are")
-    @ConfigComment("missing for some reason, you can switch this on.")
-    @ConfigComment("Note that bedrock removal glitches can exploit this option.")
-    @ConfigEntry(path = "cave.create-missing-nether-end-caves", since = "1.10.0")
-    private boolean pasteMissingIslands = false;
-
-    // Commands
-    @ConfigComment("List of commands to run when a player joins an cave or creates one.")
-    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
-    @ConfigComment("in which case they are executed by the player.")
-    @ConfigComment("")
-    @ConfigComment("Available placeholders for the commands are the following:")
-    @ConfigComment("   * [name]: name of the player")
-    @ConfigComment("")
-    @ConfigComment("Here are some examples of valid commands to execute:")
-    @ConfigComment("   * '[SUDO] bbox version'")
-    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
-    @ConfigComment("")
-    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
-    @ConfigEntry(path = "cave.commands.on-join", since = "1.8.0")
-    private List<String> onJoinCommands = new ArrayList<>();
-
-    @ConfigComment("List of commands to run when a player leaves a cave, resets his cave or gets kicked from it.")
-    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
-    @ConfigComment("in which case they are executed by the player.")
-    @ConfigComment("")
-    @ConfigComment("Available placeholders for the commands are the following:")
-    @ConfigComment("   * [name]: name of the player")
-    @ConfigComment("")
-    @ConfigComment("Here are some examples of valid commands to execute:")
-    @ConfigComment("   * '[SUDO] bbox version'")
-    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
-    @ConfigComment("")
-    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
-    @ConfigEntry(path = "cave.commands.on-leave", since = "1.8.0")
-    private List<String> onLeaveCommands = new ArrayList<>();
-
-    @ConfigComment("List of commands that should be executed when the player respawns after death if Flags.ISLAND_RESPAWN is true.")
-    @ConfigComment("These commands are run by the console, unless otherwise stated using the [SUDO] prefix,")
-    @ConfigComment("in which case they are executed by the player.")
-    @ConfigComment("")
-    @ConfigComment("Available placeholders for the commands are the following:")
-    @ConfigComment("   * [name]: name of the player")
-    @ConfigComment("")
-    @ConfigComment("Here are some examples of valid commands to execute:")
-    @ConfigComment("   * '[SUDO] bbox version'")
-    @ConfigComment("   * 'bsbadmin deaths set [player] 0'")
-    @ConfigComment("")
-    @ConfigComment("Note that player-executed commands might not work, as these commands can be run with said player being offline.")
-    @ConfigEntry(path = "cave.commands.on-respawn", since = "1.14.0")
-    private List<String> onRespawnCommands = new ArrayList<>();
-
-    // Sethome
-    @ConfigComment("Allow setting home in the nether. Only available on nether islands, not vanilla nether.")
-    @ConfigEntry(path = "cave.sethome.nether.allow")
-    private boolean allowSetHomeInNether = true;
-
-    @ConfigEntry(path = "cave.sethome.nether.require-confirmation")
-    private boolean requireConfirmationToSetHomeInNether = true;
-
-    @ConfigComment("Allow setting home in the end. Only available on end islands, not vanilla end.")
-    @ConfigEntry(path = "cave.sethome.the-end.allow")
-    private boolean allowSetHomeInTheEnd = true;
-
-    @ConfigEntry(path = "cave.sethome.the-end.require-confirmation")
-    private boolean requireConfirmationToSetHomeInTheEnd = true;
-
-    // Deaths
-    @ConfigComment("Whether deaths are counted or not.")
-    @ConfigEntry(path = "cave.deaths.counted")
-    private boolean deathsCounted = true;
-
-    @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
-    @ConfigEntry(path = "cave.deaths.max")
-    private int deathsMax = 10;
-
-    @ConfigComment("Reset player death count when they start a new cave or reset a cave")
-    @ConfigEntry(path = "cave.deaths.reset-on-new")
-    private boolean deathsResetOnNewIsland = true;
-
-    @ConfigComment("When a player joins a team, reset their death count")
-    @ConfigEntry(path = "cave.deaths.team-join-reset")
-    private boolean teamJoinDeathReset = true;
-
-    // ---------------------------------------------
-    /*      PROTECTION      */
-
-    @ConfigComment("Geo restrict mobs.")
-    @ConfigComment("Mobs that exit the cave space where they were spawned will be removed.")
-    @ConfigEntry(path = "protection.geo-limit-settings")
-    private List<String> geoLimitSettings = new ArrayList<>();
-
-    @ConfigComment("CaveBlock blocked mobs.")
-    @ConfigComment("List of mobs that should not spawn in the CaveBlock.")
-    @ConfigEntry(path = "protection.block-mobs", since = "1.13.0")
-    private List<String> mobLimitSettings = new ArrayList<>();
-
-    // Invincible visitor settings
-    @ConfigComment("Invincible visitors. List of damages that will not affect visitors.")
-    @ConfigComment("Make list blank if visitors should receive all damages")
-    @ConfigEntry(path = "protection.invincible-visitors")
-    private List<String> ivSettings = new ArrayList<>();
-
-    //---------------------------------------------------------------------------------------/
-    @ConfigComment("These settings should not be edited")
-    @ConfigEntry(path = "do-not-edit-these-settings.reset-epoch")
-    private long resetEpoch = 0;
-    private boolean debug;
+    /**
+     * @return the disallowTeamMemberIslands
+     */
+    @Override
+    public boolean isDisallowTeamMemberIslands() {
+        return disallowTeamMemberIslands;
+    }
+
+    /**
+     * @param disallowTeamMemberIslands the disallowTeamMemberIslands to set
+     */
+    public void setDisallowTeamMemberIslands(boolean disallowTeamMemberIslands) {
+        this.disallowTeamMemberIslands = disallowTeamMemberIslands;
+    }
+
+    /**
+     * @return the concurrentIslands
+     */
+    @Override
+    public int getConcurrentIslands() {
+        if (concurrentIslands <= 0) {
+            return BentoBox.getInstance().getSettings().getIslandNumber();
+        }
+        return concurrentIslands;
+    }
+
+    /**
+     * @param concurrentIslands the concurrentIslands to set
+     */
+    public void setConcurrentIslands(int concurrentIslands) {
+        this.concurrentIslands = concurrentIslands;
+    }
 }
