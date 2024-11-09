@@ -1,7 +1,7 @@
 name: BentoBox-CaveBlock
 main: world.bentobox.caveblock.CaveBlockPladdon
 version: ${project.version}${build.number}
-api-version: "1.19"
+api-version: "1.21"
 
 authors: [tastybento, BONNe]
 contributors: ["The BentoBoxWorld Community"]
