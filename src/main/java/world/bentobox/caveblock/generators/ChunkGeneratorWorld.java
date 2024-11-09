@@ -56,27 +56,27 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
 
     private Material getGroundRoofMaterial(World.Environment environment) {
         return switch (environment) {
-            case NETHER -> this.settings.isNetherRoof() ? Material.BEDROCK : this.settings.getNetherMainBlock();
-            case THE_END -> this.settings.isEndRoof() ? Material.BEDROCK : this.settings.getEndMainBlock();
-            default -> this.settings.isNormalRoof() ? Material.BEDROCK : this.settings.getNormalMainBlock();
+        case NETHER -> this.settings.isNetherRoof() ? Material.BEDROCK : this.settings.getNetherMainBlock();
+        case THE_END -> this.settings.isEndRoof() ? Material.BEDROCK : this.settings.getEndMainBlock();
+        default -> this.settings.isNormalRoof() ? Material.BEDROCK : this.settings.getNormalMainBlock();
         };
     }
 
 
     private Material getGroundFloorMaterial(World.Environment environment) {
         return switch (environment) {
-            case NETHER -> this.settings.isNetherFloor() ? Material.BEDROCK : this.settings.getNetherMainBlock();
-            case THE_END -> this.settings.isEndFloor() ? Material.BEDROCK : this.settings.getEndMainBlock();
-            default -> this.settings.isNormalFloor() ? Material.BEDROCK : this.settings.getNormalMainBlock();
+        case NETHER -> this.settings.isNetherFloor() ? Material.BEDROCK : this.settings.getNetherMainBlock();
+        case THE_END -> this.settings.isEndFloor() ? Material.BEDROCK : this.settings.getEndMainBlock();
+        default -> this.settings.isNormalFloor() ? Material.BEDROCK : this.settings.getNormalMainBlock();
         };
     }
 
 
     private Material getBaseMaterial(World.Environment environment) {
         return switch (environment) {
-            case NETHER -> this.settings.getNetherMainBlock();
-            case THE_END -> this.settings.getEndMainBlock();
-            default -> this.settings.getNormalMainBlock();
+        case NETHER -> this.settings.getNetherMainBlock();
+        case THE_END -> this.settings.getEndMainBlock();
+        default -> this.settings.getNormalMainBlock();
         };
     }
 
@@ -117,10 +117,10 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
         final World.Environment environment = worldInfo.getEnvironment();
         if (isNewGenerator) {
             switch (environment) {
-                case NETHER:
-                    if (worldHeight + 1 > 34) {
-                        chunkData.setRegion(0, minHeight + 1, 0, 16, 34, 16, Material.SOUL_SAND);
-                        chunkData.setRegion(0, 34, 0, 16, worldHeight - 1, 16, Material.NETHERRACK);
+            case NETHER:
+                if (worldHeight + 1 > 34) {
+                    chunkData.setRegion(0, minHeight + 1, 0, 16, 34, 16, Material.SOUL_SAND);
+                    chunkData.setRegion(0, 34, 0, 16, worldHeight - 1, 16, Material.NETHERRACK);
                     } else {
                         chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.NETHERRACK);
                     }
