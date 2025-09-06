@@ -107,7 +107,7 @@ public class CustomHeightLimitations implements Listener
 			player.getGameMode().equals(GameMode.SPECTATOR) ||
 			player.hasPermission("caveblock.skywalker") ||
 			this.addon.getPlayers().isInTeleport(player.getUniqueId()) ||
-			!Util.sameWorld(this.addon.getOverWorld(), player.getWorld()) ||
+			!Util.sameWorld(this.addon.getOverWorld(), to.getWorld()) ||
 			CaveBlock.SKY_WALKER_FLAG.isSetForWorld(player.getWorld());
 	}
 
