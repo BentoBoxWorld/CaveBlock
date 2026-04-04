@@ -14,7 +14,7 @@ mvn test                   # Run tests (surefire)
 mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BentoBoxWorld_CaveBlock  # CI build with SonarCloud
 ```
 
-Java 17 is required. The output JAR goes to `target/`.
+Java 21 is required. The output JAR goes to `target/`.
 
 ## Architecture
 
@@ -36,7 +36,7 @@ Java 17 is required. The output JAR goes to `target/`.
 
 ## Key Dependencies (provided scope — server supplies at runtime)
 
-- `spigot-api` 1.21.3 — Minecraft Bukkit API
+- `paper-api` 1.21.11 — Paper API
 - `bentobox` 2.7.1-SNAPSHOT — BentoBox framework
 
 ## Branches
