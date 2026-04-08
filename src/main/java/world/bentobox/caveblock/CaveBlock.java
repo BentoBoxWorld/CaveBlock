@@ -8,6 +8,7 @@ import org.bukkit.WorldType;
 import org.bukkit.generator.ChunkGenerator;
 import org.eclipse.jdt.annotation.NonNull;
 
+import world.bentobox.bentobox.BentoBox;
 import world.bentobox.bentobox.api.addons.GameModeAddon;
 import world.bentobox.bentobox.api.commands.admin.DefaultAdminCommand;
 import world.bentobox.bentobox.api.commands.island.DefaultPlayerCommand;
@@ -144,7 +145,7 @@ public class CaveBlock extends GameModeAddon
         // Set spawn rates
         setSpawnRates(islandWorld);
 
-
+        BentoBox.getInstance().logDebug(islandWorld.getWorldFolder());
         // Make the nether if it does not exist
         if (this.settings.isNetherGenerate())
         {

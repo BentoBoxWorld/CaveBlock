@@ -157,62 +157,20 @@ public class Settings implements WorldSettings
     @ConfigComment("This is cave.. no height... only depth. If depth is set smaller than maximal world height, then area above will be empty.")
     @ConfigComment("Should not be less than cave height.")
     @ConfigEntry(path = "world.world-depth", needsReset = true)
-    private int worldDepth = 256;
-
-    @ConfigComment("This indicate how many times block should be tried to generate.")
-    @ConfigEntry(path = "world.generation-tries", needsReset = true)
-    private int numberOfBlockGenerationTries = 1;
-
-    @ConfigComment("Should we use the new material generator ?")
-    @ConfigComment("This will generate ores and blocks similar to how vanilla does,")
-    @ConfigComment("but it will override the blocks settings of each world.")
-    @ConfigEntry(path = "world.use-new-material-generator", needsReset = true)
-    private boolean newMaterialGenerator = false;
+    private int worldDepth = 319;
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone.")
     @ConfigEntry(path = "world.normal.roof", needsReset = true)
     private boolean normalRoof = true;
 
-    @ConfigComment("")
-    @ConfigComment("Option allows to toggle if world generator should generate natural(-ish) looking surface with dirt and grass blocks.")
-    @ConfigComment("Enabling this option will ignore roof setting.")
-    @ConfigComment("Default value is false.")
-    @ConfigEntry(path = "world.normal.natural-surface", needsReset = true, experimental = true)
-    private boolean generateNaturalSurface = false;
-
-    @ConfigComment("")
-    @ConfigComment("Option allows to toggle if world generator should generate natural looking caves.")
-    @ConfigComment("Default value is false.")
-    @ConfigEntry(path = "world.normal.natural-caves", needsReset = true)
-    private boolean generateCaves = false;
-
     @ConfigComment("Make over world floor of bedrock, if false, it will be made from stone.")
     @ConfigEntry(path = "world.normal.floor", needsReset = true)
     private boolean normalFloor = true;
 
-    @ConfigComment("")
-    @ConfigComment("Option allows to toggle if world generator should generate natural looking bedrock block patterns.")
-    @ConfigComment("Enabling this option will ignore floor setting.")
-    @ConfigComment("Default value is false.")
-    @ConfigEntry(path = "world.normal.natural-bedrock", needsReset = true)
-    private boolean generateNaturalBedrock = false;
-
     @ConfigComment("Main block of which world will be generated.")
     @ConfigEntry(path = "world.normal.main-block", needsReset = true)
     private Material normalMainBlock = Material.STONE;
-
-    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
-    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
-    @ConfigComment("are set in their strings. Chance of spawning also is required.")
-    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
-    @ConfigComment("Entities spawned via generator are not protected from despawing.")
-    @ConfigComment("Working only with 2 high mobs currently.")
-    @ConfigComment("Example:")
-    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
-    @ConfigComment("where max amount in pack are 5 per each subchunk!")
-    @ConfigEntry(path = "world.normal.blocks", needsReset = true)
-    private List<String> normalBlocks = new ArrayList<>();
 
     // Nether
     @ConfigComment("Generate Nether - if this is false, the nether world will not be made and access to")
@@ -1295,16 +1253,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the normalBlocks value.
-     * @return the value of normalBlocks.
-     */
-    public List<String> getNormalBlocks()
-    {
-        return normalBlocks;
-    }
-
-
-    /**
      * This method returns the netherFloor value.
      * @return the value of netherFloor.
      */
@@ -1371,25 +1319,6 @@ public class Settings implements WorldSettings
     public List<String> getEndBlocks()
     {
         return endBlocks;
-    }
-
-
-    /**
-     * This method returns the numberOfBlockGenerationTries value.
-     * @return the value of numberOfBlockGenerationTries.
-     */
-    public int getNumberOfBlockGenerationTries()
-    {
-        return numberOfBlockGenerationTries;
-    }
-
-    /**
-     * This method returns the newMaterialGenerator value.
-     * @return the value of newMaterialGenerator.
-     */
-    public boolean isNewMaterialGenerator()
-    {
-        return newMaterialGenerator;
     }
 
 
@@ -2119,17 +2048,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method sets the normalBlocks value.
-     * @param normalBlocks the normalBlocks new value.
-     *
-     */
-    public void setNormalBlocks(List<String> normalBlocks)
-    {
-        this.normalBlocks = normalBlocks;
-    }
-
-
-    /**
      * This method sets the netherFloor value.
      * @param netherFloor the netherFloor new value.
      *
@@ -2203,28 +2121,6 @@ public class Settings implements WorldSettings
     public void setEndBlocks(List<String> endBlocks)
     {
         this.endBlocks = endBlocks;
-    }
-
-
-    /**
-     * This method sets the numberOfBlockGenerationTries value.
-     * @param numberOfBlockGenerationTries the numberOfBlockGenerationTries new value.
-     *
-     */
-    public void setNumberOfBlockGenerationTries(int numberOfBlockGenerationTries)
-    {
-        this.numberOfBlockGenerationTries = numberOfBlockGenerationTries;
-    }
-
-
-    /**
-     * This method sets the newMaterialGenerator value.
-     * @param newMaterialGenerator the numberOfBlockGenerationTries new value.
-     *
-     */
-    public void setNewMaterialGenerator(boolean newMaterialGenerator)
-    {
-        this.newMaterialGenerator = newMaterialGenerator;
     }
 
 
@@ -2645,72 +2541,6 @@ public class Settings implements WorldSettings
     public void setOnRespawnCommands(List<String> onRespawnCommands)
     {
         this.onRespawnCommands = onRespawnCommands;
-    }
-
-
-    /**
-     * Is generate caves boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isGenerateCaves()
-    {
-        return generateCaves;
-    }
-
-
-    /**
-     * Sets generate caves.
-     *
-     * @param generateCaves the generate caves
-     */
-    public void setGenerateCaves(boolean generateCaves)
-    {
-        this.generateCaves = generateCaves;
-    }
-
-
-    /**
-     * Is generate natural bedrock boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isGenerateNaturalBedrock()
-    {
-        return generateNaturalBedrock;
-    }
-
-
-    /**
-     * Sets generate natural bedrock.
-     *
-     * @param generateNaturalBedrock the generate natural bedrock
-     */
-    public void setGenerateNaturalBedrock(boolean generateNaturalBedrock)
-    {
-        this.generateNaturalBedrock = generateNaturalBedrock;
-    }
-
-
-    /**
-     * Is generate natural surface boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isGenerateNaturalSurface()
-    {
-        return generateNaturalSurface;
-    }
-
-
-    /**
-     * Sets generate natural surface.
-     *
-     * @param generateNaturalSurface the generate natural surface
-     */
-    public void setGenerateNaturalSurface(boolean generateNaturalSurface)
-    {
-        this.generateNaturalSurface = generateNaturalSurface;
     }
 
 
