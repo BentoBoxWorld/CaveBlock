@@ -1,7 +1,7 @@
 name: CaveBlock
 main: world.bentobox.caveblock.CaveBlock
 version: ${version}${build.number}
-api-version: 2.7.1
+api-version: 3.14
 metrics: true
 repository: "BentoBoxWorld/CaveBlock"
 icon: "STONE_PICKAXE"
