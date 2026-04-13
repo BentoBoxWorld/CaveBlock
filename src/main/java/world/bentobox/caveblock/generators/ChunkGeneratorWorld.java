@@ -100,15 +100,6 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
     }
 
     /**
-     * Never use vanilla bedrock generation. We place floor/roof bedrock ourselves
-     * via {@link #generateBedrock}.
-     */
-    @Override
-    public boolean shouldGenerateBedrock() {
-        return false;
-    }
-
-    /**
      * Enable vanilla carver caves for the overworld (ravines, round carver tunnels).
      * These stack on top of the noise caves already provided by {@link #shouldGenerateNoise}.
      * Disabled for nether/end (they use the NewMaterialPopulator).
@@ -173,10 +164,8 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
                 }
             }
             case THE_END -> chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.END_STONE);
-            default -> {
-                // Fallback for normal world (should not reach here when shouldGenerateNoise() = true)
-                chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.STONE);
-            }
+            default -> // Fallback for normal world (should not reach here when shouldGenerateNoise() = true)
+                    chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.STONE);
         }
     }
 
