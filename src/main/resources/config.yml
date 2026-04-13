@@ -130,27 +130,6 @@ world:
     # Main block of which world will be generated.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     main-block: NETHERRACK
-    # Blocks that will occasionally replace main block by random chance.
-    # Blocks will replace only main-block and will try to create packs that
-    # are set in their strings. Chance of spawning also is required.
-    # For materials first string must be MATERIAL, for entity: ENTITY.
-    # Entities spawned via generator are not protected from despawing.
-    # Working only with 2 high mobs currently.
-    # Example:
-    # MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds
-    # where max amount in pack are 5 per each subchunk!
-    # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-    blocks:
-    - MATERIAL:NETHER_QUARTZ_ORE:30:5
-    - MATERIAL:SOUL_SAND:40:10
-    - MATERIAL:MAGMA_BLOCK:10:3
-    - MATERIAL:GLOWSTONE:20:8
-    - MATERIAL:NETHER_BRICKS:10:5
-    - MATERIAL:LAVA:30:10
-    - ENTITY:MAGMA_CUBE:0.5:1
-    - ENTITY:GHAST:0.1:1
-    - ENTITY:WITHER_SKELETON:0.1:1
-    - MATERIAL:FIRE:10:1
     # This option indicates if nether portals should be linked via dimensions.
     # Option will simulate vanilla portal mechanics that links portals together
     # or creates a new portal, if there is not a portal in that dimension.
@@ -173,20 +152,6 @@ world:
     # Main block of which world will be generated.
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
     main-block: END_STONE
-    # Blocks that will occasionally replace main block by random chance.
-    # Blocks will replace only main-block and will try to create packs that
-    # are set in their strings. Chance of spawning also is required.
-    # For materials first string must be MATERIAL, for entity: ENTITY.
-    # Entities spawned via generator are not protected from despawing.
-    # Working only with 2 high mobs currently.
-    # Example:
-    # MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds
-    # where max amount in pack are 5 per each subchunk!
-    # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-    blocks:
-    - ENTITY:SHULKER:0.2:1
-    - MATERIAL:OBSIDIAN:1:1
-    - MATERIAL:CHORUS_PLANT:1:3
     # This option indicates if obsidian platform in the end should be generated
     # when player enters the end world.
     create-obsidian-platform: false
@@ -455,4 +420,3 @@ protection:
 do-not-edit-these-settings:
   # These settings should not be edited
   reset-epoch: 0
-debug: false

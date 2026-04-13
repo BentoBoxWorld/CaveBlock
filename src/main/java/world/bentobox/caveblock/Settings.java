@@ -208,18 +208,6 @@ public class Settings implements WorldSettings
     @ConfigEntry(path = "world.nether.main-block", needsReset = true)
     private Material netherMainBlock = Material.NETHERRACK;
 
-    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
-    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
-    @ConfigComment("are set in their strings. Chance of spawning also is required.")
-    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
-    @ConfigComment("Entities spawned via generator are not protected from despawing.")
-    @ConfigComment("Working only with 2 high mobs currently.")
-    @ConfigComment("Example:")
-    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
-    @ConfigComment("where max amount in pack are 5 per each subchunk!")
-    @ConfigEntry(path = "world.nether.blocks", needsReset = true)
-    private List<String> netherBlocks = new ArrayList<>();
-
     @ConfigComment("This option indicates if nether portals should be linked via dimensions.")
     @ConfigComment("Option will simulate vanilla portal mechanics that links portals together")
     @ConfigComment("or creates a new portal, if there is not a portal in that dimension.")
@@ -251,18 +239,6 @@ public class Settings implements WorldSettings
     @ConfigComment("Main block of which world will be generated.")
     @ConfigEntry(path = "world.end.main-block", needsReset = true)
     private Material endMainBlock = Material.END_STONE;
-
-    @ConfigComment("Blocks that will occasionally replace main block by random chance.")
-    @ConfigComment("Blocks will replace only main-block and will try to create packs that")
-    @ConfigComment("are set in their strings. Chance of spawning also is required.")
-    @ConfigComment("For materials first string must be MATERIAL, for entity: ENTITY.")
-    @ConfigComment("Entities spawned via generator are not protected from despawing.")
-    @ConfigComment("Working only with 2 high mobs currently.")
-    @ConfigComment("Example:")
-    @ConfigComment("MATERIAL:DIAMOND_ORE:100:5 - means there is 100% chace of spawing diamonds")
-    @ConfigComment("where max amount in pack are 5 per each subchunk!")
-    @ConfigEntry(path = "world.end.blocks", needsReset = true)
-    private List<String> endBlocks = new ArrayList<>();
 
     @ConfigComment("This option indicates if obsidian platform in the end should be generated")
     @ConfigComment("when player enters the end world.")
@@ -562,7 +538,6 @@ public class Settings implements WorldSettings
     @ConfigComment("These settings should not be edited")
     @ConfigEntry(path = "do-not-edit-these-settings.reset-epoch")
     private long resetEpoch = 0;
-    private boolean debug;
 
     // ---------------------------------------------------------------------
     // Section: Getters
@@ -1273,16 +1248,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method returns the netherBlocks value.
-     * @return the value of netherBlocks.
-     */
-    public List<String> getNetherBlocks()
-    {
-        return netherBlocks;
-    }
-
-
-    /**
      * This method returns the endRoof value.
      * @return the value of endRoof.
      */
@@ -1309,16 +1274,6 @@ public class Settings implements WorldSettings
     public Material getEndMainBlock()
     {
         return endMainBlock;
-    }
-
-
-    /**
-     * This method returns the endBlocks value.
-     * @return the value of endBlocks.
-     */
-    public List<String> getEndBlocks()
-    {
-        return endBlocks;
     }
 
 
@@ -2070,17 +2025,6 @@ public class Settings implements WorldSettings
 
 
     /**
-     * This method sets the netherBlocks value.
-     * @param netherBlocks the netherBlocks new value.
-     *
-     */
-    public void setNetherBlocks(List<String> netherBlocks)
-    {
-        this.netherBlocks = netherBlocks;
-    }
-
-
-    /**
      * This method sets the endRoof value.
      * @param endRoof the endRoof new value.
      *
@@ -2110,33 +2054,6 @@ public class Settings implements WorldSettings
     public void setEndMainBlock(Material endMainBlock)
     {
         this.endMainBlock = endMainBlock;
-    }
-
-
-    /**
-     * This method sets the endBlocks value.
-     * @param endBlocks the endBlocks new value.
-     *
-     */
-    public void setEndBlocks(List<String> endBlocks)
-    {
-        this.endBlocks = endBlocks;
-    }
-
-
-    /**
-     * @return the debug
-     */
-    public boolean isDebug() {
-        return debug;
-    }
-
-
-    /**
-     * @param debug the debug to set
-     */
-    public void setDebug(boolean debug) {
-        this.debug = debug;
     }
 
 
