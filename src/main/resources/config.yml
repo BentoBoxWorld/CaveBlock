@@ -50,11 +50,11 @@ world:
   # It is the same for every dimension : Overworld, Nether and End.
   # This value cannot be changed mid-game and the plugin will not start if it is different.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-  distance-between-caves: 64
+  distance-between-caves: 1000
   # Default protection range radius in blocks. Cannot be larger than distance.
   # Admins can change protection sizes for players individually using /cbadmin range set <player> <new range>
   # or set this permission: caveblock.island.range.<number>
-  protection-range: 50
+  protection-range: 1000
   # Start caves at these coordinates. This is where new caves will start in the
   # world. These must be a factor of your cave distance, but the plugin will auto
   # calculate the closest location on the grid. Caves develop around this location

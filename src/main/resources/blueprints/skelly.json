@@ -1,13 +1,14 @@
 {
-  "uniqueId": "default",
-  "icon": "MOSS_BLOCK",
-  "displayName": "<green>Lush Cave",
+  "uniqueId": "skelly",
+  "icon": "BONE",
+  "displayName": "Skelly",
   "description": [
-    "<green>It seems so peaceful..."
+    "A good place to start?",
+    "I can <red>hear something!</red>"
   ],
   "requirePermission": false,
   "blueprints": {
-    "NORMAL": "lush",
+    "NORMAL": "skelly",
     "NETHER": "nether-cave",
     "THE_END": "end-cave"
   },

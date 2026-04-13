@@ -3,7 +3,7 @@
   "icon": "MOSSY_STONE_BRICKS",
   "displayName": "&eThe Miner's Cave",
   "description": [
-    "The Miner's Cave"
+    "Time to <gold>mine!</gold>"
   ],
   "requirePermission": false,
   "blueprints": {
@@ -11,5 +11,8 @@
     "NETHER": "nether-cave",
     "THE_END": "end-cave"
   },
-  "slot": 1
+  "slot": 1,
+  "times": 0,
+  "cost": 0.0,
+  "commands": []
 }
