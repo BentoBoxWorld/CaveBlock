@@ -37,7 +37,7 @@ Java 21 is required. The output JAR goes to `target/`.
 ## Key Dependencies (provided scope — server supplies at runtime)
 
 - `paper-api` 1.21.11 — Paper API
-- `bentobox` 2.7.1-SNAPSHOT — BentoBox framework
+- `bentobox` 3.14.1-SNAPSHOT — BentoBox framework
 
 ## Branches
 
