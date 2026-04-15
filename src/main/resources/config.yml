@@ -90,7 +90,7 @@ world:
   # This is cave.. no height... only depth. If depth is set smaller than maximal world height, then area above will be empty.
   # Should not be less than cave height.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
-  world-depth: 256
+  world-depth: 319
   normal:
     # Make over world roof of bedrock. If false, it will be made from the main block (stone).
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
