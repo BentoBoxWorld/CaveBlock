@@ -23,8 +23,8 @@ Java 21 is required. The output JAR goes to `target/`.
 **Key components:**
 - `CaveBlock.java` — Main addon lifecycle (`onLoad`, `onEnable`, `createWorlds`). Creates 3 world generators (normal, nether, end) and registers flags/listeners.
 - `Settings.java` — 50+ annotated config fields implementing BentoBox's `WorldSettings`. Maps to `config.yml`.
-- `generators/ChunkGeneratorWorld.java` — Core chunk generator. Fills world with stone/netherrack/endstone, supports two modes: legacy (custom ore placement) and new (vanilla-like with `NewMaterialPopulator`).
-- `generators/populators/` — `MaterialPopulator` (legacy ore placement), `NewMaterialPopulator` (vanilla-style), `EntitiesPopulator` (mob spawning), `FlatBiomeProvider` (biome distribution).
+- `generators/ChunkGeneratorWorld.java` — Core chunk generator. Fills the world with the dimension's base blocks (stone/netherrack/end stone) and relies on the current populator pipeline for additional material generation.
+- `generators/populators/` — `NewMaterialPopulator` (current vanilla-like material generation) and `FlatBiomeProvider` (biome distribution).
 - `listeners/CustomHeightLimitations.java` — Prevents players from going above the configured world depth. Respects `SKY_WALKER_FLAG` and creative/op bypass.
 
 **BentoBox framework patterns to follow:**
