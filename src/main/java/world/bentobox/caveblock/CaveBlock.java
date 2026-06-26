@@ -146,7 +146,6 @@ public class CaveBlock extends GameModeAddon
         // Set spawn rates
         setSpawnRates(islandWorld);
 
-        BentoBox.getInstance().logDebug(islandWorld.getWorldFolder());
         // Make the nether if it does not exist
         if (this.settings.isNetherGenerate())
         {
