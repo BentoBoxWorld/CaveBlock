@@ -169,7 +169,7 @@ class CaveBlockTest extends CommonTestSetup {
     void testCreateWorlds() {
         addon.onLoad();
         addon.createWorlds();
-        Mockito.verify(plugin, Mockito.atLeastOnce()).logDebug(any());
+        assertNotNull(addon.getOverWorld());
     }
 
     /**
