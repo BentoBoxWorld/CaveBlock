@@ -80,6 +80,11 @@ public class CaveBlock extends GameModeAddon
     {
         super.onReload();
         this.loadSettings();
+        // Refresh the generators so reloaded settings (world depth, materials, etc.)
+        // apply to newly generated chunks without a server restart.
+        this.chunkNormalGenerator.reload();
+        this.chunkNetherGenerator.reload();
+        this.chunkEndGenerator.reload();
     }
 
 

@@ -40,7 +40,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
     // -------------------------------------------------------------------------
 
     private final CaveBlock addon;
-    private final Settings settings;
+    private Settings settings;
     private final World.Environment environment;
     private final List<BlockPopulator> blockPopulators;
 
@@ -65,9 +65,13 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
     // -------------------------------------------------------------------------
 
     /**
-     * Called when config is reloaded. Rebuilds block populators.
+     * Called when config is reloaded. Re-reads the live settings (a reload replaces
+     * the {@link Settings} instance) and rebuilds block populators so that changes
+     * such as world depth, roof/floor and main blocks take effect on newly
+     * generated chunks without a full server restart.
      */
     public void reload() {
+        this.settings = addon.getSettings();
         this.blockPopulators.clear();
         // Overworld uses vanilla decorations (shouldGenerateDecorations = true).
         // Nether and End use NewMaterialPopulator for ore/block placement.
