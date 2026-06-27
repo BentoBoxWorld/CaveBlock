@@ -5,9 +5,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
+import org.bukkit.entity.SpawnCategory;
 import org.bukkit.generator.ChunkGenerator;
 import org.eclipse.jdt.annotation.NonNull;
 
+import world.bentobox.bentobox.BentoBox;
 import world.bentobox.bentobox.api.addons.GameModeAddon;
 import world.bentobox.bentobox.api.commands.admin.DefaultAdminCommand;
 import world.bentobox.bentobox.api.commands.island.DefaultPlayerCommand;
@@ -78,6 +80,11 @@ public class CaveBlock extends GameModeAddon
     {
         super.onReload();
         this.loadSettings();
+        // Refresh the generators so reloaded settings (world depth, materials, etc.)
+        // apply to newly generated chunks without a server restart.
+        this.chunkNormalGenerator.reload();
+        this.chunkNetherGenerator.reload();
+        this.chunkEndGenerator.reload();
     }
 
 
@@ -144,7 +151,6 @@ public class CaveBlock extends GameModeAddon
         // Set spawn rates
         setSpawnRates(islandWorld);
 
-
         // Make the nether if it does not exist
         if (this.settings.isNetherGenerate())
         {
@@ -201,22 +207,22 @@ public class CaveBlock extends GameModeAddon
     private void setSpawnRates(World w) {
         if (w != null) {
             if (getSettings().getSpawnLimitMonsters() > 0) {
-                w.setMonsterSpawnLimit(getSettings().getSpawnLimitMonsters());
+                w.setSpawnLimit(SpawnCategory.MONSTER, getSettings().getSpawnLimitMonsters());
             }
             if (getSettings().getSpawnLimitAmbient() > 0) {
-                w.setAmbientSpawnLimit(getSettings().getSpawnLimitAmbient());
+                w.setSpawnLimit(SpawnCategory.AMBIENT, getSettings().getSpawnLimitAmbient());
             }
             if (getSettings().getSpawnLimitAnimals() > 0) {
-                w.setAnimalSpawnLimit(getSettings().getSpawnLimitAnimals());
+                w.setSpawnLimit(SpawnCategory.ANIMAL,getSettings().getSpawnLimitAnimals());
             }
             if (getSettings().getSpawnLimitWaterAnimals() > 0) {
-                w.setWaterAnimalSpawnLimit(getSettings().getSpawnLimitWaterAnimals());
+                w.setSpawnLimit(SpawnCategory.WATER_ANIMAL, getSettings().getSpawnLimitWaterAnimals());
             }
             if (getSettings().getTicksPerAnimalSpawns() > 0) {
-                w.setTicksPerAnimalSpawns(getSettings().getTicksPerAnimalSpawns());
+                w.setTicksPerSpawns(SpawnCategory.ANIMAL, getSettings().getTicksPerAnimalSpawns());
             }
             if (getSettings().getTicksPerMonsterSpawns() > 0) {
-                w.setTicksPerMonsterSpawns(getSettings().getTicksPerMonsterSpawns());
+                w.setTicksPerSpawns(SpawnCategory.MONSTER, getSettings().getTicksPerMonsterSpawns());
             }
         }
 
