@@ -21,7 +21,6 @@ import world.bentobox.caveblock.generators.Ore;
  * @author tastybento
  */
 public class NewMaterialPopulator extends BlockPopulator {
-    private static final int BLOB_SIZE = 1;
     private static final Map<World.Environment, List<Ore>> ORES;
 
     static {
@@ -105,20 +104,38 @@ public class NewMaterialPopulator extends BlockPopulator {
 	}
     }
 
+    /**
+     * Scatters a vein of {@code o.material()} around a random centre in this chunk.
+     *
+     * <p>The number of blocks placed is driven by {@link Ore#blob()} (the vein size),
+     * spread over a radius derived from the cube root of that size so a vein of N
+     * blocks occupies a roughly N-block volume instead of collapsing to a single
+     * point. The X, Z and Y offsets are chosen independently so veins are not pinned
+     * to the chunk diagonal.</p>
+     */
     private void pasteBlob(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, LimitedRegion limitedRegion,
 	    int y, Ore o) {
-	int offset = random.nextInt(16);
-	for (int x = Math.max(0, offset - BLOB_SIZE); x < Math.min(16, offset + BLOB_SIZE); x++) {
-	    for (int z = Math.max(0, offset - BLOB_SIZE); z < Math.min(16, offset + BLOB_SIZE); z++) {
-		for (int yy = Math.max(worldInfo.getMinHeight() + 1, y - BLOB_SIZE); yy < Math
-			.min(worldInfo.getMaxHeight() - 1, y + BLOB_SIZE); yy++) {
-		    Location location = Utils.getLocationFromChunkLocation(x, yy, z, chunkX, chunkZ);
-		    if (!limitedRegion.isInRegion(location)) {
-			continue;
-		    }
-		    if (limitedRegion.getType(location).isSolid() && random.nextBoolean()) {
-			limitedRegion.setType(location, o.material());
-		    }
+	final int blobSize = Math.max(1, o.blob());
+	// Half-extent of the vein: scales with the cube root of the requested size.
+	final int radius = Math.max(1, (int) Math.round(Math.cbrt(blobSize)));
+	final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.worldDepth);
+	final int centreX = random.nextInt(16);
+	final int centreZ = random.nextInt(16);
+
+	int placed = 0;
+	// Bound the attempts so a vein in a region with few solid blocks cannot loop forever.
+	final int maxAttempts = blobSize * 8;
+	for (int attempt = 0; placed < blobSize && attempt < maxAttempts; attempt++) {
+	    int x = centreX + random.nextInt(2 * radius + 1) - radius;
+	    int z = centreZ + random.nextInt(2 * radius + 1) - radius;
+	    int yy = y + random.nextInt(2 * radius + 1) - radius;
+	    boolean inChunk = x >= 0 && x <= 15 && z >= 0 && z <= 15;
+	    boolean inDepth = yy > worldInfo.getMinHeight() && yy < worldHeight - 1;
+	    if (inChunk && inDepth) {
+		Location location = Utils.getLocationFromChunkLocation(x, yy, z, chunkX, chunkZ);
+		if (limitedRegion.isInRegion(location) && limitedRegion.getType(location).isSolid()) {
+		    limitedRegion.setType(location, o.material());
+		    placed++;
 		}
 	    }
 	}
