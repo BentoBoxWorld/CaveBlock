@@ -129,19 +129,14 @@ public class NewMaterialPopulator extends BlockPopulator {
 	    int x = centreX + random.nextInt(2 * radius + 1) - radius;
 	    int z = centreZ + random.nextInt(2 * radius + 1) - radius;
 	    int yy = y + random.nextInt(2 * radius + 1) - radius;
-	    if (x < 0 || x > 15 || z < 0 || z > 15) {
-		continue;
-	    }
-	    if (yy <= worldInfo.getMinHeight() || yy >= worldHeight - 1) {
-		continue;
-	    }
-	    Location location = Utils.getLocationFromChunkLocation(x, yy, z, chunkX, chunkZ);
-	    if (!limitedRegion.isInRegion(location)) {
-		continue;
-	    }
-	    if (limitedRegion.getType(location).isSolid()) {
-		limitedRegion.setType(location, o.material());
-		placed++;
+	    boolean inChunk = x >= 0 && x <= 15 && z >= 0 && z <= 15;
+	    boolean inDepth = yy > worldInfo.getMinHeight() && yy < worldHeight - 1;
+	    if (inChunk && inDepth) {
+		Location location = Utils.getLocationFromChunkLocation(x, yy, z, chunkX, chunkZ);
+		if (limitedRegion.isInRegion(location) && limitedRegion.getType(location).isSolid()) {
+		    limitedRegion.setType(location, o.material());
+		    placed++;
+		}
 	    }
 	}
     }
