@@ -155,6 +155,8 @@ class CaveBlockTest extends CommonTestSetup {
      */
     @Test
     void testOnReload() {
+        // onReload refreshes the generators, which are created in onLoad().
+        addon.onLoad();
         addon.onReload();
         File check = new File("addons/CaveBlock", "config.yml");
         assertTrue(check.exists());
