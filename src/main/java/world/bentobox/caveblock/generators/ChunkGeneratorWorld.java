@@ -9,7 +9,9 @@ import org.bukkit.generator.WorldInfo;
 
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
+import world.bentobox.caveblock.generators.populators.CaveDecorationPopulator;
 import world.bentobox.caveblock.generators.populators.FlatBiomeProvider;
+import world.bentobox.caveblock.generators.populators.NetherBiomeProvider;
 import world.bentobox.caveblock.generators.populators.NewMaterialPopulator;
 
 import java.util.ArrayList;
@@ -39,10 +41,22 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
     // Section: Variables
     // -------------------------------------------------------------------------
 
+    /** Blocks of solid rock kept above the floor before caves may start. */
+    private static final int CAVE_FLOOR_MARGIN = 5;
+    /** Blocks of solid rock kept below the roof so caves never breach it. */
+    private static final int CAVE_ROOF_MARGIN = 6;
+    /** Height above the cave floor that nether cave voids fill with lava. */
+    private static final int NETHER_LAVA_DEPTH = 4;
+    /** Cave field cut-off: larger carves wider, more connected caves. */
+    private static final double CAVE_THRESHOLD = 0.15;
+
     private final CaveBlock addon;
     private Settings settings;
     private final World.Environment environment;
     private final List<BlockPopulator> blockPopulators;
+    /** Lazily built, cached per world seed so chunks regenerate identically. */
+    private NoiseCaveGenerator caveGenerator;
+    private long caveGeneratorSeed;
 
     // -------------------------------------------------------------------------
     // Section: Constructor
@@ -74,9 +88,11 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
         this.settings = addon.getSettings();
         this.blockPopulators.clear();
         // Overworld uses vanilla decorations (shouldGenerateDecorations = true).
-        // Nether and End use NewMaterialPopulator for ore/block placement.
+        // Nether and End place ore/block veins (NewMaterialPopulator) and then
+        // biome-aware surface features (CaveDecorationPopulator).
         if (this.environment != World.Environment.NORMAL) {
             this.blockPopulators.add(new NewMaterialPopulator(this.settings.getWorldDepth()));
+            this.blockPopulators.add(new CaveDecorationPopulator(this.settings.getWorldDepth()));
         }
     }
 
@@ -148,29 +164,68 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
     // -------------------------------------------------------------------------
 
     /**
-     * Fills nether and end chunks with their base material. Not called for the
-     * overworld — vanilla noise handles it when {@link #shouldGenerateNoise} is true.
+     * Fills nether and end chunks with their base material and carves
+     * noise-based caves through them. Not called for the overworld — vanilla
+     * noise handles it when {@link #shouldGenerateNoise} is true.
+     *
+     * <p>Unlike the old approach (a solid fill peppered with random single-block
+     * holes, floating fire and stray lava by the populator), the rock is now
+     * carved by {@link NoiseCaveGenerator} into connected tunnels and chambers.
+     * A margin of solid rock is kept against the floor and roof so the world
+     * stays fully enclosed, and in the nether the lowest cave voids fill with a
+     * lava sea instead of open air.</p>
      */
     @Override
     public void generateNoise(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
         // Only called for NETHER and THE_END; overworld is handled by vanilla.
+        final World.Environment env = worldInfo.getEnvironment();
         final int minHeight = worldInfo.getMinHeight();
         final int worldHeight = Math.min(worldInfo.getMaxHeight(), this.settings.getWorldDepth());
+        final Material base = switch (env) {
+            case NETHER -> this.settings.getNetherMainBlock();
+            case THE_END -> this.settings.getEndMainBlock();
+            default -> this.settings.getNormalMainBlock();
+        };
 
-        switch (worldInfo.getEnvironment()) {
-            case NETHER -> {
-                // Soul sand layer at the bottom, netherrack above
-                if (worldHeight + 1 > 34) {
-                    chunkData.setRegion(0, minHeight + 1, 0, 16, 34, 16, Material.SOUL_SAND);
-                    chunkData.setRegion(0, 34, 0, 16, worldHeight - 1, 16, Material.NETHERRACK);
-                } else {
-                    chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.NETHERRACK);
+        // Fill the whole column solid first (one fast region write), then carve
+        // caves out of it. This keeps the world solid by default.
+        chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, base);
+
+        final NoiseCaveGenerator caves = getCaveGenerator(worldInfo.getSeed());
+        // Caves are confined to the middle band so the floor and roof stay solid.
+        final int caveBottom = minHeight + CAVE_FLOOR_MARGIN;
+        final int caveTop = worldHeight - CAVE_ROOF_MARGIN;
+        final int lavaLevel = caveBottom + NETHER_LAVA_DEPTH;
+        final boolean nether = env == World.Environment.NETHER;
+
+        // Carve the caves. Surface features (fire, vegetation, end rods, chorus)
+        // are added afterwards by the CaveDecorationPopulator, which can see the
+        // biome at each spot.
+        for (int x = 0; x < 16; x++) {
+            final int worldX = (chunkX << 4) + x;
+            for (int z = 0; z < 16; z++) {
+                final int worldZ = (chunkZ << 4) + z;
+                for (int y = caveBottom + 1; y < caveTop; y++) {
+                    if (!caves.isCave(worldX, y, worldZ, CAVE_THRESHOLD)) {
+                        continue;
+                    }
+                    // Nether cave floors pool with lava; everything else is open air.
+                    chunkData.setBlock(x, y, z, nether && y <= lavaLevel ? Material.LAVA : Material.AIR);
                 }
             }
-            case THE_END -> chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.END_STONE);
-            default -> // Fallback for normal world (should not reach here when shouldGenerateNoise() = true)
-                    chunkData.setRegion(0, minHeight + 1, 0, 16, worldHeight - 1, 16, Material.STONE);
         }
+    }
+
+    /**
+     * Returns the cave generator for the given seed, rebuilding it only when the
+     * seed changes so repeated chunk generation reuses the noise fields.
+     */
+    private NoiseCaveGenerator getCaveGenerator(long seed) {
+        if (this.caveGenerator == null || this.caveGeneratorSeed != seed) {
+            this.caveGenerator = new NoiseCaveGenerator(seed);
+            this.caveGeneratorSeed = seed;
+        }
+        return this.caveGenerator;
     }
 
     /**
@@ -239,10 +294,14 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
      */
     @Override
     public BiomeProvider getDefaultBiomeProvider(WorldInfo worldInfo) {
-        if (worldInfo.getEnvironment() == World.Environment.NORMAL) {
-            return null; // vanilla biome placement — underground biomes form naturally
-        }
-        return new FlatBiomeProvider(this.addon);
+        return switch (worldInfo.getEnvironment()) {
+            // Vanilla biome placement — underground biomes form naturally.
+            case NORMAL -> null;
+            // Share the nether biomes out into natural regions across the world.
+            case NETHER -> new NetherBiomeProvider(this.addon);
+            // End keeps a single configurable biome.
+            default -> new FlatBiomeProvider(this.addon);
+        };
     }
 
     // -------------------------------------------------------------------------
