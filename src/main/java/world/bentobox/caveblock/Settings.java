@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -158,6 +159,18 @@ public class Settings implements WorldSettings
     @ConfigComment("Should not be less than cave height.")
     @ConfigEntry(path = "world.world-depth", needsReset = true)
     private int worldDepth = 319;
+
+    @ConfigComment("")
+    @ConfigComment("Vanilla structures that may generate in the overworld cave world.")
+    @ConfigComment("Set a structure to false to stop it generating; structures not listed here")
+    @ConfigComment("generate as normal. Use the vanilla structure key, for example:")
+    @ConfigComment("  ancient_city, trial_chambers, mineshaft, mineshaft_mesa, stronghold,")
+    @ConfigComment("  mansion, monument, pillager_outpost, ruined_portal, trail_ruins,")
+    @ConfigComment("  village_plains, desert_pyramid, jungle_pyramid, igloo, swamp_hut")
+    @ConfigComment("Large structures like Ancient Cities and Trial Chambers can fill or unbalance")
+    @ConfigComment("a cave world, so they are disabled by default. Only affects the overworld.")
+    @ConfigEntry(path = "world.structures", since = "1.23.0")
+    private Map<String, Boolean> generateStructures = defaultStructures();
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone.")
@@ -1194,6 +1207,46 @@ public class Settings implements WorldSettings
     public int getWorldDepth()
     {
         return worldDepth;
+    }
+
+
+    /**
+     * Map of vanilla structure key to whether it may generate in the overworld.
+     * A structure explicitly mapped to {@code false} is prevented from generating;
+     * any structure not present in the map generates normally.
+     * @return the structure generation map.
+     */
+    public Map<String, Boolean> getGenerateStructures()
+    {
+        return generateStructures;
+    }
+
+
+    /**
+     * Sets the structure generation map.
+     * @param generateStructures the structure generation map.
+     */
+    public void setGenerateStructures(Map<String, Boolean> generateStructures)
+    {
+        this.generateStructures = generateStructures;
+    }
+
+
+    /**
+     * Default structure toggles. Large, disruptive structures that tend to fill or
+     * unbalance a cave world are disabled; the common smaller ones are left on so
+     * the entry is self-documenting.
+     * @return an ordered map of structure key to whether it generates.
+     */
+    private static Map<String, Boolean> defaultStructures()
+    {
+        Map<String, Boolean> map = new LinkedHashMap<>();
+        map.put("ancient_city", false);
+        map.put("trial_chambers", false);
+        map.put("mansion", false);
+        map.put("mineshaft", true);
+        map.put("stronghold", true);
+        return map;
     }
 
 

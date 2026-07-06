@@ -91,6 +91,22 @@ world:
   # Should not be less than cave height.
   # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
   world-depth: 319
+  #
+  # Vanilla structures that may generate in the overworld cave world.
+  # Set a structure to false to stop it generating; structures not listed here
+  # generate as normal. Use the vanilla structure key, for example:
+  #   ancient_city, trial_chambers, mineshaft, mineshaft_mesa, stronghold,
+  #   mansion, monument, pillager_outpost, ruined_portal, trail_ruins,
+  #   village_plains, desert_pyramid, jungle_pyramid, igloo, swamp_hut
+  # Large structures like Ancient Cities and Trial Chambers can fill or unbalance
+  # a cave world, so they are disabled by default. Only affects the overworld.
+  # Added since 1.23.0.
+  structures:
+    ancient_city: false
+    trial_chambers: false
+    mansion: false
+    mineshaft: true
+    stronghold: true
   normal:
     # Make over world roof of bedrock. If false, it will be made from the main block (stone).
     # /!\ BentoBox currently does not support changing this value mid-game. If you do need to change it, do a full reset of your databases and worlds.
