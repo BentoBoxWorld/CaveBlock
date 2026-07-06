@@ -19,6 +19,7 @@ import world.bentobox.bentobox.api.flags.Flag;
 import world.bentobox.caveblock.commands.IslandAboutCommand;
 import world.bentobox.caveblock.generators.ChunkGeneratorWorld;
 import world.bentobox.caveblock.listeners.CustomHeightLimitations;
+import world.bentobox.caveblock.listeners.StructureGenerationListener;
 
 
 public class CaveBlock extends GameModeAddon
@@ -67,8 +68,9 @@ public class CaveBlock extends GameModeAddon
         CaveBlock.SKY_WALKER_FLAG.addGameModeAddon(this);
         this.getPlugin().getFlagsManager().registerFlag(CaveBlock.SKY_WALKER_FLAG);
 
-        // Register listener
+        // Register listeners
         this.registerListener(new CustomHeightLimitations(this));
+        this.registerListener(new StructureGenerationListener(this));
     }
 
 
