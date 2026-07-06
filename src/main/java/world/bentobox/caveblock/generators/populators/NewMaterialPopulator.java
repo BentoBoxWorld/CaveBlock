@@ -48,32 +48,26 @@ public class NewMaterialPopulator extends BlockPopulator {
 	worldOres.add(new Ore(7, 320, Material.IRON_ORE, 20, 9, true));
 	worldOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8, 33, false));
 	ores.put(World.Environment.NORMAL, worldOres);
+	// Nether veins. These only replace solid blocks, so they stay embedded in
+	// the rock and are exposed on the walls of the noise-carved caves. No FIRE
+	// (laggy, ugly), no scattered CAVE_AIR or LAVA — caves and the lava sea are
+	// now shaped by the noise generator, keeping the world solid.
 	List<Ore> netherOres = new ArrayList<>();
 	netherOres.add(new Ore(1, 22, Material.ANCIENT_DEBRIS, 1, 5, true));
 	netherOres.add(new Ore(-64, 30, Material.NETHER_GOLD_ORE, 2, 9, true));
-	netherOres.add(new Ore(0, 16, Material.GRAVEL, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.BASALT, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.BLACKSTONE, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.FIRE, 8, 33, false));
-	netherOres.add(new Ore(200, 320, Material.GLOWSTONE, 8, 33, false));
-	netherOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8, 33, false));
-	netherOres.add(new Ore(-64, 320, Material.LAVA, 8, 33, false));
-	netherOres.add(new Ore(0, 16, Material.MAGMA_BLOCK, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.CRIMSON_FUNGUS, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.WARPED_FUNGUS, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.CRIMSON_NYLIUM, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.WARPED_NYLIUM, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.SHROOMLIGHT, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.CRIMSON_STEM, 8, 33, false));
-	netherOres.add(new Ore(0, 320, Material.WARPED_STEM, 8, 33, false));
-	netherOres.add(new Ore(-64, 34, Material.SOUL_SOIL, 20, 17, false));
 	netherOres.add(new Ore(0, 96, Material.NETHER_QUARTZ_ORE, 20, 9, true));
-	netherOres.add(new Ore(-64, 320, Material.BONE_BLOCK, 20, 9, true));
+	netherOres.add(new Ore(0, 16, Material.GRAVEL, 8, 33, false));
+	netherOres.add(new Ore(0, 320, Material.BASALT, 6, 33, false));
+	netherOres.add(new Ore(0, 320, Material.BLACKSTONE, 6, 33, false));
+	netherOres.add(new Ore(0, 320, Material.GLOWSTONE, 4, 12, false));
+	netherOres.add(new Ore(0, 24, Material.MAGMA_BLOCK, 6, 20, false));
+	netherOres.add(new Ore(-64, 40, Material.SOUL_SOIL, 10, 17, false));
+	netherOres.add(new Ore(-64, 320, Material.BONE_BLOCK, 6, 9, false));
 	ores.put(World.Environment.NETHER, netherOres);
+	// End veins. Caves are shaped by the noise generator, so no scattered CAVE_AIR.
 	List<Ore> endOres = new ArrayList<>();
-	endOres.add(new Ore(32, 320, Material.PURPUR_BLOCK, 11, 1, true));
-	endOres.add(new Ore(95, 136, Material.OBSIDIAN, 20, 17, false));
-	endOres.add(new Ore(-64, 320, Material.CAVE_AIR, 8, 33, false));
+	endOres.add(new Ore(32, 320, Material.PURPUR_BLOCK, 8, 12, false));
+	endOres.add(new Ore(0, 320, Material.OBSIDIAN, 4, 9, false));
 	ores.put(World.Environment.THE_END, endOres);
 	ORES = Collections.unmodifiableMap(ores);
     }

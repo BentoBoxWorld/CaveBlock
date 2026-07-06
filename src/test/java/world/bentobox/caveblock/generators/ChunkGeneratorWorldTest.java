@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
 import world.bentobox.caveblock.generators.populators.FlatBiomeProvider;
+import world.bentobox.caveblock.generators.populators.NetherBiomeProvider;
 
 /**
  * Tests for {@link ChunkGeneratorWorld}.
@@ -139,19 +140,19 @@ class ChunkGeneratorWorldTest {
     }
 
     @Test
-    void testGetDefaultPopulatorsNetherHasOne() {
+    void testGetDefaultPopulatorsNetherHasMaterialAndDecoration() {
         ChunkGeneratorWorld cg = new ChunkGeneratorWorld(addon, World.Environment.NETHER);
         assertFalse(cg.getDefaultPopulators(world).isEmpty(),
-                "Nether should have the NewMaterialPopulator");
-        assertEquals(1, cg.getDefaultPopulators(world).size());
+                "Nether should have material and decoration populators");
+        assertEquals(2, cg.getDefaultPopulators(world).size());
     }
 
     @Test
-    void testGetDefaultPopulatorsEndHasOne() {
+    void testGetDefaultPopulatorsEndHasMaterialAndDecoration() {
         ChunkGeneratorWorld cg = new ChunkGeneratorWorld(addon, World.Environment.THE_END);
         assertFalse(cg.getDefaultPopulators(world).isEmpty(),
-                "End should have the NewMaterialPopulator");
-        assertEquals(1, cg.getDefaultPopulators(world).size());
+                "End should have material and decoration populators");
+        assertEquals(2, cg.getDefaultPopulators(world).size());
     }
 
     // -------------------------------------------------------------------------
@@ -167,11 +168,11 @@ class ChunkGeneratorWorldTest {
     }
 
     @Test
-    void testGetDefaultBiomeProviderNetherReturnsFlatBiomeProvider() {
+    void testGetDefaultBiomeProviderNetherReturnsNetherBiomeProvider() {
         when(worldInfo.getEnvironment()).thenReturn(World.Environment.NETHER);
         ChunkGeneratorWorld cg = new ChunkGeneratorWorld(addon, World.Environment.NETHER);
         assertNotNull(cg.getDefaultBiomeProvider(worldInfo));
-        assertTrue(cg.getDefaultBiomeProvider(worldInfo) instanceof FlatBiomeProvider);
+        assertTrue(cg.getDefaultBiomeProvider(worldInfo) instanceof NetherBiomeProvider);
     }
 
     @Test
@@ -197,6 +198,6 @@ class ChunkGeneratorWorldTest {
     void testReloadClearsAndRebuildsPopulatorsNether() {
         ChunkGeneratorWorld cg = new ChunkGeneratorWorld(addon, World.Environment.NETHER);
         cg.reload();
-        assertEquals(1, cg.getDefaultPopulators(world).size());
+        assertEquals(2, cg.getDefaultPopulators(world).size());
     }
 }
