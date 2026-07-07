@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -158,6 +159,38 @@ public class Settings implements WorldSettings
     @ConfigComment("Should not be less than cave height.")
     @ConfigEntry(path = "world.world-depth", needsReset = true)
     private int worldDepth = 319;
+
+    @ConfigComment("")
+    @ConfigComment("Vanilla structures that may generate in the overworld cave world.")
+    @ConfigComment("Set a structure to false to stop it generating; structures not listed here")
+    @ConfigComment("generate as normal. Use the vanilla structure key, for example:")
+    @ConfigComment("  ancient_city, trial_chambers, mineshaft, mineshaft_mesa, stronghold,")
+    @ConfigComment("  mansion, monument, pillager_outpost, ruined_portal, trail_ruins,")
+    @ConfigComment("  village_plains, desert_pyramid, jungle_pyramid, igloo, swamp_hut")
+    @ConfigComment("Large structures like Ancient Cities and Trial Chambers can fill or unbalance")
+    @ConfigComment("a cave world, so they are disabled by default. Only affects the overworld.")
+    @ConfigEntry(path = "world.structures", since = "1.23.0")
+    private Map<String, Boolean> generateStructures = defaultStructures();
+
+    @ConfigComment("")
+    @ConfigComment("Overworld cave density. Vanilla generates a dense 1.18+ cave network")
+    @ConfigComment("(cheese and spaghetti caves) which on a solid cave world can feel like")
+    @ConfigComment("'nothing but passageways'. This re-solidifies a fraction of that cave air")
+    @ConfigComment("after generation, using a low-frequency noise field so whole regions close")
+    @ConfigComment("up (leaving separate chambers) rather than punching random single holes.")
+    @ConfigComment("0.0 = keep every vanilla cave (densest, the original behaviour).")
+    @ConfigComment("1.0 = fill nearly all caves (almost solid). Try 0.4 - 0.6 to thin them out.")
+    @ConfigComment("Underground biomes, ores, decorations and structures are kept either way.")
+    @ConfigComment("Only affects newly generated chunks.")
+    @ConfigEntry(path = "world.overworld-cave-fill", since = "1.23.0")
+    private double overworldCaveFill = 0.0;
+
+    @ConfigComment("")
+    @ConfigComment("Generate vanilla carver caves (big ravines and long round tunnels) in the")
+    @ConfigComment("overworld. These stack on top of the noise caves above. Set to false to")
+    @ConfigComment("remove the ravines and wide tunnels while keeping the noise caves.")
+    @ConfigEntry(path = "world.overworld-carvers", needsReset = true, since = "1.23.0")
+    private boolean overworldCarvers = true;
 
     @ConfigComment("")
     @ConfigComment("Make over world roof of bedrock, if false, it will be made from stone.")
@@ -1194,6 +1227,89 @@ public class Settings implements WorldSettings
     public int getWorldDepth()
     {
         return worldDepth;
+    }
+
+
+    /**
+     * Map of vanilla structure key to whether it may generate in the overworld.
+     * A structure explicitly mapped to {@code false} is prevented from generating;
+     * any structure not present in the map generates normally.
+     * @return the structure generation map.
+     */
+    public Map<String, Boolean> getGenerateStructures()
+    {
+        return generateStructures;
+    }
+
+
+    /**
+     * Sets the structure generation map.
+     * @param generateStructures the structure generation map.
+     */
+    public void setGenerateStructures(Map<String, Boolean> generateStructures)
+    {
+        this.generateStructures = generateStructures;
+    }
+
+
+    /**
+     * Fraction of overworld vanilla cave air to re-solidify after generation to
+     * thin the cave network. {@code 0.0} keeps every cave, {@code 1.0} fills
+     * nearly all of them. Clamped to the [0, 1] range on read.
+     * @return the overworld cave fill ratio.
+     */
+    public double getOverworldCaveFill()
+    {
+        return Math.max(0.0, Math.min(1.0, overworldCaveFill));
+    }
+
+
+    /**
+     * Sets the overworld cave fill ratio.
+     * @param overworldCaveFill the overworld cave fill ratio.
+     */
+    public void setOverworldCaveFill(double overworldCaveFill)
+    {
+        this.overworldCaveFill = overworldCaveFill;
+    }
+
+
+    /**
+     * Whether vanilla carver caves (ravines and long round tunnels) generate in
+     * the overworld.
+     * @return {@code true} if carver caves generate.
+     */
+    public boolean isOverworldCarvers()
+    {
+        return overworldCarvers;
+    }
+
+
+    /**
+     * Sets whether vanilla carver caves generate in the overworld.
+     * @param overworldCarvers whether carver caves generate.
+     */
+    public void setOverworldCarvers(boolean overworldCarvers)
+    {
+        this.overworldCarvers = overworldCarvers;
+    }
+
+
+    /**
+     * Default structure toggles. Large, disruptive structures that tend to fill or
+     * unbalance a cave world are disabled; the common smaller ones are left on so
+     * the entry is self-documenting.
+     * @return an ordered map of structure key to whether it generates.
+     */
+    private static Map<String, Boolean> defaultStructures()
+    {
+        Map<String, Boolean> map = new LinkedHashMap<>();
+        map.put("ancient_city", false);
+        map.put("trial_chambers", false);
+        map.put("mansion", false);
+        map.put("mineshaft", true);
+        map.put("stronghold", true);
+        return map;
     }
 
 
