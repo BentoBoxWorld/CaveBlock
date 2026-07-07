@@ -23,8 +23,9 @@ import world.bentobox.caveblock.CaveBlock;
  * disabled in {@code world.structures}.</p>
  *
  * <p>{@link AsyncStructureSpawnEvent} fires off the main thread during chunk
- * generation, so this handler only reads config and inspects the event — it
- * performs no Bukkit world access.</p>
+ * generation, so this handler only reads config and inspects the event. It
+ * queries the event's world for environment and ownership checks but performs
+ * no world or block mutation, which is what makes it safe to run async.</p>
  *
  * @author tastybento
  */
@@ -66,9 +67,10 @@ public class StructureGenerationListener implements Listener {
         if (structures == null || structures.isEmpty()) {
             return false;
         }
+        // Accept hyphen or underscore separators and any casing on both sides.
+        String normalizedKey = normalize(structureKey);
         for (Map.Entry<String, Boolean> entry : structures.entrySet()) {
-            // Accept hyphen or underscore separators and any casing.
-            if (normalize(entry.getKey()).equals(structureKey) && Boolean.FALSE.equals(entry.getValue())) {
+            if (normalize(entry.getKey()).equals(normalizedKey) && Boolean.FALSE.equals(entry.getValue())) {
                 return true;
             }
         }

@@ -92,8 +92,10 @@ class NoiseCaveGeneratorTest {
     }
 
     /**
-     * A ratio of 0 fills nothing and a ratio of 1 fills everything; a mid ratio must
-     * fill some but not all, and a higher ratio must never fill fewer blocks.
+     * A ratio of 0 fills nothing and a ratio of 1 fills nearly everything (fillField is
+     * clamped to [0,1] and a block fills when fillField < ratio, so an exact 1.0 field
+     * value is not filled); a mid ratio must fill some but not all, and a higher ratio
+     * must never fill fewer blocks.
      */
     @Test
     void testFillFieldMonotonicWithRatio() {
