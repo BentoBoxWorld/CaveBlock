@@ -35,6 +35,8 @@ public class NoiseCaveGenerator {
     private static final double CHEESE_THRESHOLD = 0.3;
     /** How strongly the cheese field eats into the rock. */
     private static final double CHEESE_STRENGTH = 0.3;
+    /** Low frequency for the overworld fill field: closes caves in broad patches. */
+    private static final double FILL_FREQUENCY = 0.02;
 
     private final NoiseGenerator noiseGen1;
     private final NoiseGenerator noiseGen2;
@@ -93,5 +95,22 @@ public class NoiseCaveGenerator {
      */
     public boolean isCave(double x, double y, double z, double threshold) {
         return noise(x, y, z) < threshold;
+    }
+
+    /**
+     * A coherent [0, 1] field used to thin an existing cave network. Because the
+     * frequency is low, nearby blocks share similar values, so filling every
+     * block whose value falls below a ratio closes caves in broad connected
+     * patches rather than as a random speckle. Deterministic for the seed.
+     *
+     * @param x world X
+     * @param y world Y
+     * @param z world Z
+     * @return a value in the range [0, 1]
+     */
+    public double fillField(double x, double y, double z) {
+        // noise() returns roughly [-1, 1]; remap to [0, 1] and clamp for safety.
+        double v = (noiseGen2.noise(x * FILL_FREQUENCY, y * FILL_FREQUENCY, z * FILL_FREQUENCY) + 1.0) / 2.0;
+        return Math.max(0.0, Math.min(1.0, v));
     }
 }
