@@ -76,4 +76,61 @@ class NoiseCaveGeneratorTest {
         assertNotEquals(gen.isCave(5, 5, 5, -1.0), gen.isCave(5, 5, 5, 2.0),
                 "An always-solid vs always-cave threshold must differ");
     }
+
+    /**
+     * The fill field must stay within [0, 1] so it can be compared against a ratio.
+     */
+    @Test
+    void testFillFieldInRange() {
+        NoiseCaveGenerator gen = new NoiseCaveGenerator(99L);
+        for (int x = 0; x < 40; x++) {
+            for (int z = 0; z < 40; z++) {
+                double v = gen.fillField(x, 30, z);
+                assertTrue(v >= 0.0 && v <= 1.0, "fillField out of range: " + v);
+            }
+        }
+    }
+
+    /**
+     * A ratio of 0 fills nothing and a ratio of 1 fills everything; a mid ratio must
+     * fill some but not all, and a higher ratio must never fill fewer blocks.
+     */
+    @Test
+    void testFillFieldMonotonicWithRatio() {
+        NoiseCaveGenerator gen = new NoiseCaveGenerator(2024L);
+        int none = 0;
+        int half = 0;
+        int all = 0;
+        int total = 0;
+        for (int x = 0; x < 48; x++) {
+            for (int z = 0; z < 48; z++) {
+                double v = gen.fillField(x, 30, z);
+                if (v < 0.0) {
+                    none++;
+                }
+                if (v < 0.5) {
+                    half++;
+                }
+                if (v < 1.0) {
+                    all++;
+                }
+                total++;
+            }
+        }
+        assertEquals(0, none, "Ratio 0.0 should fill no blocks");
+        assertTrue(half > 0 && half < total, "Ratio 0.5 should fill some but not all, got " + half);
+        assertTrue(all >= half, "A higher ratio must not fill fewer blocks");
+    }
+
+    /**
+     * The fill field must be deterministic for a seed so chunks re-solidify the same way.
+     */
+    @Test
+    void testFillFieldDeterministic() {
+        NoiseCaveGenerator a = new NoiseCaveGenerator(555L);
+        NoiseCaveGenerator b = new NoiseCaveGenerator(555L);
+        for (int i = 0; i < 50; i++) {
+            assertEquals(a.fillField(i, i + 5, i * 2), b.fillField(i, i + 5, i * 2));
+        }
+    }
 }

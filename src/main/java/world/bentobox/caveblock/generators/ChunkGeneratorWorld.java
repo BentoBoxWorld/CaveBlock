@@ -126,7 +126,7 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
      */
     @Override
     public boolean shouldGenerateCaves() {
-        return this.environment == World.Environment.NORMAL;
+        return this.environment == World.Environment.NORMAL && this.settings.isOverworldCarvers();
     }
 
     /**
@@ -251,9 +251,18 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
             // Cap every column: replace sky air and surface water with stone.
             // CAVE_AIR (vanilla cave pockets) marks the underground boundary and is left alone.
             final Material fillMaterial = settings.getNormalMainBlock();
+            // Optional density control: re-solidify a fraction of the vanilla caves
+            // so the overworld is not "nothing but passageways" (issue #111).
+            final double caveFill = settings.getOverworldCaveFill();
+            final NoiseCaveGenerator fillField = caveFill > 0 ? getCaveGenerator(worldInfo.getSeed()) : null;
             for (int x = 0; x < 16; x++) {
+                final int worldX = (chunkX << 4) + x;
                 for (int z = 0; z < 16; z++) {
                     capColumn(chunkData, x, z, minHeight, maxHeight, fillMaterial);
+                    if (fillField != null) {
+                        fillCaves(chunkData, x, z, worldX, (chunkZ << 4) + z, minHeight, maxHeight,
+                                fillMaterial, fillField, caveFill);
+                    }
                 }
             }
             // Roof at the very top of the world
@@ -341,6 +350,43 @@ public class ChunkGeneratorWorld extends ChunkGenerator {
                 // CAVE_AIR, STONE, DEEPSLATE, LAVA, BEDROCK — we are underground.
                 // Everything below is part of the genuine cave system; leave it alone.
                 break;
+            }
+        }
+    }
+
+    /**
+     * Re-solidifies a fraction of the vanilla overworld cave air to thin the cave
+     * network. Runs <b>after</b> {@link #capColumn} has already sealed this column's
+     * sky, so any remaining {@code AIR} or {@code CAVE_AIR} below the cap is genuine
+     * underground cave.
+     *
+     * <p>Both air types must be matched: the vanilla 1.18+ <i>noise</i> caves (the
+     * dense "cheese and spaghetti" network) are placed as plain {@code AIR}, while
+     * the older carvers use {@code CAVE_AIR}. Matching only {@code CAVE_AIR} would
+     * miss the noise caves entirely — which are exactly the passageways this setting
+     * is meant to thin. A low-frequency noise field decides which blocks to fill, so
+     * caves close in broad connected patches rather than as a random speckle, and the
+     * decision is deterministic for the world seed.</p>
+     *
+     * @param chunkData    chunk being generated
+     * @param x            block X within chunk (0-15)
+     * @param z            block Z within chunk (0-15)
+     * @param worldX       absolute world X of this column
+     * @param worldZ       absolute world Z of this column
+     * @param minHeight    world min height
+     * @param maxHeight    world max height (roof reserved at maxHeight-1)
+     * @param fillMaterial material used to fill caves (normally the main block)
+     * @param fillField    noise field seeded from the world seed
+     * @param ratio        fraction to fill; a block is filled when its field value is below this
+     */
+    private void fillCaves(ChunkData chunkData, int x, int z, int worldX, int worldZ, int minHeight, int maxHeight,
+            Material fillMaterial, NoiseCaveGenerator fillField, double ratio) {
+        // Leave the floor (minHeight, set by generateBedrock) and roof (maxHeight-1) alone.
+        for (int y = maxHeight - 2; y > minHeight; y--) {
+            Material type = chunkData.getType(x, y, z);
+            if ((type == Material.AIR || type == Material.CAVE_AIR)
+                    && fillField.fillField(worldX, y, worldZ) < ratio) {
+                chunkData.setBlock(x, y, z, fillMaterial);
             }
         }
     }
