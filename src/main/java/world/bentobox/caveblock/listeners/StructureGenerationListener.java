@@ -57,9 +57,8 @@ public class StructureGenerationListener implements Listener {
      */
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onStructureSpawn(AsyncStructureSpawnEvent event) {
-        World world = event.getWorld();
         // Only the CaveBlock overworld uses vanilla structures; nether/end do not.
-        if (world.getEnvironment() != World.Environment.NORMAL || !addon.inWorld(world)) {
+        if (!isCaveOverworld(event.getWorld())) {
             return;
         }
         String structureKey = event.getStructure().getKey().getKey();
@@ -81,7 +80,7 @@ public class StructureGenerationListener implements Listener {
      */
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onStructuresLocate(StructuresLocateEvent event) {
-        if (!addon.inWorld(event.getWorld())) {
+        if (!isCaveOverworld(event.getWorld())) {
             return;
         }
         List<Structure> targets = event.getStructures();
@@ -98,6 +97,24 @@ public class StructureGenerationListener implements Listener {
         } else {
             event.setStructures(allowed);
         }
+    }
+
+    /**
+     * @param world a world
+     * @return {@code true} if {@code world} is the CaveBlock overworld.
+     *
+     * <p>Matches on the configured world name rather than {@link CaveBlock#inWorld(World)}
+     * because structures in the spawn area are generated during {@code createWorlds()},
+     * before the addon's island-world reference is assigned. At that point
+     * {@code inWorld()} would compare against a null world and fail, so the first
+     * structures would slip through (issue #116).</p>
+     */
+    private boolean isCaveOverworld(World world) {
+        if (world.getEnvironment() != World.Environment.NORMAL) {
+            return false;
+        }
+        String configuredName = addon.getSettings().getWorldName();
+        return configuredName != null && world.getName().equalsIgnoreCase(configuredName);
     }
 
     /**
