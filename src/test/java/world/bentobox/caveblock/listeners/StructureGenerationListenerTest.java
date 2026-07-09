@@ -50,7 +50,8 @@ class StructureGenerationListenerTest {
         lenient().when(addon.getSettings()).thenReturn(settings);
         lenient().when(settings.getGenerateStructures())
                 .thenReturn(Map.of("ancient_city", false, "trial_chambers", false, "mineshaft", true));
-        lenient().when(addon.inWorld(world)).thenReturn(true);
+        lenient().when(settings.getWorldName()).thenReturn("caveblock_world");
+        lenient().when(world.getName()).thenReturn("caveblock_world");
         lenient().when(world.getEnvironment()).thenReturn(World.Environment.NORMAL);
         listener = new StructureGenerationListener(addon);
     }
@@ -92,7 +93,7 @@ class StructureGenerationListenerTest {
 
     @Test
     void testStructureOutsideCaveBlockWorldIsIgnored() {
-        when(addon.inWorld(world)).thenReturn(false);
+        when(world.getName()).thenReturn("some_other_world");
         AsyncStructureSpawnEvent e = event("ancient_city");
         listener.onStructureSpawn(e);
         verify(e, never()).setCancelled(true);
@@ -156,7 +157,7 @@ class StructureGenerationListenerTest {
 
     @Test
     void testLocateOutsideCaveBlockWorldIsIgnored() {
-        when(addon.inWorld(world)).thenReturn(false);
+        when(world.getName()).thenReturn("some_other_world");
         StructuresLocateEvent e = locateEvent("trial_chambers");
         listener.onStructuresLocate(e);
         verify(e, never()).setCancelled(true);
