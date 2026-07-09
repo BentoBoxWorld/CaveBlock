@@ -8,9 +8,11 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -116,11 +118,13 @@ class StructureGenerationListenerTest {
     }
 
     private StructuresLocateEvent locateEvent(String... structureKeys) {
+        // Collect into a mutable list to mirror Paper's StructuresLocateEvent#getStructures(),
+        // which is documented as mutable; Stream#toList() would return an unmodifiable list.
         List<Structure> structures = Arrays.stream(structureKeys).map(key -> {
             Structure structure = mock(Structure.class);
             lenient().when(structure.getKey()).thenReturn(NamespacedKey.minecraft(key));
             return structure;
-        }).map(Structure.class::cast).toList();
+        }).collect(Collectors.toCollection(ArrayList::new));
         StructuresLocateEvent e = mock(StructuresLocateEvent.class);
         lenient().when(e.getWorld()).thenReturn(world);
         lenient().when(e.getStructures()).thenReturn(structures);

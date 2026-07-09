@@ -1,8 +1,10 @@
 package world.bentobox.caveblock.listeners;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
@@ -84,9 +86,11 @@ public class StructureGenerationListener implements Listener {
             return;
         }
         List<Structure> targets = event.getStructures();
+        // Collect into a mutable list: StructuresLocateEvent#setStructures expects one
+        // that Paper (or a later listener) can still mutate. Stream#toList() is immutable.
         List<Structure> allowed = targets.stream()
                 .filter(structure -> !isDisabled(structure.getKey().getKey()))
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
         if (allowed.size() == targets.size()) {
             // Nothing disabled in this search — let it run normally.
             return;
