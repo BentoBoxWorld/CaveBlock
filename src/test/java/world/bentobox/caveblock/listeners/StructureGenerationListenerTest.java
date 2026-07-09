@@ -1,11 +1,15 @@
 package world.bentobox.caveblock.listeners;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.NamespacedKey;
@@ -17,9 +21,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockbukkit.mockbukkit.MockBukkit;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import io.papermc.paper.event.world.StructuresLocateEvent;
 import world.bentobox.caveblock.CaveBlock;
 import world.bentobox.caveblock.Settings;
 
@@ -106,5 +112,54 @@ class StructureGenerationListenerTest {
         AsyncStructureSpawnEvent e = event("ancient_city");
         listener.onStructureSpawn(e);
         verify(e).setCancelled(true);
+    }
+
+    private StructuresLocateEvent locateEvent(String... structureKeys) {
+        List<Structure> structures = Arrays.stream(structureKeys).map(key -> {
+            Structure structure = mock(Structure.class);
+            lenient().when(structure.getKey()).thenReturn(NamespacedKey.minecraft(key));
+            return structure;
+        }).map(Structure.class::cast).toList();
+        StructuresLocateEvent e = mock(StructuresLocateEvent.class);
+        lenient().when(e.getWorld()).thenReturn(world);
+        lenient().when(e.getStructures()).thenReturn(structures);
+        return e;
+    }
+
+    @Test
+    void testLocateAllDisabledIsCancelled() {
+        StructuresLocateEvent e = locateEvent("trial_chambers");
+        listener.onStructuresLocate(e);
+        verify(e).setCancelled(true);
+        verify(e, never()).setStructures(anyList());
+    }
+
+    @Test
+    void testLocateMixedNarrowsToEnabledOnly() {
+        StructuresLocateEvent e = locateEvent("trial_chambers", "mineshaft");
+        listener.onStructuresLocate(e);
+        verify(e, never()).setCancelled(true);
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<List<Structure>> captor = ArgumentCaptor.forClass(List.class);
+        verify(e).setStructures(captor.capture());
+        assertEquals(1, captor.getValue().size());
+        assertEquals("mineshaft", captor.getValue().get(0).getKey().getKey());
+    }
+
+    @Test
+    void testLocateAllEnabledIsUntouched() {
+        StructuresLocateEvent e = locateEvent("mineshaft", "village_plains");
+        listener.onStructuresLocate(e);
+        verify(e, never()).setCancelled(true);
+        verify(e, never()).setStructures(anyList());
+    }
+
+    @Test
+    void testLocateOutsideCaveBlockWorldIsIgnored() {
+        when(addon.inWorld(world)).thenReturn(false);
+        StructuresLocateEvent e = locateEvent("trial_chambers");
+        listener.onStructuresLocate(e);
+        verify(e, never()).setCancelled(true);
+        verify(e, never()).setStructures(anyList());
     }
 }
