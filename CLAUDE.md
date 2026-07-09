@@ -23,9 +23,10 @@ Java 21 is required. The output JAR goes to `target/`.
 **Key components:**
 - `CaveBlock.java` — Main addon lifecycle (`onLoad`, `onEnable`, `createWorlds`). Creates 3 world generators (normal, nether, end) and registers flags/listeners.
 - `Settings.java` — 50+ annotated config fields implementing BentoBox's `WorldSettings`. Maps to `config.yml`.
-- `generators/ChunkGeneratorWorld.java` — Core chunk generator. Fills the world with the dimension's base blocks (stone/netherrack/end stone) and relies on the current populator pipeline for additional material generation.
-- `generators/populators/` — `NewMaterialPopulator` (current vanilla-like material generation) and `FlatBiomeProvider` (biome distribution).
+- `generators/ChunkGeneratorWorld.java` — Core chunk generator. Fills the world with the dimension's base blocks (stone/netherrack/end stone) and delegates additional material generation to the populator pipeline. `NoiseCaveGenerator` and `Ore` support noise-based cave carving and ore placement.
+- `generators/populators/` — `NewMaterialPopulator` (vanilla-like material generation), `CaveDecorationPopulator` (cave decoration), and the biome providers `FlatBiomeProvider` / `NetherBiomeProvider` (biome distribution per dimension).
 - `listeners/CustomHeightLimitations.java` — Prevents players from going above the configured world depth. Respects `SKY_WALKER_FLAG` and creative/op bypass.
+- `listeners/StructureGenerationListener.java` — Suppresses vanilla structures the admin disabled in `world.structures` from the CaveBlock overworld: cancels their spawn (`AsyncStructureSpawnEvent`) and removes them from structure searches (`StructuresLocateEvent`) so `/locate`, explorer maps, etc. don't scan to the radius cap and freeze the server.
 
 **BentoBox framework patterns to follow:**
 - Addons use `GameModeAddon` lifecycle, not Bukkit's `JavaPlugin` directly
