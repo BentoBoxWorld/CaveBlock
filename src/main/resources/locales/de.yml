@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: Höhle
+    Island: Höhle
+    Islands: Höhlen
+    an-island: eine Höhle
+    islands: Höhlen
   sign:
     line0: "<red>CaveBlock"
     line1: Herzlich willkommen!

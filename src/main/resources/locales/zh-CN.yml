@@ -1,4 +1,10 @@
 caveblock:
+  prefixes:
+    island: 洞穴
+    Island: 洞穴
+    Islands: 洞穴
+    an-island: 洞穴
+    islands: 洞穴
   sign:
     line0: "<red>洞穴生存"
     line1: "欢迎!"

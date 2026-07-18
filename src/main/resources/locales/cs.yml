@@ -6,6 +6,12 @@
 ###########################################################################################
 
 caveblock:
+  prefixes:
+    island: jeskyně
+    Island: Jeskyně
+    Islands: Jeskyně
+    an-island: jeskyni
+    islands: jeskyně
   sign:
     line0: "<red>CaveBlock"
     line1: "Vítej!"

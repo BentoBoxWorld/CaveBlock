@@ -2,8 +2,19 @@
 # This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
 # the one at http://yaml-online-parser.appspot.com                                        #
 ###########################################################################################
+# These strings are deltas to the strings in BentoBox. Any BentoBox string can be
+# overridden by placing it under the caveblock key. The prefixes below are substituted
+# into the default BentoBox strings wherever [prefix_island], [prefix_an-island], etc.
+# appear, so most strings do not need to be overridden here.
 
 caveblock:
+  prefixes:
+    island: cave
+    Island: Cave
+    Islands: Caves
+    an-island: a cave
+    islands: caves
+
   sign:
     line0: "<red>CaveBlock"
     line1: "Welcome!"
@@ -14,181 +25,31 @@ caveblock:
     to-nether: "So unlucky to fall into nether."
     to-the-end: "You have reached the end."
     to-normal: "Back to your cave."
-  # Override BentoBox default command strings
-  # General strings
+
   general:
     errors:
-      no-island: "<red>You do not have a cave!"
-      player-has-island: "<red>Player already has a cave!"
-      player-has-no-island: "<red>That player has no cave!"
-      already-have-island: "<red>You already have a cave!"
-      no-safe-location-found: "<red>Could not find a safe spot to teleport you to on the cave."
-      not-owner: "<red>You are not the owner of your cave!"
       cave-limit-reached: "<red> You have reached the top of your cave. You cannot get higher!"
+
   commands:
-    # Parameters in <> are required, parameters in [] are optional
     admin:
-      team:
-        add:
-          name-has-island: "<red>[name] has a cave. Unregister or delete them first!"
-          success: "<aqua>[name]<green> has been added to <aqua>[owner]<green>'s cave."
-        kick:
-           success: "<aqua>[name] <green>has been kicked from <aqua>[owner]<green>'s cave."
-        setowner:
-          description: "transfers cave ownership to the player"
-          already-owner: "<red>[name] is already the owner of this cave!"
-          success: "<aqua>[name]<green> is now the owner of this cave."
-      range:
-        description: "Admin cave range command"
-        display:
-          description: "show/hide cave range indicators"
-          hint: |-
-            <red>Red Barrier icons <white>show the current cave protected range limit.
-            <gray>Gray Particles <white>show the max cave limit.
-            <green>Green Particles <white>show the default protected range if the cave protection range differs from it.
-        set:
-          description: "sets the cave protected range"
-          success: "<green>Set cave protection range to <aqua>[number]<green>."
-        reset:
-          description: "resets the cave protected range to the world default"
-          success: "<green>Reset cave protection range to <aqua>[number]<green>."
-      register:
-        description: "register player to unowned cave you are on"
-        registered-island: "<green>Registered player to cave at [xyz]."
-        already-owned: "<red>Cave is already owned by another player!"
-        no-island-here: "<red>There is no cave here. Confirm to make one."
-        in-deletion: "<red>This cave space is currently being deleted. Try later."
-        cannot-make-island: "<red> A cave cannot be placed here, sorry. See console for possible errors."
-      unregister:
-        description: "unregister owner from cave, but keep cave blocks"
-        unregistered-island: "<green>Unregistered player from cave at [xyz]."
       info:
-        description: "get info on where you are or player's cave"
         no-island: "<red>You are not in a cave right now..."
-        title: "========== Cave Info ============"
+        # The BentoBox defaults below use the literal word "islands", not a prefix
         islands-in-trash: "<light_purple>Player has caves in trash."
-        is-spawn: "Island is a spawn cave"
-      switchto:
-        description: "switch player's cave to the numbered one in trash"
-        out-of-range: "<red>Number must be between 1 and [number]. Use <bold>[label] trash [player] <reset><red>to see cave numbers"
       trash:
         no-unowned-in-trash: "<red>No unowned caves in trash"
         no-islands-in-trash: "<red>Player has no caves in trash"
         description: "show unowned caves or player's caves in trash"
         title: "<light_purple>=========== Caves in Trash ==========="
-        count: "<bold><light_purple>Cave [number]:"
-        use-switch: "<green>Use <bold>[label] switchto <player> <number><reset><green> to switch player to cave in trash"
       emptytrash:
         description: "Clear trash for player, or all unowned caves in trash"
-      setrange:
-        description: "set the range of player's cave"
-        range-updated: "Cave range updated to [number]"
-      tp:
-        description: "teleport to a player's cave"
-      getrank:
-        description: "get a player's rank on their cave"
-        rank-is: "<green>Rank is [rank] on their cave."
-      setrank:
-        description: "set a player's rank on their cave"
-      setspawn:
-        description: "set a cave as spawn for this world"
-        already-spawn: "<red>This cave is already a spawn!"
-        no-island-here: "<red>There is no cave here."
-        confirmation: "<red>Are you sure you want to set this cave as the spawn for this world?"
-      resetflags:
-        description: "Reset all caves to default flag settings in config.yml"
-      delete:
-        description: "deletes a player's cave"
-        cannot-delete-owner: "<red>All cave members have to be kicked from the cave before deleting it."
-        deleted-island: "<green>Island at <yellow>[xyz] <green>has been successfully deleted."
     island:
-      go:
-        description: "teleport you to your cave"
-        teleport: "<green>Teleporting you to your cave."
-      help:
-        description: "The main cave command"
-      create:
-        description: "create a cave, using optional blueprint (requires permission)"
-        too-many-islands: "<red>There are too many caves in this world: there isn't enough room for yours to be created."
-        unable-create-island: "<red>Your cave could not be generated, please contact an administrator."
-        creating-island: "<green>Creating your cave, please wait a moment..."
-        pick: "<green>Pick a cave"
-      info:
-        description: "display info about your cave or the player's cave"
-      near:
-        description: "show the name of neighboring caves around you"
-        the-following-islands: "<green>The following caves are nearby:"
-        no-neighbors: "<red>You have no immediate neighboring caves!"
-      reset:
-        description: "restart your cave and remove the old one"
-        must-remove-members: "<red>You must remove all members from your cave before you can restart it (/island team kick <player>)."
-      sethome:
-        must-be-on-your-island: "<red>You must be on your cave to set home!"
-        home-set: "<gold>Your cave home has been set to your current location."
-      setname:
-        description: "set a name for your cave"
-      resetname:
-        description: "reset your cave name"
       team:
-        coop:
-          description: "make a player coop rank on your cave"
-        uncoop:
-          you-are-no-longer-a-coop-member: "<red>You are no longer a coop member of [name]'s cave"
-          all-members-logged-off: "<red>All cave members logged off so you are no longer a coop member of [name]'s cave"
-        trust:
-          description: "give a player trusted rank on your cave"
         invite:
-          description: "invite a player to join your cave"
-          name-has-invited-you: "<green>[name] has invited you to join their cave."
-          you-will-lose-your-island: "<red>WARNING! You will lose your cave if you accept!"
-          errors:
-            island-is-full: "<red>Your cave is full, you can't invite anyone else."
           accept:
-            you-joined-island: "<green>You joined a cave! Use /[label] team info to see the other members."
-            name-joined-your-island: "<green>[name] joined your cave!"
             confirmation: |-
               <red>Are you sure you want to accept this invite?
               <red><bold>You will <underlined>LOSE<reset> <red><bold>your current cave!
-          reject:
-            you-rejected-invite: "<green>You rejected the invitation to join a cave."
-            name-rejected-your-invite: "<red>[name] rejected your cave invite!"
-          cancel:
-            description: "cancel the pending invite to join your cave"
-        leave:
-          description: "leave your cave"
-          left-your-island: "<red>[name] <red>left your cave"
-        kick:
-          description: "remove a member from your cave"
-          owner-kicked: "<red>The owner kicked you from the cave!"
-          success: "<aqua>[name] <green>has been kicked from your cave."
-        demote:
-          description: "demote a player on your cave down a rank"
-        promote:
-          description: "promote a player on your cave up a rank"
-        setowner:
-          description: "transfer your cave ownership to a member"
-          errors:
-            target-is-not-member: "<red>That player is not part of your cave team!"
-          name-is-the-owner: "<green>[name] is now the cave owner!"
-          you-are-the-owner: "<green>You are now the cave owner!"
-      ban:
-        description: "ban a player from your cave"
-        cannot-ban-more-players: "<red>You reached the ban limit, you cannot ban any more players from your cave."
-        player-banned: "<aqua>[name]<red> is now banned from your cave."
-        owner-banned-you: "<aqua>[name]<red> banned you from their cave!"
-        you-are-banned: "<aqua>You are banned from this cave!"
-      unban:
-        description: "unban a player from your cave"
-        player-unbanned: "<aqua>[name]<green> is now unbanned from your cave."
-        you-are-unbanned: "<aqua>[name]<green> unbanned you from their cave!"
-      banlist:
-        noone: "<green>No one is banned on this cave."
-      settings:
-        description: "display cave settings"
-      expel:
-        description: "expel a player from your cave"
-        not-on-island: "<red>That player is not on your cave!"
-        player-expelled-you: "<aqua>[name]<red> expelled you from the cave!"
 
   ranks:
     owner: "Dwarf King"
@@ -201,91 +62,23 @@ caveblock:
 
   protection:
     flags:
-      ENDERMAN_GRIEFING:
-        description: |-
-          <green>Endermen can remove
-          <green>blocks from caves
-        name: "Enderman griefing"
-      ENTER_EXIT_MESSAGES:
-        island: "[name]'s cave"
-      GEO_LIMIT_MOBS:
-        description: |-
-          <green>Remove mobs that go
-          <green>outside protected
-          <green>cave space
-        name: "<yellow>Limit mobs to cave"
       ISLAND_RESPAWN:
         description: |-
           <green>Players respawn
           <green>in their cave
-        name: "Cave respawn"
-      LIQUIDS_FLOWING_OUT:
-        name: "Liquids flowing outside caves"
-        description: |-
-          <green>Toggle whether liquids can flow outside
-          <green>of the cave's protection range.
-      LOCK:
-        description: "Toggle lock"
-        name: "Lock cave"
-      NATURAL_SPAWNING_OUTSIDE_RANGE:
-        name: "Natural creature spawning outside range"
-        description: |-
-          <green>Toggle whether creatures (animals and
-          <green>monsters) can spawn naturally outside
-          <green>a cave's protection range.
-
-          <red>Note that it doesn't prevent creatures
-          <red>to spawn via a mob spawner or a spawn
-          <red>egg.
       OFFLINE_GROWTH:
         description: |-
           <green>When disabled, plants
           <green>will not grow in caves
-          <green>when all members are offline.
+          <green>where all members are offline.
           <green>May help reduce lag.
-        name: "Offline Growth"
       OFFLINE_REDSTONE:
         description: |-
           <green>When disabled, redstone
           <green>will not operate in caves
           <green>where all members are offline.
           <green>May help reduce lag.
-        name: "Offline Redstone"
-      PISTON_PUSH:
-        description: |-
-          <green>Allow pistons to push
-          <green>blocks outside cave
-        name: "Piston Push"
-      REMOVE_MOBS:
-        description: |-
-          <green>Remove monsters when
-          <green>teleporting to cave
-        name: "Remove monsters"
-      TREES_GROWING_OUTSIDE_RANGE:
-        name: "Trees growing outside range"
-        description: |-
-          <green>Toggle whether trees can grow outside an
-          <green>cave's protection range or not.
-      PREVENT_TELEPORT_WHEN_FALLING:
-        name: "Prevent teleport when falling"
-        description: |-
-          <green>Prevent players from teleporting
-          <green>back to their cave using commands
-          <green>if they are falling.
-        hint: "<red>You cannot teleport back to your cave while you are falling."
-    locked: "<red>This cave is locked!"
-    protected: "<red>Cave protected: [description]"
-    spawn-protected: "<red>Spawn protected: [description]"
-
-    panel:
-      PROTECTION:
-        description: |-
-          <green>Protection settings
-          <green>for this cave
-      SETTING:
-        description: |-
-          <green>General settings
-          <green>for this cave
+          <green>Does not affect the spawn cave.
 
 protection:
   flags:

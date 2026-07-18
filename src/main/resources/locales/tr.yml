@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: mağara
+    Island: Mağara
+    Islands: Mağaralar
+    an-island: bir mağara
+    islands: mağaralar
   sign:
     line0: "<red>CaveBlock"
     line1: Hoş geldin!

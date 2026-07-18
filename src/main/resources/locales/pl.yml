@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: jaskinia
+    Island: Jaskinia
+    Islands: Jaskinie
+    an-island: jaskinia
+    islands: jaskinie
   sign:
     line0: "<red>CaveBlock"
     line1: Witaj!

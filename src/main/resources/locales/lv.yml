@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: alā
+    Island: Ala
+    Islands: Alas
+    an-island: alā
+    islands: alas
   sign:
     line0: "<red>CaveBlock"
     line1: Sveicināts!

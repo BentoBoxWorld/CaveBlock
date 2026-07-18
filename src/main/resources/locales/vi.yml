@@ -4,6 +4,12 @@
 ###########################################################################################
 
 caveblock:
+  prefixes:
+    island: hang
+    Island: Hang
+    Islands: Hang
+    an-island: một hang
+    islands: hang
   sign:
     line0: "<red>CaveBlock"
     line1: "Chào mừng!"

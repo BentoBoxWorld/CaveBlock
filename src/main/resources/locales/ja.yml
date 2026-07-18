@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: 洞窟
+    Island: 洞窟
+    Islands: 洞窟
+    an-island: 洞窟
+    islands: 洞窟
   sign:
     line0: "<red>CaveBlock"
     line1: ようこそ！

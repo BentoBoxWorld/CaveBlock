@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: пещера
+    Island: Пещера
+    Islands: Пещеры
+    an-island: пещера
+    islands: пещеры
   sign:
     line0: "<red>CaveBlock"
     line1: Добро пожаловать!
