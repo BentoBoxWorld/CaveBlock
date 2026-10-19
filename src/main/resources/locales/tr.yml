@@ -107,6 +107,8 @@ caveblock:
         cannot-delete-owner: "<red>Mağara silinmeden önce tüm mağara üyelerinin mağaradan
           atılması gerekir."
         deleted-island: "<yellow>[xyz] <green>koordinatlı mağara başarıyla silindi."
+      reload:
+        reloaded: "<green>CaveBlock yapılandırması yeniden yüklendi. Değişiklikler yeni oluşturulan chunk'lara uygulanır. Dünya adı, boyutlar ve komut takma adları için sunucunun yeniden başlatılması gerekir."
     island:
       go:
         description: Mağarana ışınlan

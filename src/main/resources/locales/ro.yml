@@ -1,1 +1,85 @@
+###########################################################################################
+# This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
+# the one at http://yaml-online-parser.appspot.com                                        #
+###########################################################################################
 
+caveblock:
+  prefixes:
+    island: peșteră
+    Island: Peșteră
+    Islands: Peșteri
+    an-island: o peșteră
+    islands: peșteri
+
+  sign:
+    line0: "<red>CaveBlock"
+    line1: "Bun venit!"
+    line2: "[name]"
+    line3: "Începe să sapi! <red><3"
+
+  informational:
+    to-nether: "Ce ghinion să cazi în Nether."
+    to-the-end: "Ai ajuns în End."
+    to-normal: "Înapoi în peștera ta."
+
+  general:
+    errors:
+      cave-limit-reached: "<red> Ai ajuns în vârful peșterii tale. Nu poți urca mai sus!"
+
+  commands:
+    admin:
+      reload:
+        reloaded: "<green>Configurația CaveBlock a fost reîncărcată. Modificările se aplică chunk-urilor generate de acum înainte. Numele lumii, dimensiunile și aliasurile comenzilor necesită repornirea serverului."
+      info:
+        no-island: "<red>Nu te afli într-o peșteră acum..."
+        islands-in-trash: "<light_purple>Jucătorul are peșteri în coșul de gunoi."
+      trash:
+        no-unowned-in-trash: "<red>Nu există peșteri fără proprietar în coșul de gunoi"
+        no-islands-in-trash: "<red>Jucătorul nu are peșteri în coșul de gunoi"
+        description: "arată peșterile fără proprietar sau peșterile jucătorului din coșul de gunoi"
+        title: "<light_purple>=========== Peșteri în coșul de gunoi ==========="
+      emptytrash:
+        description: "Golește coșul de gunoi pentru un jucător sau toate peșterile fără proprietar din coș"
+    island:
+      team:
+        invite:
+          accept:
+            confirmation: |-
+              <red>Sigur vrei să accepți această invitație?
+              <red><bold>Îți vei <underlined>PIERDE<reset> <red><bold>peștera actuală!
+
+  ranks:
+    owner: "Rege Pitic"
+    sub-owner: "Cavaler Pitic"
+    member: "Pitic"
+    trusted: "De încredere"
+    coop: "Coop"
+    visitor: "Om"
+    banned: "Orc"
+
+  protection:
+    flags:
+      ISLAND_RESPAWN:
+        description: |-
+          <green>Jucătorii reapar
+          <green>în peștera lor
+      OFFLINE_GROWTH:
+        description: |-
+          <green>Când este dezactivat, plantele
+          <green>nu vor crește în peșterile
+          <green>în care toți membrii sunt offline.
+          <green>Poate ajuta la reducerea lag-ului.
+      OFFLINE_REDSTONE:
+        description: |-
+          <green>Când este dezactivat, redstone-ul
+          <green>nu va funcționa în peșterile
+          <green>în care toți membrii sunt offline.
+          <green>Poate ajuta la reducerea lag-ului.
+          <green>Nu afectează peștera de spawn.
+
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: "<dark_purple><italic>Activează/dezactivează\n<dark_purple><italic> abilitatea de a merge pe\n<dark_purple><italic> partea de sus a lumii peșterilor\n<dark_purple><italic> fără permisiuni suplimentare."
+      name: "Sky Walker"
+      hint: "Permite mersul pe acoperișul peșterii."

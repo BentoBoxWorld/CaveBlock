@@ -23,6 +23,7 @@ caveblock:
       already-have-island: "<red>あなたはすでに洞窟を持っています！"
       no-safe-location-found: "<red>洞窟でテレポートする安全な場所が見つかりませんでした。"
       not-owner: "<red>あなたは洞窟の所有者ではありません！"
+      cave-limit-reached: "<red> 洞窟の天井に到達しました。これ以上高くは行けません！"
   commands:
     admin:
       team:
@@ -96,6 +97,8 @@ caveblock:
         description: プレイヤーの洞窟を削除します
         cannot-delete-owner: "<red>すべての洞窟のメンバーは、削除する前に洞窟から追い出されなければなりません。"
         deleted-island: "<green> [xyz]の<green>洞窟は正常に削除されました。"
+      reload:
+        reloaded: "<green>CaveBlockの設定を再読み込みしました。変更は新しく生成されるチャンクに適用されます。ワールド名、ディメンション、コマンドのエイリアスの変更にはサーバーの再起動が必要です。"
     island:
       go:
         description: 洞窟にテレポートする

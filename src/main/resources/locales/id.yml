@@ -1,1 +1,85 @@
+###########################################################################################
+# This is a YML file. Be careful when editing. Check your edits in a YAML checker like    #
+# the one at http://yaml-online-parser.appspot.com                                        #
+###########################################################################################
 
+caveblock:
+  prefixes:
+    island: gua
+    Island: Gua
+    Islands: Gua
+    an-island: sebuah gua
+    islands: gua
+
+  sign:
+    line0: "<red>CaveBlock"
+    line1: "Selamat datang!"
+    line2: "[name]"
+    line3: "Mulai menggali! <red><3"
+
+  informational:
+    to-nether: "Sial sekali, kamu jatuh ke nether."
+    to-the-end: "Kamu telah mencapai The End."
+    to-normal: "Kembali ke guamu."
+
+  general:
+    errors:
+      cave-limit-reached: "<red> Kamu telah mencapai puncak guamu. Kamu tidak bisa naik lebih tinggi lagi!"
+
+  commands:
+    admin:
+      reload:
+        reloaded: "<green>Konfigurasi CaveBlock dimuat ulang. Perubahan berlaku untuk chunk yang baru dibuat. Nama dunia, dimensi, dan alias perintah memerlukan restart server."
+      info:
+        no-island: "<red>Kamu tidak sedang berada di gua saat ini..."
+        islands-in-trash: "<light_purple>Pemain memiliki gua di tempat sampah."
+      trash:
+        no-unowned-in-trash: "<red>Tidak ada gua tanpa pemilik di tempat sampah"
+        no-islands-in-trash: "<red>Pemain tidak memiliki gua di tempat sampah"
+        description: "tampilkan gua tanpa pemilik atau gua pemain di tempat sampah"
+        title: "<light_purple>=========== Gua di Tempat Sampah ==========="
+      emptytrash:
+        description: "Kosongkan tempat sampah untuk pemain, atau semua gua tanpa pemilik di tempat sampah"
+    island:
+      team:
+        invite:
+          accept:
+            confirmation: |-
+              <red>Apakah kamu yakin ingin menerima undangan ini?
+              <red><bold>Kamu akan <underlined>KEHILANGAN<reset> <red><bold>guamu saat ini!
+
+  ranks:
+    owner: "Raja Kurcaci"
+    sub-owner: "Ksatria Kurcaci"
+    member: "Kurcaci"
+    trusted: "Tepercaya"
+    coop: "Coop"
+    visitor: "Manusia"
+    banned: "Orc"
+
+  protection:
+    flags:
+      ISLAND_RESPAWN:
+        description: |-
+          <green>Pemain bangkit kembali
+          <green>di gua mereka
+      OFFLINE_GROWTH:
+        description: |-
+          <green>Jika dinonaktifkan, tanaman
+          <green>tidak akan tumbuh di gua
+          <green>yang semua anggotanya offline.
+          <green>Dapat membantu mengurangi lag.
+      OFFLINE_REDSTONE:
+        description: |-
+          <green>Jika dinonaktifkan, redstone
+          <green>tidak akan berfungsi di gua
+          <green>yang semua anggotanya offline.
+          <green>Dapat membantu mengurangi lag.
+          <green>Tidak memengaruhi gua spawn.
+
+protection:
+  flags:
+    SKY_WALKER_FLAG:
+      description: "<dark_purple><italic>Aktifkan/nonaktifkan\n<dark_purple><italic> kemampuan untuk berjalan di\n<dark_purple><italic> atas dunia gua\n<dark_purple><italic> tanpa izin tambahan."
+      name: "Sky Walker"
+      hint: "Memungkinkan berjalan di atap gua."

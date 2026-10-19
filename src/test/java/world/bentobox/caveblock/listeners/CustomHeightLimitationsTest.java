@@ -161,6 +161,15 @@ class CustomHeightLimitationsTest {
     }
 
     @Test
+    void testMoveUsesReloadedWorldDepth() {
+        // Simulate /cba reload raising the world depth after the listener was created
+        when(settings.getWorldDepth()).thenReturn(WORLD_DEPTH + 10);
+        PlayerMoveEvent event = new PlayerMoveEvent(player, from, to);
+        listener.onPlayerMove(event);
+        assertFalse(event.isCancelled(), "Ceiling should follow the reloaded world depth");
+    }
+
+    @Test
     void testMoveBelowLimitIsNotCancelled() {
         Location safeFrom = buildLocation(0, BELOW_LIMIT - 10, 0);
         Location safeTo   = buildLocation(0, BELOW_LIMIT, 0);

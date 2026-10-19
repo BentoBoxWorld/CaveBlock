@@ -32,6 +32,7 @@ caveblock:
       already-have-island: "<red>Již máš svou jeskyni!"
       no-safe-location-found: "<red>Nelze najít bezpečné místo pro teleportaci do tvé jeskyně."
       not-owner: "<red>Nejsi vlastník této jeskyně!"
+      cave-limit-reached: "<red> Dosáhl jsi stropu své jeskyně. Výš už se dostat nemůžeš!"
   commands:
     # Parameters in <> are required, parameters in [] are optional
     admin:
@@ -108,6 +109,8 @@ caveblock:
         description: "odstraní jeskyni hráče"
         cannot-delete-owner: "<red>Všichni členové jeskyně musí být vykopnuti z jeskyně, než jej bude možné smazat."
         deleted-island: "<green>Jeskyně na <yellow>[xyz] <green> byla úspěšně smazána."
+      reload:
+        reloaded: "<green>Konfigurace CaveBlock byla znovu načtena. Změny se projeví v nově generovaných chuncích. Název světa, dimenze a aliasy příkazů vyžadují restart serveru."
     island:
       go:
         description: "teleportuje tě do tvé jeskyně"
