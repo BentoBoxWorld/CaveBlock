@@ -23,6 +23,7 @@ caveblock:
       already-have-island: "<red>您已经拥有洞穴!"
       no-safe-location-found: "<red>无法将您传送到洞穴中, 因为没有找到安全的位置."
       not-owner: "<red>您不是您洞穴的主人!"
+      cave-limit-reached: "<red> 您已到达洞穴顶部, 无法再往上了!"
   commands:
     admin:
       team:
@@ -98,6 +99,8 @@ caveblock:
         description: "删除一名玩家的洞穴"
         cannot-delete-owner: "<red>在删除此洞穴之前, 必须移出此洞穴中的所有成员."
         deleted-island: "<green>成功删除位于 <yellow>[xyz] <green>处的洞穴."
+      reload:
+        reloaded: "<green>CaveBlock 配置已重新加载. 更改仅适用于新生成的区块. 世界名称、维度和命令别名需要重启服务器才能生效."
     island:
       go:
         description: "传送到您的洞穴"

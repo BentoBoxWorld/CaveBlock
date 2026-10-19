@@ -28,7 +28,6 @@ public class CustomHeightLimitations implements Listener
 	public CustomHeightLimitations(CaveBlock addon)
 	{
 		this.addon = addon;
-		this.worldHeight = addon.getSettings().getWorldDepth() - 1;
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class CustomHeightLimitations implements Listener
 
 
 		// Prevent to get over world height
-		if (nextY >= this.worldHeight)
+		if (nextY >= this.getWorldHeight())
 		{
 			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
 			event.setCancelled(true);
@@ -77,7 +76,7 @@ public class CustomHeightLimitations implements Listener
 		}
 
 		// Prevent to get over world height
-		if (nextY >= this.worldHeight)
+		if (nextY >= this.getWorldHeight())
 		{
 			User.getInstance(player).sendMessage("caveblock.general.errors.cave-limit-reached");
 			event.setCancelled(true);
@@ -96,7 +95,7 @@ public class CustomHeightLimitations implements Listener
 	 */
 	private boolean shouldNotBeCancelled(double nextY, Player player, Location from, Location to)
 	{
-		return nextY < this.worldHeight ||
+		return nextY < this.getWorldHeight() ||
 			from == to ||
 			from.getY() >= nextY &&
 				from.getBlockX() == to.getBlockX() &&
@@ -112,6 +111,17 @@ public class CustomHeightLimitations implements Listener
 	}
 
 
+	/**
+	 * Read from the live settings each time so that changing world depth and running
+	 * the admin reload command takes effect without a server restart.
+	 * @return the Y level players cannot go above.
+	 */
+	private int getWorldHeight()
+	{
+		return this.addon.getSettings().getWorldDepth() - 1;
+	}
+
+
 // ---------------------------------------------------------------------
 // Section: Variables
 // ---------------------------------------------------------------------
@@ -121,9 +131,4 @@ public class CustomHeightLimitations implements Listener
 	 * CaveBlock addon
 	 */
 	private final CaveBlock addon;
-
-	/**
-	 * This variable store world height.
-	 */
-	private final int worldHeight;
 }

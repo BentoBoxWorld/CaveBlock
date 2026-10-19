@@ -16,6 +16,7 @@ import world.bentobox.bentobox.api.commands.island.DefaultPlayerCommand;
 import world.bentobox.bentobox.api.configuration.Config;
 import world.bentobox.bentobox.api.configuration.WorldSettings;
 import world.bentobox.bentobox.api.flags.Flag;
+import world.bentobox.caveblock.commands.AdminReloadConfirmCommand;
 import world.bentobox.caveblock.commands.IslandAboutCommand;
 import world.bentobox.caveblock.generators.ChunkGeneratorWorld;
 import world.bentobox.caveblock.listeners.CustomHeightLimitations;
@@ -53,7 +54,16 @@ public class CaveBlock extends GameModeAddon
         };
 
         // Admin command.
-        this.adminCommand = new DefaultAdminCommand(this) {};
+        this.adminCommand = new DefaultAdminCommand(this)
+        {
+            @Override
+            public void setup()
+            {
+                super.setup();
+                // Replaces the default "reload" sub-command so the admin gets feedback
+                new AdminReloadConfirmCommand(this);
+            }
+        };
     }
 
 

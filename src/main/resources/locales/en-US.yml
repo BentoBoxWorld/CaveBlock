@@ -32,6 +32,8 @@ caveblock:
 
   commands:
     admin:
+      reload:
+        reloaded: "<green>CaveBlock config reloaded. Changes apply to newly generated chunks. World name, dimensions and command aliases need a server restart."
       info:
         no-island: "<red>You are not in a cave right now..."
         # The BentoBox defaults below use the literal word "islands", not a prefix
