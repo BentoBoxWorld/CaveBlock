@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: jaskinia
+    Island: Jaskinia
+    Islands: Jaskinie
+    an-island: jaskinia
+    islands: jaskinie
   sign:
     line0: "<red>CaveBlock"
     line1: Witaj!
@@ -18,6 +24,7 @@ caveblock:
       no-safe-location-found: "<red>Nie można znaleźć bezpiecznego miejsca dla teleportu
         do jaskini."
       not-owner: "<red>To nie twoja jaskinia!"
+      cave-limit-reached: "<red> Osiągnąłeś szczyt swojej jaskini. Nie możesz wejść wyżej!"
   commands:
     admin:
       team:
@@ -99,6 +106,8 @@ caveblock:
         cannot-delete-owner: "<red>Wszyscy członkowie jaskini muszą zostać wyrzuceni
           z jaskini przed jej usunięciem."
         deleted-island: "<green>Wyspa w <yellow>[xyz] <green>została pomyślnie usunięta."
+      reload:
+        reloaded: "<green>Konfiguracja CaveBlock została przeładowana. Zmiany dotyczą nowo generowanych chunków. Nazwa świata, wymiary i aliasy komend wymagają restartu serwera."
     island:
       go:
         description: teleportować cię do swojej jaskini

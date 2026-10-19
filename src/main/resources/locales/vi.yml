@@ -4,6 +4,12 @@
 ###########################################################################################
 
 caveblock:
+  prefixes:
+    island: hang
+    Island: Hang
+    Islands: Hang
+    an-island: một hang
+    islands: hang
   sign:
     line0: "<red>CaveBlock"
     line1: "Chào mừng!"
@@ -24,6 +30,7 @@ caveblock:
       already-have-island: "<red>Bạn đã có hang!"
       no-safe-location-found: "<red>Không thể tìm thấy vị trí an toàn trong hang."
       not-owner: "<red>Bạn không phải chủ hang!"
+      cave-limit-reached: "<red> Bạn đã chạm tới đỉnh hang của mình. Bạn không thể lên cao hơn nữa!"
   commands:
     # Parameters in <> are required, parameters in [] are optional
     admin:
@@ -100,6 +107,8 @@ caveblock:
         description: "xoá hang của người chơi"
         cannot-delete-owner: "<red>Thành viên của hang phải bị đuổi trước khi xoá."
         deleted-island: "<green>Đảo <yellow>[xyz] <green>đã được xoá thành công."
+      reload:
+        reloaded: "<green>Đã tải lại cấu hình CaveBlock. Thay đổi chỉ áp dụng cho các chunk mới được tạo. Tên thế giới, các chiều không gian và bí danh lệnh cần khởi động lại máy chủ."
     island:
       go:
         description: "dịch chuyển đến hang của bạn"

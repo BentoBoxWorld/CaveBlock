@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: alā
+    Island: Ala
+    Islands: Alas
+    an-island: alā
+    islands: alas
   sign:
     line0: "<red>CaveBlock"
     line1: Sveicināts!
@@ -30,6 +36,7 @@ caveblock:
       command-cancelled: "<red>Komanda atcleta."
       use-in-game: "<red>Šī komanda ir pieejama tikai spēlē."
       unknown-player: "<red>[name] ir nezināms spēlētājs!"
+      cave-limit-reached: "<red> Tu esi sasniedzis savas alas griestus. Augstāk tikt nevari!"
     success: "<green>Darīts!"
     tips:
       changing-obsidian-to-lava: Pārveido obsidiānu uz lavu. Esi uzmanīgāks!
@@ -333,6 +340,8 @@ caveblock:
         description: Pārvaldīt pasaules iestatījumus
       help:
         description: admin komanda
+      reload:
+        reloaded: "<green>CaveBlock konfigurācija pārlādēta. Izmaiņas attiecas uz jauni ģenerētajiem čankiem. Pasaules nosaukuma, dimensiju un komandu aizstājvārdu maiņai nepieciešama servera restartēšana."
     island:
       go:
         description: pārvieto tevi uz tavu salu

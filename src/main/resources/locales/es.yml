@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: cueva
+    Island: Cueva
+    Islands: Cuevas
+    an-island: una cueva
+    islands: cuevas
   sign:
     line0: "<red>CaveBlock"
     line1: "¡Bienvenido!"
@@ -18,6 +24,7 @@ caveblock:
       no-safe-location-found: "<red>No encontramos un lugar seguro para teletransportarte
         a la cueva."
       not-owner: "<red>¡No eres el propietario de la cueva!"
+      cave-limit-reached: "<red> Has alcanzado el techo de tu cueva. ¡No puedes subir más!"
   commands:
     admin:
       team:
@@ -102,6 +109,8 @@ caveblock:
         cannot-delete-owner: "<red>Todos los miembros de la cueva deben ser expulsados
           antes de eliminarla."
         deleted-island: "<green>Cueva de <yellow>[xyz] <green>eliminada correctamente."
+      reload:
+        reloaded: "<green>Configuración de CaveBlock recargada. Los cambios se aplican a los chunks generados a partir de ahora. El nombre del mundo, las dimensiones y los alias de comandos requieren reiniciar el servidor."
     island:
       go:
         description: teletransportar a tu cueva

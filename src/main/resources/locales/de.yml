@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: Höhle
+    Island: Höhle
+    Islands: Höhlen
+    an-island: eine Höhle
+    islands: Höhlen
   sign:
     line0: "<red>CaveBlock"
     line1: Herzlich willkommen!
@@ -104,6 +110,8 @@ caveblock:
         cannot-delete-owner: "<red>Alle Höhlenmitglieder müssen vor dem Löschen aus der
           Höhle geworfen werden."
         deleted-island: "<green>Höhle bei <yellow>[xyz] <green>wurde erfolgreich gelöscht."
+      reload:
+        reloaded: "<green>CaveBlock-Konfiguration neu geladen. Änderungen gelten für neu generierte Chunks. Weltname, Dimensionen und Befehls-Aliase erfordern einen Serverneustart."
     island:
       go:
         description: teleportiere dich zu deiner Höhle

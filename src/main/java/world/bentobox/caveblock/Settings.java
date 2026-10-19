@@ -533,18 +533,24 @@ public class Settings implements WorldSettings
 
     // Deaths
     @ConfigComment("Whether deaths are counted or not.")
+    @ConfigComment("If false, BentoBox does not count deaths and the Level addon does not record deaths against caves.")
     @ConfigEntry(path = "cave.deaths.counted")
     private boolean deathsCounted = true;
 
     @ConfigComment("Maximum number of deaths to count. The death count can be used by add-ons.")
+    @ConfigComment("Since Level 2.29.0 this also caps how many deaths each member can contribute to a cave's death penalty.")
     @ConfigEntry(path = "cave.deaths.max")
     private int deathsMax = 10;
 
-    @ConfigComment("Reset player death count when they start a new cave or reset a cave")
+    @ConfigComment("Reset player death count when they start a new cave or reset a cave.")
+    @ConfigComment("This only affects BentoBox's own per-player death count.")
+    @ConfigComment("Since Level 2.29.0 the Level addon clears a cave's own death record automatically when it is reset or deleted.")
     @ConfigEntry(path = "cave.deaths.reset-on-new")
     private boolean deathsResetOnNewIsland = true;
 
-    @ConfigComment("When a player joins a team, reset their death count")
+    @ConfigComment("When a player joins a team, reset their death count.")
+    @ConfigComment("This only affects BentoBox's own per-player death count, used by the %caveblock_deaths% placeholder.")
+    @ConfigComment("Since Level 2.29.0, cave levels use per-cave death tracking and are not affected by this setting.")
     @ConfigEntry(path = "cave.deaths.team-join-reset")
     private boolean teamJoinDeathReset = true;
 

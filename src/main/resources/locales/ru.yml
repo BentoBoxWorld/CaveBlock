@@ -1,5 +1,11 @@
 ---
 caveblock:
+  prefixes:
+    island: пещера
+    Island: Пещера
+    Islands: Пещеры
+    an-island: пещера
+    islands: пещеры
   sign:
     line0: "<red>CaveBlock"
     line1: Добро пожаловать!
@@ -102,6 +108,8 @@ caveblock:
         cannot-delete-owner: "<red>Все члены пещеры должны быть выгнаны из пещеры перед
           удалением."
         deleted-island: "<green>Остров на <yellow>[xyz] <green>был успешно удален."
+      reload:
+        reloaded: "<green>Конфигурация CaveBlock перезагружена. Изменения применяются к новым генерируемым чанкам. Для изменения названия мира, измерений и псевдонимов команд нужен перезапуск сервера."
     island:
       go:
         description: телепортировать вас в вашу пещеру
