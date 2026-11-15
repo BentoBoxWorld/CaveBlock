@@ -14,7 +14,7 @@ mvn test                   # Run tests (surefire)
 mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BentoBoxWorld_CaveBlock  # CI build with SonarCloud
 ```
 
-Java 21 is required. The output JAR goes to `target/`.
+Java 25 is required (BentoBox 3.23+ and Paper 26.x are Java 25 artifacts). The output JAR goes to `target/`.
 
 ## Architecture
 
@@ -26,7 +26,7 @@ Java 21 is required. The output JAR goes to `target/`.
 - `generators/ChunkGeneratorWorld.java` — Core chunk generator. Fills the world with the dimension's base blocks (stone/netherrack/end stone) and delegates additional material generation to the populator pipeline. `NoiseCaveGenerator` and `Ore` support noise-based cave carving and ore placement.
 - `generators/populators/` — `NewMaterialPopulator` (vanilla-like material generation), `CaveDecorationPopulator` (cave decoration), and the biome providers `FlatBiomeProvider` / `NetherBiomeProvider` (biome distribution per dimension).
 - `listeners/CustomHeightLimitations.java` — Prevents players from going above the configured world depth. Respects `SKY_WALKER_FLAG` and creative/op bypass.
-- `listeners/StructureGenerationListener.java` — Suppresses vanilla structures the admin disabled in `world.structures` from the CaveBlock overworld: cancels their spawn (`AsyncStructureSpawnEvent`) and removes them from structure searches (`StructuresLocateEvent`) so `/locate`, explorer maps, etc. don't scan to the radius cap and freeze the server.
+- Structure suppression (`world.structures`) is handled by BentoBox core's `StructureListener` (BentoBox 3.19.1+): `Settings#getStructureSettings()` returns the `world.structures` map, and core cancels disabled structures' spawns and strips them from `StructuresLocateEvent` searches in all three CaveBlock worlds. CaveBlock no longer has its own listener.
 
 **BentoBox framework patterns to follow:**
 - Addons use `GameModeAddon` lifecycle, not Bukkit's `JavaPlugin` directly
@@ -37,8 +37,9 @@ Java 21 is required. The output JAR goes to `target/`.
 
 ## Key Dependencies (provided scope — server supplies at runtime)
 
-- `paper-api` 1.21.11 — Paper API
-- `bentobox` 3.14.1-SNAPSHOT — BentoBox framework
+- `paper-api` 26.3 (`26.3.build.231-stable`) — Paper API
+- `bentobox` 3.23.7 — BentoBox framework
+- `mockbukkit-v26.3` 4.119.0 — server mock used in tests (its MC line must match the paper-api version or registry validation fails)
 
 ## Branches
 

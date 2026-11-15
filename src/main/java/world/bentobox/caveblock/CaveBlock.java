@@ -20,7 +20,6 @@ import world.bentobox.caveblock.commands.AdminReloadConfirmCommand;
 import world.bentobox.caveblock.commands.IslandAboutCommand;
 import world.bentobox.caveblock.generators.ChunkGeneratorWorld;
 import world.bentobox.caveblock.listeners.CustomHeightLimitations;
-import world.bentobox.caveblock.listeners.StructureGenerationListener;
 
 
 public class CaveBlock extends GameModeAddon
@@ -80,8 +79,6 @@ public class CaveBlock extends GameModeAddon
 
         // Register listeners
         this.registerListener(new CustomHeightLimitations(this));
-        // StructureGenerationListener is registered earlier, in createWorlds(), so it is
-        // active before the first chunks (including the spawn area) are generated.
     }
 
 
@@ -149,11 +146,9 @@ public class CaveBlock extends GameModeAddon
     @Override
     public void createWorlds()
     {
-        // Register the structure listener before any world is created. createWorlds() runs
-        // before onEnable(), and generating a world also generates its spawn-area chunks, so a
-        // listener registered in onEnable() would miss those first structures (issue #116).
-        this.registerListener(new StructureGenerationListener(this));
-
+        // Structure suppression (world.structures) is handled by BentoBox core's
+        // StructureListener via Settings#getStructureSettings(). Core registers it before
+        // createWorlds(), so spawn-area structures are covered too (issue #116).
         String worldName = this.settings.getWorldName().toLowerCase();
 
         if (this.getServer().getWorld(worldName) == null)
