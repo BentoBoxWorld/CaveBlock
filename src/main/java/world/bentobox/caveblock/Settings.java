@@ -162,13 +162,15 @@ public class Settings implements WorldSettings
 
     @ConfigComment("")
     @ConfigComment("Vanilla structures that may generate in the overworld cave world.")
-    @ConfigComment("Set a structure to false to stop it generating; structures not listed here")
-    @ConfigComment("generate as normal. Use the vanilla structure key, for example:")
+    @ConfigComment("Set a structure to false to stop it generating, or true to force it on even if")
+    @ConfigComment("BentoBox's global world.disabled-structures list disables it. Structures not listed")
+    @ConfigComment("here follow that global list. Use the vanilla structure key, for example:")
     @ConfigComment("  ancient_city, trial_chambers, mineshaft, mineshaft_mesa, stronghold,")
     @ConfigComment("  mansion, monument, pillager_outpost, ruined_portal, trail_ruins,")
     @ConfigComment("  village_plains, desert_pyramid, jungle_pyramid, igloo, swamp_hut")
     @ConfigComment("Large structures like Ancient Cities and Trial Chambers can fill or unbalance")
-    @ConfigComment("a cave world, so they are disabled by default. Only affects the overworld.")
+    @ConfigComment("a cave world, so they are disabled by default. Disabled structures are also skipped")
+    @ConfigComment("by /locate, Eyes of Ender, explorer maps and dolphins. Handled by BentoBox core.")
     @ConfigEntry(path = "world.structures", since = "1.23.0")
     private Map<String, Boolean> generateStructures = defaultStructures();
 
@@ -321,6 +323,14 @@ public class Settings implements WorldSettings
     // ---------------------------------------------
 
     /*      Cave      */
+    @ConfigComment("Disable the team system in CaveBlock worlds.")
+    @ConfigComment("When true, players cannot invite, accept team invites, kick, leave, promote, demote")
+    @ConfigComment("or change cave owner. Trust and coop still work and are the alternative to teams.")
+    @ConfigComment("After turning this on, run /cbadmin team disbandall once to remove existing team members.")
+    @ConfigComment("Requires BentoBox 3.16.0 or later.")
+    @ConfigEntry(path = "cave.teams-disabled", since = "1.24.0")
+    private boolean teamsDisabled = false;
+
     @ConfigComment("Default max team size")
     @ConfigComment("Permission size cannot be less than the default below. ")
     @ConfigEntry(path = "cave.max-team-size")
@@ -929,6 +939,15 @@ public class Settings implements WorldSettings
 
 
     /**
+     * @return true if the team subsystem is disabled in this game mode's worlds
+     */
+    @Override
+    public boolean isTeamsDisabled()
+    {
+        return teamsDisabled;
+    }
+
+    /**
      * This method returns the maxTeamSize object.
      * @return the maxTeamSize object.
      */
@@ -1257,6 +1276,22 @@ public class Settings implements WorldSettings
         this.generateStructures = generateStructures;
     }
 
+    /**
+     * @return per-structure generation overrides for this game mode's worlds
+     */
+    @Override
+    public Map<String, Boolean> getStructureSettings()
+    {
+        return generateStructures;
+    }
+
+    /**
+     * @param structureSettings per-structure generation overrides to set
+     */
+    public void setStructureSettings(Map<String, Boolean> structureSettings)
+    {
+        this.generateStructures = structureSettings;
+    }
 
     /**
      * Fraction of overworld vanilla cave air to re-solidify after generation to
@@ -1805,6 +1840,14 @@ public class Settings implements WorldSettings
         this.fallingBannedCommands = fallingBannedCommands;
     }
 
+
+    /**
+     * @param teamsDisabled whether to disable the team subsystem
+     */
+    public void setTeamsDisabled(boolean teamsDisabled)
+    {
+        this.teamsDisabled = teamsDisabled;
+    }
 
     /**
      * This method sets the maxTeamSize object value.

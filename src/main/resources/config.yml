@@ -93,13 +93,15 @@ world:
   world-depth: 319
   #
   # Vanilla structures that may generate in the overworld cave world.
-  # Set a structure to false to stop it generating; structures not listed here
-  # generate as normal. Use the vanilla structure key, for example:
+  # Set a structure to false to stop it generating, or true to force it on even if
+  # BentoBox's global world.disabled-structures list disables it. Structures not listed
+  # here follow that global list. Use the vanilla structure key, for example:
   #   ancient_city, trial_chambers, mineshaft, mineshaft_mesa, stronghold,
   #   mansion, monument, pillager_outpost, ruined_portal, trail_ruins,
   #   village_plains, desert_pyramid, jungle_pyramid, igloo, swamp_hut
   # Large structures like Ancient Cities and Trial Chambers can fill or unbalance
-  # a cave world, so they are disabled by default. Only affects the overworld.
+  # a cave world, so they are disabled by default. Disabled structures are also skipped
+  # by /locate, Eyes of Ender, explorer maps and dolphins. Handled by BentoBox core.
   # Added since 1.23.0.
   structures:
     ancient_city: false
@@ -243,8 +245,15 @@ world:
   - warp
   - spawn
 cave:
+  # Disable the team system in CaveBlock worlds.
+  # When true, players cannot invite, accept team invites, kick, leave, promote, demote
+  # or change cave owner. Trust and coop still work and are the alternative to teams.
+  # After turning this on, run /cbadmin team disbandall once to remove existing team members.
+  # Requires BentoBox 3.16.0 or later.
+  # Added since 1.24.0.
+  teams-disabled: false
   # Default max team size
-  # Permission size cannot be less than the default below. 
+  # Permission size cannot be less than the default below.
   max-team-size: 4
   # Default maximum number of coop rank members per cave
   # Players can have the caveblock.coop.maxsize.<number> permission to be bigger but
