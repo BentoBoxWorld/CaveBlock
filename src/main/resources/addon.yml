@@ -21,6 +21,15 @@ permissions:
   caveblock.island.sethome:
     description: Let the player use the sethome command
     default: true
+  caveblock.island.deletehome:
+    description: Allow use of '/cave deletehome' command - delete a home location
+    default: true
+  caveblock.island.homes:
+    description: Allow use of '/cave homes' command - list your homes
+    default: true
+  caveblock.island.renamehome:
+    description: Allow use of '/cave renamehome' command - rename a home location
+    default: true
   caveblock.island.info:
     description: Let the player check other players info
     default: true
