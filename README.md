@@ -1,5 +1,8 @@
 # CaveBlock
 
+<!-- BentoBox stats badges: https://download.bentobox.world/admin (Badges tab) -->
+[![Servers](https://download.bentobox.world/badge/CaveBlock/servers.svg)](https://download.bentobox.world/) [![Popularity](https://download.bentobox.world/badge/CaveBlock/rank.svg)](https://download.bentobox.world/) [![Downloads](https://download.bentobox.world/badge/CaveBlock/downloads.svg)](https://download.bentobox.world/) [![Minecraft](https://download.bentobox.world/badge/CaveBlock/mc.svg)](https://download.bentobox.world/)
+
 [![Discord](https://img.shields.io/discord/272499714048524288.svg?logo=discord)](https://discord.bentobox.world)
 [![Build Status](https://ci.codemc.org/buildStatus/icon?job=BentoBoxWorld/CaveBlock)](https://ci.codemc.org/job/BentoBoxWorld/job/CaveBlock/)
 
